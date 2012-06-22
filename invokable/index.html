@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="webworks-1.0.0.7.js"></script>
+    <script type="text/javascript">
+        function ready() {
+
+            function printToLog(string) {
+                document.getElementById("log").innerHTML += "<p>" + string + "</p>";
+            }
+    
+            blackberry.event.addEventListener("invoked", function (invocationInfo){
+                printToLog("Handler start . . .");
+                if (invocationInfo.target) {
+                    printToLog("Invocation target: " + invocationInfo.target);
+                }
+                if (invocationInfo.type) {
+                    printToLog("Invocation type: " + invocationInfo.type);
+                }
+                if (invocationInfo.action) {
+                    printToLog("Invocation action: " + invocationInfo.action);
+                }
+                if (invocationInfo.data) {
+                    printToLog("Invocation data: " + atob(invocationInfo.data));
+                }
+                printToLog("Handler end . . .");
+            });
+
+        };
+        window.addEventListener("load", function (e) {
+            document.addEventListener("webworksready", ready)
+        }, false);
+    </script>
+</head>
+<body>
+    <h1>Invokable</h1>
+    <div id="log"></div>
+</body>
+</html>

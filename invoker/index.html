@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="webworks-1.0.0.7.js"></script>
+    <script src="invocations.js"></script>
+    <link rel="stylesheet" type="text/css" href="/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery-1.7.1.min.js"></script>
+    <script src="jquery.mobile-1.1.0.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="/BlackBerry-JQM-0.1.0.min.css" />
+    <script src="BlackBerry-JQM-0.1.0.min.js"></script>-->
+    <script type="text/javascript">
+        function ready () {
+            document.getElementById("browser").onclick = invokeBrowser;
+            document.getElementById("browserUri").onclick = invokeBrowserUri;
+            document.getElementById("help").onclick = invokeHelp;
+            document.getElementById("adobeReader").onclick = invokeAdobeReader;
+            document.getElementById("adobeReaderPdf").onclick = invokeAdobeReaderPdf;
+            document.getElementById("userApp").onclick = invokeApp;
+            document.getElementById("pictures").onclick = invokePictures;
+        }
+
+        //register ready event after window has loaded
+        window.addEventListener("load", function (e) {
+            document.addEventListener("webworksready", ready)
+        }, false);
+    </script>
+</head>
+<body>
+    <div data-role="page">
+    <div data-role="header">
+    <h1>Invoking Apps</h1>
+    </div>
+    <div data-role="content">
+    <ul data-role="listview">
+        <li id="browser"><h1>Invoke Browser</h1></li>
+        <li id="browserUri"><h1>Open a hyperlink in Browser</h1></li>
+        <li id="help"><h1>Invoke Help</h1></li>
+        <li id="adobeReader"><h1>Invoke Adobe Reader<h1></li>
+        <li id="adobeReaderPdf"><h1>Open a PDF file in Adobe Reader</h1></li>
+        <li id="userApp"><h1>Invoke Apps</h1></li>
+        <li id="pictures"><h1>Open a PNG</h1></li>
+    </ul>
+    <div id="log"></div>
+    </div>
+    </div>
+</body>
+</html>
