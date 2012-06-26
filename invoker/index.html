@@ -7,8 +7,6 @@
     <link rel="stylesheet" type="text/css" href="/jquery.mobile-1.1.0.min.css" />
     <script src="jquery-1.7.1.min.js"></script>
     <script src="jquery.mobile-1.1.0.min.js"></script>
-    <!--<link rel="stylesheet" type="text/css" href="/BlackBerry-JQM-0.1.0.min.css" />
-    <script src="BlackBerry-JQM-0.1.0.min.js"></script>-->
     <script type="text/javascript">
         function ready () {
             document.getElementById("browser").onclick = invokeBrowser;
@@ -19,7 +17,6 @@
             document.getElementById("userApp").onclick = invokeApp;
             document.getElementById("pictures").onclick = invokePictures;
         }
-
         //register ready event after window has loaded
         window.addEventListener("load", function (e) {
             document.addEventListener("webworksready", ready)

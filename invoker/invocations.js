@@ -49,6 +49,7 @@ function invokeApp() {
     }, onSuccess, onError);
 }
 
+//This is an unbound invocation (no target specified): the OS will choose what target to use based on URI
 function invokePictures() {
     
     downloadPicture();
@@ -58,6 +59,7 @@ function invokePictures() {
     }, onSuccess, onError);
 }
 
+//Supported in HTML5: getting binary data from XHR request
 function downloadPicture() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', "/HTML5_Logo_512.png", true);
@@ -74,6 +76,7 @@ function downloadPicture() {
     xhr.send();
 }
 
+//This function demonstrates how to use the HTML5 FileSystem API: a .png blob is saved to a URI which is used for invocation
 function saveFile (blob) {
     function gotFs(fs) {
         fs.root.getFile("/accounts/1000/shared/downloads/HTML5_Logo_512.png", {create: true}, gotFile, errorHandler);
@@ -92,10 +95,10 @@ function saveFile (blob) {
     window.webkitRequestFileSystem(PERSISTENT, 10 * 1024, gotFs, errorHandler);
 }
 
-function errorHandler(e) {
+function errorHandler(fileError) {
     var msg = '';
 
-    switch (e.code) {
+    switch (fileError.code) {
         case FileError.QUOTA_EXCEEDED_ERR:
             msg = 'QUOTA_EXCEEDED_ERR';
             break;
@@ -111,8 +114,11 @@ function errorHandler(e) {
         case FileError.INVALID_STATE_ERR:
             msg = 'INVALID_STATE_ERR';
             break;
+        case FileError.NO_MODIFICATION_ALLOWED_ERR:
+            msg = 'NO_MODIFICATION_ALLOWED_ERR';
+            break;
         default:
-            msg = 'Unknown Error';
+            msg = 'File Error';
           break;
     };
 
