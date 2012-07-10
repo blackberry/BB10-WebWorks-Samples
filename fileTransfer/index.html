@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+        function downloadFile() {
+            document.location.href = "local:///fileDownload.html";
+        }
+        
+        function uploadFile() {
+            //document.location.href = "local:///fileUpload.html";
+        }
+
+        function xhrFile() {
+            //document.location.href = "local:///xhr2.html";
+        }
+
+        function fsAPITest() {
+            //document.location.href = "local:///fileSystem.html";
+        }
+    </script>
+</head>
+<body>
+    <h1>File Transfer</h1>
+    <button id="downfile" onclick="downloadFile()">Download File</button><br />
+    <button id="upfile" onclick="uploadFile()">Upload File</button><br />
+    <button id="xhr2" onclick="xhrFile()">HTML5 XHR Level 2</button><br />
+    <button id="fsapi" onclick="fsAPITest()">HTML5 FileSystem API</button>
+</body>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="local:///webworks-1.0.0.7.js"></script>
+    <script>
+        function ready() {
+            document.getElementById("download").onclick = download;
+            document.getElementById("open").onclick = open;
+        }
+        
+        function download() {
+            try {
+                blackberry.io.filetransfer.download(
+                    "http://www.w3.org/2011/Talks/0928-webtv-nem-fd/slides.pdf",
+                    blackberry.io.sharedFolder + "/downloads/W3html5TV.pdf",
+                    function (result) {
+                        alert("Download successful");
+                        alert("fullPath: " + result.fullPath);
+                    },
+                    function (result) {
+                        alert("Download failed");
+                        alert("Error code: " + result.code);
+                        alert("HTTP status: " + result.http_status);
+                        alert("Source: " + result.source);
+                        alert("Target: " + result.target);
+                    });
+            }
+            catch(e) {
+                alert("Exception in download: " + e);
+            }
+        }
+
+        function open() {
+            try {
+                blackberry.invoke.invoke({
+                    target: "com.adobe.AdobeReader",
+                    action: "bb.action.OPEN",
+                    type: "application/pdf",
+                    uri: "file://" + blackberry.io.sharedFolder + "/downloads/W3html5TV.pdf"
+                }, function () { console.log("invocation success"); }, function (e) { alert("invocation failed: " + e); } );
+            }
+            catch(e) {
+                alert("Exception in open: " + e);
+            }
+        }
+
+        window.addEventListener("load", function () {
+            document.addEventListener("webworksready", ready);
+        }, false);
+    </script>
+</head>
+<body>
+    <button onclick="history.back()">Back</button><br />
+    <button id="download">Download File</button><br />
+    <button id="open">Read File</button>
+</body>
