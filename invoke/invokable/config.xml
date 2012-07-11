@@ -19,6 +19,7 @@
         #See the License for the specific language governing permissions and limitations under the License.
     </license>
     <feature id="blackberry.invoked" version="1.0.0" required="true" />
+    <feature id="blackberry.invoke" version="1.0.0" required="true" />
     <rim:invoke-target id="net.rim.webworks.invokable">
         <type>APPLICATION</type>
         <filter>
