@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="local:///webworks-1.0.0.7.js"></script>
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+    <script>
+        function ready() {
+            document.getElementById("request").onclick = startRequest;
+        }
+
+        function startRequest() {
+            var xhr = new XMLHttpRequest(),
+                uri = "http://www.rim.com/news/kit/media/images/logos/BlackBerry_Logo_Preferred_Black_R.jpg",
+                bb = new window.WebKitBlobBuilder(),
+                blob;
+
+            xhr.open("GET", uri, true);
+            xhr.responseType = 'arraybuffer';
+
+            xhr.onload = function (e) {
+                if (this.status == 200) {
+                    bb.append(this.response);
+                    blob = bb.getBlob('image/jpeg');
+                    displayImage(blob);
+                }
+            };
+            xhr.send();
+        }
+
+        function displayImage(blob) {
+
+            saveImage(blob);
+            
+            blackberry.invoke.invoke({
+                uri: "file:///accounts/1000/shared/downloads/blackberry.jpg"
+            }, function () { console.log("invocation success") }, function (e) { alert("invocation failure: " + e); });
+        }
+
+        function saveImage (blob) {
+            function gotFs(fs) {
+                fs.root.getFile("/accounts/1000/shared/downloads/blackberry.jpg", {create: true}, gotFile, errorHandler);
+            }
+
+            function gotFile(fileEntry) {
+                fileEntry.createWriter(gotWriter, errorHandler);
+            }
+
+            function gotWriter(fileWriter) {
+                fileWriter.onerror = function (e) {
+                    alert("Failed to write PNG: " + e.toString());
+                }
+                fileWriter.write(blob);
+            }
+            blackberry.io.sandbox = false;
+            window.webkitRequestFileSystem(PERSISTENT, 10 * 1024, gotFs, errorHandler);
+        }
+
+        function errorHandler(fileError) {
+            var msg = '';
+
+            switch (fileError.code) {
+                case FileError.QUOTA_EXCEEDED_ERR:
+                    msg = 'QUOTA_EXCEEDED_ERR';
+                    break;
+                case FileError.NOT_FOUND_ERR:
+                    msg = 'NOT_FOUND_ERR';
+                    break;
+                case FileError.SECURITY_ERR:
+                    msg = 'SECURITY_ERR';
+                    break;
+                case FileError.INVALID_MODIFICATION_ERR:
+                    msg = 'INVALID_MODIFICATION_ERR';
+                    break;
+                case FileError.INVALID_STATE_ERR:
+                    msg = 'INVALID_STATE_ERR';
+                    break;
+                case FileError.NO_MODIFICATION_ALLOWED_ERR:
+                    msg = 'NO_MODIFICATION_ALLOWED_ERR';
+                    break;
+                default:
+                    msg = 'File Error';
+                    break;
+            };
+
+            alert('Error: ' + msg);
+        }
+        
+        window.addEventListener("load", function () {
+            document.addEventListener("webworksready", ready);
+        }, false);
+    </script>
+</head>
+<body>
+    <button onclick="history.back()">Back</button><br />
+    <button id="request">Download and display an image file</button><br />
+</body>

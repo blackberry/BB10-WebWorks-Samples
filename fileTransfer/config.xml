@@ -16,6 +16,8 @@
     <feature id="blackberry.invoke" required="true" version="1.0.0.0"></feature>
 
     <access uri="http://w3.org/" subdomains="true" />
+    <access uri="http://bojap.com/" subdomains="true" />
+    <access uri="http://rim.com/" subdomains="true" />
     
     <rim:permissions>
         <rim:permit>access_shared</rim:permit>

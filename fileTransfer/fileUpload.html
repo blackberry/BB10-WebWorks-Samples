@@ -5,42 +5,50 @@
     <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
     <script src="jquery/jquery-1.7.1.min.js"></script>
     <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
-
     <script>
         function ready() {
-            document.getElementById("download").onclick = download;
+            document.getElementById("upload").onclick = upload;
             document.getElementById("open").onclick = open;
         }
         
-        function download() {
+        function upload() {
             try {
-                blackberry.io.filetransfer.download(
-                    "http://www.w3.org/2011/Talks/0928-webtv-nem-fd/slides.pdf",
-                    blackberry.io.sharedFolder + "/downloads/W3html5TV.pdf",
+                blackberry.io.filetransfer.upload(
+                    blackberry.io.sharedFolder + "/documents/Getting Started with Adobe Reader.pdf",
+                    "http://bojap.com/omg/uploader.php", //Use address of server handling file upload [10.137.251.209:443/upload]
                     function (result) {
-                        alert("Download successful");
-                        alert("fullPath: " + result.fullPath);
+                        alert("Upload successful");
+                        alert("Bytes sent: " + result.bytesSent);
+                        alert("Response code: " + result.responseCode);
+                        alert("Response: " + result.response);
                     },
                     function (result) {
-                        alert("Download failed");
+                        alert("Upload failure");
                         alert("Error code: " + result.code);
-                        alert("HTTP status: " + result.http_status);
                         alert("Source: " + result.source);
                         alert("Target: " + result.target);
-                    });
+                        alert("HTTP Status: " + result.http_status);
+                    }
+                    ,
+                    {
+                        fileKey : "file",
+                        fileName : "Getting Started with Adobe Reader.pdf",
+                        mimeType : "application/pdf",
+                        chunkedMode : "true",
+                        chunkedSize : 1024
+                    }
+                );
             }
             catch(e) {
-                alert("Exception in download: " + e);
+                alert("Exception in upload: " + e);
             }
         }
 
         function open() {
             try {
                 blackberry.invoke.invoke({
-                    target: "com.adobe.AdobeReader",
-                    action: "bb.action.OPEN",
-                    type: "application/pdf",
-                    uri: "file://" + blackberry.io.sharedFolder + "/downloads/W3html5TV.pdf"
+                    target: "sys.browser",
+                    uri: "http://bojap.com/omg/upload/"
                 }, function () { console.log("invocation success"); }, function (e) { alert("invocation failed: " + e); } );
             }
             catch(e) {
@@ -55,6 +63,6 @@
 </head>
 <body>
     <button onclick="history.back()">Back</button><br />
-    <button id="download">Download File</button><br />
-    <button id="open">Read File</button>
+    <button id="upload">Upload File</button><br />
+    <button id="open">View File</button>
 </body>
