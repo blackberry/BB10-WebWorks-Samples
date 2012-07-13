@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+
+    <script>
+        function downloadFile() {
+            document.location.href = "local:///fileDownload.html";
+        }
+        
+        function uploadFile() {
+            document.location.href = "local:///fileUpload.html";
+        }
+
+        function xhrFile() {
+            document.location.href = "local:///xhr2.html";
+        }
+    </script>
+</head>
+<body>
+    <h1  data-role="header">File Transfer</h1>
+    <button id="downfile" onclick="downloadFile()">Download File</button><br />
+    <button id="upfile" onclick="uploadFile()">Upload File</button><br />
+    <button id="xhr2" onclick="xhrFile()">HTML5 XHR Level 2 and FileSystem API</button><br />
+</body>

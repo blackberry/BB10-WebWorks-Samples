@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns=" http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="1.0.0"
+        id="FileTransferDemo">
+    <name>File Transfer Demo</name>
+    <content src="local:///index.html"/>
+    <author rim:copyright="No Copyright"
+            href="http://www.rim.com/"
+            email = "author@rim.com">Research In Motion Ltd.</author>
+    <description>This application demonstrates how to use the file transfer API.</description>
+    <license href="http://www.apache.org/licenses/LICENSE-2.0">My License</license>
+    
+    <feature id="blackberry.io" required="true" version="1.0.0.0"></feature>
+    <feature id="blackberry.io.filetransfer" required="true" version="1.0.0.0"></feature>
+    <feature id="blackberry.invoke" required="true" version="1.0.0.0"></feature>
+
+    <access uri="http://w3.org/" subdomains="true" />
+    <access uri="http://bojap.com/" subdomains="true" />
+    <access uri="http://rim.com/" subdomains="true" />
+    
+    <rim:permissions>
+        <rim:permit>access_shared</rim:permit>
+    </rim:permissions>
+    
+</widget>

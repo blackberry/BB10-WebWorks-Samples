@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="local:///webworks-1.0.0.7.js"></script>
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+    <script>
+        function ready() {
+            document.getElementById("upload").onclick = upload;
+            document.getElementById("open").onclick = open;
+        }
+        
+        function upload() {
+            try {
+                blackberry.io.filetransfer.upload(
+                    blackberry.io.sharedFolder + "/documents/Getting Started with Adobe Reader.pdf",
+                    "http://bojap.com/omg/uploader.php", //Use address of server handling file upload [10.137.251.209:443/upload]
+                    function (result) {
+                        alert("Upload successful");
+                        alert("Bytes sent: " + result.bytesSent);
+                        alert("Response code: " + result.responseCode);
+                        alert("Response: " + result.response);
+                    },
+                    function (result) {
+                        alert("Upload failure");
+                        alert("Error code: " + result.code);
+                        alert("Source: " + result.source);
+                        alert("Target: " + result.target);
+                        alert("HTTP Status: " + result.http_status);
+                    }
+                    ,
+                    {
+                        fileKey : "file",
+                        fileName : "Getting Started with Adobe Reader.pdf",
+                        mimeType : "application/pdf",
+                        chunkedMode : "true",
+                        chunkedSize : 1024
+                    }
+                );
+            }
+            catch(e) {
+                alert("Exception in upload: " + e);
+            }
+        }
+
+        function open() {
+            try {
+                blackberry.invoke.invoke({
+                    target: "sys.browser",
+                    uri: "http://bojap.com/omg/upload/"
+                }, function () { console.log("invocation success"); }, function (e) { alert("invocation failed: " + e); } );
+            }
+            catch(e) {
+                alert("Exception in open: " + e);
+            }
+        }
+
+        window.addEventListener("load", function () {
+            document.addEventListener("webworksready", ready);
+        }, false);
+    </script>
+</head>
+<body>
+    <button onclick="history.back()">Back</button><br />
+    <button id="upload">Upload File</button><br />
+    <button id="open">View File</button>
+</body>
