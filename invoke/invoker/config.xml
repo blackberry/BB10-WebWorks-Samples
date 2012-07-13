@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns=" http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="1.0.0.6"
+        id="InvokeDemo">
+    <name>InvokeDemo</name>
+    <content src="index.html"/>
+    <author rim:copyright="No Copyright"
+            href="http://www.rim.com/"
+            email = "author@rim.com">Research In Motion Ltd.</author>
+    <description>This app demonstrates how to invoke applications.</description>
+    <rim:orientation mode="portrait" />
+    <rim:permissions>
+        <rim:permit>access_shared</rim:permit>
+    </rim:permissions>
+    <feature id="blackberry.invoke" required="true" version="1.0.0.0"/>
+</widget>

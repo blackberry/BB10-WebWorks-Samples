@@ -1,0 +1,14 @@
+These two applications demonstrate how to invoke and handle invocations in BB10
+
+invoker:
+    in config.xml: what to whitelist
+    in invocations.js: how to send invocations
+                       using xhr level 2 to download binary image data
+                       HTML5 FileSystem API to save to the shared folder
+    in index.html: how to use jQuery mobile to make applications touchscreen-friendly
+
+invokable:
+    in config:xml: what to whitelist
+                   how to register an invocation target
+    in index.html: How to handle invocations though blackberry.event
+    
