@@ -37,9 +37,11 @@ To build the Push Capture sample application:
 
 In order to be able to send pushes to the Push Capture sample app, you will need to write a server-side push application (called a Push Initiator) to send out pushes with.
 Luckily, this is fairly easy to do using the Push Service SDK available here: https://developer.blackberry.com/services/push.
+
 You'll find all the documentation for the Push Service SDK here: http://docs.blackberry.com/en/developers/subcategories/?userType=21&category=Push+Service.
+
 Note that in order to use the Push Service for developing an application for the general public, you will have to first register here: 
-https://www.blackberry.com/profile/?eventId=8121
+https://www.blackberry.com/profile/?eventId=8121.
 
 ## More Info
 
