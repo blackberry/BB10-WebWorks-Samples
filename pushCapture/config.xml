@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets" id="pushcapture">
+  <rim:orientation mode="portrait" />
+  <name>Push Capture</name>
+  <description>Captures incoming pushes.</description>
+  <author rim:copyright="Copyright 2012 Research In Motion Limited, unless otherwise noted." href="http://us.blackberry.com/developers/platform/pushapi.jsp">Research In Motion Limited</author>
+  <icon src="Images/pushCaptureIcon.png" />
+  <rim:splash src="Images/pushCaptureSplash.png" />
+  <content src="index.htm" />
+  <access uri="*" subdomains="true" />
+  <feature id="blackberry.push" />
+  <feature id="blackberry.system" />
+  <feature id="blackberry.invoked" />
+  <feature id="blackberry.ui.dialog" />
+  
+  <!-- Need to put an invoke entry here for push -->
+  <!-- The id here must match the invokeTargetId passed in as one of the ops to blackberry.push.PushService.create -->
+  <rim:invoke-target id="net.rim.pushcapture.target">
+    <entry-point>1</entry-point>
+    <type>APPLICATION</type>
+    <filter>
+      <action>bb.action.PUSH</action>
+      <mime-type>application/vnd.push</mime-type>
+    </filter>
+  </rim:invoke-target>
+</widget>
