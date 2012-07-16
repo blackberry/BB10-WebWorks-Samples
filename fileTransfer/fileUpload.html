@@ -24,14 +24,13 @@
     <script>
         function ready() {
             document.getElementById("upload").onclick = upload;
-            document.getElementById("open").onclick = open;
         }
         
         function upload() {
             try {
                 blackberry.io.filetransfer.upload(
                     blackberry.io.sharedFolder + "/documents/Getting Started with Adobe Reader.pdf",
-                    "http://10.137.251.209:3000/upload",
+                    "http://10.137.251.215:8080/upload", //use address of server where you are uploading
                     function (result) {
                         alert("Upload successful");
                         console.log("Bytes sent: " + result.bytesSent);
@@ -60,17 +59,6 @@
             }
         }
 
-        function open() {
-            try {
-                blackberry.invoke.invoke({
-                    target: "sys.browser",
-                    uri: "http://bojap.com/omg/upload/"
-                }, function () { console.log("invocation success"); }, function (e) { alert("invocation failed: " + e); } );
-            }
-            catch(e) {
-                alert("Exception in open: " + e);
-            }
-        }
 
         window.addEventListener("load", function () {
             document.addEventListener("webworksready", ready);
@@ -80,5 +68,4 @@
 <body>
     <button onclick="history.back()">Back</button><br />
     <button id="upload">Upload File</button><br />
-    <button id="open">View File</button>
 </body>

@@ -40,7 +40,7 @@ limitations under the License.
     <feature id="blackberry.invoke" required="true" version="1.0.0.0"></feature>
 
     <access uri="http://w3.org/" subdomains="true" />
-    <access uri="http://10.137.251.209/" subdomains="true" />
+    <access uri="http://10.137.251.215/" subdomains="true" />
     <access uri="http://bojap.com/" subdomains="true" />
     <access uri="http://rim.com/" subdomains="true" />
     
