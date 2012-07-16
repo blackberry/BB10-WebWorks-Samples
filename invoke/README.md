@@ -33,7 +33,7 @@ Sample applications that demonstrate how to use the blackberry.invoke API for th
 
 ## Contributing Changes
 
-Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of the WebWorks-Samples repository for instructions on how to add new Samples or make modifications to existing Samples.
+Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of the BB10-WebWorks-Samples repository for instructions on how to add new Samples or make modifications to existing Samples.
 
 
 ## Bug Reporting and Feature Requests
