@@ -4,7 +4,7 @@ Sample applications that demonstrate how to use the blackberry.invoke API for th
 
 **Tested On**
 
-* BlackBerry 10.0.6 Bundle 363
+* BlackBerry 10.0.6
 
 **Author(s)** 
 
@@ -33,12 +33,12 @@ Sample applications that demonstrate how to use the blackberry.invoke API for th
 
 ## Contributing Changes
 
-Please see the [README](https://github.com/blackberry/WebWorks-Samples) of the WebWorks-Samples repository for instructions on how to add new Samples or make modifications to existing Samples.
+Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of the WebWorks-Samples repository for instructions on how to add new Samples or make modifications to existing Samples.
 
 
 ## Bug Reporting and Feature Requests
 
-If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/WebWorks-Samples/issues) for the Sample and send a message (via github messages) to the Sample Author(s) to let them know that you have filed an [Issue](https://github.com/blackberry/WebWorks-Samples/issues).
+If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample and send a message (via github messages) to the Sample Author(s) to let them know that you have filed an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues).
 
 
 ## Disclaimer
