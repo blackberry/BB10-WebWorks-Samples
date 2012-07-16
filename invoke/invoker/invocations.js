@@ -1,3 +1,20 @@
+/*
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+
 function onSuccess() {
     document.getElementById("log").innerHTML += "<p>Invocation sucessful</p>";
 }
@@ -55,21 +72,21 @@ function invokePictures() {
     downloadPicture();
     
     blackberry.invoke.invoke({
-        uri: "file:///accounts/1000/shared/downloads/HTML5_Logo_512.png",
+        uri: "file:///accounts/1000/shared/downloads/rim_logo_black.jpg",
     }, onSuccess, onError);
 }
 
 //Supported in HTML5: getting binary data from XHR request
 function downloadPicture() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "/HTML5_Logo_512.png", true);
+    xhr.open('GET', "/rim_logo_black.jpg", true);
     xhr.responseType = 'arraybuffer';
     
     xhr.onload = function(e) {
         if (this.status == 200) {
             var bb = new window.WebKitBlobBuilder();
             bb.append(this.response);
-            var blob = bb.getBlob('image/png');
+            var blob = bb.getBlob('image/jpeg');
             saveFile(blob);
         }
     };
@@ -79,7 +96,7 @@ function downloadPicture() {
 //This function demonstrates how to use the HTML5 FileSystem API: a .png blob is saved to a URI which is used for invocation
 function saveFile (blob) {
     function gotFs(fs) {
-        fs.root.getFile("/accounts/1000/shared/downloads/HTML5_Logo_512.png", {create: true}, gotFile, errorHandler);
+        fs.root.getFile("/accounts/1000/shared/downloads/rim_logo_black.jpg", {create: true}, gotFile, errorHandler);
     }
 
     function gotFile(fileEntry) {
@@ -88,7 +105,7 @@ function saveFile (blob) {
 
     function gotWriter(fileWriter) {
         fileWriter.onerror = function (e) {
-            alert("Failed to write PNG: " + e.toString());
+            alert("Failed to write JPEG: " + e.toString());
         }
         fileWriter.write(blob);
     }
