@@ -623,7 +623,7 @@ module.exports = {
 
 define('lib/utils', function (require, exports, module) {
 /*
- * Copyright 2010-2011 Research In Motion Limited.
+ *  Copyright 2012 Research In Motion Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -985,6 +985,26 @@ self = module.exports = {
         return false;
     },
 
+    fileNameToImageMIME : function (fileName) {
+
+        var extensionsToMIME = {},
+            ext;
+
+        extensionsToMIME.png = 'image/png';
+        extensionsToMIME.jpg = 'image/jpeg';
+        extensionsToMIME.jpe = 'image/jpeg';
+        extensionsToMIME.jpeg = 'image/jpeg';
+        extensionsToMIME.gif = 'image/gif';
+        extensionsToMIME.bmp = 'image/bmp';
+        extensionsToMIME.bm = 'image/bmp';
+        extensionsToMIME.svg = 'image/svg+xml';
+        extensionsToMIME.tif = 'image/tiff';
+        extensionsToMIME.tiff = 'image/tiff';
+
+        ext = fileName.split('.').pop();
+        return extensionsToMIME[ext];
+    },
+
     isLocalURI : function (uri) {
         return uri && uri.scheme && "local:///".indexOf(uri.scheme.toLowerCase()) !== -1;
     },
@@ -1050,7 +1070,6 @@ self = module.exports = {
     getBlobWithArrayBufferAsData : function (data, dataEncoding) {
         var rawData,
             blobBuilderObj = new window.WebKitBlobBuilder();
-            
         rawData = this.convertDataToBinary(data, dataEncoding);
         blobBuilderObj.append(rawData);
 
@@ -1062,7 +1081,7 @@ self = module.exports = {
 
 define('lib/exception', function (require, exports, module) {
 /*
- *  Copyright 2011 Research In Motion Limited.
+ *  Copyright 2012 Research In Motion Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1134,8 +1153,8 @@ module.exports = {
 });
 define('lib/webworks-info', function (require, exports, module) {
 module.exports = {
-	hash: "5f265a939a8ddc3c998da9ae9a755d09",
-	version: "1.0.0.7"
+	hash: "65955a4a246382930a30c0e570183a73",
+	version: "1.0.1.5"
 };
 });
 /*
