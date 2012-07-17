@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+
+    <script>
+        function downloadFile() {
+            document.location.href = "local:///fileDownload.html";
+        }
+        
+        function uploadFile() {
+            document.location.href = "local:///fileUpload.html";
+        }
+
+        function xhrFile() {
+            document.location.href = "local:///xhr2.html";
+        }
+    </script>
+</head>
+<body>
+    <h1  data-role="header">File Transfer</h1>
+    <button id="downfile" onclick="downloadFile()">Download File</button><br />
+    <button id="upfile" onclick="uploadFile()">Upload File</button><br />
+    <button id="xhr2" onclick="xhrFile()">HTML5 XHR Level 2 and FileSystem API</button><br />
+</body>

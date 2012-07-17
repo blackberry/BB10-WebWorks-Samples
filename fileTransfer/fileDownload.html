@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="webworks-1.0.0.7.js"></script>
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+
+    <script>
+        function ready() {
+            document.getElementById("download").onclick = download;
+            document.getElementById("open").onclick = open;
+        }
+        
+        function download() {
+            try {
+                blackberry.io.filetransfer.download(
+                    "http://www.w3.org/2011/Talks/0928-webtv-nem-fd/slides.pdf",
+                    blackberry.io.sharedFolder + "/downloads/W3html5TV.pdf",
+                    function (result) {
+                        alert("Download successful");
+                        console.log("fullPath: " + result.fullPath);
+                    },
+                    function (result) {
+                        alert("Download failed");
+                        console.log("Error code: " + result.code);
+                        console.log("HTTP status: " + result.http_status);
+                        console.log("Source: " + result.source);
+                        console.log("Target: " + result.target);
+                    });
+            }
+            catch(e) {
+                alert("Exception in download: " + e);
+            }
+        }
+
+        function open() {
+            try {
+                blackberry.invoke.invoke({
+                    target: "com.adobe.AdobeReader",
+                    action: "bb.action.OPEN",
+                    type: "application/pdf",
+                    uri: "file://" + blackberry.io.sharedFolder + "/downloads/W3html5TV.pdf"
+                }, function () { console.log("invocation success"); }, function (e) { alert("invocation failed: " + e); } );
+            }
+            catch(e) {
+                alert("Exception in open: " + e);
+            }
+        }
+
+        window.addEventListener("load", function () {
+            document.addEventListener("webworksready", ready);
+        }, false);
+    </script>
+</head>
+<body>
+    <button onclick="history.back()">Back</button><br />
+    <button id="download">Download File</button><br />
+    <button id="open">Read File</button>
+</body>
