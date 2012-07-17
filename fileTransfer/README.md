@@ -24,8 +24,9 @@ Sample applications that demonstrate how to use the blackberry.io and blackberry
 
 ## Troubleshooting
 
-1. Configure upload server - install and configure node and npm, inside the root directory of your node server, run the following command 
+1. Configure upload server - install and configure node and npm, inside the root directory of your node server, create a folder named uploads then run the following command 
 ```$npm install express@2.5.9```
+The node server listens on port 8080 by default, this can be changed in the app.js file
 
 2. When uploading, URL is being blocked access by the whitelist - Update the whitelisted IP in config.xml for the upload server.
 
