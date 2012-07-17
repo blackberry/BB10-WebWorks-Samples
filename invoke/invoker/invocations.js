@@ -72,14 +72,14 @@ function invokePictures() {
     downloadPicture();
     
     blackberry.invoke.invoke({
-        uri: "file:///accounts/1000/shared/downloads/rim_logo_black.jpg",
+        uri: "file:///accounts/1000/shared/downloads/cliffs.jpg",
     }, onSuccess, onError);
 }
 
 //Supported in HTML5: getting binary data from XHR request
 function downloadPicture() {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "/rim_logo_black.jpg", true);
+    xhr.open('GET', "/cliffs.jpg", true);
     xhr.responseType = 'arraybuffer';
     
     xhr.onload = function(e) {
@@ -96,7 +96,7 @@ function downloadPicture() {
 //This function demonstrates how to use the HTML5 FileSystem API: a .png blob is saved to a URI which is used for invocation
 function saveFile (blob) {
     function gotFs(fs) {
-        fs.root.getFile("/accounts/1000/shared/downloads/rim_logo_black.jpg", {create: true}, gotFile, errorHandler);
+        fs.root.getFile("/accounts/1000/shared/downloads/cliffs.jpg", {create: true}, gotFile, errorHandler);
     }
 
     function gotFile(fileEntry) {

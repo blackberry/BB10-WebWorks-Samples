@@ -1153,8 +1153,8 @@ module.exports = {
 });
 define('lib/webworks-info', function (require, exports, module) {
 module.exports = {
-	hash: "0f40cbc4da91e910601fc2ad0128c86c",
-	version: "1.0.0.7"
+	hash: "65955a4a246382930a30c0e570183a73",
+	version: "1.0.1.5"
 };
 });
 /*

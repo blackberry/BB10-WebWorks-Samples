@@ -41,7 +41,6 @@ limitations under the License.
 
     <access uri="http://w3.org/" subdomains="true" />
     <access uri="http://10.137.251.215/" subdomains="true" />
-    <access uri="http://bojap.com/" subdomains="true" />
     <access uri="http://rim.com/" subdomains="true" />
     
     <rim:permissions>

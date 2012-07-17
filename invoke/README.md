@@ -13,7 +13,7 @@ Sample applications that demonstrate how to use the blackberry.invoke API for th
 **Dependencies**
 
 1. [jquery.mobile-1.1.0.min.js, jquery.mobile-1.1.0.min.css, jquery-1.7.1.min.js ](http://www.jquerymobile.com/) The jQuery Mobile Framework
-                
+2. [/invoke/invoker/cliffs.jpg](http://www.public-domain-image.com/nature-landscapes-public-domain-images-pictures/cliffs-public-domain-images-pictures/cliffs-ocean-slieve-league.jpg.html) from public-domain-image.com               
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
