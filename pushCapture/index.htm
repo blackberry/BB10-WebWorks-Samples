@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+ <html> 
+	<head>
+		<meta name="viewport" content="initial-scale=1.0,width=device-width,user-scalable=no,target-densitydpi=device-dpi" />
+		<link rel="stylesheet" type="text/css" href="Styles/bbui-0.9.3.css"></link>
+		<script type="text/javascript" src="Scripts/webworks-1.0.0.7.js"></script>
+		<script type="text/javascript" src="Scripts/bbui-0.9.3.js"></script>		
+		<script type="text/javascript" src="Scripts/common.js"></script>	
+		<script type="text/javascript" src="Scripts/pushhandler.js"></script>
+		<script type="text/javascript" src="Scripts/simchangehandler.js"></script>
+		<style type="text/css">
+		    table {
+		        font-size: 30pt;
+		    }
+		</style>
+		<script type="text/javascript">			    	
+			// You must call init on bbUI before any other code loads.  
+			// If you want default functionality, simply don't pass any parameters: bb.init();
+			bb.init({
+				bb10ActionBarDark: true,
+				bb10ControlsDark: true,
+				bb10ListsDark: false,
+				bb10ForPlayBook: true,
+				onscreenready: function(element, id) {
+					if (id == "pushlist") {
+						sample.pushcapture.initPushList(element);
+					} else if (id == "pushcontent") {
+						sample.pushcapture.initContent(element);
+					} else if (id == "configuration") {
+				    	// Updates the title bar
+						element.getElementById("user-input-title").setAttribute("data-bb-caption", "Configuration");
+						element.getElementById("user-input-title").setAttribute("data-bb-action-caption", "Save");
+						element.getElementById("user-input-title").setAttribute("onactionclick", "sample.pushcapture.configure()");
+						
+						// Selects the config tab on the action bar
+						element.getElementById("user-input-config-action").setAttribute("data-bb-selected", "true");
+						
+						// Shows the config tab, hides the others
+					    element.getElementById("register-tab").style.display = "none";
+						element.getElementById("unregister-tab").style.display = "none";
+						element.getElementById("config-tab").style.display = "block";
+		
+						sample.pushcapture.initConfiguration(element);
+					} else if (id == "register") {
+				    	// Updates the title bar
+				    	element.getElementById("user-input-title").setAttribute("data-bb-caption", "Register");
+						element.getElementById("user-input-title").setAttribute("data-bb-action-caption", "Submit");
+						element.getElementById("user-input-title").setAttribute("onactionclick", "sample.pushcapture.register()");
+						
+						// Selects the register tab on the action bar
+						element.getElementById("user-input-reg-action").setAttribute("data-bb-selected", "true");
+						
+						// Shows the register tab, hides the others
+					    element.getElementById("config-tab").style.display = "none";
+						element.getElementById("unregister-tab").style.display = "none";
+						element.getElementById("register-tab").style.display = "block";
+		
+				        sample.pushcapture.initRegister(element);
+					} else if (id == "unregister") {
+				    	// Updates the title bar
+				    	element.getElementById("user-input-title").setAttribute("data-bb-caption", "Unregister");
+						element.getElementById("user-input-title").setAttribute("data-bb-action-caption", "Submit");
+						element.getElementById("user-input-title").setAttribute("onactionclick", "sample.pushcapture.unregister()");
+						
+						// Selects the unregister tab on the action bar
+						element.getElementById("user-input-unreg-action").setAttribute("data-bb-selected", "true");
+						
+						// Shows the unregister tab, hides the others
+					    element.getElementById("config-tab").style.display = "none";
+						element.getElementById("register-tab").style.display = "none";
+						element.getElementById("unregister-tab").style.display = "block";
+		
+				        sample.pushcapture.initUnregister(element);
+					} 
+				},
+				ondomready: function(element, id) {
+					if (id != "configuration") {		
+						sample.pushcapture.checkIfConfigExists();
+					}
+				}
+			});
+			
+            function ready() {		
+			    sample.pushcapture.initPushService(); 
+			    
+		    	bb.pushScreen('pushlist.htm', 'pushlist');
+			};
+			 
+            window.addEventListener("load", function(e) {
+			    document.addEventListener("webworksready", ready);
+            }, false);
+		</script>
+	</head>
+	<body>	
+	</body>
+</html>

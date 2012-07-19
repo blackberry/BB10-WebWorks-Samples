@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="webworks-1.0.0.7.js"></script>
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+    <script>
+        function ready() {
+            document.getElementById("upload").onclick = upload;
+        }
+        
+        function upload() {
+            try {
+                blackberry.io.filetransfer.upload(
+                    blackberry.io.sharedFolder + "/documents/Getting Started with Adobe Reader.pdf",
+                    "http://10.137.251.215:8080/upload", //use address of server where you are uploading
+                    function (result) {
+                        alert("Upload successful");
+                        console.log("Bytes sent: " + result.bytesSent);
+                        console.log("Response code: " + result.responseCode);
+                        console.log("Response: " + result.response);
+                    },
+                    function (result) {
+                        alert("Upload failure");
+                        console.log("Error code: " + result.code);
+                        console.log("Source: " + result.source);
+                        console.log("Target: " + result.target);
+                        console.log("HTTP Status: " + result.http_status);
+                    }
+                    ,
+                    {
+                        fileKey : "file",
+                        fileName : "Getting Started with Adobe Reader.pdf",
+                        mimeType : "application/pdf",
+                        chunkedMode : "true",
+                        chunkedSize : 1024
+                    }
+                );
+            }
+            catch(e) {
+                alert("Exception in upload: " + e);
+            }
+        }
+
+
+        window.addEventListener("load", function () {
+            document.addEventListener("webworksready", ready);
+        }, false);
+    </script>
+</head>
+<body>
+    <button onclick="history.back()">Back</button><br />
+    <button id="upload">Upload File</button><br />
+</body>

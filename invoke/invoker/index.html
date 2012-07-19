@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="webworks-1.0.0.7.js"></script>
+    <script src="invocations.js"></script>
+    <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+    <script type="text/javascript">
+        function ready () {
+            document.getElementById("browser").onclick = invokeBrowser;
+            document.getElementById("browserUri").onclick = invokeBrowserUri;
+            document.getElementById("help").onclick = invokeHelp;
+            document.getElementById("adobeReader").onclick = invokeAdobeReader;
+            document.getElementById("adobeReaderPdf").onclick = invokeAdobeReaderPdf;
+            document.getElementById("userApp").onclick = invokeApp;
+            document.getElementById("pictures").onclick = invokePictures;
+        }
+        //register ready event after window has loaded
+        window.addEventListener("load", function (e) {
+            document.addEventListener("webworksready", ready)
+        }, false);
+    </script>
+</head>
+<body>
+    <div data-role="page">
+    <div data-role="header">
+    <h1>Invoking Apps</h1>
+    </div>
+    <div data-role="content">
+    <ul data-role="listview">
+        <li id="browser">Invoke Browser</li>
+        <li id="browserUri">Open a hyperlink in Browser</li>
+        <li id="help">Invoke Help</li>
+        <li id="adobeReader">Invoke Adobe Reader</li>
+        <li id="adobeReaderPdf">Open a PDF file in Adobe Reader</li>
+        <li id="userApp">Invoke Apps</li>
+        <li id="pictures">Open a PNG</li>
+    </ul>
+    <div id="log"></div>
+    </div>
+    </div>
+</body>
+</html>

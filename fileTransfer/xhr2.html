@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="webworks-1.0.0.7.js"></script>
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+    <script>
+        function ready() {
+            document.getElementById("request").onclick = startRequest;
+        }
+
+
+        //HTML5 allows developers to use XHR Level 2 to request raw binary data from a server
+        //In this function we set responseType to arraybuffer for holding binary data then we create a blob to save to disk
+        //For more information, the official documentation is available here: http://www.w3.org/TR/XMLHttpRequest/
+        function startRequest() {
+            var xhr = new XMLHttpRequest(),
+                uri = "http://www.rim.com/news/kit/media/images/logos/BlackBerry_Logo_Preferred_Black_R.jpg",
+                bb = new window.WebKitBlobBuilder(),
+                blob;
+
+            xhr.open("GET", uri, true);
+            xhr.responseType = 'arraybuffer';
+
+            xhr.onload = function (e) {
+                if (this.status == 200) {
+
+                    //store arraybuffer data in blob
+                    bb.append(this.response);
+                    blob = bb.getBlob('image/jpeg');
+
+                    //save blob data to the shared folder and display it with blackberry.invoke
+                    displayImage(blob);
+                }
+            };
+            xhr.send();
+        }
+
+        function displayImage(blob) {
+
+            saveImage(blob);
+            
+            blackberry.invoke.invoke({
+                uri: "file:// " + blackberry.io.sharedFolder + "/downloads/blackberry.jpg"
+            }, function () { console.log("invocation success") }, function (e) { alert("invocation failure: " + e); });
+        }
+
+        //This function uses the HTML5 File API to write blob data to a file
+        //Official W3 Documentation: http://www.w3.org/TR/file-system-api/
+        function saveImage (blob) {
+            function gotFs(fs) {
+                fs.root.getFile(blackberry.io.sharedFolder + "/downloads/blackberry.jpg", {create: true}, gotFile, errorHandler);
+            }
+
+            function gotFile(fileEntry) {
+                fileEntry.createWriter(gotWriter, errorHandler);
+            }
+
+            function gotWriter(fileWriter) {
+                fileWriter.onerror = function (e) {
+                    alert("Failed to write JPG: " + e.toString());
+                }
+                fileWriter.write(blob);
+            }
+            blackberry.io.sandbox = false;
+            window.webkitRequestFileSystem(PERSISTENT, 10 * 1024, gotFs, errorHandler);
+        }
+
+        function errorHandler(fileError) {
+            var msg = '';
+
+            switch (fileError.code) {
+                case FileError.QUOTA_EXCEEDED_ERR:
+                    msg = 'QUOTA_EXCEEDED_ERR';
+                    break;
+                case FileError.NOT_FOUND_ERR:
+                    msg = 'NOT_FOUND_ERR';
+                    break;
+                case FileError.SECURITY_ERR:
+                    msg = 'SECURITY_ERR';
+                    break;
+                case FileError.INVALID_MODIFICATION_ERR:
+                    msg = 'INVALID_MODIFICATION_ERR';
+                    break;
+                case FileError.INVALID_STATE_ERR:
+                    msg = 'INVALID_STATE_ERR';
+                    break;
+                case FileError.NO_MODIFICATION_ALLOWED_ERR:
+                    msg = 'NO_MODIFICATION_ALLOWED_ERR';
+                    break;
+                default:
+                    msg = 'File Error';
+                    break;
+            };
+
+            alert('Error: ' + msg);
+        }
+        
+        window.addEventListener("load", function () {
+            document.addEventListener("webworksready", ready);
+        }, false);
+    </script>
+</head>
+<body>
+    <button onclick="history.back()">Back</button><br />
+    <button id="request">Download and display an image file</button><br />
+</body>
