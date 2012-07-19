@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<widget xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets" id="pushcapture">
+  <rim:orientation mode="portrait" />
+  <name>Push Capture</name>
+  <description>Captures incoming pushes.</description>
+  <author rim:copyright="Copyright 2012 Research In Motion Limited, unless otherwise noted." href="http://us.blackberry.com/developers/platform/pushapi.jsp">Research In Motion Limited</author>
+  <icon src="Images/pushCaptureIcon.png" />
+  <rim:splash src="Images/pushCaptureSplash.png" />
+  <content src="index.htm" />
+  <access uri="*" subdomains="true" />
+  <feature id="blackberry.push" />
+  <feature id="blackberry.system" />
+  <feature id="blackberry.invoked" />
+  <feature id="blackberry.ui.dialog" />
+  
+  <!-- Need to put an invoke entry here for push -->
+  <!-- The id here must match the invokeTargetId passed in as one of the ops to blackberry.push.PushService.create -->
+  <rim:invoke-target id="net.rim.pushcapture.target">
+    <entry-point>1</entry-point>
+    <type>APPLICATION</type>
+    <filter>
+      <action>bb.action.PUSH</action>
+      <mime-type>application/vnd.push</mime-type>
+    </filter>
+  </rim:invoke-target>
+</widget>

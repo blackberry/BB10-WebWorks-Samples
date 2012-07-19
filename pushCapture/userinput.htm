@@ -1,0 +1,203 @@
+<!--
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<div data-bb-type="screen" data-bb-effect="fade" data-bb-scroll-effect="off" id="user-input-screen">
+	<script id="configJS" src="Scripts/configuration.js"></script>
+	<script id="registerJS" src="Scripts/register.js"></script>
+	<script id="unregisterJS" src="Scripts/unregister.js"></script>
+
+    <style type="text/css">		    
+		.user-input-table {
+			width: 100%;
+			text-align: left;
+			border-collapse: collapse;
+			margin: 0;
+			background: white;
+			color: black;
+		}
+		
+		.user-input-padding {
+		    padding-left: 0.8em;
+		    padding-right: 0.8em;
+		    padding-top: 0.4em;
+		    padding-bottom: 0.4em;
+		}
+		
+		.column1 {
+		    width: 10%;
+		    padding-left: 0.8em;
+		    padding-right: 0.2em;
+		    padding-top: 0.2em;
+		    padding-bottom: 0.2em;
+		}
+		
+		.column2 {
+		    width: 90%;
+		    padding-left: 0.2em;
+		    padding-right: 0.8em;		    
+		    padding-top: 0.2em;
+		    padding-bottom: 0.2em;
+		}				
+		
+		input.box-length {
+			width: 100%;
+		}
+		
+		.center {
+			text-align: center;
+		}		
+		
+		div.hidden {
+			display: none;
+		}
+    
+		div.error {
+			width: 90%;
+			word-wrap: break-word;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: left;
+			padding: 0.5em;
+			border: 0.2em solid red;
+			background: #fcc;
+		}  	
+		
+		div.progress {
+			display: none;
+			text-align: center;
+			color: blue;
+		}	
+		
+		div.full-size {
+		    height: 100%;
+		    width: 100%;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    overflow: hidden;
+		    z-index: 2000;
+		}
+		
+		div.full-size-dark {
+		    height: 100%;
+		    width: 100%;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    overflow: hidden;
+		    background-color: black;
+		    opacity: .5; 
+		    filter: alpha(opacity=50);		    
+		    z-index: 2000;
+		}							
+    </style>
+
+    <div id="user-input-title" data-bb-type="title"></div>
+		 
+	<div class="hidden" id="errordiv">
+		<br/>	
+		<div class="error" id="errormsg"></div>
+	</div>		
+
+	<div id="config-tab">			
+		<table id="config-table" class="user-input-table">
+	        <tr id="ppgtyperow">
+	            <td>
+		            <table>
+		                <tr>
+				            <td class="column1"><input type=radio name="ppgtype" id="publicradio" value="public" checked=true onchange="sample.pushcapture.publicPPG()" /></td>
+				            <td class="column2">Public/BIS</td>
+		                </tr>
+		            </table>
+		            <table>
+		                <tr>
+				            <td class="column1"><input type=radio name="ppgtype" id="enterpriseradio" value="enterprise" onchange="sample.pushcapture.enterprisePPG()" /></td>
+				            <td class="column2">Enterprise/BES</td>
+		                </tr>
+		            </table>
+		        <td>		            		        
+		    </tr>
+	        <tr>
+	            <td>
+		            <table>
+		                <tr>
+				            <td class="column1"><input type="checkbox" id="usesdkaspi" value="usesdkaspi" checked=true onchange="sample.pushcapture.useSDKAsPushInitiator()" /></td>
+				            <td class="column2">Use Push Service SDK as Push Initiator</td>
+		                </tr>
+		            </table>
+	            </td>
+	        </tr>
+			<tr>
+				<td id="appidtd" class="user-input-padding"><input class="box-length" type="text" id="appid" maxlength="42" placeholder="Application ID" /></td>
+			</tr>
+			<tr>
+				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" maxlength="80" placeholder="PPG URL" /></td>
+			</tr>		
+			<tr>
+				<td class="user-input-padding"><input class="box-length" type="text" id="piurl" maxlength="80" placeholder="Push Initiator URL" /></td>
+			</tr>
+	        <tr>
+	        	<td>
+		            <table>
+		                <tr>
+				            <td class="column1"><input type="checkbox" id="launchapp" value="launchapp" /></td>
+				            <td class="column2">Launch Application on New Push</td>
+		                </tr>
+		            </table>
+	            </td>
+	        </tr>
+		</table>
+	</div>
+	
+	<div id="register-tab">
+		<table id="reg-table" class="user-input-table">
+			<tr>
+				<td id="reguseridtd" class="user-input-padding"><input class="box-length" type="text" id="reguserid" maxlength="42" placeholder="Username" /></td>
+			</tr>
+			<tr>
+				<td id="regpwdtd" class="user-input-padding"><input class="box-length" type="password" id="regpwd" maxlength="42" placeholder="Password" /></td>
+			</tr>		
+		</table>
+		
+		<br/>		
+	</div>
+	
+	<div id="unregister-tab">	
+		<table id="unreg-table" class="user-input-table">
+			<tr>
+				<td id="unreguseridtd" class="user-input-padding"><input class="box-length" type="text" id="unreguserid" maxlength="42" placeholder="Username" /></td>
+			</tr>
+			<tr>
+				<td id="unregpwdtd" class="user-input-padding"><input class="box-length" type="password" id="unregpwd" maxlength="42" placeholder="Password" /></td>
+			</tr>		
+		</table>
+		
+		<br/>		
+	</div>
+		
+	<div class="progress" id="activityindicator">
+	    <div style="margin: 0px auto 0px auto;" data-bb-type="activity-indicator" data-bb-size="small"></div>
+	</div> 	
+	
+	<div class="progress" id="progressinfo">
+	</div> 
+	
+	<div data-bb-type="action-bar" data-bb-tab-style="highlight">
+		<div data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/homeicon.png" onclick="bb.popScreen()">Home</div>
+	    <div id="user-input-config-action" data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/configicon.png" onclick="sample.pushcapture.showConfigTab()">Config</div>	
+	    <div id="user-input-reg-action" data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/registericon.png" onclick="sample.pushcapture.showRegisterTab()">Register</div>
+	    <div id="user-input-unreg-action" data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/unregistericon.png" onclick="sample.pushcapture.showUnregisterTab()">Unregister</div>	        	    
+	</div>
+</div>
