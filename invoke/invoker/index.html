@@ -41,21 +41,34 @@
 </head>
 <body>
     <div data-role="page">
-    <div data-role="header">
-    <h1>Invoking Apps</h1>
-    </div>
-    <div data-role="content">
-    <ul data-role="listview">
-        <li id="browser">Invoke Browser</li>
-        <li id="browserUri">Open a hyperlink in Browser</li>
-        <li id="help">Invoke Help</li>
-        <li id="adobeReader">Invoke Adobe Reader</li>
-        <li id="adobeReaderPdf">Open a PDF file in Adobe Reader</li>
-        <li id="userApp">Invoke Apps</li>
-        <li id="pictures">Open a JPG</li>
-    </ul>
-    <div id="log"></div>
-    </div>
+		<div data-role="header">
+			<h1>Invoking Apps</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li id="browser">Invoke Browser</li>
+				<li id="browserUri">Open a hyperlink in Browser</li>
+				<li id="help">Invoke Help</li>
+				<li id="adobeReader">Invoke Adobe Reader</li>
+				<li id="adobeReaderPdf">Open a PDF file in Adobe Reader</li>
+				<li id="userApp">Invoke Apps</li>
+				<li id="pictures">Open a JPG</li>
+			</ul>
+			<div id="log"></div>
+			<p>
+				<h3>Troubleshooting</h3>
+				<ol>
+					<li>
+						<b>INVOKE_NO_TARGET_ERROR</b>
+						<ul>
+							<li>Application is not found due to incorrect name, or installed on the device or</li>
+							<li>Application exists on the device but not registered with the invocation framework or</li>
+							<li>Invocation framework is not available.</li>
+						</ul>
+					</li>
+				</ol>
+			</p>
+		</div>
     </div>
 </body>
 </html>
