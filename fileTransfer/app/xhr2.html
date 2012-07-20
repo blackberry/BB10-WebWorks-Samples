@@ -58,7 +58,7 @@
             saveImage(blob);
             
             blackberry.invoke.invoke({
-                uri: "file:// " + blackberry.io.sharedFolder + "/downloads/blackberry.jpg"
+                uri: "file://" + blackberry.io.sharedFolder + "/downloads/blackberry.jpg"
             }, function () { console.log("invocation success") }, function (e) { alert("invocation failure: " + e); });
         }
 
