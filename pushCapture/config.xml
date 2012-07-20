@@ -31,7 +31,7 @@
   
   <!-- Need to put an invoke entry here for push -->
   <!-- The id here must match the invokeTargetId passed in as one of the ops to blackberry.push.PushService.create -->
-  <rim:invoke-target id="net.rim.pushcapture.target">
+  <rim:invoke-target id="sample.pushcapture.invoke.target">
     <entry-point>1</entry-point>
     <type>APPLICATION</type>
     <filter>

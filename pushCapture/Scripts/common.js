@@ -112,7 +112,7 @@ sample.pushcapture = (function() {
         /**
          * Invoke target ID for receiving new push notifications.
          */
-        this.invoketargetid = "net.rim.pushcapture.target";
+        this.invoketargetid = "sample.pushcapture.invoke.target";
         
         /**
          * Use SDK as Push Initiator configuration setting.
