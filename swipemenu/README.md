@@ -16,7 +16,7 @@ Sample application that demonstrates swipemenu.js: A swipe-down menu framework f
 **Author(s)** 
 
 * [Adam Stanley](https://github.com/astanley)
-* [Rory Craig-Barnes](https://github.com/astanley)
+* [Rory Craig-Barnes](https://github.com/glassspear)
 
 **Dependencies**
 
