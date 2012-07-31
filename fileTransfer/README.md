@@ -20,7 +20,9 @@ Sample applications that demonstrate how to use the blackberry.io and blackberry
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Use Using the **[Ripple Mobile Emulator](http://developer.blackberry.com/html5/download)** and either the **[BlackBerry WebWorks SDK for Smartphone](http://developer.blackberry.com/html5/download)** or the **[BlackBerry WebWorks SDK for Tablet OS](http://developer.blackberry.com/html5/download)**, package the contents of your local **BB10-WebWorks-Samples/invoke/invoker** and **BB10-WebWorks-Samples/invoke/invokable** folders into a BlackBerry application.
+2. Copy the webworks-<version>.js client file from **C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK <version>\Framework\clientFiles** (Windows) or **~/SDKs/BlackBerry 10 WebWorks SDK <version>/Framework/clientFiles** (Mac) into the top level of the local **fileTransfer** folder (e.g. **~/WebWorks/fileTransfer/webworks-<version>.js**).
+2. Optional: Edit the script reference to the webworks-<version>.js file within any *.html files to ensure the version number is correct.
+3. Use Using the **[Ripple Mobile Emulator](http://developer.blackberry.com/html5/download)** and either the **[BlackBerry WebWorks SDK for Smartphone](http://developer.blackberry.com/html5/download)** or the **[BlackBerry WebWorks SDK for Tablet OS](http://developer.blackberry.com/html5/download)**, package the contents of your local **BB10-WebWorks-Samples/fileTransfer** folder into a BlackBerry application.
 
 ## Troubleshooting
 
