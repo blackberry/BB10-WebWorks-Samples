@@ -193,18 +193,18 @@ sample.pushcapture = (function() {
      *            callback the callback to be called with the string result         
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {
+    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {    	
     	var reader = new FileReader();
     	
-    	reader.onload = function(evt) {
+    	reader.onload = function(evt) {    		
         	// No errors, get the result and call the callback
         	callback(evt.target.result);
     	};
     	
-    	reader.onerror = function(evt) {
+    	reader.onerror = function(evt) {    		
         	console.log("Error converting Blob to string: " + evt.target.error);
     	};
-        
+    	
         reader.readAsText(blob, encoding);
     };
     
@@ -250,6 +250,40 @@ sample.pushcapture = (function() {
             
         return window.btoa(binary);
     };       
+    
+    /**
+     * Converts a Unicode/UTF8 string to Base64.
+     * 
+     * This function is a workaround because the atob and btoa browser functions that should convert 
+     * between a binary string and a Base64 encoded ASCII string
+     * blow up when faced with Unicode with a INVALID_CHARACTER_ERR: DOM Exception 5.
+     * 
+     * http://ecmanaut.blogspot.ca/2006/07/encoding-decoding-utf8-in-javascript.html
+     * http://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
+     *  
+     * @param str the Unicode string to base64 encode
+     * @returns the base64 encoded Unicode string
+     */
+    PushCapture.prototype.utf8_to_b64 = function ( str ) {
+        return window.btoa(unescape(encodeURIComponent( str )));
+    };
+
+    /**
+     * Converts a Base64 string to Unicode/UTF8 string.
+     * 
+     * This function is a workaround because the atob and btoa browser functions that should convert 
+     * between a binary string and a Base64 encoded ASCII string
+     * blow up when faced with Unicode with a INVALID_CHARACTER_ERR: DOM Exception 5.
+     * 
+     * http://ecmanaut.blogspot.ca/2006/07/encoding-decoding-utf8-in-javascript.html
+     * http://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
+     *  
+     * @param str the base64 Unicode encoded string
+     * @returns  the Unicode string
+     */
+    PushCapture.prototype.b64_to_utf8 =function( str ) {
+        return decodeURIComponent(escape(window.atob( str )));
+    };
     
     /**
      * Returns the English abbreviation for a month.
@@ -354,7 +388,7 @@ sample.pushcapture = (function() {
             }
         } else {
             // Base 64 decode the string
-        	var textStr = window.atob(content);
+        	var textStr = sample.pushcapture.b64_to_utf8(content);
         	
             // We want to limit the previewed content to 25 characters (including the "..." part)
             var part = textStr.substring(0, 22);
@@ -637,6 +671,10 @@ sample.pushcapture = (function() {
     	} else if (result == blackberry.push.PushService.MISSING_INVOKE_TARGET_ID) {
 			alert("Error: Called blackberry.push.PushService.create with a missing " +
 			"invokeTargetId value. It usually means a programming error.");
+    	} else if (result == blackberry.push.PushService.SESSION_ALREADY_EXISTS) {
+			alert("Error: Called blackberry.push.PushService.create with an appId or " +
+			"invokeTargetId value that matches another application. It usually means a " +
+			"programming error.");    		
     	} else {
 			alert("Error: Received error code (" + result + ") after " +
 			"calling blackberry.push.PushService.create.");

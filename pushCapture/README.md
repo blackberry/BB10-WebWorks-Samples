@@ -1,10 +1,19 @@
 # Push Capture Sample Application
 
-The Push Capture sample app (post coming soon!) demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
+The Push Capture sample app demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
 
 Consult the **PushService** and **PushPayload** classes from the API reference for useful examples and a full description of how to use the
 push APIs. The API reference can be found [here](https://developer.blackberry.com/html5/apis/).  Look under the **Push** heading from the menu
 on the left side.
+
+There is also a very valuable developer guide for this sample push-enabled application that you can find [here](https://developer.blackberry.com/html5/documentation/push_service.html).
+
+The developer guide offers the following topics:
+
+1. An overview of push and the Push Service architecture
+2. The requirements for creating a full push solution
+3. How to download, build, and configure the sample application when it's loaded on your BlackBerry 10 device (This is also described below.)
+5. Code samples to help you write your own push application using the BlackBerry 10 WebWorks SDK
 
 The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
@@ -29,15 +38,18 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 To build the Push Capture sample application:
 
-1. Click on the **Downloads** tab above.
-2. Select **Download as zip** (Windows) or **Download as tar.gz** (Mac) and save the downloaded file to your local machine.
-3. Create a new folder on your local machine named **pushCapture** e.g. **C:\Documents and Settings\User\WebWorks\pushCapture** (Windows) or **~/WebWorks/pushCapture** (Mac).
-4. Open the downloaded ZIP file from step 2 and extract the contents **from inside the zipped pushCapture folder** to your local **pushCapture** folder from step 3.  This ensures that the necessary application assets, such as **config.xml**, are correctly located at the top level of the local **pushCapture** folder (e.g. **~/WebWorks/pushCapture/config.xml**).
-4. Copy the webworks-<version>.js client file from **C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK <version>\Framework\clientFiles** (Windows) or **~/SDKs/BlackBerry 10 WebWorks SDK <version>/Framework/clientFiles** (Mac) into the **~/WebWorks/pushCapture/Scripts/** folder.
-4. Optional: Edit the script reference to the webworks-<version>.js file within any *.html files to ensure the version number is correct.
-5. When you're ready to try out the Push Capture sample app on your BlackBerry 10 device (the simulator and Ripple are not yet supported), make sure you first download the **[BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk)**.
-6. Create a ZIP file from your local **pushCapture** folder with **config.xml** and the HTML files at the **root level** of your ZIP (the root level should not be a folder).  See **[Creating a WebWorks archive file](https://developer.blackberry.com/html5/documentation/ww_developing/creating_an_archive_file_1873325_11.html)** for more details. 
-7. Follow the instructions from **[Package your BlackBerry 10 app with the BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/documentation/ww_developing/package_your_bb10_app_with_ww_sdk_2008473_11.html)** to get the app running on your BlackBerry 10 device.
+1. When you're ready to try out the Push Capture sample app on your BlackBerry 10 device (the simulator and Ripple are not yet supported), make sure you first download the **[BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk)**.
+2. Click on the **Downloads** tab above.
+3. Select **Download as zip** (Windows) or **Download as tar.gz** (Mac) and save the downloaded file to your local machine.
+4. Create a new folder on your local machine named **pushCapture** e.g. **C:\Documents and Settings\User\WebWorks\pushCapture** (Windows) or **~/WebWorks/pushCapture** (Mac).
+5. Open the downloaded ZIP file from step 2 and extract the contents **from inside the zipped pushCapture folder** to your local **pushCapture** folder from step 3.  This ensures that the necessary application assets, such as **config.xml**, are correctly located at the top level of the local **pushCapture** folder (e.g. **~/WebWorks/pushCapture/config.xml**).
+6. Copy the webworks-<version>.js client file from **C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK <version>\Framework\clientFiles** (Windows) or **~/SDKs/BlackBerry 10 WebWorks SDK <version>/Framework/clientFiles** (Mac) into your **pushCapture/Scripts/** folder.
+7. Edit the script reference to the webworks-<version>.js file within **pushCapture/index.htm** to ensure the version number is correct.
+8. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target ID is unique to your application (signing requires that it cannot match the invoke target ID used by someone else who is also attempting to sign the Push Capture sample app):
+   1. Change the "sample.pushcapture.invoke.target" value in **pushCapture/config.xml** to something unique of your choosing.
+   2. Also, change the **invoketargetid** variable in **pushCapture/Scripts/common.js** to have this same value. 
+9. Create a ZIP file from your local **pushCapture** folder with **config.xml** and the HTML files at the **root level** of your ZIP (the root level should not be a folder).  See **[Creating a WebWorks archive file](https://developer.blackberry.com/html5/documentation/ww_developing/creating_an_archive_file_1873325_11.html)** for more details. 
+10. Follow the instructions from **[Package your BlackBerry 10 app with the BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/documentation/ww_developing/package_your_bb10_app_with_ww_sdk_2008473_11.html)** to get the app running on your BlackBerry 10 device.
 
 
 ## How to send a push
@@ -97,12 +109,12 @@ had not been checked, then simply click **Submit**.
 
 ## Contributing Changes
 
-Please see the [README](https://github.com/blackberry/WebWorks-Samples) of the WebWorks-Samples repository for instructions on how to add new Samples or make modifications to existing Samples.
+Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of the BB10-WebWorks-Samples repository for instructions on how to add new Samples or make modifications to existing Samples.
 
 
 ## Bug Reporting and Feature Requests
 
-If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/WebWorks-Samples/issues) for the Sample.
+If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample.
 
 ## Disclaimer
 

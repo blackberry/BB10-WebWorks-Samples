@@ -68,7 +68,7 @@ sample.pushcapture.constructor.prototype.openPush = function(pushId) {
 	        		    sample.pushcapture.updateAndOpenPush(imageTag, results.rows.item(0).unread == "T");
 	                } else {
 	                	// The content is either plain text, HTML, or XML
-	                	var content = window.atob(results.rows.item(0).content);
+	                	var content = sample.pushcapture.b64_to_utf8(results.rows.item(0).content);
 	                	
 	                    if (results.rows.item(0).extension == ".txt" || results.rows.item(0).extension == ".xml") {
 	                        // This is to handle the case where the text coming in is actually HTML/XML tags

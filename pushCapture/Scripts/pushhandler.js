@@ -236,7 +236,7 @@ sample.pushcapture.constructor.prototype.getPushTime = function(currentDate) {
  *            pushtime the time of the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.storePush = function(content, contentType, pushdate, pushtime) {
+sample.pushcapture.constructor.prototype.storePush = function(content, contentType, pushdate, pushtime) {	
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS push (seqnum INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "pushdate TEXT, type TEXT, pushtime TEXT, extension TEXT, content TEXT, unread TEXT);", [], 
@@ -244,16 +244,16 @@ sample.pushcapture.constructor.prototype.storePush = function(content, contentTy
                     var type = sample.pushcapture.getPushedContentType(contentType);
                     var extension = sample.pushcapture.getPushedContentFileExtension(contentType);
                     
-                    if (type == "image") {
+                    if (type == "image") {                    	
                     	sample.pushcapture.blobToBinaryBase64String(content,
                         	function(binaryBase64Str) {
                     		    sample.pushcapture.insertPush(binaryBase64Str, type, extension, pushdate, pushtime);
                     	    }
                     	);
-                    } else {
+                    } else {                    	
                     	sample.pushcapture.blobToTextString(content, "UTF-8", 
-                    	    function(textStr) {                    		    
-                    		    sample.pushcapture.insertPush(window.btoa(textStr), type, extension, pushdate, pushtime);
+                    	    function(textStr) {                              			
+                    		    sample.pushcapture.insertPush(sample.pushcapture.utf8_to_b64(textStr), type, extension, pushdate, pushtime);
                     	    }
                     	);
                     }                	
@@ -276,7 +276,7 @@ sample.pushcapture.constructor.prototype.storePush = function(content, contentTy
  *            pushtime the time of the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.insertPush = function(content, type, extension, pushdate, pushtime) {
+sample.pushcapture.constructor.prototype.insertPush = function(content, type, extension, pushdate, pushtime) {	
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("INSERT INTO push (seqnum, pushdate, type, pushtime, extension, content, unread) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?);", [ null, pushdate, type, pushtime, extension, content, "T" ],
@@ -306,7 +306,7 @@ sample.pushcapture.constructor.prototype.insertPush = function(content, type, ex
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.addPushItem = function(content, type, extension, 
-		pushdate, pushtime, seqnum) {    
+		pushdate, pushtime, seqnum) {    	
 	// Check if we are on the push list screen
 	// Otherwise, there is no need to add the push item to the list
 	// It will instead be handled when loading the pushes for the push list screen
