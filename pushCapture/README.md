@@ -13,7 +13,7 @@ The developer guide offers the following topics:
 1. An overview of push and the Push Service architecture
 2. The requirements for creating a full push solution
 3. How to download, build, and configure the sample application when it's loaded on your BlackBerry 10 device (This is also described below.)
-5. Code samples to help you write your own push application using the BlackBerry 10 WebWorks SDK
+4. Code samples to help you write your own push application using the BlackBerry 10 WebWorks SDK
 
 The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
