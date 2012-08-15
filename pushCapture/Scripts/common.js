@@ -671,10 +671,6 @@ sample.pushcapture = (function() {
     	} else if (result == blackberry.push.PushService.MISSING_INVOKE_TARGET_ID) {
 			alert("Error: Called blackberry.push.PushService.create with a missing " +
 			"invokeTargetId value. It usually means a programming error.");
-    	} else if (result == blackberry.push.PushService.SESSION_ALREADY_EXISTS) {
-			alert("Error: Called blackberry.push.PushService.create with an appId or " +
-			"invokeTargetId value that matches another application. It usually means a " +
-			"programming error.");    		
     	} else {
 			alert("Error: Received error code (" + result + ") after " +
 			"calling blackberry.push.PushService.create.");
