@@ -193,18 +193,18 @@ sample.pushcapture = (function() {
      *            callback the callback to be called with the string result         
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {    	
+    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {
     	var reader = new FileReader();
     	
-    	reader.onload = function(evt) {    		
+    	reader.onload = function(evt) {
         	// No errors, get the result and call the callback
         	callback(evt.target.result);
     	};
     	
-    	reader.onerror = function(evt) {    		
+    	reader.onerror = function(evt) {
         	console.log("Error converting Blob to string: " + evt.target.error);
     	};
-    	
+    	  
         reader.readAsText(blob, encoding);
     };
     
