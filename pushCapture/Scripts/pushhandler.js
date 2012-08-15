@@ -252,7 +252,7 @@ sample.pushcapture.constructor.prototype.storePush = function(content, contentTy
                     	);
                     } else {
                     	sample.pushcapture.blobToTextString(content, "UTF-8", 
-                    	    function(textStr) {                              			
+                    	    function(textStr) {                    		                               			
                     		    sample.pushcapture.insertPush(sample.pushcapture.utf8_to_b64(textStr), type, extension, pushdate, pushtime);
                     	    }
                     	);

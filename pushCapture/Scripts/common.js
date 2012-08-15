@@ -204,7 +204,7 @@ sample.pushcapture = (function() {
     	reader.onerror = function(evt) {
         	console.log("Error converting Blob to string: " + evt.target.error);
     	};
-    	  
+        
         reader.readAsText(blob, encoding);
     };
     
