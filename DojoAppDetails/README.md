@@ -36,13 +36,15 @@ To build the DojoAppDetails sample application:
 2. Select **Download as zip** (Windows) or **Download as tar.gz** (Mac) and save the downloaded file to your local machine.
 3. Create a new folder on your local machine named **DojoAppDetails** e.g. **C:\Documents and Settings\User\WebWorks\DojoAppDetails** (Windows) or **~/WebWorks/DojoAppDetails** (Mac).
 4. Open the downloaded ZIP file from step 2 and extract the contents **from inside the zipped DojoAppDetails folder** to your local **DojoAppDetails** folder from step 3.  This ensures that the necessary application assets, such as **config.xml**, are correctly located at the top level of the local **DojoAppDetails** folder (e.g. **~/WebWorks/DojoAppDetails/config.xml**).
-5. Using the **[Ripple Mobile Emulator](http://developer.blackberry.com/html5/download)** and the **[BlackBerry WebWorks SDK for Smartphone](http://developer.blackberry.com/html5/download)**, package the contents of your local **DojoAppDetails** folder into a BlackBerry application.  Enter the project root settings field as the local folder created in step 3, and the archive name settings field as **DojoAppDetails**.
+5. Copy the webworks-<version>.js client file from **C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK <version>\Framework\clientFiles** (Windows) or **~/SDKs/BlackBerry 10 WebWorks SDK <version>/Framework/clientFiles** (Mac) into the top level of the local **DojoAppDetails** folder (e.g. **~/WebWorks/DojoAppDetails/webworks-<version>.js**).
+6. Optional: Edit the script reference to the webworks-<version>.js file within any *.html files to ensure the version number is correct.
+7. Using the **[Ripple Mobile Emulator](http://developer.blackberry.com/html5/download)** and the **[BlackBerry WebWorks SDK for BB10](http://developer.blackberry.com/html5/download)**, package the contents of your local **DojoAppDetails** folder into a BlackBerry application.  Enter the project root settings field as the local folder created in step 3, and the archive name settings field as **DojoAppDetails**.
 
 
 ## More Info
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
-* [BlackBerry WebWorks Development Guides] (https://bdsc.webapps.blackberry.com/html5/documentation)
+* [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
 * [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
