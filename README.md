@@ -29,6 +29,7 @@ Contributors:
 [Hasan Ahmad](https://github.com/haahmad)
 [Matthew D'Andrea](https://github.com/mdandrea)
 [Marco Di Cesare](https://github.com/mdicesare)
+[Daniel Audino](https://github.com/DanielAudino)
 
 ## Governence
 

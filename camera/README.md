@@ -25,14 +25,14 @@ A sample application that demonstrates HTML5 camera Api, and Xhr2 uploading.
 ## Configuration Instructions
 
 1. Configure upload server - install and configure node and npm, inside the root directory of your node server, run the following commands 
-* ```npm install express@2.5.9``` to install npm
+* ```npm install express@2.5.9``` to install the necessary node_modules
 * ```mkdir upload```-create the upload directory
 * ```node app.js``` - to run the server
 The node server listens on port 8080 by default, this can be changed in the app.js file
 
 2. Update the access element to point to your server address in config.xml.
 
-3. Within the index.html update the ip address to your upload server. Assure tha the port number and folder related to the server are also part of this address. E.g http://Your.Ip:8080/upload/ for port '8080' and the 'upload' folder
+3. Within the index.html update the ip address to your upload server. Assure that the port number and folder related to the server are also part of this address. E.g http://Your.Ip:8080/upload/ for port '8080' and the 'upload' folder
 
 ## More Info
 
