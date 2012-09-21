@@ -59,7 +59,7 @@ function invokeAdobeReaderPdf() {
 
 function invokeApp() {
     blackberry.invoke.invoke({
-        target: "net.rim.webworks.invokable", 
+        target: "com.bb.test.invokable", 
         action: "bb.action.OPEN",
         type: "text/plain",
         data: "Hello, I invoked you"

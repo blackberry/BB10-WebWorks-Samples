@@ -36,7 +36,7 @@ limitations under the License.
     </license>
     <feature id="blackberry.invoked" version="1.0.0" required="true" />
     <feature id="blackberry.invoke" version="1.0.0" required="true" />
-    <rim:invoke-target id="net.rim.webworks.invokable">
+    <rim:invoke-target id="com.bb.test.invokable">
         <type>APPLICATION</type>
         <filter>
             <action>bb.action.OPEN</action>
