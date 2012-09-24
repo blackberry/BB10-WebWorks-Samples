@@ -232,10 +232,10 @@ sample.pushcapture.constructor.prototype.storeConfiguration = function() {
 
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS configuration (appid TEXT, piurl TEXT, "
-                + "ppgurl TEXT, usesdkaspi INTEGER, usingpublicppg INTEGER, launchapp INTEGER);", [], 
-                function(tx, results) {
-                    sample.pushcapture.successConfigurationCreation();
-                });
+            + "ppgurl TEXT, usesdkaspi INTEGER, usingpublicppg INTEGER, launchapp INTEGER);", [], 
+            function(tx, results) {
+                sample.pushcapture.successConfigurationCreation();
+            });
     });
 };
 
@@ -247,7 +247,7 @@ sample.pushcapture.constructor.prototype.storeConfiguration = function() {
 sample.pushcapture.constructor.prototype.successConfigurationCreation = function() {	
     sample.pushcapture.db.readTransaction(function(tx) {
         tx.executeSql("SELECT COUNT(*) AS count FROM configuration;", [],
-                sample.pushcapture.insertOrUpdateConfiguration);
+            sample.pushcapture.insertOrUpdateConfiguration);
     });
 };
 
@@ -279,9 +279,9 @@ sample.pushcapture.constructor.prototype.insertOrUpdateConfiguration = function(
 sample.pushcapture.constructor.prototype.insertConfiguration = function() {   	
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("INSERT INTO configuration (appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp) VALUES (?, ?, ?, ?, ?, ?);", 
-                [ sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl, 
-                sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0, sample.pushcapture.launchapp ? 1 : 0 ], 
-                sample.pushcapture.createPushService);
+            [ sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl, 
+            sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0, sample.pushcapture.launchapp ? 1 : 0 ], 
+            sample.pushcapture.createPushService);
     });
 };
 
@@ -294,9 +294,9 @@ sample.pushcapture.constructor.prototype.insertConfiguration = function() {
 sample.pushcapture.constructor.prototype.updateConfiguration = function() {	
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("UPDATE configuration SET appid = ?, piurl = ?, ppgurl = ?, usesdkaspi = ?, usingpublicppg = ?, launchapp = ?", 
-                [ sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl, 
-                sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0, sample.pushcapture.launchapp ? 1 : 0 ], 
-                sample.pushcapture.createPushService);
+            [ sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl, 
+            sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0, sample.pushcapture.launchapp ? 1 : 0 ], 
+            sample.pushcapture.createPushService);
     });
 };
 

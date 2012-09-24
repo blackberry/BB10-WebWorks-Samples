@@ -28,9 +28,15 @@
  *            pushpayload the newly received push content
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.pushNotificationHandler = function(pushpayload) {
+sample.pushcapture.constructor.prototype.pushNotificationHandler = function(pushpayload) {	
     var contentType = pushpayload.headers["Content-Type"];
-
+    if(!contentType) {
+    	contentType = pushpayload.headers["content-type"];
+    	if(!contentType) {
+    		contentType = "text/plain";
+    	}
+    }
+    
     sample.pushcapture.checkForDuplicateMessage(pushpayload.id, pushpayload.data, contentType);
 
 	// If an acknowledgement of the push is required (that is, the push was sent as a confirmed push 
@@ -63,10 +69,10 @@ sample.pushcapture.constructor.prototype.checkForDuplicateMessage = function(mes
     } else {
         sample.pushcapture.db.transaction(function(tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS messageidhistory"
-                    + "(rownum INTEGER PRIMARY KEY AUTOINCREMENT, messageid TEXT);", [], 
-                    function(tx, results) {
-                        sample.pushcapture.successMessageIdHistoryCreation(messageId, content, contentType);
-                    });
+                + "(rownum INTEGER PRIMARY KEY AUTOINCREMENT, messageid TEXT);", [], 
+                function(tx, results) {
+                    sample.pushcapture.successMessageIdHistoryCreation(messageId, content, contentType);
+                });
         });
     }
 };
@@ -93,10 +99,10 @@ sample.pushcapture.constructor.prototype.successMessageIdHistoryCreation = funct
 	                // No duplicate was found, insert a new entry into the history
 	                sample.pushcapture.db.transaction(function(tx) {
 	                    tx.executeSql("INSERT INTO messageidhistory (rownum, messageid) VALUES(?, ?);",
-	                            [ null, messageId ], 
-	                            function(tx, results) {
-	                                sample.pushcapture.successMessageIdInsert(content, contentType);
-	                            });
+                            [ null, messageId ], 
+                            function(tx, results) {
+                                sample.pushcapture.successMessageIdInsert(content, contentType);
+                            });
 	                });
 	            }
             });
@@ -120,10 +126,10 @@ sample.pushcapture.constructor.prototype.successMessageIdInsert = function(conte
 	                sample.pushcapture.db.transaction(function(tx) {
 	                    // Remove the oldest message Id in the history
 	                    tx.executeSql(
-	                            "DELETE FROM messageidhistory WHERE rownum = (SELECT min(rownum) FROM messageidhistory);",
-	                            [], function(tx, results) {
-	                                sample.pushcapture.processPush(content, contentType);
-	                            });
+                            "DELETE FROM messageidhistory WHERE rownum = (SELECT min(rownum) FROM messageidhistory);",
+                            [], function(tx, results) {
+                                sample.pushcapture.processPush(content, contentType);
+                            });
 	                });
 	            } else {
 	                sample.pushcapture.processPush(content, contentType);
@@ -153,12 +159,9 @@ sample.pushcapture.constructor.prototype.duplicateFoundAction = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.processPush = function(content, contentType) {
-    // Remove the cookie with the push list since the push list is
-    // going to be updated with this new push we are processing
-    var pushListStr = sample.pushcapture.readCookie(sample.pushcapture.cookieName);
-    if (pushListStr != null) {
-        sample.pushcapture.eraseCookie(sample.pushcapture.cookieName);
-    }
+    // Remove the push list from local storage since the push list
+    // is going to be updated with this new push we are processing
+	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
     var currentTime = new Date();
 
@@ -236,28 +239,28 @@ sample.pushcapture.constructor.prototype.getPushTime = function(currentDate) {
  *            pushtime the time of the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.storePush = function(content, contentType, pushdate, pushtime) {
+sample.pushcapture.constructor.prototype.storePush = function(content, contentType, pushdate, pushtime) {	
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS push (seqnum INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "pushdate TEXT, type TEXT, pushtime TEXT, extension TEXT, content TEXT, unread TEXT);", [], 
-                function(tx, results) {
-                    var type = sample.pushcapture.getPushedContentType(contentType);
-                    var extension = sample.pushcapture.getPushedContentFileExtension(contentType);
-                    
-                    if (type == "image") {
-                    	sample.pushcapture.blobToBinaryBase64String(content,
-                        	function(binaryBase64Str) {
-                    		    sample.pushcapture.insertPush(binaryBase64Str, type, extension, pushdate, pushtime);
-                    	    }
-                    	);
-                    } else {
-                    	sample.pushcapture.blobToTextString(content, "UTF-8", 
-                    	    function(textStr) {                    		                               			
-                    		    sample.pushcapture.insertPush(sample.pushcapture.utf8_to_b64(textStr), type, extension, pushdate, pushtime);
-                    	    }
-                    	);
-                    }                	
-                });
+            + "pushdate TEXT, type TEXT, pushtime TEXT, extension TEXT, content TEXT, unread TEXT);", [], 
+            function(tx, results) {
+                var type = sample.pushcapture.getPushedContentType(contentType);
+                var extension = sample.pushcapture.getPushedContentFileExtension(contentType);
+                
+                if (type == "image") {                    	
+                	sample.pushcapture.blobToBinaryBase64String(content,
+                    	function(binaryBase64Str) {
+                		    sample.pushcapture.insertPush(binaryBase64Str, type, extension, pushdate, pushtime);
+                	    }
+                	);
+                } else {                    	
+                	sample.pushcapture.blobToTextString(content, "UTF-8", 
+                	    function(textStr) {                              			
+                		    sample.pushcapture.insertPush(sample.pushcapture.utf8_to_b64(textStr), type, extension, pushdate, pushtime);
+                	    }
+                	);
+                }                	
+            });
     });
 };
 
@@ -276,15 +279,15 @@ sample.pushcapture.constructor.prototype.storePush = function(content, contentTy
  *            pushtime the time of the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.insertPush = function(content, type, extension, pushdate, pushtime) {
+sample.pushcapture.constructor.prototype.insertPush = function(content, type, extension, pushdate, pushtime) {	
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("INSERT INTO push (seqnum, pushdate, type, pushtime, extension, content, unread) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?);", [ null, pushdate, type, pushtime, extension, content, "T" ],
-                function(tx, results) {
-                    var seqnum = results.insertId;
-                    
-                    sample.pushcapture.addPushItem(content, type, extension, pushdate, pushtime, seqnum);
-                });
+            + "VALUES (?, ?, ?, ?, ?, ?, ?);", [ null, pushdate, type, pushtime, extension, content, "T" ],
+            function(tx, results) {
+                var seqnum = results.insertId;
+                
+                sample.pushcapture.addPushItem(content, type, extension, pushdate, pushtime, seqnum);
+            });
     });	
 };
 
@@ -306,7 +309,7 @@ sample.pushcapture.constructor.prototype.insertPush = function(content, type, ex
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.addPushItem = function(content, type, extension, 
-		pushdate, pushtime, seqnum) {    
+		pushdate, pushtime, seqnum) {    	
 	// Check if we are on the push list screen
 	// Otherwise, there is no need to add the push item to the list
 	// It will instead be handled when loading the pushes for the push list screen
@@ -387,6 +390,9 @@ sample.pushcapture.constructor.prototype.addPushItem = function(content, type, e
 	    	
 	    	document.getElementById("push-table").insertBefore(dateRow, document.getElementById("push-table").firstChild);
 	    }
+	    
+	    // Update the scroller since we've added new items to the screen
+	    bb.scroller.refresh();
 	}
 };
 

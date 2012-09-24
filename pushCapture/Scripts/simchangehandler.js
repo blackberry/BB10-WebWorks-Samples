@@ -61,7 +61,7 @@ sample.pushcapture.constructor.prototype.successSimChangeDropPushTable = functio
 sample.pushcapture.constructor.prototype.successSimChangeDropMessageHistory = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
         tx.executeSql("SELECT appid, piurl, usesdkaspi FROM configuration;", [],
-                sample.pushcapture.setConfigurationAndDropTable, sample.pushcapture.successSimChange);
+            sample.pushcapture.setConfigurationAndDropTable, sample.pushcapture.successSimChange);
     });
 };
 
@@ -111,10 +111,10 @@ sample.pushcapture.constructor.prototype.successSimChangeDropConfiguration = fun
         // The Push Service SDK is being used
 	    sample.pushcapture.db.readTransaction(function(tx) {
 	        tx.executeSql("SELECT userid, passwd FROM registration;", [],
-	                sample.pushcapture.simChangeUnsubscribeFromPushInitiator, 
-	                function(tx, e) {
-	                    sample.pushcapture.successSimChange();
-	                });
+                sample.pushcapture.simChangeUnsubscribeFromPushInitiator, 
+                function(tx, e) {
+                    sample.pushcapture.successSimChange();
+                });
 	    });
 	} else {
         // The Push Service SDK is not being used

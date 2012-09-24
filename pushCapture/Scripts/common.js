@@ -81,13 +81,13 @@ sample.pushcapture = (function() {
             // Do nothing here since the db will be left uninitialized and the proper error will be
             // displayed when the user attempts to perform an operation that requires a db transaction
         }
-
+        
         /**
-         * The cookie to store the list of pushes to make it quicker to display when possible.
+         * The key to use to store the list of pushes in local storage to make it quicker to display when possible.
          * 
          * @constant
          */
-        this.cookieName = "pushlistcookie";
+        this.localStorageKey = "sample.pushcapture.pushlistkey";
 
         /**
          * The error message received when attempting to use the application and a database error
@@ -193,18 +193,18 @@ sample.pushcapture = (function() {
      *            callback the callback to be called with the string result         
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {
+    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {    	
     	var reader = new FileReader();
     	
-    	reader.onload = function(evt) {
+    	reader.onload = function(evt) {    		
         	// No errors, get the result and call the callback
         	callback(evt.target.result);
     	};
     	
-    	reader.onerror = function(evt) {
+    	reader.onerror = function(evt) {    		
         	console.log("Error converting Blob to string: " + evt.target.error);
     	};
-        
+    	
         reader.readAsText(blob, encoding);
     };
     
@@ -519,7 +519,7 @@ sample.pushcapture = (function() {
         try {
             sample.pushcapture.db.readTransaction(function(tx) {
                 tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", [],
-                        sample.pushcapture.loadRegistration);
+                    sample.pushcapture.loadRegistration);
             });
         } catch (e) {
             alert(sample.pushcapture.databaseError);
@@ -539,7 +539,7 @@ sample.pushcapture = (function() {
     	if (invokeRequest.action != null && invokeRequest.action == "bb.action.PUSH") {
     		if (sample.pushcapture.onInvokeAttemptCount < 10 && sample.pushcapture.pushService == null) {    			
     			// Wait a bit for the PushService instance to be created and then try again
-    			setTimeout(function() { sample.pushcapture.onInvoke(invokeRequest); }, 500);
+    			setTimeout(function() { sample.pushcapture.onInvoke(invokeRequest); }, 750);
     		} else if (sample.pushcapture.pushService != null) {    			
             	var pushPayload = sample.pushcapture.pushService.extractPushPayload(invokeRequest);            	
             	sample.pushcapture.pushNotificationHandler(pushPayload);
@@ -620,7 +620,8 @@ sample.pushcapture = (function() {
     	}
     	
     	blackberry.push.PushService.create(ops, sample.pushcapture.successCreatePushService, 
-    			sample.pushcapture.failCreatePushService, sample.pushcapture.onSimChange);
+    	    sample.pushcapture.failCreatePushService, sample.pushcapture.onSimChange,
+    	    sample.pushcapture.onPushTransportReady);
     };
     
     /**
@@ -642,7 +643,7 @@ sample.pushcapture = (function() {
     	// We'll use the PushService object right now in fact to indicate whether we want to
     	// launch the application on a new push or not
     	sample.pushcapture.pushService.launchApplicationOnPush(sample.pushcapture.launchapp, 
-    			sample.pushcapture.launchApplicationCallback);
+    	    sample.pushcapture.launchApplicationCallback);
     };
     
     /**
@@ -671,6 +672,10 @@ sample.pushcapture = (function() {
     	} else if (result == blackberry.push.PushService.MISSING_INVOKE_TARGET_ID) {
 			alert("Error: Called blackberry.push.PushService.create with a missing " +
 			"invokeTargetId value. It usually means a programming error.");
+    	} else if (result == blackberry.push.PushService.SESSION_ALREADY_EXISTS) {
+			alert("Error: Called blackberry.push.PushService.create with an appId or " +
+			"invokeTargetId value that matches another application. It usually means a " +
+			"programming error.");    		
     	} else {
 			alert("Error: Received error code (" + result + ") after " +
 			"calling blackberry.push.PushService.create.");
@@ -733,67 +738,6 @@ sample.pushcapture = (function() {
         } else {
             sample.pushcapture.showUserInputScreen("configuration");	
         }
-    };
-
-    /**
-     * Creates a cookie for storing and retrieving certain info quickly.
-     * 
-     * @param name
-     *            the name of the cookie
-     * @param value
-     *            the value of the cookie
-     * @param days
-     *            the number of days to store the cookie for
-     * @memberOf sample.pushcapture
-     */
-    PushCapture.prototype.createCookie = function(name, value, days) {
-        var expires = "";
-        
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTString();
-        } 
-
-        document.cookie = name + "=" + value + expires + "; path=/";
-    };
-
-    /**
-     * Returns a cookie with the specified name.
-     * 
-     * @param name
-     *            the name of the cookie
-     * @returns the value of the cookie
-     * @memberOf sample.pushcapture
-     */
-    PushCapture.prototype.readCookie = function(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-
-        for ( var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1, c.length);
-            }
-
-            if (c.indexOf(nameEQ) == 0) {
-                return c.substring(nameEQ.length, c.length);
-            }
-        }
-
-        return null;
-    };
-
-    /**
-     * Removes the cookie with the specified name.
-     * 
-     * @param name
-     *            the name of the cookie
-     * @memberOf sample.pushcapture
-     */
-    PushCapture.prototype.eraseCookie = function(name) {
-        sample.pushcapture.createCookie(name, "", -1);
     };
 
     return new PushCapture();

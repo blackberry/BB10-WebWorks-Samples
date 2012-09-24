@@ -1,6 +1,6 @@
 # Push Capture Sample Application
 
-The Push Capture sample app demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
+The Push Capture sample app (post coming soon!) demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
 
 Consult the **PushService** and **PushPayload** classes from the API reference for useful examples and a full description of how to use the
 push APIs. The API reference can be found [here](https://developer.blackberry.com/html5/apis/).  Look under the **Push** heading from the menu
@@ -29,7 +29,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Dependencies**
 
-* bbUI.js 0.9.3 (https://github.com/blackberry/bbUI.js/tree/next)
+* bbUI.js 0.9.4 (https://github.com/blackberry/bbUI.js/tree/next)
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
@@ -45,11 +45,12 @@ To build the Push Capture sample application:
 5. Open the downloaded ZIP file from step 2 and extract the contents **from inside the zipped pushCapture folder** to your local **pushCapture** folder from step 3.  This ensures that the necessary application assets, such as **config.xml**, are correctly located at the top level of the local **pushCapture** folder (e.g. **~/WebWorks/pushCapture/config.xml**).
 6. Copy the webworks-<version>.js client file from **C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK <version>\Framework\clientFiles** (Windows) or **~/SDKs/BlackBerry 10 WebWorks SDK <version>/Framework/clientFiles** (Mac) into your **pushCapture/Scripts/** folder.
 7. Edit the script reference to the webworks-<version>.js file within **pushCapture/index.htm** to ensure the version number is correct.
-8. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target ID is unique to your application (signing requires that it cannot match the invoke target ID used by someone else who is also attempting to sign the Push Capture sample app):
+8. If you are using the high-level APIs of the Push Service SDK (which offers subscription support) to implement your Push Initiator, then you should have an externally accessible Push Initiator URL.  Update the value of the uri attribute of the access tag in **pushCapture/config.xml** to point to the domain name of this URL. 
+9. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target ID is unique to your application (signing requires that it cannot match the invoke target ID used by someone else who is also attempting to sign the Push Capture sample app):
    1. Change the "sample.pushcapture.invoke.target" value in **pushCapture/config.xml** to something unique of your choosing.
    2. Also, change the **invoketargetid** variable in **pushCapture/Scripts/common.js** to have this same value. 
-9. Create a ZIP file from your local **pushCapture** folder with **config.xml** and the HTML files at the **root level** of your ZIP (the root level should not be a folder).  See **[Creating a WebWorks archive file](https://developer.blackberry.com/html5/documentation/ww_developing/creating_an_archive_file_1873325_11.html)** for more details. 
-10. Follow the instructions from **[Package your BlackBerry 10 app with the BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/documentation/ww_developing/package_your_bb10_app_with_ww_sdk_2008473_11.html)** to get the app running on your BlackBerry 10 device.
+10. Create a ZIP file from your local **pushCapture** folder with **config.xml** and the HTML files at the **root level** of your ZIP (the root level should not be a folder).  See **[Creating a WebWorks archive file](https://developer.blackberry.com/html5/documentation/ww_developing/creating_an_archive_file_1873325_11.html)** for more details. 
+11. Follow the instructions from **[Package your BlackBerry 10 app with the BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/documentation/ww_developing/package_your_bb10_app_with_ww_sdk_2008473_11.html)** to get the app running on your BlackBerry 10 device.
 
 
 ## How to send a push
