@@ -85,7 +85,7 @@ sample.pushcapture.constructor.prototype.register = function() {
             document.getElementById("errordiv").style.display = "block";
             
             document.getElementById("errormsg").innerHTML = "Error: Could not create push " +
-            		"channel as no PushService object was found.";
+                "channel as no PushService object was found.";
         }
     }
 };
@@ -151,60 +151,62 @@ sample.pushcapture.constructor.prototype.createChannelCallback = function(result
         
         if (result == blackberry.push.PushService.INTERNAL_ERROR) {
             document.getElementById("errormsg").innerHTML = "Error: An internal error occurred during " +
-			"the create channel. Try registering again.";
+			    "the create channel. Try registering again.";
     	} else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
             document.getElementById("errormsg").innerHTML = "Error: No call to blackberry.push.PushService.create " +
-            "was done before creating the channel. It usually means a programming error.";
+                "was done before creating the channel. It usually means a programming error.";
     	} else if (result == blackberry.push.PushService.MISSING_PORT_FROM_PPG) {
             document.getElementById("errormsg").innerHTML = "Error: A port could not be obtained from the " +
-			"PPG during the create channel. Try registering again.";
+			    "PPG during the create channel. Try registering again.";
     	} else if (result == blackberry.push.PushService.INVALID_DEVICE_PIN) {
     		// This error code only applies to a consumer application using the public/BIS PPG
             document.getElementById("errormsg").innerHTML = "Error: The PPG obtained the device's PIN during " +
-			"the create channel and considered it invalid. Try registering again.";
+			    "the create channel and considered it invalid. Try registering again.";
     	} else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: The application ID was considered " +
-			"invalid or missing during the create channel. Check your configuration settings.";
+			    "invalid or missing during the create channel. Check your configuration settings.";
     	} else if (result == blackberry.push.PushService.INVALID_PPG_SUBSCRIBER_STATE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: The subscriber on the PPG end reached an " +
-    		"invalid state. Report this issue to the RIM support team.";
+    		    "invalid state. Report this issue to the RIM support team.";
     	} else if (result == blackberry.push.PushService.EXPIRED_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: An expired authentication token was" +
-    		"passed to the PPG internally during the create channel. Try registering again.";
+    		    "passed to the PPG internally during the create channel. Try registering again.";
     	} else if (result == blackberry.push.PushService.INVALID_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: An invalid authentication token was passed " +
-    		"to the PPG internally during the create channel. Report this issue to the RIM support team.";
+    		    "to the PPG internally during the create channel. Report this issue to the RIM support team.";
     	} else if (result == blackberry.push.PushService.PPG_SUBSCRIBER_LIMIT_REACHED) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: Too many devices have already peformed a " +
-    		"create channel for this application ID. Contact RIM to increase the subscription limit for this app.";
+    		    "create channel for this application ID. Contact RIM to increase the subscription limit for this app.";
     	} else if (result == blackberry.push.PushService.INVALID_OS_VERSION_OR_DEVICE_MODEL_NUMBER) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: This device was found to have an invalid OS " +
-    		" version or device model number during the create channel. Consider updating the OS on the device.";
+    		    " version or device model number during the create channel. Consider updating the OS on the device.";
     	} else if (result == blackberry.push.PushService.MISSING_PPG_URL) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: The PPG URL was considered " +
-			"invalid or missing during the create channel. Check your configuration settings.";
-    	} else if (result == blackberry.push.PushService.NETWORK_FAILURE) {
+			    "invalid or missing during the create channel. Check your configuration settings.";
+    	} else if (result == blackberry.push.PushService.PUSH_TRANSPORT_UNAVAILABLE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: A network failure occurred " +
-			"during the create channel. Try registering again.";
+    		document.getElementById("errormsg").innerHTML = "Error: Create channel failed as the push transport " +
+				"is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will " +
+				"be notified when the push transport is available again.";
     	} else if (result == blackberry.push.PushService.MISSING_SUBSCRIPTION_RETURN_CODE_FROM_PPG) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: There was an internal issue obtaining " +
-			"the subscription return code from the PPG during the create channel. Try registering again.";
-    	} else if (result == blackberry.push.PushService.PPG_CURRENTLY_NOT_AVAILABLE) {
+			    "the subscription return code from the PPG during the create channel. Try registering again.";
+    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL_OR_PPG_UNAVAILABLE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The PPG was temporarily not available during " +
-			"the create channel. Try registering again.";
+    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL might have been invalid. Check " +
+    		    "your configuration settings. If it looks correct, the PPG might be temporarily unavailable. Try " +
+    		    "registering again.";
     	} else {
     		document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") from " +
-			"the create channel.";
+			    "the create channel.";
     	}
 	} 
 };
@@ -287,43 +289,43 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
                 // Note: This error should not occur unless, for some weird reason, the address specified in the request
                 // parameter is incorrect
                 document.getElementById("errormsg").innerHTML = "Error: The token from the create channel was null, empty, " +
-					"or longer than 40 characters in length.";
+				    "or longer than 40 characters in length.";
             } else if (returnCode == "rc=10011") {
                 // Note: This error should not occur unless, for some weird reason, the OS version or device model
                 // specified in the request parameter is incorrect
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since "
-                        + "the OS version or device model of the BlackBerry was invalid.";
+                    + "the OS version or device model of the BlackBerry was invalid.";
             } else if (returnCode == "rc=10002") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since "
-                        + "the application ID specified in the configuration settings could not be found, or it was found "
-                        + "to be inactive or expired.";
+                    + "the application ID specified in the configuration settings could not be found, or it was found "
+                    + "to be inactive or expired.";
             } else if (returnCode == "rc=10020") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe failed since the subscriber ID "
-                        + "generated by the Push Initiator (based on the username and password specified) was null or empty, "
-                        + "longer than 42 characters in length, or matched the 'push_all' keyword.";
+                    + "generated by the Push Initiator (based on the username and password specified) was null or empty, "
+                    + "longer than 42 characters in length, or matched the 'push_all' keyword.";
             } else if (returnCode == "rc=10025") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe failed since the Push Initiator "
-                        + "application had a type of Enterprise Push and had the bypass subscription flag set to true.";
+                    + "application had a type of Enterprise Push and had the bypass subscription flag set to true.";
             } else if (returnCode == "rc=10026") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since "
-                        + "the username or password specified was incorrect.";
+                    + "the username or password specified was incorrect.";
             } else if (returnCode == "rc=10027") {
                 // Note: You obviously would not want to put an error description like this, but we will to assist with
                 // debugging
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed because "
-                        + "a CPSubscriptionFailureException was thrown by the onSubscribeSuccess method of the implementation "
-                        + "being used of the ContentProviderSubscriptionService interface.";
+                    + "a CPSubscriptionFailureException was thrown by the onSubscribeSuccess method of the implementation "
+                    + "being used of the ContentProviderSubscriptionService interface.";
             } else if (returnCode == "rc=10028") {
                 // Note: This error should not occur unless, for some weird reason, the type specified in the request
                 // parameter is incorrect
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since the "
-                        + "type was null, empty, or not one of 'public' or 'enterprise'.";
+                    + "type was null, empty, or not one of 'public' or 'enterprise'.";
             } else if (returnCode == "rc=-9999") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed with a "
-                        + "general error (i.e. rc=-9999).";
+                    + "general error (i.e. rc=-9999).";
             } else {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed with the "
-                        + "following error code: " + returnCode + ".";
+                    + "following error code: " + returnCode + ".";
             }
         }
     } else {
@@ -338,7 +340,7 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
 
         document.getElementById("errordiv").style.display = "block";
         document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed with HTTP response code: "
-                + status + ". (" + returnCode + ")";
+            + status + ". (" + returnCode + ")";
     }
 };
 

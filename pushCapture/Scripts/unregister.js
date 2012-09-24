@@ -86,7 +86,7 @@ sample.pushcapture.constructor.prototype.unregister = function() {
             document.getElementById("errordiv").style.display = "block";
             
             document.getElementById("errormsg").innerHTML = "Error: Could not destroy push " +
-    		"channel as no PushService object was found.";
+    		    "channel as no PushService object was found.";
         }
     }
 };
@@ -179,14 +179,16 @@ sample.pushcapture.constructor.prototype.destroyChannelCallback = function(resul
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: An invalid authentication token was passed " +
     		"to the PPG internally during the destroy channel. Report this issue to the RIM support team.";
-    	} else if (result == blackberry.push.PushService.NETWORK_FAILURE) {
+    	} else if (result == blackberry.push.PushService.PUSH_TRANSPORT_UNAVAILABLE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: A network failure occurred " +
-			"during the destroy channel. Try unregistering again.";
-    	} else if (result == blackberry.push.PushService.PPG_CURRENTLY_NOT_AVAILABLE) {
+    		document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the push transport " +
+			"is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will " +
+			"be notified when the push transport is available again.";
+    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL_OR_PPG_UNAVAILABLE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The PPG was temporarily not available during " +
-			"the destroy channel. Try unregistering again.";
+    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL might have been invalid. Check " +
+    		    "your configuration settings. If it looks correct, the PPG might be temporarily unavailable. Try " +
+    		    "unregistering again.";
     	} else {
     		document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") from " +
 			"the destroy channel.";
@@ -255,33 +257,33 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
 
             if (returnCode == "rc=10002") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
-                        + "the application ID specified in the configuration settings could not be found, or it was found to "
-                        + "be inactive or expired.";
+                    + "the application ID specified in the configuration settings could not be found, or it was found to "
+                    + "be inactive or expired.";
             } else if (returnCode == "rc=10007") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
-                        + "the subscriber (matching the username and password specified) could not be found.";
+                    + "the subscriber (matching the username and password specified) could not be found.";
             } else if (returnCode == "rc=10020") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe failed since the subscriber ID generated "
-                        + "by the Push Initiator (based on the username and password specified) was null or empty, longer than 42 "
-                        + "characters in length, or matched the 'push_all' keyword.";
+                    + "by the Push Initiator (based on the username and password specified) was null or empty, longer than 42 "
+                    + "characters in length, or matched the 'push_all' keyword.";
             } else if (returnCode == "rc=10025") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe failed since the Push Initiator "
-                        + "application had a type of Enterprise Push and had the bypass subscription flag set to true.";
+                    + "application had a type of Enterprise Push and had the bypass subscription flag set to true.";
             } else if (returnCode == "rc=10026") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
-                        + "the username or password specified was incorrect.";
+                    + "the username or password specified was incorrect.";
             } else if (returnCode == "rc=10027") {
                 // Note: You obviously would not want to put an error description like this, but we will to assist with
                 // debugging
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed "
-                        + "because a CPSubscriptionFailureException was thrown by the onUnsubscribeSuccess method of the "
-                        + "implementation being used of the ContentProviderSubscriptionService interface.";
+                    + "because a CPSubscriptionFailureException was thrown by the onUnsubscribeSuccess method of the "
+                    + "implementation being used of the ContentProviderSubscriptionService interface.";
             } else if (returnCode == "rc=-9999") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed "
-                        + "with a general error (i.e. rc=-9999).";
+                    + "with a general error (i.e. rc=-9999).";
             } else {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed "
-                        + "with the following error code: " + returnCode + ".";
+                    + "with the following error code: " + returnCode + ".";
             }
         }
     } else {
@@ -296,7 +298,7 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
 
         document.getElementById("errordiv").style.display = "block";
         document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed with "
-                + "HTTP response code: " + status + ". (" + returnCode + ")";
+            + "HTTP response code: " + status + ". (" + returnCode + ")";
     }
 };
 

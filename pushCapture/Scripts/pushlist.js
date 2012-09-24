@@ -101,12 +101,9 @@ sample.pushcapture.constructor.prototype.openPush = function(pushId) {
 sample.pushcapture.constructor.prototype.updateAndOpenPush = function(content, isUnread) {	
     // Check if the push is currently marked as unread
     if (isUnread) {
-        // Remove the cookie, which contains the push list, since 
-        // one of the pushes in the list is going to be updated
-        var pushListStr = sample.pushcapture.readCookie(sample.pushcapture.cookieName);
-        if (pushListStr != null) {
-            sample.pushcapture.eraseCookie(sample.pushcapture.cookieName);
-        }
+        // Remove the push list from local storage since we are  
+    	// updating one of the pushes in the list
+    	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
         sample.pushcapture.updatePush(content);
     } else {
@@ -163,8 +160,7 @@ sample.pushcapture.constructor.prototype.deletePush = function(pushId) {
 	
 	blackberry.ui.dialog.standardAskAsync("Are you sure you want to delete the push?", 
 		blackberry.ui.dialog.D_YES_NO, sample.pushcapture.deleteCallback, 
-		{title : "Delete?", size: blackberry.ui.dialog.SIZE_MEDIUM, 
-		position : blackberry.ui.dialog.CENTER});
+		{title : "Delete?"});
 };
 
 /**
@@ -180,12 +176,9 @@ sample.pushcapture.constructor.prototype.deleteCallback = function(selectedButto
 	
 	if (selectedButtonIndex == 0) {
 		// "Yes" was selected
-	    // Remove the cookie with the push list since one of the pushes in the list
-	    // is going to be deleted
-	    var pushListStr = sample.pushcapture.readCookie(sample.pushcapture.cookieName);
-	    if (pushListStr != null) {
-	        sample.pushcapture.eraseCookie(sample.pushcapture.cookieName);
-	    }
+        // Remove the push list from local storage since we are  
+    	// deleting one of the pushes in the list
+    	localStorage.removeItem(sample.pushcapture.localStorageKey);
 	
 	    // Delete the push from storage
 	    sample.pushcapture.db.transaction(function(tx) {
@@ -260,9 +253,9 @@ sample.pushcapture.constructor.prototype.removePushItem = function() {
 sample.pushcapture.constructor.prototype.markAllAsOpen = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
         tx.executeSql("SELECT COUNT(*) AS count FROM push WHERE unread = ?;", [ "T" ],
-                sample.pushcapture.updateAllUnopenedPushes, function(tx, e) {
-                    // No action needs to be performed on an error
-                });
+            sample.pushcapture.updateAllUnopenedPushes, function(tx, e) {
+                // No action needs to be performed on an error
+            });
     });
 };
 
@@ -293,11 +286,9 @@ sample.pushcapture.constructor.prototype.updateAllUnopenedPushes = function(tx, 
         progressDiv.innerHTML = "Processing...";
         document.getElementById("push-screen").appendChild(progressDiv);
 
-        // Remove the cookie with the push list since the push list is going to be updated
-        var pushListStr = sample.pushcapture.readCookie(sample.pushcapture.cookieName);
-        if (pushListStr != null) {
-            sample.pushcapture.eraseCookie(sample.pushcapture.cookieName);
-        }
+        // Remove the push list from local storage since the  
+    	// push list is going to be updated
+    	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
         // Update the unread flags for all pushes to "F"
         sample.pushcapture.db.transaction(function(tx) {
@@ -318,8 +309,7 @@ sample.pushcapture.constructor.prototype.updateAllUnopenedPushes = function(tx, 
 sample.pushcapture.constructor.prototype.deleteAll = function() {
 	blackberry.ui.dialog.standardAskAsync("Are you sure you want to delete all pushes?", 
 		blackberry.ui.dialog.D_YES_NO, sample.pushcapture.deleteAllCallback, 
-		{title : "Delete All?", size: blackberry.ui.dialog.SIZE_MEDIUM, 
-		position : blackberry.ui.dialog.CENTER});
+		{title : "Delete All?"});
 };
 
 /**
@@ -352,11 +342,9 @@ sample.pushcapture.constructor.prototype.deleteAllCallback = function(selectedBu
         progressDiv.innerHTML = "Processing...";
         document.getElementById("push-screen").appendChild(progressDiv);
 
-        // Remove the cookie with the push list since the push list is going to be deleted
-        var pushListStr = sample.pushcapture.readCookie(sample.pushcapture.cookieName);
-        if (pushListStr != null) {
-            sample.pushcapture.eraseCookie(sample.pushcapture.cookieName);
-        }
+        // Remove the push list from local storage since 
+    	// the push list is going to be deleted
+    	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
         // Delete all pushes in storage
         sample.pushcapture.db.transaction(function(tx) {
@@ -417,8 +405,8 @@ sample.pushcapture.constructor.prototype.loadPushes = function(element) {
         }
     }
 
-    // Attempt to retrieve the push list from the cookie, if it exists
-    var pushListStr = sample.pushcapture.readCookie(sample.pushcapture.cookieName);
+    // Attempt to retrieve the push list from local storage, if it exists
+    var pushListStr = localStorage.getItem(sample.pushcapture.localStorageKey);
 
     if (pushListStr != null) {
     	pushListStr = decodeURIComponent(pushListStr);
@@ -572,8 +560,8 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
     var pushListStr = element.getElementById("push-table").innerHTML;
     var encodedpushListStr = encodeURIComponent(pushListStr);
 
-    // Store the push list in a cookie, so we can retrieve it quickly when possible
-    sample.pushcapture.createCookie(sample.pushcapture.cookieName, encodedpushListStr, 1);
+    // Store the push list in local storage, so we can retrieve it quickly when possible
+    localStorage.setItem(sample.pushcapture.localStorageKey, encodedpushListStr);
 
     // Highlight the last selected push (if there was one)
     if (sample.pushcapture.selectedPushSeqnum != null) {

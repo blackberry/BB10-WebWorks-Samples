@@ -16,14 +16,20 @@
  * limitations under the License.
 -->
 <widget xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0" rim:header="RIM-Widget:rim/widget" xmlns="http://www.w3.org/ns/widgets" id="pushcapture">
-  <rim:orientation mode="portrait" />
   <name>Push Capture</name>
   <description>Captures incoming pushes.</description>
   <author rim:copyright="Copyright 2012 Research In Motion Limited, unless otherwise noted." href="http://us.blackberry.com/developers/platform/pushapi.jsp">Research In Motion Limited</author>
   <icon src="Images/pushCaptureIcon.png" />
   <rim:splash src="Images/pushCaptureSplash.png" />
   <content src="index.htm" />
-  <access uri="*" subdomains="true" />
+  
+  <!-- Need to allow access to your externally accessible Push Initiator URL if using the Push Service SDK high-level APIs (with subscription support) -->
+  <!-- Replace "externally_accessible_Push_Initiator_URL" with your own domain name -->
+  <access uri="https://externally_accessible_Push_Initiator_URL" subdomains="true" />
+  
+  <feature id="blackberry.app.orientation">
+    <param name="mode" value="portrait" />
+  </feature>
   <feature id="blackberry.push" />
   <feature id="blackberry.system" />
   <feature id="blackberry.invoked" />
