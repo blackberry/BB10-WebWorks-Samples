@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="touch-event-mode" content="pure-with-mouse-conversion">
+        <title>BrickBreaker: Bold</title>
+        <link href="./styles.css" rel="stylesheet" type="text/css" />
+        <script src="./js/jquery-1.7.2.min.js"></script>
+        <script src="./js/alice-min.js"></script>
+    </head>
+    <body>
+	<script src="js/loading.js"></script>
+        <!-- Body starts here -->
+        <div id="container">
+            <!--background-->
+            <img id="moon" src="./imgs/moon.png"></img>
+            <img id="light" src="./imgs/light.png"></img>
+            <img id="building" src="./imgs/start_bg.png"></img>
+            <img id="game_area_bg" src="./imgs/bg.png"></img>
+            <!-- splash screen -->
+            <div id="splash_screen">
+                <div id="splash_container">
+                    <img id="start_bg" src="./imgs/start_bg.png"></img>
+                    <img id="man1" src="./imgs/man_1.png"></img>
+                    <img id="man2" src="./imgs/man2.png"></img>
+                    <img id="people1" src="./imgs/people1.png"></img>
+                    <img id="people2" src="./imgs/people2.png"></img>
+                    <img id="man3" src="./imgs/man3.png"></img>
+                    <img id="man4" src="./imgs/man4.png"></img>
+                    <img id="dog" src="./imgs/dog.png"></img>
+                    <img id="ufo1" src="./imgs/ufo4.png"></img>
+                    <img id="ufo2" src="./imgs/ufo5.png"></img>
+                    <div id="brick_container">
+                        <img id="brick1" src="./imgs/brick.png"></img>
+                        <img id="brick2" src="./imgs/brick2.png"></img>
+                        <img id="brick3" src="./imgs/brick3.png"></img>
+                        <img id="brick4" src="./imgs/brick4.png"></img>
+                    </div>
+                    <img id="skip" src="./imgs/skip.png"></img>
+                </div>
+            </div>
+            <!-- splash screen end -->
+            <!-- welcome Screen -->
+            <div id="welcome_screen">
+                <img id="main_logo" src="./imgs/logo_L.png"></img>
+                <div id="menu">
+                    <img id="main_bg" src="./imgs/bg_main.png"></img>
+                    <img id="button_play" src="./imgs/button_play.png"></img>
+                    <img id="button_about" src="./imgs/button_about.png"></img>
+                </div>
+                <!-- About screen -->
+                <div id="about_screen">
+                    <img id="about" src="./imgs/about.png"></img>
+                    <img id="button_return" src="./imgs/button_return.png"></img>
+                </div>
+            </div>
+            <!-- welcome screen end -->
+            <!-- difficulty select screen -->
+            <div id="difficulty_screen">
+                <img id="select_title" src="./imgs/select_title.png"></img>
+                <img id="beginner" src="./imgs/beginner.png"></img>
+                <img id="intermediate" src="./imgs/intermediate.png"></img>
+                <img id="hardcore" src="./imgs/hardcore.png"></img>
+            </div>
+            <!--difficulty screen end -->
+            <!-- gameplay screen -->
+            <div id="gameplay_screen">
+                <!--Game Area-->
+                <div id="game_area">
+                    <canvas id="game_canvas"></canvas>
+                    
+                    <div id="game_status">
+                        <img id="gameover" src="./imgs/gameover.png"></img>
+                        <img id="win" src="./imgs/win.png"></img>
+                        <img id="level_clear" src="./imgs/level_clear.png"></img>
+                        <img id="miss" src="./imgs/miss.png"></img>
+                    </div>
+                    <!--Instructions-->
+                    <img id="launch_instruction" src="./imgs/launch.png"></img>
+                    <img id="tilt_instruction" src="./imgs/tilt_instruction.png"></img>
+                    <img id="drag_instruction" src="./imgs/drag_instruction.png"></img>
+                </div>
+                
+                <div id="level_stat">LEVEL <span id="level"></span></div>
+                <div id="lives_stat">LIVES <span id="life"></span></div>
+                <div><span id="missiles_stat">MISSILES </span><span id="missile_count">0</span></div>
+                <div id="score_stat">SCORE</div>
+                <div id="score"></div>
+                
+                <!--Game control buttons-->
+                <div id="button_container">
+                    <div id="control_button">
+                        <div id="missile_control">
+                            <img id="button_missile" src="./imgs/button_missile.png"></img>
+                            
+                        </div>
+                        <div id="movement_control">
+                            <img id="button_left" src="./imgs/button_left.png"></img>
+                            <img id="button_right" src="./imgs/button_right.png"></img>
+                        </div>
+                    </div>
+                    <img id="button_replay" src="./imgs/button_replay.png"></img>
+                    <img id="button_next" src="./imgs/button_next.png"></img>
+                    <div>
+                        <img id="button_music_on" src="./imgs/button_music_on.png"></img>
+                        <img id="button_music_off" src="./imgs/button_music_off.png"></img>
+                        <img id="button_sfx_on" src="./imgs/button_sfx_on.png"></img>
+                        <img id="button_sfx_off" src="./imgs/button_sfx_off.png"></img>
+                        <img id="button_menu" src="./imgs/button_menu.png"></img>
+                    </div>
+                </div>
+            </div>
+            <!-- dialog -->
+            <div id="dialog_container">
+                <img id="message"></img>
+                <div id="pause_menu">
+                    <img id="resume_game" src="./imgs/resume_game.png"></img>
+                    <img id="exit_to_main" src="./imgs/exit_to_main.png"></img>
+                </div>
+            </div>
+            <!--html5 icon-->
+            <img id="html5_icon" src="./imgs/icon_html5.png"></img>
+            <img id="RIM_logo" src="./imgs/RIM_logo.png"></img>
+        </div>
+    </body>
+    <script src="config.js"></script>
+    <script src="level_config.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/screen.js"></script>
+    <script src="js/gameplay.js"></script>
+    <script src="js/gameplay_animation.js"></script>
+    <script src="js/powerup.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/splash_animation.js"></script>
+    <script src="js/draw.js"></script>
+    <script src="js/resize.js"></script>
+    <script src="js/control.js"></script>
+    <script src="js/dialog.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/debug.js"></script>
+</script>
+</html>

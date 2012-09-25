@@ -1,0 +1,816 @@
+body{
+    margin:0px;
+}
+
+#missiles_stat, #missile_count, #button_missile {
+    opacity: 0.1;
+}
+
+#button_menu, #button_music_off, #button_music_on, #button_left,
+#button_right, #button_sfx_off, #button_sfx_on { opacity: 0.7; }
+
+#button_menu, #button_music_off, #button_music_on, #button_left,
+#button_right, #button_sfx_off, #button_sfx_on, #button_missile,
+#html5_icon, #RIM_logo, #dialog_container { -webkit-transform:translateZ(0); }
+
+
+#message {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width: 100%;
+    padding-bottom: 25px;
+}
+
+#gameplay_screen{
+    font-family: "Myriad Pro", sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+
+
+
+#resume_game {
+    display:block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 25px;
+}
+#exit_to_main {
+    display:block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#moon{
+    position: absolute;
+    top: 20%;
+    right: 25%;
+    width: 5%;
+    -webkit-transform:translateZ(0);
+}
+
+#ufo{
+    position:absolute;
+    top:10px;
+    left:0px;
+}
+
+#warning{
+    position:absolute;
+    top:0;
+    left:0;
+
+}
+
+#debug{
+    color:white;
+    position:absolute;
+    width:20%;
+    left:2%;
+    top:50px;
+    padding:2%;
+    background-color:grey;
+    opacity:0.7;
+}
+
+#about{
+    width:80%;
+    position:absolute;
+    left:10%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+
+
+#main_logo{
+    width:100%;
+    position:absolute;
+    z-index:4;
+    -webkit-transform:translateZ(0);
+}
+
+#main_bg{
+    width:65%;
+    height:80%;
+    position:absolute;
+    left:17%;
+    top:25%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+
+
+#button_play{
+    width:40%;
+    position:absolute;
+    left:32%;
+    top:50%;
+    z-index:3;
+    -webkit-transform:translateZ(0);
+}
+
+#button_about{
+    width:20%;
+    position:absolute;
+    left:40%;
+    top:80%;
+    z-index:2;
+    -webkit-transform:translateZ(0);
+}
+
+#button_return{
+    width:20%;
+    position:absolute;
+    left:0;
+    bottom:10%;
+    z-index:2;
+    -webkit-transform:translateZ(0);
+}
+#select_title{
+    width:40%;
+    position:absolute;
+    top:25%;
+    -webkit-transform:translateZ(0);
+}
+
+#beginner{
+    position:absolute;
+    left:50%;
+    top:10%;
+    width:50%;
+    -webkit-transform:translateZ(0);
+}
+
+#intermediate{
+    position:absolute;
+    left:50%;
+    top:30%;
+    width:50%;
+    -webkit-transform:translateZ(0);
+}
+
+#hardcore{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:50%;
+    -webkit-transform:translateZ(0);
+}
+
+#skip{
+    position:absolute;
+    width:10%;
+    left:5%;
+    top:5%;
+    -webkit-transform:translateZ(0);
+}
+
+@media screen and (orientation:landscape){
+#button_music_on, #button_music_off {
+    position:absolute;
+    left:3.5%;
+    top:6%;
+    width: 6%;
+}
+
+#button_sfx_on, #button_sfx_off {
+    position:absolute;
+    left:10.5%;
+    top:6%;
+    width: 6%;
+}
+
+#button_menu {
+    position:absolute;
+    left:4%;
+    top:20%;
+    width:12%;
+}
+
+#button_missile{
+    position:absolute;
+    left:4%;
+    top:44%;
+    width:12%;
+}
+
+#button_left{
+    position:absolute;
+    left:2%;
+    bottom: 2%;
+    width:16%;
+    z-index:99;
+}
+
+#button_right{
+    position:absolute;
+    right:2%;
+    bottom:2%;
+    width:16%;
+    z-index:99;
+}
+
+
+#dialog_container {
+    width: 40%;
+    position: relative;
+    top: 30%;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 99;
+}
+
+#level_stat{
+    position: absolute;
+    top:24%;
+    left: 83.5%;
+}
+#lives_stat{
+    position: absolute;
+    top:32%;
+    left: 83.5%;
+}
+#missiles_stat{
+    position: absolute;
+    top:40%;
+    left: 83.5%;
+}
+#missile_count{
+    position: absolute;
+    top:40%;
+    left: 96%;
+}
+#score_stat{
+    position: absolute;
+    top:48%;
+    left: 83.5%;
+}
+
+#score {
+    position: absolute;
+    top:52%;
+    left: 83.5%;
+}
+
+#html5_icon{
+    position:absolute;
+    right:3.5%;
+    top:6%;
+    -webkit-transform:translateZ(0);
+    z-index: -1;
+    width: 6%;
+}
+#RIM_logo{
+    position:absolute;
+    right:10.5%;
+    top:6%;
+    -webkit-transform:translateZ(0);
+    z-index: -1;
+    width: 6%;
+    opacity: 0.3;
+}
+}
+
+@media screen and (orientation:landscape){
+
+#welcome_screen{
+    width:50%;
+    height:65%;
+    position:absolute;
+    top:25%;
+    left:25%;
+    -webkit-transform:translateZ(0);
+}
+
+#difficulty_screen{
+    position: absolute;
+    width:40%;
+    height:45%;
+    top:30%;
+    left:30%;
+    -webkit-transform:translateZ(0);
+}
+
+
+#game_canvas{
+    position:absolute;
+    width:60%;
+    height:90%;
+    background:rgba(0,0,0,0.25);
+    top:50%;
+    left:50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #00a8df;
+    border-radius: 8px;
+}
+
+#container{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:'black';
+    overflow:hidden;
+}
+
+#game_area{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:50%;
+    left:50%;
+}
+
+#game_area_bg{
+    position:absolute;
+    z-index:-1;
+    width:100%;
+    height: 100%;
+}
+
+#control_instruction1{
+    position:absolute;
+    z-index:9;
+    left:15%;
+    bottom:23%;
+    width:10%;
+}
+#control_instruction2{
+    position:absolute;
+    right:17%;
+    bottom:23%;
+    z-index:9;
+    width:10%;
+}
+
+
+#logo{
+    position:absolute;
+    top:15%;
+    left:10px;
+    -webkit-transform:translateZ(0);
+
+}
+
+
+#button_replay{
+    position:absolute;
+    left:47%;
+    top:60%;
+    width:7%i
+}
+#button_next{
+    position:absolute;
+    left:45%;
+    top:65%;
+    width:10%;
+}
+
+#gameover{
+    width:30%;
+    position:absolute;
+    left:35%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+#drag_instruction, #tilt_instruction{
+    width:50%;
+    position:absolute;
+    left:25%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+
+#win{
+    width:50%;
+    position:absolute;
+    left:30%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+
+#miss{
+    width:15%;
+    position:absolute;
+    left:42.5%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+
+#level_clear{
+    width:30%;
+    position:absolute;
+    left:35%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+
+
+#launch_instruction{
+    width:35%;
+    position:absolute;
+    left:32%;
+    top:45%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+}
+
+@media screen and (orientation:portrait){
+#level_stat{
+    position: absolute;
+    right:6%;
+    top: 4%;
+}
+#lives_stat{
+    position: absolute;
+    top:60%;
+    left: 6%;
+}
+#missiles_stat{
+    position: absolute;
+    top:62%;
+    right: 9.5%;
+}
+#missile_count{
+    position: absolute;
+    top:62%;
+    right: 6%;
+}
+#score_stat{
+    position: absolute;
+    top:4%;
+    left: 5.5%;
+}
+#score{
+    position: absolute;
+    top:4%;
+    left: 90px;
+}
+#button_music_on, #button_music_off {
+    position:absolute;
+    left:32%;
+    bottom:24%;
+    width: 16%;
+}
+
+#button_sfx_on, #button_sfx_off {
+    position:absolute;
+    left:56%;
+    bottom:24%;
+    width: 16%;
+}
+
+#button_menu {
+    position:absolute;
+    left:78%;
+    bottom:24%;
+    width:16%;
+}
+
+#button_missile{
+    position:absolute;
+    left:8%;
+    bottom:24%;
+    width:16%;
+}
+
+#button_left{
+    position:absolute;
+    left:2%;
+    bottom: 2%;
+    width:28%;
+    z-index:99;
+}
+
+#button_right{
+    position:absolute;
+    right:2%;
+    bottom:2%;
+    width:28%;
+    z-index:99;
+}
+
+
+#gameplay_stats{
+    position: absolute;
+    top:18%;
+    left: 82%;
+}
+
+#score {
+    padding: 0px;
+    margin: 0px;
+}
+
+#html5_icon{
+    position:absolute;
+    right:38%;
+    bottom:6%;
+    -webkit-transform:translateZ(0);
+    z-index: -1;
+    width: 12%;
+}
+#RIM_logo{
+    position:absolute;
+    left:38%;
+    bottom:6%;
+    -webkit-transform:translateZ(0);
+    z-index: -1;
+    width: 12%;
+    opacity: 0.3;
+}
+#welcome_screen{
+        width:84%;
+        height:50%;
+        position:absolute;
+        top:25%;
+        left:8%;
+        -webkit-transform:translateZ(0);
+}
+
+#difficulty_screen{
+    position: absolute;
+    width:80%;
+    height:45%;
+    top:30%;
+    left:10%;
+    -webkit-transform:translateZ(0);
+}
+
+#game_canvas{
+    position:absolute;
+    width:90%;
+    height:65%;
+    background:rgba(0,0,0,0.3);
+    border-radius: 8px;
+    top:40%;
+    left:50%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #00a8df;
+    border-radius: 8px;
+}
+
+#container{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+#game_area{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:50%;
+    left:50%;
+}
+
+#game_area_bg{
+    position:absolute;
+    z-index:-1;
+    width: 100%;
+    height:100%;
+}
+#control_instruction1{
+    position:absolute;
+    z-index:9;
+    left:20%;
+    bottom:15%;
+    width:20%;
+}
+#control_instruction2{
+    position:absolute;
+    right:20%;
+    bottom:15%;
+    z-index:9;
+    width:20%;
+}
+
+
+
+#logo{
+    position:absolute;
+    top:-10px;
+}
+
+
+#button_replay{
+    position:absolute;
+    left:46%;
+    top:50%;
+    width:12%;
+}
+#button_next{
+    position:absolute;
+    left:40%;
+    top:50%;
+    width:20%;
+}
+#gameover{
+    width:50%;
+    position:absolute;
+    left:25%;
+    top:30%;
+    z-index:1;
+}
+#win{
+    width:60%;
+    position:absolute;
+    left:20%;
+    top:30%;
+    z-index:1;
+}
+#miss{
+    width:30%;
+    position:absolute;
+    left:35%;
+    top:30%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+#level_clear{
+    width:50%;
+    position:absolute;
+    left:25%;
+    top:30%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+#launch_instruction{
+    width:50%;
+    position:absolute;
+    left:25%;
+    top:35%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+#drag_instruction, #tilt_instruction{
+    width:70%;
+    position:absolute;
+    left:15%;
+    top:40%;
+    z-index:1;
+    -webkit-transform:translateZ(0);
+}
+#dialog_container {
+    width: 60%;
+    position: relative;
+    top: 20%;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 99;
+}
+}
+
+
+div.loading-invisible{
+    display:none;
+}
+div.loading-visible{
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    text-align:center;
+    background-color:black;
+    z-index:9;
+    color:white;
+}
+#loading img{
+    position:absolute;
+    top: 40%;
+    left:40%;
+    width:20%;
+}
+
+/* start animation */
+#splash_container{
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:0;
+    -webkit-transform:translateZ(0);
+}
+
+/* man */
+#man1, #man2, #man3, #man4{
+    width:10%;
+    position:absolute;
+    bottom:15%;
+    z-index:10;
+    -webkit-transform:translateZ(0);
+}
+
+#dog{
+    width:10%;
+    position:absolute;
+    bottom:15%;
+    z-index:10;
+    -webkit-transform:translateZ(0);
+}
+
+#people1,#people2{
+    width:20%;
+    position:absolute;
+    bottom:14%;
+    z-index:11;
+    -webkit-transform:translateZ(0);
+}
+
+#ufo1,#ufo2{
+    width:20%;
+    position:absolute;
+    z-index:9;
+    -webkit-transform:translateZ(0);
+
+}
+
+#brick1{
+    width:10%;
+    position:absolute;
+    left:75%;
+    z-index:8;
+    -webkit-transform:translateZ(0);
+}
+
+#brick2{
+    width:10%;
+    position:absolute;
+    left:55%;
+    z-index:8;
+    -webkit-transform:translateZ(0);
+}
+
+#brick3{
+    width:10%;
+    position:absolute;
+    left:30%;
+    z-index:8;
+    -webkit-transform:translateZ(0);
+}
+
+#brick4{
+    width:10%;
+    position:absolute;
+    left:25%;
+    z-index:12;
+    -webkit-transform:translateZ(0);
+}
+
+@media screen and (orientation:landscape){
+#building, #start_bg{
+    width:80%;
+    left:10%;
+    bottom:22%;
+    position:absolute;
+    -webkit-transform:translateZ(0);
+}
+#light{
+    position:absolute;
+    left:20%;
+    bottom:15%;
+    width:50%;
+    -webkit-transform:translateZ(0);
+}
+}
+
+@media screen and (orientation:portrait){
+#building, #start_bg{
+    width:120%;
+    left:-10%;
+    bottom:44%;
+    position:absolute;
+    -webkit-transform:translateZ(0);
+}
+#light{
+    position:absolute;
+    left:12%;
+    bottom:40%;
+    width:75%;
+    -webkit-transform:translateZ(0);
+}
+}
+
+#ufo3{
+    width:3%;
+    position:absolute;
+}
+
+
