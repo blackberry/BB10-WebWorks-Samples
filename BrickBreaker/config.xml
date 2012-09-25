@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns=" http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="2.0.0.0" id="brickbreaker">
+  <name>BrickBreaker Bold</name>
+  <author>Browser Team</author>
+  <description>
+      A BrickBreaker game, the classic standard on BlackBerry, re-implemented in HTML5
+  </description>
+  <rim:orientation mode="landscape"/>
+  <rim:transitionEffect type="zoomIn"/>
+  <rim:category name="games"/>
+  <icon src="imgs/icon.png"/>
+  <content src="index.html"/>
+</widget>
