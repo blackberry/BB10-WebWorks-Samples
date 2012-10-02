@@ -18,7 +18,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="webworks-1.0.1.5.js"></script>
+    <script src="webworks-1.0.0.7.js"></script>
+	<!-- 
+		Include BlackBerry 10 WebWorks JavaScript framework file.
+		When doing an SDK upgrade, always make sure you grab the latest from the SDK/Framework/clientFiles folder.
+	-->
     <script src="invocations.js"></script>
     <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.1.0.min.css" />
     <script src="jquery/jquery-1.7.1.min.js"></script>
@@ -31,7 +35,7 @@
             document.getElementById("adobeReader").onclick = invokeAdobeReader;
             document.getElementById("adobeReaderPdf").onclick = invokeAdobeReaderPdf;
             document.getElementById("userApp").onclick = invokeApp;
-            document.getElementById("pictures").onclick = invokePictures;
+            document.getElementById("pictures").onclick = saveFileInvoke;
         }
         //register ready event after window has loaded
         window.addEventListener("load", function (e) {

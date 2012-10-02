@@ -30,4 +30,5 @@ limitations under the License.
         <rim:permit>access_shared</rim:permit>
     </rim:permissions>
     <feature id="blackberry.invoke" required="true" version="1.0.0.0"/>
+    <feature id="blackberry.io" required="true" version="1.0.0.0" />
 </widget>
