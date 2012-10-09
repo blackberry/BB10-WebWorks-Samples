@@ -1,0 +1,60 @@
+<!--
+ Copyright 2012 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Facebook OAuth</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1,user-scalable=no" />
+ 
+        <!-- css -->
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+
+        <!-- framework -->
+        <!-- see build instructions on how-to include this -->
+        <script src="js/webworks/webworks-.js" type="text/javascript"></script>
+
+        <!-- libraries -->
+        <script src="js/lib/jquery-1.7.2.min.js" type="text/javascript"></script>
+        
+        <!-- sample code -->
+        <script src="js/oauth.js"></script>
+
+        <script>
+            document.addEventListener("webworksready", initApp);
+        </script>
+
+    </head>
+    
+    <body>
+        <div id="header">
+            <p id="message"></p>
+        </div>
+
+        <div id="content">
+            <h1>Latest news</h1>
+        </div>
+
+        <div id="buttons">
+            <div id="afterAuth">
+                <input id="inputBox" type="text" onfocus="$(this).val('');" value="enter your status..."/>
+                <button id="buttonPost" onclick="postToService()">Post</button>
+                <button id="buttonWall" onclick="getFeed()">Feed</button>
+            </div>
+            <button id="buttonSetup" onclick="getAuthorization()">Click to begin!</button>
+        </div>
+    </body>
+</html>
