@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<!--
+ * Copyright (c) 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title>BBM Sample</title>
+
+		<link type="text/css" rel="stylesheet" href="./css/bbui-0.9.4.css" />
+	</head>
+	<body>
+		<script type="text/javascript" src="./js/webworks-1.0.2.9.js"></script>
+		<script type="text/javascript" src="./js/bbui-0.9.4.js"></script>
+		<script type="text/javascript">
+			/*global window, document, console, alert, blackberry, bb, _invoke */
+
+			'use strict';
+
+			function onwebworksready() {
+				document.removeEventListener('webworksready', onwebworksready, false);
+
+				bb.init();
+				bb.pushScreen('bbm.html', 'bbm');
+			}
+
+			function onload() {
+				window.removeEventListener('load', onload, false);
+				document.addEventListener('webworksready', onwebworksready, false);
+			}
+			window.addEventListener('load', onload, false);
+		</script>
+	</body>
+</html>

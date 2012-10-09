@@ -1,0 +1,72 @@
+<!--
+ * Copyright (c) 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<div data-bb-type="screen" data-bb-effect="fade">
+	<script type="text/javascript" src="./js/invoke.js"></script>
+
+	<!-- Title. -->
+	<div data-bb-type="title" data-bb-caption="Media Cards" data-bb-action-caption="Invoke" onactionclick="_invoke.invoke();"></div>
+
+	<div data-bb-type="round-panel">
+		<div data-bb-type="panel-header">blackberry.invoke.card</div>
+
+		<!-- Pill buttons to select the Card type from (Camera, File Picker, or Custom). -->
+		<div>Type</div>
+		<div data-bb-type="pill-buttons">
+			<div data-bb-type="pill-button" onclick="_invoke.setCard('camera');" data-bb-selected="true">Camera</div>
+			<div data-bb-type="pill-button" onclick="_invoke.setCard('filepicker');">File Picker</div>
+			<div data-bb-type="pill-button" onclick="_invoke.setCard('custom');">Custom</div>
+		</div>
+
+		<!-- Pill buttons to select a corresponding mode for each card type. -->
+		<div id="modes">
+			<div>Mode</div>
+
+			<!-- The Camera card will have the following modes: Photo, Video, and Full. -->
+			<div id="divCamera">
+				<div data-bb-type="pill-buttons">
+					<div data-bb-type="pill-button" onclick="_invoke.setMode(blackberry.invoke.card.CAMERA_MODE_PHOTO);" data-bb-selected="true">Photo</div>
+					<div data-bb-type="pill-button" onclick="_invoke.setMode(blackberry.invoke.card.CAMERA_MODE_VIDEO);">Camera</div>
+					<div data-bb-type="pill-button" onclick="_invoke.setMode(blackberry.invoke.card.CAMERA_MODE_FULL);">Full</div>
+				</div>
+			</div>
+
+			<!-- The File Picker card will have the following modes: Single Item and Multiple Item. -->
+			<div id="divFilePicker" style="display: none;">
+				<div data-bb-type="pill-buttons">
+					<div data-bb-type="pill-button" onclick="_invoke.setMode(blackberry.invoke.card.FILEPICKER_MODE_PICKER);" data-bb-selected="true">Single</div>
+					<div data-bb-type="pill-button" onclick="_invoke.setMode(blackberry.invoke.card.FILEPICKER_MODE_PICKER_MULTIPLE);">Multiple</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- A shorter alternative is to leverage HTML Media Capture. -->
+	<div data-bb-type="round-panel">
+		<div data-bb-type="panel-header">HTML Media Capture</div>
+		<div>Image</div>
+		<input type="file" accept="image/*" capture="camera">
+		<div>Video</div>
+		<input type="file" accept="video/*" capture="camcorder">
+	</div>
+
+	<!-- To prevent alerts from interfering with our flow, we'll be leveraging an activity log. -->
+	<div data-bb-type="round-panel">
+		<div data-bb-type="panel-header">Activity Log</div>
+		<div id="log" data-bb-type="scroll-panel" style="height: 200px;"></div>
+	</div>
+</div>

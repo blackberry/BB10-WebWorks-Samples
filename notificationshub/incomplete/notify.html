@@ -1,0 +1,49 @@
+<!--
+ * Copyright (c) 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<div data-bb-type="screen" data-bb-effect="fade">
+	<script type="text/javascript" src="./js/notify.js"></script>
+
+	<!-- Title. -->
+	<div data-bb-type="title" data-bb-caption="Notify Hub" data-bb-action-caption="Notify" onactionclick="_notify.notify();"></div>
+
+	<!-- A dropdwdown of various configurations. -->
+	<div data-bb-type="round-panel"> 
+		<select data-bb-label="Configuration" onchange="_notify.updateConfig(this);">
+			<option value="basic" selected="true">Basic</option>
+			<option value="withbody">With Body</option>
+			<option value="events">Alert Events</option>
+			<option value="tags">With Tag</option>
+			<option value="launch">Launch Browser</option>
+			<option value="custom">Custom</option>
+		</select>
+		<div id="additionalInfo"></div>
+	</div>
+
+	<!-- Various text boxes whose values we will pass to our notification call. -->
+	<div data-bb-type="round-panel"> 
+		<div data-bb-type="panel-header">Notification Settings</div>
+		<input id="title"			type="text" placeholder="Title (Required)" value='Basic Notification'/>
+		<input id="body"			type="text" placeholder="Body" />
+		<input id="tag"				type="text" placeholder="Tag" />
+		<input id="target"			type="text" placeholder="Target" />
+		<input id="targetAction"	type="text" placeholder="Target Action" />
+		<input id="payload"			type="text" placeholder="Payload" />
+		<input id="payloadURI"		type="text" placeholder="Payload URI" />
+		<input id="payloadType"		type="text" placeholder="Payload Type" />
+	</div>
+</div>
