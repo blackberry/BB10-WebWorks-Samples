@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
+    <script src="jquery/jquery-1.7.1.min.js"></script>
+    <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
+    <title>Capture Photo</title>
+</head>
+<body>
+  <div data-role="page">
+    <div data-role="content">
+      <input id="picture" type="file" accept="image/*" capture="camera" style="display:none;">
+      <button onclick="$('#picture').click();">Take Picture</button>
+      <center style="min-width:280px;min-height:440px;"><output id="list"></output></center>
+      <button id="upload">Upload Image</button>
+      <script type="text/javascript">
+        //Create Global Files Variable
+        var files;
+        //Function to display image onscreen.
+        function displayImage(evt) {
+          files = evt.target.files; // FileList object
+          // Loop through all Images
+          for (var i = 0, f; f = files[i]; i++) {
+            var reader = new FileReader();
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+              return function(e) {
+                // Display Image
+                document.getElementById('list').innerHTML = ['<img class="imageDisp" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"width="280" height="440"/>'].join('');//Modify Image size as needed
+              };
+            })(f);
+            // Read in the image file as a data URL.           
+            reader.readAsDataURL(f);
+          }
+        }
+        //Upload to remote server via XHR2 
+        function upload() {
+          url = 'http://your-ip-address:8080/upload';//Place server ip here NOTE: Keep the port and folder consistant with server :8080/upload
+          //Check if user has taken a picture
+          if(typeof files!="undefined"){
+            //Create form and append picutre
+            var formData = new FormData();
+            for (var i = 0, file; file = files[i]; ++i) {
+              formData.append(file.name, file);
+            }
+            //initiate and send via XHR2
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.onload = function(e) { 
+              if(this.status == 200){alert("Upload Successful");}
+            };
+            //Upload Image
+              xhr.send(formData);  // multipart/form-data
+          }
+          else{
+            alert("No Picture to Upload");
+          }
+        }
+        document.getElementById('picture').addEventListener('change', displayImage, false);
+        document.getElementById('upload').addEventListener('click', upload, false);
+      </script>
+    </div>
+  </div>
+</body>
+</html>

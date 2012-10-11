@@ -66,50 +66,33 @@ function invokeApp() {
     }, onSuccess, onError);
 }
 
-//This is an unbound invocation (no target specified): the OS will choose what target to use based on URI
-function invokePictures() {
+function saveFileInvoke () {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/cliffs.jpg', false);
+    xhr.responseType = 'blob';
+
+    xhr.onload = function(e) {
+        blackberry.io.sandbox = false;
+        window.webkitRequestFileSystem(PERSISTENT, 1024 * 1024, function(fs) {
+            fs.root.getFile(blackberry.io.sharedFolder + '/downloads/cliffs.jpg', {create: true}, function(fileEntry) {
+                fileEntry.createWriter(function(writer) {
+
+                writer.onerror = function(e) { alert(e) };
+
+                var blob = new Blob([xhr.response], {type: 'image/jpeg'});
+
+                writer.write(blob);
+
+                }, errorHandler);
+            }, errorHandler);
+        }, errorHandler);
+    }
     
-    downloadPicture();
-    
+    xhr.send();
+
     blackberry.invoke.invoke({
         uri: "file:///accounts/1000/shared/downloads/cliffs.jpg",
     }, onSuccess, onError);
-}
-
-//Supported in HTML5: getting binary data from XHR request
-function downloadPicture() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', "/cliffs.jpg", true);
-    xhr.responseType = 'arraybuffer';
-    
-    xhr.onload = function(e) {
-        if (this.status == 200) {
-            var bb = new window.WebKitBlobBuilder();
-            bb.append(this.response);
-            var blob = bb.getBlob('image/jpeg');
-            saveFile(blob);
-        }
-    };
-    xhr.send();
-}
-
-//This function demonstrates how to use the HTML5 FileSystem API: a .png blob is saved to a URI which is used for invocation
-function saveFile (blob) {
-    function gotFs(fs) {
-        fs.root.getFile("/accounts/1000/shared/downloads/cliffs.jpg", {create: true}, gotFile, errorHandler);
-    }
-
-    function gotFile(fileEntry) {
-        fileEntry.createWriter(gotWriter, errorHandler);
-    }
-
-    function gotWriter(fileWriter) {
-        fileWriter.onerror = function (e) {
-            alert("Failed to write JPEG: " + e.toString());
-        }
-        fileWriter.write(blob);
-    }
-    window.webkitRequestFileSystem(PERSISTENT, 10 * 1024, gotFs, errorHandler);
 }
 
 function errorHandler(fileError) {
