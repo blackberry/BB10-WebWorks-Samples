@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<!--
+ * Copyright (c) 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title>Media Cards</title>
+	</head>
+	<body>
+		<div style="text-align: center;">
+			<div><b>Link: &lt;a&gt;&lt;/a&gt;</b></div>
+			<div><br /></div>
+			<div style="font-size: xx-large;">
+				<a href="http://www.blackberry.com">www.blackberry.com</a>
+			</div>
+		</div>
+		<div><br /></div>
+		<div><br /></div>
+		<div><br /></div>
+		<div style="text-align: center;">
+			<div><b>Image: &lt;img&gt;&lt;/img&gt;</b></div>
+			<div><br /></div>
+			<div>
+				<img src="img/hippoSquare.png" />
+			</div>
+		</div>
+		<div><br /></div>
+		<div><br /></div>
+		<div><br /></div>
+		<div style="text-align: center;">
+			<div><b>Image Link: &lt;a&gt;&lt;img&gt;&lt;/img&gt;&lt;/a&gt;</b></div>
+			<div><br /></div>
+			<div>
+				<a href="http://www.blackberry.com"><img src="img/hippoSquare.png" /></a>
+			</div>
+		</div>
+		<div><br /></div>
+		<div><br /></div>
+		<div><br /></div>
+		<div style="text-align: center;">
+			<div><b>Input: &lt;input /&gt;</b></div>
+			<div><br /></div>
+			<div>
+				<input type="text" value="" style="font-size: xx-large;" />
+			</div>
+		</div>
+		<div><br /></div>
+		<div><br /></div>
+		<div><br /></div>
+		<div style="text-align: center;">
+			<div><b>Text: &lt;p&gt;&lt;/p&gt;</b></div>
+			<p style="font-size: xx-large;">We can now have a context menu without requiring any frameworks!</p>
+		</div>
+
+		<script type="text/javascript" src="./js/webworks-1.0.2.9.js"></script>
+		<script type="text/javascript" src="./js/context.js"></script>
+		<script type="text/javascript">
+			/*global window, document, console, alert, initApp */
+
+			'use strict';
+
+			function onwebworksready() {
+				document.removeEventListener('webworksready', onwebworksready, false);
+				initApp();
+			}
+
+			function onload() {
+				window.removeEventListener('load', onload, false);
+				document.addEventListener('webworksready', onwebworksready, false);
+			}
+			window.addEventListener('load', onload, false);
+		</script>
+	</body>
+</html>

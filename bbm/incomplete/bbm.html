@@ -1,0 +1,80 @@
+<!--
+ * Copyright (c) 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<div data-bb-type="screen" data-bb-effect="fade">
+	<script type="text/javascript" src="./js/bbm.js"></script>
+
+	<!-- Title. -->
+	<div id="title" data-bb-type="title" data-bb-caption="BBM Sample" data-bb-action-caption="Register" onactionclick="_bbm.register();"></div>
+	
+	<!-- A profile panel that houses our connected information. -->
+	<div id="profile" style="display: none;">
+		<div data-bb-type="round-panel">
+			<!-- Display Name -->
+			<div id="displayName" data-bb-type="panel-header">Display Name</div>
+
+			<!-- Dropdown to view various BBM fields. -->
+			<select id="field" data-bb-label="BBM Field" onchange="_bbm.fieldChanged(this);">
+				<option value="status">Status</option>
+				<option value="personalMessage">Personal Message</option>
+				<option value="ppid">PPID</option>
+				<option value="handle">Handle</option>
+				<option value="appVersion">App Version</option>
+				<option value="bbmsdkVersion">BBM SDK Version</option>
+			</select>
+
+			<!-- Status and Status Message. -->
+			<div id="_status">
+				Available: <div id="status" data-bb-type="toggle" data-bb-checked="true" data-bb-on="Yes" data-bb-off="No"></div>
+				<input id="statusMessage" type="text" placeholder="Status Message" value="" />
+				<div data-bb-type="button" onclick="_bbm.setField('status');">Set Status</div>
+			</div>
+
+			<!-- Personal Message. -->
+			<div id="_personalMessage" style="display: none;">
+				<input id="personalMessage" type="text" value="" />
+				<div data-bb-type="button" onclick="_bbm.setField('personalMessage');">Set Personal Message</div>
+			</div>
+
+			<!-- PPID. -->
+			<div id="_ppid" type="text" style="display: none;">
+				<div id="ppid" type="text" value=""></div>
+			</div>
+
+			<!-- Handle. -->
+			<div id="_handle" style="display: none;">
+				<div id="handle" type="text" value=""></div>
+			</div>
+
+			<!-- App Version. -->
+			<div id="_appVersion" style="display: none;">
+				<div id="appVersion" type="text" value=""></div>
+			</div>
+
+			<!-- BBM SDK Version. -->
+			<div id="_bbmsdkVersion" style="display: none;">
+				<div id="bbmsdkVersion" type="text" value=""></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Action bar; only visible once registered. -->
+	<div data-bb-type="action-bar">
+		<div data-bb-type="action" data-bb-style="button" data-bb-img="./img/cog.png" onclick="_bbm.populate();">Refresh</div>
+		<div data-bb-type="action" data-bb-style="button" data-bb-img="./img/cog.png" onclick="_bbm.invite();">Invite</div>
+	</div>
+</div>

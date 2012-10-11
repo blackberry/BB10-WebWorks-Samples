@@ -1,0 +1,42 @@
+<!--
+ * Copyright (c) 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<div data-bb-type="screen" data-bb-effect="fade">
+	<script type="text/javascript" src="./js/contacts.js"></script>
+
+	<!-- Title. -->
+	<div data-bb-type="title" data-bb-caption="Contact Finder" data-bb-action-caption="Find" onactionclick="_contacts.populateContacts();"></div>
+
+	<!-- Context menu. -->
+	<div id="context" data-bb-type="context-menu">
+		<div id="deleteContact" data-bb-type="action" data-bb-img="./img/cog.png" data-bb-pin="true" onclick="_contacts.deleteContact();">Delete</div>
+	</div>
+
+	<!-- Filter text box. -->
+	<div data-bb-type="round-panel"> 
+          <input id="filterString" type="text" value="A" />
+	</div>
+
+	<!-- Contact list. -->
+	<div id="listContacts" data-bb-type="image-list" data-bb-images="none" data-bb-context="true">
+	</div>
+
+	<!-- Action bar. -->
+	<div data-bb-type="action-bar">
+		<div data-bb-type="action" data-bb-style="button" data-bb-img="./img/cog.png" onclick="_contacts.addContact();">Add</div>
+	</div>
+</div>
