@@ -1,0 +1,113 @@
+﻿<html>
+	<head>
+		<title>Invoke API</title>
+
+		<link rel="stylesheet" href="BlackBerry-JQM-all.min.css" />
+		<script src="BlackBerry-JQM-all.min.js"></script>
+
+		<script type="text/javascript" src="webworks-1.0.0.7.js"></script>
+        <script>
+            function onInvokeSuccess() {
+                console.log("Invocation successful!");
+            }
+
+            function onInvokeError(error) {
+                console.log("Invocation failed, error: " + error);
+            }
+
+            function invokeBrowser() {
+                // invoke web link - allows the system to choose an appropriate target that handles http://
+                blackberry.invoke.invoke({
+                    uri: "http://www.blackberry.com"
+                }, onInvokeSuccess, onInvokeError);
+            }
+
+            function invokePictureViewer() {
+                // invoking Card is the same as invoking an application, except the target specified should point to the "Card" target entry point
+                blackberry.invoke.invoke({
+                    action: "bb.action.VIEW",
+                    uri : "local:///img/img1.jpg",
+                    file_transfer_mode : blackberry.invoke.FILE_TRANSFER_COPY_RO
+                }, onInvokeSuccess, onInvokeError);
+            }
+
+            function boundInvokeCard() {
+                blackberry.invoke.invoke({
+                    target: "picture.card",
+                    action: "bb.action.VIEW",
+                    type: "text/plain",
+                    uri : "local:///img/img1.jpg"
+                }, onInvokeSuccess, onInvokeError);
+
+                blackberry.event.addEventListener('onChildCardClosed', function (info) {
+                    console.log("Card was closed");
+                });
+            }
+            function boundInvokeCard2() {
+                blackberry.invoke.invoke({
+                    target: "net.rim.webworks.invoke.invoke.card.type",
+                    action: "bb.action.VIEW",
+                    type: "text/plain"
+                }, onInvokeSuccess, onInvokeError);
+
+                blackberry.event.addEventListener('onChildCardClosed', function (info) {
+                    console.log("Card was closed");
+                });
+            }
+
+            function invokeCamera() {
+                var mode = blackberry.invoke.card.CAMERA_MODE_PHOTO;
+                blackberry.invoke.card.invokeCamera(mode, function (path) {
+                         console.log("saved "+ path);
+                     },
+                     function (reason) {
+                         console.log("cancelled " + reason);
+                     },
+                     function (error) {
+                         if (error) {
+                             console.log("invoke error "+ error);
+                          } else {
+                             console.log("invoke success " );
+                          }
+                  });
+             }
+
+            function invokeFilePicker() {
+                 var details = {
+                      mode: blackberry.invoke.card.FILEPICKER_MODE_PICKER,
+                      type: [blackberry.invoke.card.FILEPICKER_TYPE_PICTURE, blackberry.invoke.card.FILEPICKER_TYPE_MUSIC]
+                  };
+                blackberry.invoke.card.invokeFilePicker(details, function (path) {
+                          console.log("saved "+ path);
+                      },
+                      function (reason) {
+                          console.log("cancelled " + reason);
+                      },
+                      function (error) {
+                          if (error) {
+                              console.log("invoke error "+ error);
+                          } else {
+                              console.log("invoke success " );
+                          }
+                      }
+                  );
+              }
+        </script>
+	</head>
+	<body>
+		<div data-role="page">
+			<div data-role="header" data-theme="c" data-position="fixed">
+				<h1>Invoke Demo</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					<li><a href="#" onclick="boundInvokeCard()">Invoke Bound card</a></li>
+					<li><a href="#" onclick="invokeBrowser()">Invoke Browser</a></li>
+					<li><a href="#" onclick="invokePictureViewer()">Invoke Picture viewer</a></li>
+					<li><a href="#" onclick="invokeCamera()">Invoke Camera</a></li>
+					<li><a href="#" onclick="invokeFilePicker()">Invoke File Picker</a></li>
+				</ul>
+			</div>
+		</div><!--page-->
+    </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>Action Bar</title>
+        <link rel="stylesheet" href="BlackBerry-JQM-all.min.css" />
+        <script src="webworks-1.0.0.7.js" type="text/javascript"></script>
+        <script src="BlackBerry-JQM-all.min.js"></script>
+        <script>
+
+            function ready() {
+
+                blackberry.event.addEventListener("invoked", function (onInvokedInfo) {
+                        var obj = document.getElementById('image');
+                        obj.src = onInvokedInfo.uri;
+                    });
+                findShareTargets();
+
+            }
+            window.addEventListener("load", function(e) {
+                document.addEventListener("webworksready", ready);
+            }, false);
+
+
+            function findShareTargets() {
+
+                var request = {
+                    action: 'bb.action.SHARE',
+                    type: 'image/*',
+                    target_type: ["APPLICATION", "CARD"]
+                };
+
+                blackberry.invoke.query(request, function (response) {
+                        console.log(response);
+                        onSuccessfulFindTargets(response[0].targets)
+                    }, function () {
+
+                });
+            }
+
+            function onSuccessfulFindTargets(items) {
+                var list = "";
+                for(var i = 0; i < items.length; i++) {
+                    list += '<li><a href="#"><img src="file://'+ items[i].icon + '">' + items[i].label + '</a></li>';
+                }
+                $("#share-items").html(list).listveiw();
+            }
+
+
+            $(document).bind('pageinit', function(){
+                $("#action-back").bind( "vclick", function() {
+                    console.log("back close")
+                    blackberry.invoked.cardRequestClosure({
+                        reason: "back"
+                    });
+                });
+
+                $("#action-share").bind( "vclick", function() {
+                    console.log($("#sharePage"));
+                    $.mobile.changePage( $("#sharePage"), {transition: "slideup"});
+                });
+
+            });
+
+
+        </script>
+
+        <style>
+            .center {top:50%; margin-top:260px; /* negative half of the height */}
+            .peek-area {width:10%; height:100%; position:fixed; top:0; left:0;}
+        </style>
+    </head>
+    <body>
+        <div id="page" data-role="page" data-theme="a">
+            <div id ="content" data-role="content">
+
+                <div data-role="gridview">
+                    <div data-role="row">
+                        <div class="center">
+                            <img id="image" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div id="peek-area" class="peek-area">
+                </div>
+
+            </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed">
+                <div id="action-bar-area" data-role="actionbar">
+                    <div id= "action-back" data-role="back"></div>
+                    <div id="action-share" data-role="action">
+                        <img src="img/share.png" alt="" />
+                        <p>Share</p>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /page -->
+
+        <div id="sharePage" data-role="page" data-dom-cache="true" data-theme="a">
+            <div data-role="header">
+                <a href="#page" data-role="button" data-rel="back">Cancel</a>
+                <h1>Share</h1>
+            </div>
+            <div data-role="content">
+                <ul id="share-items" data-role="listview">
+                </ul>
+            </div>
+        </div><!-- /page -->
+
+
+        <script>
+            var obj = document.getElementById('peek-area');
+            obj.addEventListener('touchstart', function(event) {
+                console.log("peeking")
+                blackberry.invoked.cardStartPeek("root");
+            }, false);
+        </script>
+
+    </body>
+</html>

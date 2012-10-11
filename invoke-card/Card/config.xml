@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="1.2.3"
+        id="CardType">
+    <name>TheCard</name>
+    <content src="index.htm"/>
+	<author href="http://www.rim.com/"
+			rim:copyright="no copyright, go nuts!"
+			email = "email@rim.com">self
+	</author>
+    <description>This app tests invocation</description>
+	<access uri="*" />
+    <feature id="blackberry.invoke" />
+    <feature id="blackberry.app.orientation">
+        <param name="mode" value="portrait"/>
+    </feature>
+    <access uri="*" />
+    <feature id="blackberry.invoked" />
+    <license href="http://www.apache.org/licenses/LICENSE-2.0">My License</license>
+  	<rim:invoke-target id="picture.card">
+		<type>card.previewer</type>
+		<filter>
+			<action>bb.action.VIEW</action>
+            <mime-type>image/*</mime-type>
+		</filter>
+	</rim:invoke-target>
+ <rim:permissions>
+        <rim:permit>use_camera</rim:permit>
+         <rim:permit>access_shared</rim:permit>
+     </rim:permissions>
+</widget>
