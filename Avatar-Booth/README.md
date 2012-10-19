@@ -37,9 +37,7 @@ All artwork except for the following was done by the author [Anzor Bashkhaz] and
 ** How to Build **
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into scripts/lib/webworks/.
-3. Optional: Edit the script reference to the webworks-.js file within scripts/main.js to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and BlackBerry WebWorks SDK for BB10, package the contents of your local BB10-WebWorks-Samples/Meet-the-team folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and BlackBerry WebWorks SDK for BB10, package the contents of your local BB10-WebWorks-Samples/Meet-the-team folder into a BlackBerry application.
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
