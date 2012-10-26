@@ -41,6 +41,15 @@ foursquareOptions = {
 };
 ```
 
+## Config.xml 
+As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
+
+```
+<access uri="*" subdomains="true" />
+<access uri="http://foursquare.com" subdomains="true" />    
+<access uri="https://foursquare.com" subdomains="true" />    
+```
+
 ## Security Considerations
 Your Client Secret key, is intended to stay SECRET.  For demonstration purposes we coded the Client ID and Client Secret right in the JavaScript source.  This is not best practice, and is not recommended.  You don’t want anybody to get access to your keys.
 

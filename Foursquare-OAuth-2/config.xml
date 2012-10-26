@@ -36,6 +36,9 @@
         See the License for the specific language governing permissions and limitations under the License.
     </license>
     <access uri="*" subdomains="true" />
+    <access uri="http://foursquare.com" subdomains="true" />    
+    <access uri="https://foursquare.com" subdomains="true" />    
+
     <icon src="images\icon.png"/>
 
     <rim:permissions>

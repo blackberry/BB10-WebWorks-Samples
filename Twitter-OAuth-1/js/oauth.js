@@ -1,18 +1,18 @@
 /*
-* Copyright 2012 Research In Motion Limited.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 function initApp() {
 	try {
@@ -23,31 +23,33 @@ function initApp() {
 			consumerSecret: '',
 
 			// this assumes your content source is index.html, if not, change below
-			callbackUrl: 'local:///index.html'
+			callbackUrl: 'http://mydomain.com/oauth_redirect.php'
 		};
 
 		twitterOauth = OAuth(twitterOptions);
+
 		// end of jsOAuth setup
-
-		// here we check for queryStrings when the app loads.  This is because Twitter is calling back
-		// to our callbackUrl.  If the app initializes, and there is a query string, it checks if the user
+		// here we check for query strings in window.location when the app loads.  This is because facebook is calling back
+		// to our callbackUrl. When the app initializes, and there is a query string, it checks if the user
 		// authorized the app or not
-		requestParams = localStorage.getItem('requestParams') || null;
-		var denied = checkForQueryStrings('denied') || null;
-		var oauthToken = checkForQueryStrings('oauth_token') || null;
-		var oauthVerifier = checkForQueryStrings('oauth_verifier') || null;
+		var query = window.location.search;
+		authCode = null;
+		authCode = query.split('oauth_token=');
+		authCode = authCode[1] || null;
 
-		// user denied access
-		if (denied !== null) {
-			showMessage('User denied access. The end.');
-			return false;
+		// // we've got an auth code, let's exchange that for an access token
+		if(authCode !== null) {
+			
+			// parse the querystring
+			requestParams = localStorage.getItem('requestParams') || null;
+			var denied = checkForQueryStrings('denied') || null;
+			var oauthToken = checkForQueryStrings('oauth_token') || null;
+			var oauthVerifier = checkForQueryStrings('oauth_verifier') || null;
 
-		// user has allowed access, proceed...
-		} else if (oauthToken && oauthVerifier !== null) {
+			// go for access tokens
 			getAccessTokens(oauthToken, oauthVerifier);
 		}
-
-	} catch (e) {
+	} catch(e) {
 		alert('Error in initApp: ' + e);
 	}
 }
@@ -63,7 +65,7 @@ function getRequestTokens() {
 		function(data) {
 			window.location.replace("https://api.twitter.com/oauth/authorize?" + data.text);
 			requestParams = data.text;
-			
+
 			// save the tokens that Twitter gave us for use in getAccessTokens() function
 			localStorage.setItem('requestParams', requestParams);
 		},
@@ -72,13 +74,14 @@ function getRequestTokens() {
 		function(data) {
 			// error handling here
 			$('#message').fadeOut(500);
-			alert(data.text);
+			alert('Fale getting request token: ' + data.text);
 			return false;
 		});
-	} catch (e) {
+	} catch(e) {
 		alert('Error in getRequestTokens: ' + e);
 	}
 }
+
 
 // the last step - getting access tokens
 // note that we're appending our previously saved requestParams to our query.  this is part of the OAuth "flow"
@@ -91,7 +94,7 @@ function getAccessTokens(oauthToken, oauthVerifier) {
 		function(data) {
 			var accessParams = {};
 			var qvars_tmp = data.text.split('&');
-			for (var i = 0; i < qvars_tmp.length; i++) {
+			for(var i = 0; i < qvars_tmp.length; i++) {
 				var y = qvars_tmp[i].split('=');
 				accessParams[y[0]] = decodeURIComponent(y[1]);
 			}
@@ -103,7 +106,7 @@ function getAccessTokens(oauthToken, oauthVerifier) {
 			//        ** if you do save the tokens and load them from memory later, don't foget to set them
 			//        in jsOAuth again like we're doing on the line below! **
 			twitterOauth.setAccessToken([accessParams.oauth_token, accessParams.oauth_token_secret]);
-			
+
 			$('#buttonSetup').hide();
 			$('#afterAuth').show();
 			showMessage('Annnnd we\'re authd!');
@@ -113,8 +116,28 @@ function getAccessTokens(oauthToken, oauthVerifier) {
 		function(data) {
 			// you can put any error handling you may want to do in here, if the request for access tokens fails
 		});
-	} catch (e) {
+	} catch(e) {
 		alert('Error in getAccessTokens: ' + e);
+	}
+}
+
+// helper function for displaying a message to the user
+function showMessage(msg) {
+	try {
+
+		if(!$('#message').is(':visible')) {
+			$('#message').show();
+		}
+		setTimeout(function() {
+			$('#message').html(msg);
+		}, 500);
+		setTimeout(function() {
+			$('#message').fadeOut(500, function() {
+				$('#message').html('');
+			});
+		}, 4000);
+	} catch(e) {
+		alert('Error in showMessage: ' + e);
 	}
 }
 
@@ -123,32 +146,32 @@ function getAccessTokens(oauthToken, oauthVerifier) {
 function postToService() {
 	try {
 		var status = $('#inputBox').val();
-		if (status === '' || status === 'enter your tweet...') {
+		if(status === '' || status === 'enter your tweet...') {
 			showMessage('Uh oh! You didn\'t enter anything to post :(');
 			return false;
 		} else {
 
-			setTimeout(function(){
+			setTimeout(function() {
 				$('#message').fadeIn(300).html('Posting tweet...');
 			}, 100);
 
 			twitterOauth.post('https://api.twitter.com/1.1/statuses/update.json', {
 				'status': status
 
-			// success
+				// success
 			}, function(data) {
-				setTimeout(function(){
+				setTimeout(function() {
 					showMessage('Tweet posted!!');
 					$('#inputBox').val('');
 					//$('#message').fadeOut(500);
-				},100);
+				}, 100);
 
-			// failure
+				// failure
 			}, function(data) {
 				alert('Error posting your tweet :(');
 			});
 		}
-	} catch (e) {
+	} catch(e) {
 		alert('Error in postToService: ' + e);
 	}
 }
@@ -167,7 +190,7 @@ function getTimeline() {
 			var tweets = JSON.parse(data.text);
 
 			// show the last 2 tweets from the users timeline
-			for (var i = 0; i < 3; i++) {
+			for(var i = 0; i < 3; i++) {
 				$('#content').append('<p>' + tweets[i].text + '</p>');
 			}
 			$('#content').fadeIn(600);
@@ -179,7 +202,7 @@ function getTimeline() {
 			return false;
 		});
 
-	} catch (e) {
+	} catch(e) {
 		alert('Error in getTimeline: ' + e);
 	}
 }
@@ -189,29 +212,9 @@ function checkForQueryStrings(id) {
 	var string = "[\\?&]" + id + "=([^&#]*)";
 	var regex = new RegExp(string);
 	var results = regex.exec(window.location);
-	if (results === null) {
+	if(results === null) {
 		return;
-	}  else {
+	} else {
 		return results[1];
-	}
-}
-
-// helper function for displaying a message to the user
-function showMessage(msg) {
-	try {
-
-		if (!$('#message').is(':visible')) {
-			$('#message').show();
-		}
-		setTimeout(function() {
-			$('#message').html(msg);
-		}, 500);
-		setTimeout(function() {
-			$('#message').fadeOut(500, function(){
-				$('#message').html('');
-			});
-		}, 4000);
-	} catch (e) {
-		alert('Error in showMessage: ' + e);
 	}
 }

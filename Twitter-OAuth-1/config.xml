@@ -35,7 +35,11 @@ limitations under the License.
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         See the License for the specific language governing permissions and limitations under the License.
     </license>
+    
     <access uri="*" subdomains="true" />
+    <access uri="https://twitter.com" subdomains="true" />
+    <access uri="http://twitter.com" subdomains="true" />
+    
     <icon src="images\icon.png"/>
     <rim:permissions>
     </rim:permissions>

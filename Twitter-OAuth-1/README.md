@@ -22,8 +22,11 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
 ## Initial Twitter Setup
+
+***Note: At this time Twitter doesn't allow apps to use "local:///" for their OAuth callback.  To work-around this, we're hosting a small PHP script on a webserver which will handle the redirection back to our app.  This PHP script needs to be hosted on the same domain you specify in your app settings on Twitter.***
+
 1. Create an application on Twitter (https://dev.twitter.com)
-2. Under “Callback URL” enter “local:///index.html”
+2. Under "Callback URL" enter the domain where your PHP script is located (E.g. http://www.mydomain.com/oauth)
 3. When your app is created, copy down your Consumer Key, and Consumer Secret
 
 ## WebWorks App Setup
@@ -31,6 +34,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 2. Include the webworks-.js file ***see How To Build*** for instructions
 3. Open js/oauth.js from the projects folder.
 4. Edit the consumerKey and consumerSecret to reflect the keys given to you from Twitter.
+5. Move the ***_php*** folder out of the project directory, and see ***Server-side Setup***
 
 ```
 // jsOauth setup for twitter
@@ -39,6 +43,25 @@ twitterOptions = {
    consumerSecret: '<consumer secret goes here>',
    callbackUrl: 'local:///index.html'
 };
+```
+## Config.xml 
+As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
+
+```
+<access uri="*" subdomains="true" />
+<access uri="https://twitter.com" subdomains="true" />
+<access uri="http://twitter.com" subdomains="true" />
+```
+
+## Server-side Setup
+1. Upload the ***redirect.php*** script from the ***_php*** folder to your web server
+2. ***[optional]*** By default the script is set to redirect to ***local:///index.html***, if you need it to redirect to a different url then edit the PHP script.
+
+```
+<?php
+   $queryString = $_SERVER['QUERY_STRING'];
+   header("Location: local:///index.html?" . $queryString);
+?>
 ```
 
 ## Security Considerations
@@ -50,7 +73,6 @@ One way to securely pass your Consumer Secret to your application is to host it 
 This sample app shows how to connect your application with a few different Twitter end-points with the help of the [jsOAuth](http://github.com/bytespider/jsOAuth) library. The source code is fairly well commented, and will show the entire flow. The syntax is as follows:
 
 ***Note: This sample shows how to interact with the new Twitter API v1.1 End Points. Important changes have been made, [check-out Twitter's documentation](https://dev.twitter.com/docs/api/1.1).***
-
 
 ###Obtaining Request Tokens
 

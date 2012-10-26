@@ -50,6 +50,7 @@ button {
 
 #buttonSetup {
 	width: 100%;
+	height: 200px;
 }
 
 #buttonTweet, #buttonTimeline {

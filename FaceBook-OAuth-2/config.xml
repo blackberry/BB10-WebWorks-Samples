@@ -36,9 +36,9 @@
         See the License for the specific language governing permissions and limitations under the License.
     </license>
     <icon src="images\icon.png"/>
+    <access uri="*" subdomains="true" />
     <access uri="http://facebook.com" subdomains="true" />
     <access uri="https://facebook.com" subdomains="true" />
     <access uri="http://fbcdn.net" subdomains="true" />
     <access uri="https://fbcdn.net" subdomains="true" />
-    <access uri="http://oauth.chadtatro.com" subdomains="true" />
 </widget>

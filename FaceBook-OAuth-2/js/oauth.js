@@ -21,12 +21,12 @@ function initApp() {
 	try {
 		// facebook oauth setup
 		facebookOptions = {
-			clientId: '',
-			clientSecret: '',
+			clientId: '353789401362168',
+			clientSecret: '491b6467cf719e1385acba4c50884656',
 
 			// we use a php script on a server because facebook doesn't allow for local:/// callbacks
 			// at this time.  the php simply redirects us back to 'local:///index.html'
-			redirectUri: 'http://mydomain.com/oauth_redirect.php'
+			redirectUri: 'http://oauth.chadtatro.com/oauth_redirect.php'
 		};
 
 		// here we check for query strings in window.location when the app loads.  This is because facebook is calling back

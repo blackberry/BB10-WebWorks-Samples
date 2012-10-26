@@ -18,7 +18,13 @@
 <html>
     <head>
         <title>Foursquare OAuth</title>
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1,user-scalable=no" />
+
+        <script>
+            var meta = document.createElement("meta");
+            meta.setAttribute('name','viewport');
+            meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        </script>   
  
         <!-- css -->
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />

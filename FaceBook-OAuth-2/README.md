@@ -46,6 +46,16 @@ facebookOptions = {
    redirectUri: 'http://www.mydomain.com/oauth/redirect.php'
 };
 ```
+## Config.xml 
+As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
+
+```
+<access uri="*" subdomains="true" />
+<access uri="http://facebook.com" subdomains="true" />
+<access uri="https://facebook.com" subdomains="true" />
+<access uri="http://fbcdn.net" subdomains="true" />
+<access uri="https://fbcdn.net" subdomains="true" />
+```
 
 ## Server-side Setup
 1. Upload the ***redirect.php*** script from the ***_php*** folder to your web server
