@@ -1,5 +1,0 @@
-<qnx>
-    <action>set_audio_volume</action>
-    <action>play_audio</action>
-    <platformVersion>2.1.0.0</platformVersion>
-</qnx>
