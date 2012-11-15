@@ -36,6 +36,12 @@ function invokeBrowserUri() {
     }, onSuccess, onError);
 }
 
+function invokePhone() {
+    blackberry.invoke.invoke({
+        uri: "tel:5555555555"
+    }, onSuccess, onError);
+}
+
 function invokeHelp() {
     blackberry.invoke.invoke({
         target: "sys.help"
@@ -59,7 +65,7 @@ function invokeAdobeReaderPdf() {
 
 function invokeApp() {
     blackberry.invoke.invoke({
-        target: "com.bb.test.invokable", 
+        target: "com.bb.test.invokable",
         action: "bb.action.OPEN",
         type: "text/plain",
         data: "Hello, I invoked you"
@@ -87,7 +93,7 @@ function saveFileInvoke () {
             }, errorHandler);
         }, errorHandler);
     }
-    
+
     xhr.send();
 
     blackberry.invoke.invoke({
