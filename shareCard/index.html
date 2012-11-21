@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2012 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<html>
+    <head>
+        <title>Share Card</title>
+
+        <!-- new way of setting the meta tag -->
+        <script>
+            var meta = document.createElement("meta");
+            meta.setAttribute('name','viewport');
+            meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        </script>   
+ 
+        <!-- css -->
+        <link rel="stylesheet" href="css/card.css" type="text/css" media="screen" />
+
+        <!-- webworks sdk -->
+        <script src="js/webworks/webworks-.js"></script>
+
+        <!-- sample source -->
+        <script src="js/card.js"></script>
+
+        <!-- libraries -->
+        <script src="js/lib/jquery-1.8.1.min.js"></script>
+
+    <style>
+        html, body { 
+            padding: 0;
+            margin: 0;
+            overflow: hidden; 
+            background-color: #222;
+        }
+
+        button {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            width: 100%;
+            height: 200px;
+            bottom: 0;
+            font-size: 60px;
+        }
+
+    </style>
+    </head>
+
+   <body> 
+    <button onclick="sharePhoto();">Show Share</button>
+
+    <!-- share card -->
+    <div id="shareCard">
+        <div class="cardTitlebar">
+            <div onclick="shareHide();" class="bb-button-container bb-button-container-dark">
+                <div class="bb-button bb-button-dark">
+                    <div>Cancel</div>
+                </div>
+            </div>
+        </div>
+    
+        <span class="cardTitlebarText">Share</span>
+        <div id="shareList"></div>
+    </div>
+
+
+    <!-- wait for webworks ready event before calling apis! -->
+    <script>
+        document.addEventListener("webworksready", initApp);
+
+        function initApp () {
+            $('button').show();
+        }
+    </script>
+
+    </body>
+</html>
