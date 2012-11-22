@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<!--
+* Copyright 2010-2011 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<div style="background-color: #f1f1f1" data-bb-type="screen" data-bb-effect="slide-left">
+
+<div id="content">
+	<h3>Programatic API</h3>
+	<p>A new web view should be created when a button in the action bar is clicked. </p><br/>
+
+	<p class="heading">window.open(url, '_blank')</p>
+	<p class="desc">This will load a new page in a seperate web view.</p>
+
+	<p class="heading">window.open(url, '_top')</p>
+	<p class="desc">This will load a new page in this web view.</p>
+
+	<p class="heading">window.open(url, '_self')</p>
+	<p class="desc">This will load a new page in this web view.</p>
+
+	<p class="heading">window.open(url, '_parent')</p>
+	<p class="desc">This will load a new page in this web view.</p>
+</div>
+
+<div data-bb-type="action-bar">
+
+<!-- tabs -->
+<div onclick="bb.pushScreen('href.html', 'href');" data-bb-type="action" data-bb-style="tab" data-bb-selected="false" data-bb-overflow="true" data-bb-img="images/cog.png">Href</div>
+
+<div data-bb-type="action" data-bb-style="tab" data-bb-selected="true" data-bb-overflow="true" data-bb-img="images/cog.png">JavaScipt</div>
+
+<!-- buttons -->
+
+<!-- blank -->
+<div id="vBlank" data-bb-type="action" data-bb-style="button" data-bb-overflow="false" data-bb-img="images/window.png">_blank</div>
+
+<!-- top -->
+<div id="vTop" data-bb-type="action" data-bb-style="button" data-bb-overflow="false" data-bb-img="images/window.png">_top</div>
+
+<!-- self -->
+<div id="vSelf" data-bb-type="action" data-bb-style="button" data-bb-overflow="false" data-bb-img="images/window.png">_self</div>
+
+<!-- parent -->
+<div id="vParent" data-bb-type="action" data-bb-style="button" data-bb-overflow="false" data-bb-img="images/window.png">_parent</div>
+
+</div>
+</div>    
