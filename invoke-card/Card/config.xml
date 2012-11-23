@@ -22,7 +22,7 @@
 		<type>card.previewer</type>
 		<filter>
 			<action>bb.action.VIEW</action>
-            <mime-type>image/*</mime-type>
+            <mime-type>image/jpg</mime-type>
 		</filter>
 	</rim:invoke-target>
  <rim:permissions>
