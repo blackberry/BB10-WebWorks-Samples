@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<div data-bb-type="screen" data-bb-scroll-effect="on" id="push-screen">
+<div data-bb-type="screen" data-bb-effect="fade" data-bb-scroll-effect="on" id="push-screen">
 	<script id="pushlistJS" src="Scripts/pushlist.js"></script>
 	
 	<style type="text/css">
@@ -34,16 +34,17 @@
 		}
 		
 		#push-list td {
-			border-bottom: 0.1em solid #cccccc;
-			border-top: 0.1em solid transparent;
+			border-bottom: 2px solid #F0F0F0;
 			padding: 0.5em;
 		}
 		
 		#push-list td.heading {
-			text-align: center;
-			background: #cccccc;
+			text-align: left;
+			background-image: -webkit-linear-gradient(top, #FFFFFF, #DDDDDD);
 			color: black;
-			padding: 0.1em;
+			border-bottom: 2px solid #0393C2;
+			outline: #00A8DF solid 4px; 
+			padding: 0.2em;
 		}
 		
 		#push-list tr.unread-push {
@@ -55,8 +56,8 @@
 		}
 		
 		#push-list tr.on-focus {
-			background: #334C80;
-			color: white;
+			background: #00A8DF;
+			color: black;
 		}
 		
 		#push-list tr.on-blur {

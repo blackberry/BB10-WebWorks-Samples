@@ -32,7 +32,7 @@ sample.pushcapture.constructor.prototype.publicPPG = function() {
 };
 
 /**
- * When the selected PPG type is "Enterprise/BES", hides the "PPG URL" text box
+ * When the selected PPG type is "Enterprise/BDS", hides the "PPG URL" text box
  * (and possibly the "Application ID" text box if not using the Push Service SDK
  * for your Push Initiator).
  * 
@@ -116,20 +116,23 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, results) {
-	element.getElementById("appidtd").innerHTML = results.rows.item(0).appid;
+	element.getElementById("appid").value = results.rows.item(0).appid;
+	element.getElementById("appid").disabled = true;
 	sample.pushcapture.appid = results.rows.item(0).appid;
 	element.getElementById("piurl").value = results.rows.item(0).piurl;
 	element.getElementById("ppgurl").value = results.rows.item(0).ppgurl;
     
     if (results.rows.item(0).usingpublicppg == 1) {
     	sample.pushcapture.usingpublicppg = true;
-        element.getElementById("ppgtyperow").innerHTML = "<td class='user-input-padding'>Public/BIS</td>";
+    	element.getElementById("publicradio").setChecked();
         element.getElementById("ppgurl").style.display = "";
     } else {
     	sample.pushcapture.usingpublicppg = false;
-    	element.getElementById("ppgtyperow").innerHTML = "<td class='user-input-padding'>Enterprise/BES</td>";
-        element.getElementById("ppgurl").style.display = "none";
+    	element.getElementById("enterpriseradio").setChecked();
+        element.getElementById("ppgurl").style.display = "none";               
+        
     }
+	bb.radio.disableGroup("ppgtype");
 
     if (results.rows.item(0).launchapp == 1) {
     	element.getElementById("launchapp").setChecked(true);
@@ -143,7 +146,12 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
     } else {
     	element.getElementById("usesdkaspi").setChecked(false);
     	element.getElementById("piurl").style.display = "none";
+    	// If enterprise and not using the SDK the app id field is not shown because the APIs will just use the default app id
+    	if(results.rows.item(0).usesdkaspi == 0) {
+    		element.getElementById("appid").style.display = "none";
+    	}
     }
+    element.getElementById("usesdkaspi").disable();
 };
 
 /**
@@ -182,7 +190,7 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
     sample.pushcapture.ppgurl = document.getElementById("ppgurl").value.trim();
 	
     if ((sample.pushcapture.usingpublicppg || sample.pushcapture.usesdkaspi) && sample.pushcapture.appid == "") {
-        alert("Error: Please specify an application ID.");
+        alert("Error: Please specify an Application ID.");
         return false;
     }
 
@@ -195,7 +203,7 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
         return false;
     }
     if (sample.pushcapture.usingpublicppg && sample.pushcapture.ppgurl.endsWith("/")) {
-        alert("Error: The PPG URL should not end with a /. One will be automatically added to the end.");
+        alert("Error: The PPG URL should not end with a /. One will be automatically added.");
         return false;
     }
     
@@ -208,7 +216,7 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
         return false;
     }
     if (sample.pushcapture.usesdkaspi && sample.pushcapture.piurl.endsWith("/")) {
-        alert("Error: The Push Initiator URL should not end with a /. One will be automatically added to the end.");
+        alert("Error: The Push Initiator URL should not end with a /. One will be automatically added.");
         return false;
     }
 
@@ -316,11 +324,8 @@ sample.pushcapture.constructor.prototype.successfulConfiguration = function() {
     // This is because WebWorks does not allow you to call the static 
     // blackberry.push.PushService.create function repeatedly with different application IDs
     // In your app, you should hardcode the app ID value somewhere since you will only ever need one
-    if (sample.pushcapture.usingpublicppg) {
-        document.getElementById("ppgtyperow").innerHTML = "<td class='user-input-padding'>Public/BIS</td>";
-    } else {
-    	document.getElementById("ppgtyperow").innerHTML = "<td class='user-input-padding'>Enterprise/BES</td>";
-    }
-    
-    document.getElementById("appidtd").innerHTML = sample.pushcapture.appid;    
+    bb.radio.disableGroup("ppgtype");
+     
+    document.getElementById("appid").value = sample.pushcapture.appid;
+    document.getElementById("appid").disabled = true;
 };

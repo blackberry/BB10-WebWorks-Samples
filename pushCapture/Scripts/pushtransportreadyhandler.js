@@ -15,22 +15,22 @@
  */
 
 /**
- * @fileOverview This file has functions related to the handling of the callback when the push transport is back up and available again.
+ * @fileOverview This file has functions related to the handling of the push transport ready callback.
  * @version 1.0
  * @name pushtransportreadyhandler.js
  */
 
 /**
- * This function is called after a create or destroy channel operation has failed with a
- * <code>PUSH_TRANSPORT_UNAVAILABLE</code> error code and the push transport is now available
- *  again. 
+ * This function is called after a create or destroy channel operation has failed with either a
+ * <code>PUSH_TRANSPORT_UNAVAILABLE</code> or <code>PPG_SERVER_ERROR</code> error code and the 
+ * push transport/network/PPG is now available again. 
  *  
  * @param {Number}
  *            lastFailedOperation the last failed operation (i.e. create or destroy channel)
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.onPushTransportReady = function(lastFailedOperation) {
-	var message = "The push transport is now available. Please try ";
+	var message = "The push transport/wireless network/PPG is now available. Please try ";
 
 	if (lastFailedOperation == blackberry.push.PushService.CREATE_CHANNEL_OPERATION) {
 		message += "registering ";

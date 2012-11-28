@@ -70,7 +70,7 @@
 			margin-right: auto;
 			text-align: left;
 			padding: 0.5em;
-			border: 0.2em solid red;
+			border: 6px solid red;
 			background: #fcc;
 		}  	
 		
@@ -113,18 +113,16 @@
 
 	<div id="config-tab">			
 		<table id="config-table" class="user-input-table">
-	        <tr id="ppgtyperow">
+	        <tr>
 	            <td>
 		            <table>
 		                <tr>
 				            <td class="column1"><input type=radio name="ppgtype" id="publicradio" value="public" checked=true onchange="sample.pushcapture.publicPPG()" /></td>
 				            <td class="column2">Public/BIS</td>
 		                </tr>
-		            </table>
-		            <table>
 		                <tr>
 				            <td class="column1"><input type=radio name="ppgtype" id="enterpriseradio" value="enterprise" onchange="sample.pushcapture.enterprisePPG()" /></td>
-				            <td class="column2">Enterprise/BES</td>
+				            <td class="column2">Enterprise/BDS</td>
 		                </tr>
 		            </table>
 		        <td>		            		        
@@ -134,13 +132,13 @@
 		            <table>
 		                <tr>
 				            <td class="column1"><input type="checkbox" id="usesdkaspi" value="usesdkaspi" checked=true onchange="sample.pushcapture.useSDKAsPushInitiator()" /></td>
-				            <td class="column2">Use Push Service SDK as Push Initiator</td>
+				            <td class="column2">Subscribe with Push Service SDK</td>
 		                </tr>
 		            </table>
 	            </td>
 	        </tr>
 			<tr>
-				<td id="appidtd" class="user-input-padding"><input class="box-length" type="text" id="appid" maxlength="42" placeholder="Application ID" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="appid" maxlength="42" placeholder="Application ID" /></td>
 			</tr>
 			<tr>
 				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" maxlength="80" placeholder="PPG URL" /></td>

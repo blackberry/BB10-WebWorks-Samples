@@ -112,7 +112,27 @@ sample.pushcapture = (function() {
         /**
          * Invoke target ID for receiving new push notifications.
          */
-        this.invoketargetid = "sample.pushcapture.invoke.target";
+        this.invokeTargetIdPush = "sample.pushcapture.invoke.push";
+        
+        /**
+         * Invoke target ID when clicking on a notification in the BlackBerry Hub opens the app.
+         */  
+        this.invokeTargetIdOpen = "sample.pushcapture.invoke.open";
+        
+        /**
+         * Prefix to use for the tag for new notifications sent to the BlackBerry Hub for this app.
+         */ 
+        this.notificationPrefix = "pushcapture_";
+        
+        /**
+         * Boolean indicating whether the DOM is ready (and can be manipulated).
+         */
+        this.isDomReady = false;
+        
+        /**
+         * Boolean indicating whether an invoke has been received wanting to open the application.
+         */
+        this.isOpenInvoke = false;
         
         /**
          * Use SDK as Push Initiator configuration setting.
@@ -123,7 +143,7 @@ sample.pushcapture = (function() {
         
         /**
          * Whether the public/BIS PPG is being used.  If set to false, an
-         * enterprise/BES PPG is being used.
+         * enterprise/BDS PPG is being used.
          */
         this.usingpublicppg = true;
         
@@ -168,13 +188,6 @@ sample.pushcapture = (function() {
          * The push content to be displayed.
          */     
         this.content = null;
-
-        /**
-         * Keep a count of the number of calls that were attempted to 
-         * <code>sample.pushcapture.onInvoke</code> and no <code>PushService</code>   
-         * instance was found.
-         */
-        this.onInvokeAttemptCount = 0;
         
         /**
          * Keep a count of the number of unregister attempts with the Push Initiator.
@@ -190,10 +203,14 @@ sample.pushcapture = (function() {
      * @param {String}
      *            encoding the encoding of the Blob
      * @param {function}
-     *            callback the callback to be called with the string result         
+     *            callback the callback to be called with the string result. If blob is undefined or is an empty string then returns an empty string         
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {    	
+    PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {
+    	if(!blob) {
+    		callback('');
+    	}
+    	
     	var reader = new FileReader();
     	
     	reader.onload = function(evt) {    		
@@ -214,10 +231,14 @@ sample.pushcapture = (function() {
      * @param {Blob}
      *            blob the blob to be converted
      * @param {function}
-     *            callback the callback to be called with the binary base64 encoded string         
+     *            callback the callback to be called with the binary base64 encoded string. If blob is undefined or is an empty string then returns an empty string         
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.blobToBinaryBase64String = function(blob, callback) {
+    	if(!blob) {
+    		callback('');
+    	}
+    	
     	var reader = new FileReader();
     	
     	reader.onload = function(evt) {
@@ -264,8 +285,8 @@ sample.pushcapture = (function() {
      * @param str the Unicode string to base64 encode
      * @returns the base64 encoded Unicode string
      */
-    PushCapture.prototype.utf8_to_b64 = function ( str ) {
-        return window.btoa(unescape(encodeURIComponent( str )));
+    PushCapture.prototype.utf8_to_b64 = function (str) {
+        return window.btoa(unescape(encodeURIComponent(str)));
     };
 
     /**
@@ -281,8 +302,8 @@ sample.pushcapture = (function() {
      * @param str the base64 Unicode encoded string
      * @returns  the Unicode string
      */
-    PushCapture.prototype.b64_to_utf8 =function( str ) {
-        return decodeURIComponent(escape(window.atob( str )));
+    PushCapture.prototype.b64_to_utf8 =function(str) {
+        return decodeURIComponent(escape(window.atob(str)));
     };
     
     /**
@@ -511,11 +532,7 @@ sample.pushcapture = (function() {
      * 
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.initPushService = function() {    	
-		// Add an event listener to handle incoming push notifications
-		// We will ignore non-push invoke events
-    	blackberry.event.addEventListener("invoked", sample.pushcapture.onInvoke);
-    	
+    PushCapture.prototype.initPushService = function() {    	    	
         try {
             sample.pushcapture.db.readTransaction(function(tx) {
                 tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", [],
@@ -535,16 +552,35 @@ sample.pushcapture = (function() {
      *            invokeRequest an invoke request
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.onInvoke = function(invokeRequest) {    	
+    PushCapture.prototype.onInvoke = function(invokeRequest) {
     	if (invokeRequest.action != null && invokeRequest.action == "bb.action.PUSH") {
-    		if (sample.pushcapture.onInvokeAttemptCount < 10 && sample.pushcapture.pushService == null) {    			
-    			// Wait a bit for the PushService instance to be created and then try again
-    			setTimeout(function() { sample.pushcapture.onInvoke(invokeRequest); }, 750);
-    		} else if (sample.pushcapture.pushService != null) {    			
-            	var pushPayload = sample.pushcapture.pushService.extractPushPayload(invokeRequest);            	
-            	sample.pushcapture.pushNotificationHandler(pushPayload);
+        	var pushPayload = sample.pushcapture.pushService.extractPushPayload(invokeRequest);
+        	sample.pushcapture.pushNotificationHandler(pushPayload);
+    	} else if (invokeRequest.action != null && invokeRequest.action == "bb.action.OPEN") {
+    		// The payload from the open invoke is the seqnum for the push in the database
+			var payload = sample.pushcapture.b64_to_utf8(invokeRequest.data);
+			
+    		if (sample.pushcapture.isDomReady) {
+    			if (document.getElementById("push-list") == null) {
+    				// We are not on the home screen
+    				// Pop off the current screen so that the push can be opened properly
+    				bb.popScreen();
+
+    				// We have to wait until the pop finishes and the home screen 
+    				// loads before we can open the push, so we do it after the pushes 
+    				// are displayed by the call to initPushList() in pushlist.js
+    				sample.pushcapture.isOpenInvoke = true;
+    				sample.pushcapture.selectedPushSeqnum = payload;
+    			} else {
+    				// We are on the home screen, simply open the push
+    				sample.pushcapture.openPush(payload);
+    			}
     		} else {
-    			console.log("Error: No PushService instance was available to extract the push.");
+    			// The home screen has not loaded up yet.  We need to wait until it
+    			// loads before we can open the push, so we do it after the pushes
+    			// are displayed by the call to initPushList() in pushlist.js
+				sample.pushcapture.isOpenInvoke = true;
+				sample.pushcapture.selectedPushSeqnum = payload;
     		}
     	}
     };
@@ -602,7 +638,7 @@ sample.pushcapture = (function() {
     	var ops;
     	if (sample.pushcapture.usingpublicppg) {
     		// Consumer application using public push
-    		ops = { invokeTargetId : sample.pushcapture.invoketargetid, 
+    		ops = { invokeTargetId : sample.pushcapture.invokeTargetIdPush, 
     				appId : sample.pushcapture.appid, 
     				ppgUrl : sample.pushcapture.ppgurl 
     			  };
@@ -611,17 +647,17 @@ sample.pushcapture = (function() {
     		if (sample.pushcapture.usesdkaspi) {
     			// If we're using the Push Service SDK for our Push Initiator 
     			// implementation, we will have specified our own application ID to use
-        		ops = { invokeTargetId : sample.pushcapture.invoketargetid, 
+        		ops = { invokeTargetId : sample.pushcapture.invokeTargetIdPush, 
         				appId : sample.pushcapture.appid
         			  };
     		} else {
-    			ops = { invokeTargetId : sample.pushcapture.invoketargetid };
+    			ops = { invokeTargetId : sample.pushcapture.invokeTargetIdPush };
     		}
     	}
     	
     	blackberry.push.PushService.create(ops, sample.pushcapture.successCreatePushService, 
-    	    sample.pushcapture.failCreatePushService, sample.pushcapture.onSimChange,
-    	    sample.pushcapture.onPushTransportReady);
+        	    sample.pushcapture.failCreatePushService, sample.pushcapture.onSimChange,
+        	    sample.pushcapture.onPushTransportReady);
     };
     
     /**
@@ -639,6 +675,9 @@ sample.pushcapture = (function() {
     	// Save the service into a global variable so that it can be used later for operations
         // such as create channel, destroy channel, etc.
     	sample.pushcapture.pushService = service;
+    	
+		// Add an event listener to handle incoming invokes
+    	blackberry.event.addEventListener("invoked", sample.pushcapture.onInvoke);
     	
     	// We'll use the PushService object right now in fact to indicate whether we want to
     	// launch the application on a new push or not

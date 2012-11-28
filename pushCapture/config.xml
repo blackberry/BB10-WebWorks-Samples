@@ -20,29 +20,45 @@
   <description>Captures incoming pushes.</description>
   <author rim:copyright="Copyright 2012 Research In Motion Limited, unless otherwise noted." href="http://us.blackberry.com/developers/platform/pushapi.jsp">Research In Motion Limited</author>
   <icon src="Images/pushCaptureIcon.png" />
-  <rim:splash src="Images/pushCaptureSplash.png" />
+  <rim:splash src="Images/splash-768x1280.png" />
+  <rim:splash src="Images/splash-720x720.png" />
   <content src="index.htm" />
   
   <!-- Need to allow access to your externally accessible Push Initiator URL if using the Push Service SDK high-level APIs (with subscription support) -->
   <!-- Replace "externally_accessible_Push_Initiator_URL" with your own domain name -->
   <access uri="https://externally_accessible_Push_Initiator_URL" subdomains="true" />
   
-  <feature id="blackberry.app.orientation">
-    <param name="mode" value="portrait" />
+  <feature id="blackberry.app">
+      <param name="orientation" value="portrait" />
   </feature>
   <feature id="blackberry.push" />
   <feature id="blackberry.system" />
   <feature id="blackberry.invoked" />
   <feature id="blackberry.ui.dialog" />
   
+  <rim:permissions>
+      <rim:permit>post_notification</rim:permit>
+      <!-- This permission is needed for a consumer (public) push application only (not enterprise push)! -->
+      <rim:permit system="true">_sys_use_consumer_push</rim:permit>
+  </rim:permissions>
+  
   <!-- Need to put an invoke entry here for push -->
   <!-- The id here must match the invokeTargetId passed in as one of the ops to blackberry.push.PushService.create -->
-  <rim:invoke-target id="sample.pushcapture.invoke.target">
-    <entry-point>1</entry-point>
+  <rim:invoke-target id="sample.pushcapture.invoke.push">
     <type>APPLICATION</type>
     <filter>
       <action>bb.action.PUSH</action>
       <mime-type>application/vnd.push</mime-type>
     </filter>
   </rim:invoke-target>
+  
+  <!-- Have an invoke entry here for when a notification is clicked on in the BlackBerry Hub -->
+  <!-- This will cause the application to be opened -->
+  <rim:invoke-target id="sample.pushcapture.invoke.open">
+    <type>APPLICATION</type>
+    <filter>
+      <action>bb.action.OPEN</action>
+      <mime-type>text/plain</mime-type>
+    </filter>
+  </rim:invoke-target>  
 </widget>
