@@ -1,7 +1,7 @@
 
 #BB10 WebWorks Samples Repository 
 
-The _**BB10-WebWorks-Samples**_ repository is an area where members of the community can post up their WebWorks sample applications to share with the rest of the world.  
+The _**BB10-WebWorks-Samples**_ repository is where official WebWorks samples for BlackBerry 10 are hosted. For Community Samples, please refer to the [BB10-WebWorks-Community-Samples Repository](repo:BB10-WebWorks-Community-Samples).
 
 All APIs shared in this repository are Open Source under the  [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html)
 
