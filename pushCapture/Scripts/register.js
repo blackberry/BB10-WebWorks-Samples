@@ -105,7 +105,7 @@ sample.pushcapture.constructor.prototype.validateRegisterFields = function() {
 
     if (username == "") {
         document.getElementById("errordiv").style.display = "block";
-        document.getElementById("errormsg").innerHTML = "Error: No username was specified.";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify a username.";
         return false;
     }
 
@@ -113,7 +113,7 @@ sample.pushcapture.constructor.prototype.validateRegisterFields = function() {
 
     if (password == "") {
         document.getElementById("errordiv").style.display = "block";
-        document.getElementById("errormsg").innerHTML = "Error: No password was specified.";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify a password.";
         return false;
     }
 
@@ -195,15 +195,18 @@ sample.pushcapture.constructor.prototype.createChannelCallback = function(result
     		document.getElementById("errormsg").innerHTML = "Error: Create channel failed as the push transport " +
 				"is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will " +
 				"be notified when the push transport is available again.";
+    	} else if (result == blackberry.push.PushService.PPG_SERVER_ERROR) {
+    		// This error code only applies to a consumer application using the public/BIS PPG
+    		document.getElementById("errormsg").innerHTML = "Error: Create channel failed as the PPG is " +
+				"currently returning a server error. You will be notified when the PPG is available again.";    		
     	} else if (result == blackberry.push.PushService.MISSING_SUBSCRIPTION_RETURN_CODE_FROM_PPG) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: There was an internal issue obtaining " +
 			    "the subscription return code from the PPG during the create channel. Try registering again.";
-    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL_OR_PPG_UNAVAILABLE) {
+    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL) {
     		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL might have been invalid. Check " +
-    		    "your configuration settings. If it looks correct, the PPG might be temporarily unavailable. Try " +
-    		    "registering again.";
+    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL was considered " +
+			    "invalid during the create channel. Check your configuration settings.";
     	} else {
     		document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") from " +
 			    "the create channel.";
@@ -225,7 +228,7 @@ sample.pushcapture.constructor.prototype.subscribeToPushInitiator = function(tok
     if (sample.pushcapture.usingpublicppg) {
         type = "public";
     } else {
-    	type = "enterprise";
+    	type = "bds";
     }
     
     var username = document.getElementById("reguserid").value.trim();
@@ -305,7 +308,7 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
                     + "longer than 42 characters in length, or matched the 'push_all' keyword.";
             } else if (returnCode == "rc=10025") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe failed since the Push Initiator "
-                    + "application had a type of Enterprise Push and had the bypass subscription flag set to true.";
+                    + "application has the bypass subscription flag set to true (so no subscribe is allowed).";
             } else if (returnCode == "rc=10026") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since "
                     + "the username or password specified was incorrect.";
@@ -318,8 +321,8 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
             } else if (returnCode == "rc=10028") {
                 // Note: This error should not occur unless, for some weird reason, the type specified in the request
                 // parameter is incorrect
-                document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since the "
-                    + "type was null, empty, or not one of 'public' or 'enterprise'.";
+                document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed since the type "
+                    + "parameter was null, empty, not one of 'public' or 'bds', or invalid for the push application type.";
             } else if (returnCode == "rc=-9999") {
                 document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed with a "
                     + "general error (i.e. rc=-9999).";

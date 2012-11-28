@@ -1,17 +1,17 @@
 <!--
- * Copyright 2012 Research In Motion Limited.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
 -->
 <div data-bb-type="screen" data-bb-effect="fade" data-bb-scroll-effect="off" id="user-input-screen">
 	<script id="configJS" src="Scripts/configuration.js"></script>
@@ -70,7 +70,7 @@
 			margin-right: auto;
 			text-align: left;
 			padding: 0.5em;
-			border: 0.2em solid red;
+			border: 6px solid red;
 			background: #fcc;
 		}  	
 		
@@ -113,18 +113,16 @@
 
 	<div id="config-tab">			
 		<table id="config-table" class="user-input-table">
-	        <tr id="ppgtyperow">
+	        <tr>
 	            <td>
 		            <table>
 		                <tr>
 				            <td class="column1"><input type=radio name="ppgtype" id="publicradio" value="public" checked=true onchange="sample.pushcapture.publicPPG()" /></td>
 				            <td class="column2">Public/BIS</td>
 		                </tr>
-		            </table>
-		            <table>
 		                <tr>
 				            <td class="column1"><input type=radio name="ppgtype" id="enterpriseradio" value="enterprise" onchange="sample.pushcapture.enterprisePPG()" /></td>
-				            <td class="column2">Enterprise/BES</td>
+				            <td class="column2">Enterprise/BDS</td>
 		                </tr>
 		            </table>
 		        <td>		            		        
@@ -134,19 +132,19 @@
 		            <table>
 		                <tr>
 				            <td class="column1"><input type="checkbox" id="usesdkaspi" value="usesdkaspi" checked=true onchange="sample.pushcapture.useSDKAsPushInitiator()" /></td>
-				            <td class="column2">Use Push Service SDK as Push Initiator</td>
+				            <td class="column2">Subscribe with Push Service SDK</td>
 		                </tr>
 		            </table>
 	            </td>
 	        </tr>
 			<tr>
-				<td id="appidtd" class="user-input-padding"><input class="box-length" type="text" id="appid" maxlength="42" placeholder="Application ID" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="appid" maxlength="42" placeholder="Application ID" value="marcoapp"/></td>
 			</tr>
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" maxlength="80" placeholder="PPG URL" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" maxlength="80" placeholder="PPG URL" value="http://pushapi.eval.blackberry.com"/></td>
 			</tr>		
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="piurl" maxlength="80" placeholder="Push Initiator URL" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="piurl" maxlength="80" placeholder="Push Initiator URL" value="https://CI0000002169329.rim.net:7069/sample-push-initiator"/></td>
 			</tr>
 	        <tr>
 	        	<td>
@@ -164,10 +162,10 @@
 	<div id="register-tab">
 		<table id="reg-table" class="user-input-table">
 			<tr>
-				<td id="reguseridtd" class="user-input-padding"><input class="box-length" type="text" id="reguserid" maxlength="42" placeholder="Username" /></td>
+				<td id="reguseridtd" class="user-input-padding"><input class="box-length" type="text" id="reguserid" maxlength="42" placeholder="Username" value="m"/></td>
 			</tr>
 			<tr>
-				<td id="regpwdtd" class="user-input-padding"><input class="box-length" type="password" id="regpwd" maxlength="42" placeholder="Password" /></td>
+				<td id="regpwdtd" class="user-input-padding"><input class="box-length" type="password" id="regpwd" maxlength="42" placeholder="Password" value="t"/></td>
 			</tr>		
 		</table>
 		

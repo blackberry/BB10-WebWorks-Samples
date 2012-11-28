@@ -45,16 +45,11 @@ sample.pushcapture.constructor.prototype.initContent = function(element) {
 };
 
 /**
- * Opens the selected push.
+ * Opens the already selected / highlighted push.
  * 
- * @param {String}
- *            pushId the push to select, highlight, and open
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.openPush = function(pushId) {	
-	sample.pushcapture.selectedPushSeqnum = pushId;
-	sample.pushcapture.highlightSelectedPush(document);
-	
+sample.pushcapture.constructor.prototype.openHighlightedPush = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
         tx.executeSql("SELECT type, extension, content, unread FROM push WHERE seqnum = ?;",
             [ sample.pushcapture.selectedPushSeqnum ], 
@@ -86,7 +81,21 @@ sample.pushcapture.constructor.prototype.openPush = function(pushId) {
                 alert("Error: Content for the selected push could not be found.");
             }
         );
-    });
+    });	
+};
+
+/**
+ * Opens a push.
+ * 
+ * @param {String}
+ *            pushId the push to select, highlight, and open
+ * @memberOf sample.pushcapture
+ */
+sample.pushcapture.constructor.prototype.openPush = function(pushId) {	
+	sample.pushcapture.selectedPushSeqnum = pushId;
+	sample.pushcapture.highlightSelectedPush(document);
+	
+    sample.pushcapture.openHighlightedPush();
 };
 
 /**
@@ -105,6 +114,9 @@ sample.pushcapture.constructor.prototype.updateAndOpenPush = function(content, i
     	// updating one of the pushes in the list
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
+    	// Remove the notification from the BlackBerry Hub since the push has been read
+    	Notification.remove(sample.pushcapture.notificationPrefix + sample.pushcapture.selectedPushSeqnum);
+    	
         sample.pushcapture.updatePush(content);
     } else {
         // Show the push content
@@ -166,20 +178,22 @@ sample.pushcapture.constructor.prototype.deletePush = function(pushId) {
 /**
  * Callback from the delete dialog.
  * 
- * @param {Number}
- *            selectedButtonIndex the selected button of the dialog
+ * @param {Object}
+ *            selection the dialog selection
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.deleteCallback = function(selectedButtonIndex) {
+sample.pushcapture.constructor.prototype.deleteCallback = function(selection) {
 	// Unhighlight the trash can
 	document.getElementById("img" + sample.pushcapture.selectedPushSeqnum).src = "Images/trash.png";
 	
-	if (selectedButtonIndex == 0) {
-		// "Yes" was selected
+	if (selection.return == "Yes") {
         // Remove the push list from local storage since we are  
     	// deleting one of the pushes in the list
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
 	
+    	// Remove the notification from the BlackBerry Hub since the push has been deleted
+    	Notification.remove(sample.pushcapture.notificationPrefix + sample.pushcapture.selectedPushSeqnum);
+    	
 	    // Delete the push from storage
 	    sample.pushcapture.db.transaction(function(tx) {
 	        tx.executeSql("DELETE FROM push WHERE seqnum = ?;", 
@@ -252,7 +266,7 @@ sample.pushcapture.constructor.prototype.removePushItem = function() {
  */
 sample.pushcapture.constructor.prototype.markAllAsOpen = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
-        tx.executeSql("SELECT COUNT(*) AS count FROM push WHERE unread = ?;", [ "T" ],
+        tx.executeSql("SELECT seqnum FROM push WHERE unread = ?;", [ "T" ],
             sample.pushcapture.updateAllUnopenedPushes, function(tx, e) {
                 // No action needs to be performed on an error
             });
@@ -269,9 +283,7 @@ sample.pushcapture.constructor.prototype.markAllAsOpen = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.updateAllUnopenedPushes = function(tx, results) {
-    var count = results.rows.item(0).count;
-
-    if (count > 0) {
+    if (results.rows.length > 0) {
         // Remove all items in the push list
         var pushTable = document.getElementById("push-table");
         if (pushTable.hasChildNodes()) {
@@ -290,6 +302,12 @@ sample.pushcapture.constructor.prototype.updateAllUnopenedPushes = function(tx, 
     	// push list is going to be updated
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
+    	// Remove all the notifications from the BlackBerry Hub for this app
+        for (var i = 0; i < results.rows.length; i++) {
+        	Notification.remove(sample.pushcapture.notificationPrefix + 
+        	    results.rows.item(i).seqnum);	
+        } 	
+    	
         // Update the unread flags for all pushes to "F"
         sample.pushcapture.db.transaction(function(tx) {
             tx.executeSql("UPDATE push SET unread = ?;", [ "F" ], 
@@ -315,13 +333,12 @@ sample.pushcapture.constructor.prototype.deleteAll = function() {
 /**
  * Callback from the "delete all" dialog.
  * 
- * @param {Number}
- *            selectedButtonIndex the selected button of the dialog
+ * @param {Object}
+ *            selection the dialog selection
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.deleteAllCallback = function(selectedButtonIndex) {
-	if (selectedButtonIndex == 0) {
-		// "Yes" was selected
+sample.pushcapture.constructor.prototype.deleteAllCallback = function(selection) {
+	if (selection.return == "Yes") {
         // Start by clearing the screen
         if (document.getElementById("progressinfo") != null) {
         	document.getElementById("push-screen").removeChild(document.getElementById("progressinfo"));
@@ -345,18 +362,44 @@ sample.pushcapture.constructor.prototype.deleteAllCallback = function(selectedBu
         // Remove the push list from local storage since 
     	// the push list is going to be deleted
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
-
-        // Delete all pushes in storage
+    	    	
+    	// Remove all the notifications from the BlackBerry Hub for this app
         sample.pushcapture.db.transaction(function(tx) {
-            tx.executeSql("DROP TABLE push;", [], 
+            tx.executeSql("SELECT seqnum FROM push WHERE unread = ?;", [ "T" ], 
                 function(tx, results) {
-                    sample.pushcapture.successDeleteAllPushes();
-                }, 
+                    for (var i = 0; i < results.rows.length; i++) {
+                    	Notification.remove(sample.pushcapture.notificationPrefix + 
+                    	    results.rows.item(i).seqnum);	
+                    }
+                    
+                    // Now, drop the push table to delete all the pushes
+                    sample.pushcapture.dropPushTable();
+                },
                 function(tx, e) {
-                    sample.pushcapture.successDeleteAllPushes();
-                });
+                	// If the push table is not there, no need to 
+                	// remove any notifications or pushes
+                	sample.pushcapture.successDeleteAllPushes();
+                }
+            );
         });
 	}
+};
+
+/**
+ * Drops the push table from the database (deleting all the pushes).
+ * 
+ * @memberOf sample.pushcapture
+ */
+sample.pushcapture.constructor.prototype.dropPushTable = function() {
+    sample.pushcapture.db.transaction(function(tx) {
+        tx.executeSql("DROP TABLE push;", [], 
+            function(tx, results) {
+                sample.pushcapture.successDeleteAllPushes();
+            }, 
+            function(tx, e) {
+                sample.pushcapture.successDeleteAllPushes();
+            });
+    });
 };
 
 /**
@@ -415,6 +458,7 @@ sample.pushcapture.constructor.prototype.loadPushes = function(element) {
         // Highlight the last selected push (if there was one)
         if (sample.pushcapture.selectedPushSeqnum != null) {
         	sample.pushcapture.highlightSelectedPush(rootElem);
+        	rootElem.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
         }
     } else {
         try {
@@ -491,8 +535,7 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
 
         element.getElementById("push-table").appendChild(dateRow);
         
-        var j;
-        for (j = leftOffIndex; j < results.rows.length; j++) {
+        for (var j = leftOffIndex; j < results.rows.length; j++) {
             leftOffIndex = j;
 
             if (results.rows.item(j).pushdate == dateHeading) {
@@ -562,10 +605,11 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
 
     // Store the push list in local storage, so we can retrieve it quickly when possible
     localStorage.setItem(sample.pushcapture.localStorageKey, encodedpushListStr);
-
+    
     // Highlight the last selected push (if there was one)
-    if (sample.pushcapture.selectedPushSeqnum != null) {
+    if (sample.pushcapture.selectedPushSeqnum != null) {  
     	sample.pushcapture.highlightSelectedPush(element);
+    	element.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
     }
 };
 
@@ -580,14 +624,12 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
 sample.pushcapture.constructor.prototype.getPushDates = function(results) {
     var pushdateArray = [];
 
-    var i;
-    for (i = 0; i < results.rows.length; i++) {
+    for (var i = 0; i < results.rows.length; i++) {
         var isFound = false;
 
         var pushdateVal = results.rows.item(i).pushdate;
 
-        var j;
-        for (j = 0; j < pushdateArray.length; j++) {
+        for (var j = 0; j < pushdateArray.length; j++) {
             if (pushdateArray[j] == pushdateVal) {
                 isFound = true;
                 break;

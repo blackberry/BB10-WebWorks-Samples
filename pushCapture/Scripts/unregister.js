@@ -106,7 +106,7 @@ sample.pushcapture.constructor.prototype.validateUnregisterFields = function() {
 
     if (username == "") {
         document.getElementById("errordiv").style.display = "block";
-        document.getElementById("errormsg").innerHTML = "Error: No username was specified.";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify a username.";
         return false;
     }
 
@@ -114,7 +114,7 @@ sample.pushcapture.constructor.prototype.validateUnregisterFields = function() {
 
     if (password == "") {
         document.getElementById("errordiv").style.display = "block";
-        document.getElementById("errormsg").innerHTML = "Error: No password was specified.";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify a password.";
         return false;
     }
 
@@ -155,43 +155,46 @@ sample.pushcapture.constructor.prototype.destroyChannelCallback = function(resul
         
         if (result == blackberry.push.PushService.INTERNAL_ERROR) {
             document.getElementById("errormsg").innerHTML = "Error: An internal error occurred during " +
-			"the destroy channel. Try unregistering again.";
+				"the destroy channel. Try unregistering again.";
     	} else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
             document.getElementById("errormsg").innerHTML = "Error: No call to blackberry.push.PushService.create " +
-            "was done before destroying the channel. It usually means a programming error.";
+            	"was done before destroying the channel. It usually means a programming error.";
     	} else if (result == blackberry.push.PushService.INVALID_DEVICE_PIN) {
     		// This error code only applies to a consumer application using the public/BIS PPG
             document.getElementById("errormsg").innerHTML = "Error: The PPG obtained the device's PIN during " +
-			"the destroy channel and considered it invalid. Try unregistering again.";
+				"the destroy channel and considered it invalid. Try unregistering again.";
     	} else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: The application ID was considered " +
-			"invalid or missing during the destroy channel. Check your configuration settings.";
+				"invalid or missing during the destroy channel. Check your configuration settings.";
     	} else if (result == blackberry.push.PushService.INVALID_PPG_SUBSCRIBER_STATE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: The subscriber on the PPG end reached an " +
-    		"invalid state. Report this issue to the RIM support team.";
+    			"invalid state. Report this issue to the RIM support team.";
     	} else if (result == blackberry.push.PushService.EXPIRED_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: An expired authentication token was" +
-    		"passed to the PPG internally during the destroy channel. Try unregistering again.";
+    			"passed to the PPG internally during the destroy channel. Try unregistering again.";
     	} else if (result == blackberry.push.PushService.INVALID_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: An invalid authentication token was passed " +
-    		"to the PPG internally during the destroy channel. Report this issue to the RIM support team.";
+    			"to the PPG internally during the destroy channel. Report this issue to the RIM support team.";
     	} else if (result == blackberry.push.PushService.PUSH_TRANSPORT_UNAVAILABLE) {
     		// This error code only applies to a consumer application using the public/BIS PPG
     		document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the push transport " +
-			"is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will " +
-			"be notified when the push transport is available again.";
-    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL_OR_PPG_UNAVAILABLE) {
+				"is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will " +
+				"be notified when the push transport is available again.";
+    	} else if (result == blackberry.push.PushService.PPG_SERVER_ERROR) {
     		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL might have been invalid. Check " +
-    		    "your configuration settings. If it looks correct, the PPG might be temporarily unavailable. Try " +
-    		    "unregistering again.";
+    		document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the PPG is " +
+				"currently returning a server error. You will be notified when the PPG is available again.";    		
+    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL) {
+    		// This error code only applies to a consumer application using the public/BIS PPG
+    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL was considered " +
+				"invalid during the destroy channel. Check your configuration settings.";
     	} else {
     		document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") from " +
-			"the destroy channel.";
+				"the destroy channel.";
     	}
 	}
 };
@@ -268,7 +271,7 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
                     + "characters in length, or matched the 'push_all' keyword.";
             } else if (returnCode == "rc=10025") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe failed since the Push Initiator "
-                    + "application had a type of Enterprise Push and had the bypass subscription flag set to true.";
+                    + "application has the bypass subscription flag set to true (so no unsubscribe is allowed).";
             } else if (returnCode == "rc=10026") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
                     + "the username or password specified was incorrect.";

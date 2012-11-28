@@ -30,13 +30,7 @@
  */
 sample.pushcapture.constructor.prototype.pushNotificationHandler = function(pushpayload) {	
     var contentType = pushpayload.headers["Content-Type"];
-    if(!contentType) {
-    	contentType = pushpayload.headers["content-type"];
-    	if(!contentType) {
-    		contentType = "text/plain";
-    	}
-    }
-    
+
     sample.pushcapture.checkForDuplicateMessage(pushpayload.id, pushpayload.data, contentType);
 
 	// If an acknowledgement of the push is required (that is, the push was sent as a confirmed push 
@@ -287,6 +281,19 @@ sample.pushcapture.constructor.prototype.insertPush = function(content, type, ex
                 var seqnum = results.insertId;
                 
                 sample.pushcapture.addPushItem(content, type, extension, pushdate, pushtime, seqnum);
+                
+                // Add a notification to the BlackBerry Hub for this push
+                var title = "Push Capture";
+                var options = {
+                    body: "New " + extension + " push received",
+                    tag: sample.pushcapture.notificationPrefix + seqnum,
+                    target: sample.pushcapture.invokeTargetIdOpen,
+                    targetAction : "bb.action.OPEN",
+        			// We set the data of the invoke to be the seqnum of the 
+        			// push so that we know which push needs to be opened
+                    payload : sample.pushcapture.utf8_to_b64(seqnum.toString(10))
+                };
+                new Notification(title, options);
             });
     });	
 };
@@ -390,9 +397,6 @@ sample.pushcapture.constructor.prototype.addPushItem = function(content, type, e
 	    	
 	    	document.getElementById("push-table").insertBefore(dateRow, document.getElementById("push-table").firstChild);
 	    }
-	    
-	    // Update the scroller since we've added new items to the screen
-	    bb.scroller.refresh();
 	}
 };
 
@@ -405,6 +409,11 @@ sample.pushcapture.constructor.prototype.addPushItem = function(content, type, e
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.getPushedContentFileExtension = function(contentType) {
+	if (!contentType) {
+		alert("Missing Content-Type header for push. Defaulting to text.");
+		return ".txt";
+	}
+	
     if (contentType.startsWith("application/xml")) {
         return ".xml";
     } else if (contentType.startsWith("text/html")) {
@@ -417,6 +426,9 @@ sample.pushcapture.constructor.prototype.getPushedContentFileExtension = functio
         return ".png";
     } else if (contentType.startsWith("text/plain")) {
         return ".txt";
+    } else {
+    	alert("File extension is unknown for Content-Type header value: " + contentType + ".");
+    	return null;
     }
 };
 
@@ -429,6 +441,11 @@ sample.pushcapture.constructor.prototype.getPushedContentFileExtension = functio
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.getPushedContentType = function(contentType) {
+	if(!contentType) {
+		alert("Missing Content-Type header for push. Defaulting to text.");
+		return "text";
+	}
+	
     if (contentType.startsWith("image")) {
         return "image";
     } else if (contentType.startsWith("text/html") || contentType.startsWith("application/xml")) {
