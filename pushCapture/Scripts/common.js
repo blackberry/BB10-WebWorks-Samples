@@ -112,12 +112,12 @@ sample.pushcapture = (function() {
         /**
          * Invoke target ID for receiving new push notifications.
          */
-        this.invokeTargetIdPush = "sample.pushcapture.invoke.push.marco";
+        this.invokeTargetIdPush = "sample.pushcapture.invoke.push";
         
         /**
          * Invoke target ID when clicking on a notification in the BlackBerry Hub opens the app.
          */  
-        this.invokeTargetIdOpen = "sample.pushcapture.invoke.open.marco";
+        this.invokeTargetIdOpen = "sample.pushcapture.invoke.open";
         
         /**
          * Prefix to use for the tag for new notifications sent to the BlackBerry Hub for this app.

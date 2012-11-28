@@ -26,15 +26,7 @@
   
   <!-- Need to allow access to your externally accessible Push Initiator URL if using the Push Service SDK high-level APIs (with subscription support) -->
   <!-- Replace "externally_accessible_Push_Initiator_URL" with your own domain name -->
-  <access uri="https://208.65.74.65" subdomains="true" />
-  <access uri="http://svvcb13yyz.labyyz.testnet.rim.net" subdomains="true" />
-  <access uri="http://CI0000002169329.rim.net" subdomains="true" />
-  <access uri="http://CI0000002169329.rim.net:7070" subdomains="true" />
-  <access uri="http://10.137.34.218:7070" subdomains="true" />
-  <access uri="https://svvcb13yyz.labyyz.testnet.rim.net" subdomains="true" />
-  <access uri="https://CI0000002169329.rim.net" subdomains="true" />
-  <access uri="https://CI0000002169329.rim.net:7069" subdomains="true" />
-  <access uri="https://10.137.34.218:7069" subdomains="true" />
+  <access uri="https://externally_accessible_Push_Initiator_URL" subdomains="true" />
   
   <feature id="blackberry.app">
       <param name="orientation" value="portrait" />
@@ -47,14 +39,12 @@
   <rim:permissions>
       <rim:permit>post_notification</rim:permit>
       <!-- This permission is needed for a consumer (public) push application only (not enterprise push)! -->
-      <!-- 
       <rim:permit system="true">_sys_use_consumer_push</rim:permit>
-       -->
   </rim:permissions>
   
   <!-- Need to put an invoke entry here for push -->
   <!-- The id here must match the invokeTargetId passed in as one of the ops to blackberry.push.PushService.create -->
-  <rim:invoke-target id="sample.pushcapture.invoke.push.marco">
+  <rim:invoke-target id="sample.pushcapture.invoke.push">
     <type>APPLICATION</type>
     <filter>
       <action>bb.action.PUSH</action>
@@ -64,7 +54,7 @@
   
   <!-- Have an invoke entry here for when a notification is clicked on in the BlackBerry Hub -->
   <!-- This will cause the application to be opened -->
-  <rim:invoke-target id="sample.pushcapture.invoke.open.marco">
+  <rim:invoke-target id="sample.pushcapture.invoke.open">
     <type>APPLICATION</type>
     <filter>
       <action>bb.action.OPEN</action>
