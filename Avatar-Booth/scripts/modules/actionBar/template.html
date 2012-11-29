@@ -1,0 +1,45 @@
+/*
+* Copyright 2012 Anzor Bashkhaz.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+<script type="text/template" id="action-bar-tab">
+	
+	<div class="tab-selected-line"></div>
+	<div class="bb10-action-bar-icon" style="background:url(<%= tab.get('icon')%>)"></div>
+	<div class="bb10-action-bar-action-display"><%= tab.get('title') %></div>
+	
+</script>
+
+<script type="text/template" id="back-btn">
+
+	<div class="bb10-back-button backBtn">
+			<div class="bb10-action-bar-back-arrow"></div>
+			<div class="bb10-action-bar-back-text">Back</div>
+	</div>
+	<div class="triangle">
+			<svg class="neon-line" xmlns="http://www.w3.org/2000/svg"
+			    xmlns:xlink="http://www.w3.org/1999/xlink">
+					<pattern id="back-btn-pattern" patternUnits="userSpaceOnUse" width="4" height="140">
+			    		 <image width="4" height="140" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAACMCAIAAADUcJ+cAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AoYDx80kYesMwAAAEZJREFUOMtjVFJSYoABFjY2NjiHiQEJUJfD8v//f3rYMzTdNphDZzBz6BVuw8CeYZDEhnUuGS2EiHYbbg45elj+/PkD5wAAmYo0eLkm2QUAAAAASUVORK5CYII="></image>
+			   		</pattern>
+			    			    	
+				    <polygon points="0,0 0,150 26,0" style="fill:url(#back-btn-pattern)"/>
+					<line x1="25" y1="-1" x2="2" y2="150" stroke-width="5" style="stroke:#151515;"></line>
+				    <line x1="27"  y1="-1" x2="4"   y2="150" stroke-width="5" style="stroke:#0072BB;"/>
+				  
+				</svg>
+	</div>
+
+</script>

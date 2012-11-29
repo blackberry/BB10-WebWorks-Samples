@@ -1,0 +1,36 @@
+.bb10-action-bar-tab {
+	color: white;
+	border-right: 1px solid #141414;
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#252525), to(#1C1C1C));
+	float: left;
+	height: 100%;
+	font-size: 30px;
+	background-repeat: no-repeat;
+	text-align: center;
+	line-height:40px;
+}
+
+.bb10-action-bar-tab:last-child, .bb10-action-bar-tab .tab-selected-line{
+	border-right:none;
+}
+
+
+.bb10-action-bar-tab.selected {
+background:none;
+height: 100%;
+}
+
+.tab-selected-line {
+	height:8px;
+	width:100%;
+	background:#333333;
+	top:0;
+	border-right: 1px solid #141414;
+	margin-bottom:2px;
+}
+
+
+
+.bb10-action-bar-tab.selected .tab-selected-line {
+	background:#0098f0;	
+}
