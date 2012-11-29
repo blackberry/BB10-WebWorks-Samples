@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ *
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ -->
+ 
+<!-- Set name to the application name: used for BAR/COD and directory on file system -->
+<project default="build" basedir="." name="Sensors">
+
+	<!-- Concatenation destinations -->
+	<property name="jsconcat" value="scripts.js"/>
+	<property name="cssconcat" value="styles.css"/>
+
+	<!-- Fail the build on JSLint, JSHint, CSSLint errors -->
+	<property name="lintfail" value="false"/>
+	
+	<!-- Include the Targets  -->
+	<include file="${ant.home}/../buildTasks.xml" />
+
+	<!-- Default Build - Change as needed to the sdk and build properties you want:
+	build.test (build in all SDKs+Ripple with WebInspector, source output, and debug token for Tablet and BB10)
+	build.prod (build in all SDKs+Ripple with signing and no debugging, and a build id number for Tablet and BB10)
+	build.beta (build in all SDKs+Ripple with signing _and_ debugging, and a build id number for Tablet and BB10)
+	build.ripple (deploy to your file system for serving up in Ripple)
+
+	Specific builds follow the pattern:
+	build.[java, air, native].[test, prod, beta]
+	- use java for BlackBerry 5 through 7.x smartphones
+	- air for PlayBook 1.x through 2.x
+	- native for BlackBerry 10
+
+	- use test for WebInspector, source output, and debug tokens. Will still sign the app for Java Smartphones.
+	- use prod for regular signing with a build id and no debugging.
+	- use beta for regular signing with a build id and WebInspector turned on.
+
+	Lint/Hint and Minify targets can be included before the build here
+	build.optimize runs both lint and minify tasks
+	build.lint runs jslint, jshint and csslint
+	build.minify concatenates and minifies the JS and CSS files
+
+	Deployment commands follow the pattern:
+	build.deploy.[native.[device, sim], air, java].[test, prod, beta]
+	- native, air, java as defined above
+	- only for native builds, use device for real devices and sim for VMWare based simulators
+	- test, prod, beta to load the matching build created above
+	-->
+	<target name="build" depends="build.native.beta,build.deploy.native.device.beta"></target>
+
+	<!-- Set the details of the device or simulator for deployment -->
+	<!-- For BB10 device -->
+	<property name="device.native.ip" value="169.254.0.1"/>
+	<property name="device.native.pw" value="" />
+	<!-- For Tablet device -->
+	<property name="device.air.ip" value="169.254.0.5"/>
+	<property name="device.air.pw" value="" />
+	<!-- For BBOS Java device (only password is needed) -->
+	<property name="device.java.pw" value="" />
+
+	<!-- Add additional Targets here -->
+	<target name="example" depends=""></target>
+</project>
