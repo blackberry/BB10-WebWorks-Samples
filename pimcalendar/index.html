@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<!--
+* Copyright 2010-2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="bbui-0.9.5.css" />
+	</head>
+	<body>
+		<script type="text/javascript" src="local:///chrome/webworks.js"></script>
+		<script type="text/javascript" src="bbui-0.9.5.js"></script>
+		<script type="text/javascript">
+			/*global blackberry, bb */
+
+			window.addEventListener('DOMContentLoaded', function () {
+				document.addEventListener('webworksready', function () {
+					if (typeof bb !== 'undefined') {
+						bb.init({
+							onscreenready: function (element, id, params) {
+								var items, div, n;
+
+								/* if we're loading the findResults page, that means we've found Calendar events to display. */
+								if (id === 'findResults') {
+									items = document.createElement('div');
+									for (n = 0; n < params.length; n = n + 1) {
+										/* Create a BBUI list item and add it to the image list. */
+										div = document.createElement('div');
+										div.setAttribute('data-bb-type', 'item');
+										div.setAttribute('data-bb-img', './icons/Large/White/icon_127_invert.png');
+										div.setAttribute('data-bb-title', params[n].summary);
+										div.innerHTML = params[n].start.toString();
+										div.calendarEvent = params[n]; /* Keep a reference to the Calendar event in case we want to remove it.*/
+										items.appendChild(div);
+									}
+									/* Add all of the children. */
+									element.querySelector('#findResults').appendChild(items);
+								}
+							},
+
+							ondomready: function (element, id) {
+								if (id === 'menu') {
+									/* Add click listeners for our BBUI main menu image list items. */
+									element.querySelector('#createEvent').addEventListener('click', function () {
+										bb.pushScreen('createEvent.html', 'createEvent');
+									}, false);
+									element.querySelector('#findEvents').addEventListener('click', function () {
+										bb.pushScreen('findEvents.html', 'findEvents');
+									}, false);
+								} else if (id === 'createEvent') {
+
+									/***************************************
+									 *	blackberry.pim.calendar.createEvent
+									 **************************************/
+
+									/* Add a click listener for creating a Calendar event. */
+									element.querySelector('#add').addEventListener('click', function () {
+										/* Set our default fields. */
+										var event = blackberry.pim.calendar.createEvent({
+											'summary':	element.querySelector('#summary').value,
+											'location':	element.querySelector('#location').value,
+											'start':	new Date(element.querySelector('#starts').value),
+											'end':		new Date(element.querySelector('#ends').value),
+											'allDay':	eval(element.querySelector('#allDay').selectedOptions[0].value)
+										});
+
+										/* Save our newly created event. */
+										event.save(
+											function () {
+												/* Notify success and return. */
+												alert('Event successfully saved.');
+												bb.popScreen();
+											},
+											function (error) {
+												/* Notify failure. */
+												alert('Error: ' + error.code);
+											}
+										);
+									}, false);
+								} else if (id === 'findEvents') {
+
+									/**************************************
+									 *	blackberry.pim.calendar.findEvents
+									 *************************************/
+
+									/* Add a click listener for searching Calendar events. */
+									element.querySelector('#search').addEventListener('click', function () {
+										/* Options we will be supplying. */
+										var options = {
+											filter: {},
+											sort: []
+										};
+
+										/* Set the start date if supplied. */
+										if (element.querySelector('#start').value !== '') {
+											options.filter.start = new Date(element.querySelector('#start').value);
+										}
+
+										/* Set the end date if supplied. */
+										if (element.querySelector('#end').value !== '') {
+											options.filter.end = new Date(element.querySelector('#end').value);
+										}
+
+										/* Set the keyword filter if supplied. */
+										if (element.querySelector('#substring').value !== '') {
+											options.filter.substring = element.querySelector('#substring').value;
+										}
+
+										/* Set the level of detail to the selected item. */
+										options.detail = eval(element.querySelector('#detail').selectedOptions[0].value);
+
+										/* Limit the results of specified. */
+										if (element.querySelector('#limit').value !== '') {
+											options.limit = parseInt(element.querySelector('#limit').value, 10);
+										}
+
+										/* We will sort by start date, ascending/descending based on the user's choice. */
+										options.sort.push({
+											fieldName:	blackberry.pim.calendar.CalendarFindOptions.SORT_FIELD_START,
+											desc:		eval(element.querySelector('#sort').selectedOptions[0].value)
+										});
+
+										/* Call the search function with our options. On success, we pass the returned events to our findResults page. */
+										blackberry.pim.calendar.findEvents(
+											options,
+											function (events) {
+												/* Pass the events to populate our findResults page. */
+												bb.pushScreen('findResults.html', 'findResults', events);
+											},
+											function (error) {
+												/* Notify of an error. */
+												alert('Error: ' + error.code);
+											}
+										);
+									}, false);
+								} else if (id === 'findResults') {
+									/**************************************
+									 *	blackberry.pim.calendar.CalendarEvent.remove
+									 *************************************/
+
+									/* Add a click listener for when the delete button is clicked from the context menu. */
+									element.querySelector('#delete').addEventListener('click', function () {
+										/* When we added the image list items, we stored the Calendar event object; retrieve it. */
+										var calendarEvent = element.querySelector('#context').menu.selected.selected.calendarEvent;
+
+										/* If we retrieved the event... */
+										if (calendarEvent) {
+											/* Call remove on that event. */
+											calendarEvent.remove(
+												/* Notify success and return to the previous screen. */
+												function () {
+													alert('Event successfully removed.');
+													bb.popScreen();
+												},
+												/* Notify failure. */
+												function (error) {
+													alert('Error: ' + error.code);
+												}
+											);
+										}
+									}, false);
+								}
+							}
+						});
+						/* Our default start page. */
+						bb.pushScreen('menu.html', 'menu');
+					}
+				}, false);
+			}, false);
+		</script>
+	</body>
+</html>

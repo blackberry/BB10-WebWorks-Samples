@@ -1,0 +1,63 @@
+<!--
+* Copyright 2010-2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<div data-bb-type="screen">
+	<div data-bb-type="round-panel">
+		<div data-bb-type="panel-header">Filters</div>
+		<div data-bb-type="label-control-container">
+			<div data-bb-type="row">
+				<div data-bb-type="label">Start</div>
+				<input id='start' type="date" />
+			</div>
+			<div data-bb-type="row">
+				<div data-bb-type="label">End</div>
+				<input id='end' type="date" />
+			</div>
+			<div data-bb-type="row">
+				<div data-bb-type="label">Keyword (Summary, Location, Attendees: Name or Email)</div>
+				<input id='substring' type="text" />
+			</div>
+		</div>
+	</div>
+	<div data-bb-type="round-panel">
+		<div data-bb-type="panel-header">Options</div>
+		<div data-bb-type="label-control-container">
+			<div data-bb-type="row">
+				<div data-bb-type="label">Detail Level</div>
+				<select id="detail">
+					<option value="blackberry.pim.calendar.CalendarFindOptions.DETAIL_FULL">Full</option>
+					<option value="blackberry.pim.calendar.CalendarFindOptions.DETAIL_MONTHLY">Monthly</option>
+					<option value="blackberry.pim.calendar.CalendarFindOptions.DETAIL_WEEKLY">Weekly</option>
+					<option value="blackberry.pim.calendar.CalendarFindOptions.DETAIL_AGENDA">Agenda</option>
+				</select>
+			</div>
+			<div data-bb-type="row">
+				<div data-bb-type="label">Sort Order</div>
+				<select id='sort'>
+					<option value="false">Ascending</option>
+					<option value="true">Descending</option>
+				</select>
+			</div>
+			<div data-bb-type="row">
+				<div data-bb-type="label">Limit Results</div>
+				<input id="limit" type="number" />
+			</div>
+		</div>
+	</div>
+	<div data-bb-type="action-bar" data-bb-back-caption="Back">
+		<div id="search" data-bb-type="action" data-bb-style="button" data-bb-img="./icons/Large/White/icon_127.png">Search</div>
+	</div>
+</div>
