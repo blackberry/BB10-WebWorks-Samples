@@ -33,7 +33,7 @@ define([
         app: $("#App"),
         
         routes: {
-        	"" : "moustaches",
+        	"" : "effects",
         	"effects" : "effects",
         	"moustaches" : "moustaches",
         	"about" : "about"
@@ -53,12 +53,12 @@ define([
         	this.actionBar = new actionBar({ router: this});
             this.app.append(this.actionBar.el);
             this.actionBar.tabs.add([
-                       /* Uncomment this when CSS Filters are working again :(
+                       // Uncomment this when CSS Filters are working again :(
                          { 
                              title: "Effects",
                              icon: "images/icons/effects.png",
                              url: "effects"
-                         },*/
+                         },
                          { 
                              title: "Moustaches",
                              icon: "images/icons/moustaches.png",

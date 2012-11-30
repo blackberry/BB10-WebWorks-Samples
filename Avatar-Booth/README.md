@@ -4,10 +4,6 @@ The purpose of this application is to demonstrate the getUserMedia functionality
 
 The same code will work across other WebKit browser such as Chrome and Safari, without any changes to the code.
 
-**Note**
-
-The effects section is currently disabled due to CSS filters support being worked out. Uncomment the piece of code inside controller when support for CSS Filters is back.
-
 **Applies To**
 
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
