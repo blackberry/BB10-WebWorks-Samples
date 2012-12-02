@@ -26,7 +26,7 @@
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.publicPPG = function() {
-	// Show both the PPG URL and App ID fields
+    // Show both the PPG URL and App ID fields
     document.getElementById("ppgurl").style.display = "";
     document.getElementById("appid").style.display = "";
 };
@@ -39,14 +39,14 @@ sample.pushcapture.constructor.prototype.publicPPG = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.enterprisePPG = function() {	
-	// Hide the PPG URL field
+    // Hide the PPG URL field
     document.getElementById("ppgurl").style.display = "none";
     
     // Show the App ID field only if the Push Service SDK will be used
     if (document.getElementById("usesdkaspi").checked) {
-    	document.getElementById("appid").style.display = "";
+        document.getElementById("appid").style.display = "";
     } else {
-    	document.getElementById("appid").style.display = "none";
+        document.getElementById("appid").style.display = "none";
     }
 };
 
@@ -60,18 +60,18 @@ sample.pushcapture.constructor.prototype.enterprisePPG = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.useSDKAsPushInitiator = function() {
-	if (document.getElementById("usesdkaspi").checked) {
-		document.getElementById("piurl").style.display = "";
-		document.getElementById("appid").style.display = "";
-	} else {
-		document.getElementById("piurl").style.display = "none";
-		
-		if (document.getElementById("publicradio").checked) {
-			document.getElementById("appid").style.display = "";
-		} else {
-			document.getElementById("appid").style.display = "none";
-		}
-	}
+    if (document.getElementById("usesdkaspi").checked) {
+        document.getElementById("piurl").style.display = "";
+        document.getElementById("appid").style.display = "";
+    } else {
+        document.getElementById("piurl").style.display = "none";
+        
+        if (document.getElementById("publicradio").checked) {
+            document.getElementById("appid").style.display = "";
+        } else {
+            document.getElementById("appid").style.display = "none";
+        }
+    }
 };
 
 /**
@@ -86,16 +86,16 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
         sample.pushcapture.db.readTransaction(function(tx) {
             tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", 
                 [], 
-            	function(tx, results) {
-            	    sample.pushcapture.displayConfig(element, tx, results);
-            	    
-            	    if (element.getElementById("appid") != null && element.getElementById("appid").style.display == "") {
-            	        element.getElementById("appid").focus();
-            	    } else if (element.getElementById("ppgurl").style.display == "") {
-            	    	element.getElementById("ppgurl").focus();
-            	    } else if (element.getElementById("piurl").style.display == "") {
-            	    	element.getElementById("piurl").focus();
-            	    }
+                function(tx, results) {
+                    sample.pushcapture.displayConfig(element, tx, results);
+                    
+                    if (element.getElementById("appid") != null && element.getElementById("appid").style.display == "") {
+                        element.getElementById("appid").focus();
+                    } else if (element.getElementById("ppgurl").style.display == "") {
+                        element.getElementById("ppgurl").focus();
+                    } else if (element.getElementById("piurl").style.display == "") {
+                        element.getElementById("piurl").focus();
+                    }
                 }
             );
         });
@@ -116,42 +116,45 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, results) {
-	element.getElementById("appid").value = results.rows.item(0).appid;
-	element.getElementById("appid").disabled = true;
-	sample.pushcapture.appid = results.rows.item(0).appid;
-	element.getElementById("piurl").value = results.rows.item(0).piurl;
-	element.getElementById("ppgurl").value = results.rows.item(0).ppgurl;
+    element.getElementById("appid").value = results.rows.item(0).appid;
+    element.getElementById("appid").disabled = true;
+    sample.pushcapture.appid = results.rows.item(0).appid;
+    element.getElementById("piurl").value = results.rows.item(0).piurl;
+    element.getElementById("ppgurl").value = results.rows.item(0).ppgurl;
     
     if (results.rows.item(0).usingpublicppg == 1) {
-    	sample.pushcapture.usingpublicppg = true;
-    	element.getElementById("publicradio").setChecked();
+        sample.pushcapture.usingpublicppg = true;
+        element.getElementById("publicradio").setChecked();
         element.getElementById("ppgurl").style.display = "";
     } else {
-    	sample.pushcapture.usingpublicppg = false;
-    	element.getElementById("enterpriseradio").setChecked();
-        element.getElementById("ppgurl").style.display = "none";               
-        
+        sample.pushcapture.usingpublicppg = false;
+        element.getElementById("enterpriseradio").setChecked();
+        element.getElementById("ppgurl").style.display = "none";     
     }
-	bb.radio.disableGroup("ppgtype");
+    bb.radio.disableGroup("ppgtype");
 
     if (results.rows.item(0).launchapp == 1) {
-    	element.getElementById("launchapp").setChecked(true);
+        element.getElementById("launchapp").setChecked(true);
     } else {
-    	element.getElementById("launchapp").setChecked(false);
+        element.getElementById("launchapp").setChecked(false);
     }
     
     if (results.rows.item(0).usesdkaspi == 1) {
-    	element.getElementById("usesdkaspi").setChecked(true);
-    	element.getElementById("piurl").style.display = "";
+        element.getElementById("usesdkaspi").setChecked(true);
+        element.getElementById("piurl").style.display = "";
     } else {
-    	element.getElementById("usesdkaspi").setChecked(false);
-    	element.getElementById("piurl").style.display = "none";
-    	// If enterprise and not using the SDK the app id field is not shown because the APIs will just use the default app id
-    	if(results.rows.item(0).usesdkaspi == 0) {
-    		element.getElementById("appid").style.display = "none";
-    	}
+        element.getElementById("usesdkaspi").setChecked(false);
+        element.getElementById("piurl").style.display = "none";
+        // If using an enterprise PPG and not subscribing with the SDK, the app id 
+        // field is not shown because the APIs will just use the default app id
+        if (!sample.pushcapture.usingpublicppg) {
+            element.getElementById("appid").style.display = "none";
+        }
     }
-    element.getElementById("usesdkaspi").disable();
+    
+    if (!sample.pushcapture.usingpublicppg) {
+        element.getElementById("usesdkaspi").disable();
+    }
 };
 
 /**
@@ -174,52 +177,65 @@ sample.pushcapture.constructor.prototype.configure = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.validateConfigFields = function() {
-	if (document.getElementById("publicradio") != null) {
-		if (document.getElementById("publicradio").checked) {
-			sample.pushcapture.usingpublicppg = true;
-		} else {
-			sample.pushcapture.usingpublicppg = false;	
-		}
-	} 
-	if (document.getElementById("appid") != null) {
-	    sample.pushcapture.appid = document.getElementById("appid").value.trim();
-	}
-	sample.pushcapture.usesdkaspi = document.getElementById("usesdkaspi").checked;
-	sample.pushcapture.launchapp = document.getElementById("launchapp").checked;
-    sample.pushcapture.piurl = document.getElementById("piurl").value.trim();
-    sample.pushcapture.ppgurl = document.getElementById("ppgurl").value.trim();
-	
-    if ((sample.pushcapture.usingpublicppg || sample.pushcapture.usesdkaspi) && sample.pushcapture.appid == "") {
+    var usingpublicppg = true;
+    var appid = null;
+    
+    if (document.getElementById("publicradio") != null) {
+        if (document.getElementById("publicradio").checked) {
+            usingpublicppg = true;
+        } else {
+            usingpublicppg = false;	
+        }
+    } 
+    
+    if (document.getElementById("appid") != null) {
+        appid = document.getElementById("appid").value.trim();
+    }
+    
+    var usesdkaspi = document.getElementById("usesdkaspi").checked;
+    var launchapp = document.getElementById("launchapp").checked;
+    var piurl = document.getElementById("piurl").value.trim();
+    var ppgurl = document.getElementById("ppgurl").value.trim();
+    
+    if ((usingpublicppg || usesdkaspi) && appid == "") {
         alert("Error: Please specify an Application ID.");
         return false;
     }
 
-    if (sample.pushcapture.usingpublicppg && sample.pushcapture.ppgurl == "") {
+    if (usingpublicppg && ppgurl == "") {
         alert("Error: Please specify a PPG URL.");
         return false;
     }
-    if (sample.pushcapture.usingpublicppg && !sample.pushcapture.ppgurl.startsWith("http://")) {
+    if (usingpublicppg && !ppgurl.startsWith("http://")) {
         alert("Error: The PPG URL must start with http://.");
         return false;
     }
-    if (sample.pushcapture.usingpublicppg && sample.pushcapture.ppgurl.endsWith("/")) {
+    if (usingpublicppg && ppgurl.endsWith("/")) {
         alert("Error: The PPG URL should not end with a /. One will be automatically added.");
         return false;
     }
     
-    if (sample.pushcapture.usesdkaspi && sample.pushcapture.piurl == "") {
+    if (usesdkaspi && piurl == "") {
         alert("Error: Please specify a Push Initiator URL.");
         return false;
     }
-    if (sample.pushcapture.usesdkaspi && !sample.pushcapture.piurl.startsWith("http://") && !sample.pushcapture.piurl.startsWith("https://")) {
+    if (usesdkaspi && !piurl.startsWith("http://") && !piurl.startsWith("https://")) {
         alert("Error: The Push Initiator URL must start with http:// or https://.");
         return false;
     }
-    if (sample.pushcapture.usesdkaspi && sample.pushcapture.piurl.endsWith("/")) {
+    if (usesdkaspi && piurl.endsWith("/")) {
         alert("Error: The Push Initiator URL should not end with a /. One will be automatically added.");
         return false;
     }
 
+    // Set all the global variables
+    sample.pushcapture.usingpublicppg = usingpublicppg;
+    sample.pushcapture.appid = appid;
+    sample.pushcapture.usesdkaspi = usesdkaspi;
+    sample.pushcapture.launchapp = launchapp;
+    sample.pushcapture.piurl = piurl;
+    sample.pushcapture.ppgurl = ppgurl;
+    
     return true;
 };
 
@@ -234,7 +250,7 @@ sample.pushcapture.constructor.prototype.storeConfiguration = function() {
     opInProgressDiv.className = "full-size";
     document.body.appendChild(opInProgressDiv);
     
-	document.getElementById("activityindicator").style.display = "block";
+    document.getElementById("activityindicator").style.display = "block";
     document.getElementById("progressinfo").style.display = "block";
     document.getElementById("progressinfo").innerHTML = "Saving...";
 
@@ -315,8 +331,8 @@ sample.pushcapture.constructor.prototype.updateConfiguration = function() {
  */
 sample.pushcapture.constructor.prototype.successfulConfiguration = function() {
     // Indicate that the saving of the configuration was successful
-	document.body.removeChild(document.getElementById("op-in-progress"));
-	document.getElementById("activityindicator").style.display = "none";
+    document.body.removeChild(document.getElementById("op-in-progress"));
+    document.getElementById("activityindicator").style.display = "none";
     document.getElementById("progressinfo").innerHTML = "<p>Successfully saved. Please register now.</p>";
     
     // Once the configuration has been successfully saved once, 
