@@ -7,9 +7,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Applies To**
 
-* [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
+* [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk)
 
-**Author(s)** 
+**Author(s)**
 
 * Chad Tetreault (http://www.twitter.com/chadtatro)
 
@@ -55,10 +55,10 @@ function initApp() {
 
 ## WebWorks App Setup
 1. Open index.html
-2. Include the webworks-.js file ***see How To Build*** for instructions
+2. ***see How To Build*** for instructions
 
 
-## Config.xml 
+## Config.xml
 As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
 
 ```
@@ -70,7 +70,7 @@ As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR r
 Don't forget to access the devices location information via HTML5 Geolocation, the proper permissions must be requested.
 
 ```
-<rim:permissions>  
+<rim:permissions>
    <rim:permit>read_geolocation</rim:permit>
 </rim:permissions>
 ```
@@ -79,15 +79,13 @@ Don't forget to access the devices location information via HTML5 Geolocation, t
 
 Your API Keys are meant to be private. For demonstration purposes we're coding the keys right in the JavaScript source.  This is not best practice, and is not recommended. You don’t want anybody to get access to your keys.
 
-***One way*** to securely pass your API Keys to your application is to host them on a server, then use SSL and do a POST to obtain your keys. 
+***One way*** to securely pass your API Keys to your application is to host them on a server, then use SSL and do a POST to obtain your keys.
 
 
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into the top level of the local Facebook-OAuth-2 folder (e.g. ~/WebWorks/Facebook-OAuth-2/js/webworks/webworks-.js).
-3. Optional: Edit the script reference to the webworks-.js file within any *.html files to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
 
 ## More Info
 
