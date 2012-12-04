@@ -38,7 +38,7 @@ define([
  		
  		snapshot: false,
  		
- 		className: "take-photo",
+ 		className: "view with-action-bar",
  		
 		layoutTemplate: _.template($(template).html()),
 		//this ensures we cache our views, so that they don't re-render when the pages are revisited

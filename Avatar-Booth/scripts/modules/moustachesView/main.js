@@ -31,7 +31,7 @@ define([
  	
  		tagName:  "section",
  	
- 		className: "moustaches-view",
+ 		className: "view with-action-bar half-view moustaches-view",
 	
 		layoutTemplate: _.template($(template).html()),
 		

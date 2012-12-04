@@ -15,15 +15,9 @@
 */
 
 section.effects-view{
-	position:absolute;
-	top:778px;
-	bottom:0px;
+	top:auto;
 	text-align:center;
-	font-size:50px;
-	color:white;
 	background: #262626;
-	z-index:4;
-
 }
 
 .effects-grid{

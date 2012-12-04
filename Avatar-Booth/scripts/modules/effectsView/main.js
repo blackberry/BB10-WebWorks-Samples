@@ -51,7 +51,7 @@ define([
   	    
  		tagName:  "section",
  		
- 		className: "effects-view",
+ 		className: "effects-view view with-action-bar half-view",
 		
 		layoutTemplate: _.template($(template).html()),
 

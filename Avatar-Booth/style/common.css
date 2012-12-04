@@ -13,30 +13,36 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-#App{
-	
-	position:absolute;
-	top:0px;
-	bottom:0px;
-	width:100%;
-	font-size:45px;
-	-webkit-user-select: none;
-}
-
 html,body{
 	width:100%;
 	height:100%;
 	margin:0;
 	padding:0;
-	background:black;
 }
 
 h1{
 	margin:0;
+	font-size:50px;
+	font-weight:normal;
 }
 
-.half-view{
-	height:368px;
-	
+p{
+	margin:0;
+	padding:0;
 }
 
+.view {
+	color:#eee;
+	position:absolute;
+	top:0px;
+	bottom:0;
+	left:0;
+	right:0;
+	overflow-y:scroll;
+	-webkit-overflow-scrolling: touch;
+	-webkit-transition: all 150ms linear;
+}
+
+.with-action-bar{
+	bottom:130px;
+}
