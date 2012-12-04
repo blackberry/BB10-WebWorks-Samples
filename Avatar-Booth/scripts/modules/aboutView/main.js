@@ -28,7 +28,7 @@ define([
  		
  		tagName:  "section",
  		
- 		className: "help scroll",
+ 		className: "help view with-action-bar",
 		
 		layoutTemplate: _.template($(template).html()),
  		

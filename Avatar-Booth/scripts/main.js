@@ -37,23 +37,9 @@ require.config({
 		effectsView: 'modules/effectsView/main',
         moustachesView: 'modules/moustachesView/main',
         aboutView: 'modules/aboutView/main',
+        
+        actionBar: 'modules/actionBar/actionBar-min',
 	
-  	},
-    packages: [
-        {   //from http://www.github.com/anzorb/AMD-Modules
-            name: 'actionBar',
-            location: 'modules/actionBar', //this points to the location of the module
-            main: 'main'
-        }
-    ],
-  	//shim ensures that non-AMD compliant libraries can load their dependencies on time
-  	shim: {
-
-  		backbone: {
-			deps: ['jquery', 'lodash'],
-			exports: 'Backbone'
-		},
-
   	}
  });
  

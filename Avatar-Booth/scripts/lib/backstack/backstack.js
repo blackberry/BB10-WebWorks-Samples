@@ -572,7 +572,7 @@ define('StackNavigator',['effects/SlideEffect'], function (SlideEffect) {
 
             // Setting default styles
             //view.$el.css({position:'absolute', visibility:'hidden', overflow:'hidden', width:'100%', height:'100%'});
-            view.$el.css({position:'absolute', visibility:'hidden', overflow:'hidden', width:'100%', height:'auto'});
+            view.$el.css({position:'absolute', visibility:'hidden'});
 
         } else {
             // Resetting visibility to hidden

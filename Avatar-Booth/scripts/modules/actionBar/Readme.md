@@ -1,21 +1,83 @@
-**Setup**
+##Purpose##
+The purpose of this module is to provide a clean, highly customizable, intuitive way to add a BlackBerry 10 actionBar to your projects. Focus is on performance, state-awareness (using Backbone routes) and simplicity.
 
-To use, copy into your modules folder, and add the following to your require.config (main.js):
+##Use##
+
+**Dependencies**
+
++ Backbone.js
++ lodash/underscore
++ jquery
+
+Edit these in the AMD wrapper of actionBar.js to change from lodash to underscore, or to use different names.  
+
+##Non-AMD use##
+
+```
+<head>
+	<script type="text/javascript" src="js/lodash.min.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/backbone.min.js"></script>
+	<script type="text/javascript" src="js/actionBar-min.js"></script>
+</head>
+
+<body>
+  <script>
+	Router = Backbone.Router.extend({
+		
+			routes: {
+				"" : "page1",
+				"page1" : "page1",
+				"page2" : "page2"
+			},
+			
+			initialize: function(){
+				this.actionbar = new actionBar({ router: this});
+				document.body.appendChild(this.actionbar.el);
+				this.actionbar.tabs.add([
+					{ 
+						title: "page 1",
+						url: "page1"
+					},
+					{ 
+						title: "page 2",
+						url: "page2"
+					},
+				]);
+			},
+			
+			
+			page1: function(){
+				console.log("page 1");
+			},
+			
+			page2: function(){
+				console.log("page 2");
+			}
+	  
+	});
+	  
+	var App = new Router();
+	Backbone.history.start();
+  
+  </script>
+...
+```
+
+##AMD Use##
+
+To use, copy into your modules/lib folder, and add the following to your require.config (main.js):
 
 ```
 require.config({
 	...,
-	packages: [
-	  		{ 
-	  			name: 'actionBar',
-	  			location: 'modules/actionBar', //this points to the location of the module
-	  			main: 'main'
-	  		}
-	 	]
+	paths: {
+				actionBar: 'modules/actionBar/actionBar.js'
+	}
 ...
 ```
 
-**Action Bar with tabs**
+Inside router/controller
 
 ```
 define([ 'actionBar' ],function(){
@@ -59,8 +121,15 @@ define([ 'actionBar' ],function(){
 
 Store your icons in the artwork folder of your project and pass the full path when creating tabs. This ensures you can update actionBar without breaking anything.
 
-**Changelog:**
+##Build##
 
+1. install node (ensure you have an environment variable set up)
+2. run build.sh/build.bat
+
+##Changelog:##
+
++ 0.5.1 - non-AMD version added and tested
++ 0.5 - added almond.js and configured for r.js build/optimization
 + 0.3.1 - moved icons out, for portability
 + 0.3 - dynamic widths for tabs to fill screen width
 + 0.2 - added ability to dynamically add tabs
@@ -78,6 +147,6 @@ var actionBar = new actionBar({ router: this }); //if instance created within ro
 var actionBar = new actionBar({ router: window.controller }); //if instance created outside router
 ```
 
-**License**
+##License##
 
 This module is licensed under the Apache license.

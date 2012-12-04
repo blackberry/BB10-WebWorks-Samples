@@ -15,14 +15,8 @@
 */
 
 section.moustaches-view{
-	position:absolute;
-	top:778px;
-	bottom:0px;
+	top:auto;
 	text-align:center;
-	font-size:50px;
-	color:white;
 	background: #262626;
-	padding-top:25px;
-	z-index:4;
-
+	margin-top:15px;
 }

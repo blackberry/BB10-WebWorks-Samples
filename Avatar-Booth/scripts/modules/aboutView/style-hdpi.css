@@ -14,13 +14,8 @@
 * limitations under the License.
 */
 section.help{
-	z-index:3;
 	background: #262626;
 	color:#eee;
-	top:70px;
-	width:100%;
-	position:absolute;
-	bottom:0px;
 }
 section.help p,section.help h1,section.help h2{	
 
