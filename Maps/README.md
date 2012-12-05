@@ -85,7 +85,7 @@ Your API Keys are meant to be private. For demonstration purposes we're coding t
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Maps folder into a BlackBerry application.
 
 ## More Info
 
