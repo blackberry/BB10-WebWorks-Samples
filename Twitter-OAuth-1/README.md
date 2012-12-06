@@ -30,11 +30,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 3. When your app is created, copy down your Consumer Key, and Consumer Secret
 
 ## WebWorks App Setup
-1. Open index.html
-2. Include the webworks-.js file ***see How To Build*** for instructions
-3. Open js/oauth.js from the projects folder.
-4. Edit the consumerKey and consumerSecret to reflect the keys given to you from Twitter.
-5. Move the ***_php*** folder out of the project directory, and see ***Server-side Setup***
+1. Open js/oauth.js from the projects folder.
+2. Edit the consumerKey and consumerSecret to reflect the keys given to you from Twitter.
+3. Move the ***_php*** folder out of the project directory, and see ***Server-side Setup***
 
 ```
 // jsOauth setup for twitter
@@ -138,9 +136,7 @@ twitterOauth.get('https://api.twitter.com/1/statuses/user_timeline.json',
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into the top level of the local Twitter-OAuth-2 folder (e.g. ~/WebWorks/Twitter-OAuth-2/js/webworks/webworks-.js).
-3. Optional: Edit the script reference to the webworks-.js file within any *.html files to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Twitter-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Twitter-OAuth-2 folder into a BlackBerry application.
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)

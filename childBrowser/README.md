@@ -22,19 +22,10 @@ Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
-## Initial Setup
-
-## WebWorks App Setup
-1. Open index.html
-2. Include the webworks-.js file ***see How To Build*** for instructions
-
-
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into the top level of the local Facebook-OAuth-2 folder (e.g. ~/WebWorks/Facebook-OAuth-2/js/webworks/webworks-.js).
-3. Optional: Edit the script reference to the webworks-.js file within any *.html files to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
 
 
 ## More Info

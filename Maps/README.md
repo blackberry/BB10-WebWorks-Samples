@@ -52,12 +52,6 @@ function initApp() {
   startGeolocation();
 }
 ```
-
-## WebWorks App Setup
-1. Open index.html
-2. ***see How To Build*** for instructions
-
-
 ## Config.xml
 As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
 

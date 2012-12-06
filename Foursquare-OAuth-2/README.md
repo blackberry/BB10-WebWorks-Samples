@@ -22,11 +22,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
 ## Initial Foursquare Setup
-1. Open index.html
-2. Include the webworks-.js file ***see How To Build*** for instructions
-3. Create an application on Foursquare (https://developer.foursquare.com/) 
-4. Under “Callback URL” enter “local:///index.html”
-5. When your app is created, copy down your Client ID, and Client Secret
+1. Create an application on Foursquare (https://developer.foursquare.com/) 
+2. Under “Callback URL” enter “local:///index.html”
+3. When your app is created, copy down your Client ID, and Client Secret
 
 ## WebWorks App Setup
 1. Open js/oauth.js from the project folder.
@@ -105,9 +103,7 @@ $.ajax({
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into the top level of the local Foursquare-OAuth-2 folder (e.g. ~/WebWorks/Foursquare-OAuth-2/js/webworks/webworks-.js).
-3. Optional: Edit the script reference to the webworks-.js file within any *.html files to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Foursquare-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Foursquare-OAuth-2 folder into a BlackBerry application.
 
 ## More Info
 

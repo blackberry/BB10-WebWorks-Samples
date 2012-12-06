@@ -32,11 +32,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 3. When your app is created, copy down your App ID, and App Secret
 
 ## WebWorks App Setup
-1. Open index.html
-2. Include the webworks-.js file ***see How To Build*** for instructions
-3. Open js/oauth.js from the project folder
-4. Edit clientId and clientSecret to reflect the keys given to you from Facebook
-5. Move the ***_php*** folder out of the project directory, and see ***Server-side Setup***
+1. Open js/oauth.js from the project folder
+2. Edit clientId and clientSecret to reflect the keys given to you from Facebook
+3. Move the ***_php*** folder out of the project directory, and see ***Server-side Setup***
 
 ```
 // facebook setup
@@ -169,9 +167,7 @@ $.ajax({
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into the top level of the local Facebook-OAuth-2 folder (e.g. ~/WebWorks/Facebook-OAuth-2/js/webworks/webworks-.js).
-3. Optional: Edit the script reference to the webworks-.js file within any *.html files to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Facebook-OAuth-2 folder into a BlackBerry application.
 
 ## More Info
 

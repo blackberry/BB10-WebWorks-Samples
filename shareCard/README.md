@@ -18,13 +18,6 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
-## WebWorks App Setup
-1. Open index.html
-2. Include the webworks-.js file ***see How To Build*** for instructions
-
-```
-<script src="js/webworks/webworks-1.0.2.9.js"></script>
-```
 ## Using the Share Card in your application
 
 Adding this Share Card to your BlackBerry 10 WebWorks application is easy!
@@ -65,9 +58,7 @@ Adding this Share Card to your BlackBerry 10 WebWorks application is easy!
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Copy the webworks-.js client file from C:\Program Files\Research In Motion\BlackBerry 10 WebWorks SDK \Framework\clientFiles (Windows) or ~/SDKs/BlackBerry 10 WebWorks SDK /Framework/clientFiles (Mac) into the top level of the local ShareCard folder (e.g. ~/WebWorks/ShareCard/js/webworks/webworks-.js).
-3. Optional: Edit the script reference to the webworks-.js file within any *.html files to ensure the version number is correct.
-4. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/ShareCard folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/ShareCard folder into a BlackBerry application.
 
 ## More Info
 
@@ -87,4 +78,3 @@ If you find a bug in a Sample, or have an enhancement request, simply file an [I
 ## Disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
