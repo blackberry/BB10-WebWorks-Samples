@@ -21,6 +21,11 @@ Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
+## Screenshots 
+
+![Screenshot](https://github.com/blackberry/BB10-WebWorks-Samples/raw/master/Toast/screenshot.png)
+
+
 ## Initial Setup
 
 The following must be added to your CONFIG.XML in order to use the toast API.
