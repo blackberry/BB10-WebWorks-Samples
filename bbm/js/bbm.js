@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012 Research In Motion Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,159 +15,235 @@
  * limitations under the License.
  */
 
-/*global window, document, console, alert, blackberry */
+/*global blackberry */
 
-/* This file holds the majority of the functionality for integration with
- * BlackBerry Messenger.
- */
-
-var _bbm = {
+var bbm = {
 	registered: false,
 
-	/* This will be called when the user clicks the 'set' button for
-	 * status or personal message.
+	/**
+	 * Registers this application with the blackberry.bbm.platform APIs.
+	 *
+	 * NOTE: This is NOT required for the invoke APIs.
 	 */
-	setField: function (field) {
-		'use strict';
-		var status, message, onComplete;
-
-		if (field === 'status') {
-			/* Assign the status for this update. */
-			if (document.querySelector('#status').getChecked() === true) {
-				status = 'available';
-			} else {
-				status = 'busy';
-			}
-
-			/* Assign the status message for this update. */
-			message = document.querySelector('#statusMessage').value;
-
-			/* Assign the onComplete function for this update. */
-			onComplete = function (accepted) {
-				if (accepted === true) {
-					alert('Status update was accepted.');
-				} else {
-					alert('Status update was not accepted.');
-				}
-			};
-
-			/* Call setStatus with our defined arguments. */
-			blackberry.bbm.platform.self.setStatus(status, message, onComplete);
-		} else if (field === 'personalMessage') {
-			/* Assign the personal message for this update. */
-			message = document.querySelector('#personalMessage').value;
-
-			/* Assign the onComplete function for this update. */
-			onComplete = function (accepted) {
-				if (accepted === true) {
-					alert('Status update was accepted.');
-				} else {
-					alert('Status update was not accepted.');
-				}
-			};
-
-			/* Call setPersonalMessage with our defined arguments. */
-			blackberry.bbm.platform.self.setPersonalMessage(message, onComplete);
-		}
-	},
-
-	fieldChanged: function (element) {
-		'use strict';
-
-		/* Reset all of our fields to invisible. */
-		document.querySelector('#_status').style.display = 'none';
-		document.querySelector('#_personalMessage').style.display = 'none';
-		document.querySelector('#_ppid').style.display = 'none';
-		document.querySelector('#_handle').style.display = 'none';
-		document.querySelector('#_appVersion').style.display = 'none';
-		document.querySelector('#_bbmsdkVersion').style.display = 'none';
-
-		/* Show the chosen field. */
-		document.querySelector("#_" + element.value).style.display = 'inline';
-	},
-
-	populate: function () {
-		'use strict';
-
-		/* Only allow functionality if we've registered with BBM. */
-		if (_bbm.registered === true) {
-			/* Set the Display Name from the BBM profile. */
-			document.querySelector('#displayName').innerHTML = blackberry.bbm.platform.self.displayName;
-
-			/* Set the Status from the BBM profile. */
-			if (blackberry.bbm.platform.self.status === 'available') {
-				document.querySelector('#status').setChecked(true);
-			} else {
-				document.querySelector('#status').setChecked(false);
-			}
-
-			/* The remaining fields are direct assignments. */
-			document.querySelector('#statusMessage').value = blackberry.bbm.platform.self.statusMessage;
-			document.querySelector('#personalMessage').value = blackberry.bbm.platform.self.personalMessage;
-			document.querySelector('#ppid').innerHTML = blackberry.bbm.platform.self.ppid;
-			document.querySelector('#handle').innerHTML = blackberry.bbm.platform.self.handle;
-			document.querySelector('#appVersion').innerHTML = blackberry.bbm.platform.self.appVersion;
-			document.querySelector('#bbmsdkVersion').innerHTML = blackberry.bbm.platform.self.bbmsdkVersion;
-		} else {
-			alert('You must register with BBM first.');
-		}
-	},
-
-	/* Will be called when the user clicks the Register button. */
 	register: function () {
-		'use strict';
-		var options;
+		blackberry.event.addEventListener('onaccesschanged', function (accessible, status) {
+			if (status === 'unregistered') {
+				blackberry.bbm.platform.register({
+					uuid: '33490f91-ad95-4ba9-82c4-33f6ad69fbbc'
+				});
+			} else if (status === 'allowed') {
+				bbm.registered = accessible;
+			}
+		}, false);
+	},
 
-		/* Only invoke this functionality if we have not yet registered. */
-		if (_bbm.registered === false) {
-			blackberry.event.addEventListener('onaccesschanged', function (allowed, reason) {
-				/* If we haven't registered yet, kick off our attempt. */
-				if (reason === 'unregistered') {
-					/* A valid, unique, 36-character UUID is being used. */
-					options = {
-						uuid: "33490f91-ad95-4ba9-82c4-33f6ad69fbbc"
-					};
+	/**
+	 * setDisplayPicture: Sets the BBM profile display picture.
+	 */
+	setDisplayPicture: function () {
+		blackberry.bbm.platform.self.setDisplayPicture('local:///img/avatar-32x32.png');
+	},
 
-					/* Call the register function with our UUID. */
-					blackberry.bbm.platform.register(options);
-				} else if (allowed === true) {
-					/* Access allowed. */
-					_bbm.registered = true;
+	/**
+	 * inviteToDownload: Displays a BBM list of existing users that can be
+	 * contacted to also download this application.
+	 */
+	inviteToDownload: function () {
+		blackberry.bbm.platform.users.inviteToDownload();
+	},
 
-					/* Show our BBM Fields panel. */
-					document.querySelector('#profile').style.display = 'inline';
-				} else if (reason === 'user') {
-					/* Access blocked by user. */
-					alert('Access is blocked by the user.');
-				} else if (reason === 'rim') {
-					/* Access blocked by RIM. */
-					alert('Access is blocked by RIM.');
-				} else {
-					/* Remaining error codes have been implemented. */
-					if (reason === 'itpolicy') {
-						alert('Access is blocked by IT Policy.');
-					} else if (reason === 'resetrequired') {
-						alert('Access is blocked because a device reset is required to use the BBM Social Platform.');
-					} else if (reason === 'nodata') {
-						alert('Access is blocked because the device is out of data coverage. A data connection is required to register the application.');
-					} else if (reason === 'temperror') {
-						alert('Access is blocked because of a temporary error. The application should try to call blackberry.bbm.platform.register in 30 minutes, or the next time the application starts.');
-					} else if (reason === 'nonuiapp') {
-						alert('Access is blocked because blackberry.bbm.platform.register was called from a non-UI application.');
+	/**
+	 * inviteToBBM: Invokes the invite to BBM functionality to add BBM contacts.
+	 */
+	inviteToBBM: function () {
+		blackberry.invoke.invoke({
+			action: 'bb.action.INVITEBBM',
+			uri: 'pin:2100000A'
+		});
+	},
+
+	/**
+	 * setAvatarLocal: Invokes the avatar selector on the specified local:// image.
+	 */
+	setAvatarLocal: function () {
+		blackberry.invoke.invoke({
+			target: 'sys.bbm.imagehandler',
+			action: 'bb.action.SET',
+			uri: 'local:///img/avatar.png'
+		});
+	},
+
+	/**
+	 * setAvatarShared: Invokes the avatar selector on the specified file:// image.
+	 */
+	setAvatarShared: function () {
+		blackberry.invoke.card.invokeFilePicker({
+			mode: blackberry.invoke.card.FILEPICKER_MODE_PICKER,
+			type: [blackberry.invoke.card.FILEPICKER_TYPE_PICTURE, blackberry.invoke.card.FILEPICKER_TYPE_MUSIC]
+		}, function (path) {
+			blackberry.invoke.invoke({
+				target: 'sys.bbm.imagehandler',
+				action: 'bb.action.SET',
+				uri: 'file://' + path[0]
+			});
+		}, function (reason) {
+			/* Cancelled. */
+			console.log(reason);
+		}, function (error) {
+			/* Error. */
+			console.log(error);
+		});
+	},
+
+	/**
+	 * startChat: Invokes a BBM chat with an existing BBM contact.
+	 *
+	 * Specifying a PIN that is not already in the user's contacts will result in the Invite To BBM screen.
+	 *
+	 * Specifying a PIN that is in the user's contacts will immediately start a chat with that person.
+	 *
+	 * Specifying no PIN should invoke the Contact Picker, but currently does not. However, shareText with empty data string should do the job.
+	 */
+	startChat: function (pin) {
+		pin = prompt('Contact PIN (Ex. 2100000A)', pin);
+
+		/* null is returned on Cancel or empty string; check valid text first. */
+		if (pin !== null) {
+			if (/^[A-Fa-f0-9]{8}$/.test(pin)) {
+				/* Valid PIN format: Invoke Chat/Invite. */
+				blackberry.invoke.invoke({
+					action: 'bb.action.BBMCHAT',
+					uri: 'pin:' + pin
+				});
+			} else {
+				/* Invalid PIN: Prompt to Retry. */
+				blackberry.ui.toast.show(
+					'Invalid PIN',
+					{
+						buttonText: 'Retry',
+						buttonCallback: function () {
+							bbm.startChat(pin);
+						},
+						dismissCallback: function () {
+						}
+					}
+				);
+			}
+		} else {
+			/* Confirm Cancel or empty string. */
+			blackberry.ui.toast.show(
+				'Invoke chat with empty string?',
+				{
+					buttonText: 'Yes',
+					buttonCallback: function () {
+						/* Empty PIN: Invoke Contact Picker. */
+						blackberry.invoke.invoke({
+							action: 'bb.action.BBMCHAT'
+						});
+					},
+					dismissCallback: function () {
 					}
 				}
-			});
+			);
 		}
 	},
 
-	invite: function () {
-		'use strict';
+	/**
+	 * shareText: Starts a chat session with pre-populated text.
+	 */
+	shareText: function () {
+		var text = prompt('Default Text', '');
 
-		/* Only allow functionality if we've registered with BBM. */
-		if (_bbm.registered === true) {
-			blackberry.bbm.platform.users.inviteToDownload();
+		if (text !== null) {
+			blackberry.invoke.invoke({
+				target: 'sys.bbm.sharehandler',
+				action: 'bb.action.SHARE',
+				data: text,
+				mimeType: 'text/plain'
+			});
 		} else {
-			alert('You must register with BBM first.');
+			/* Confirm Cancel or empty string. */
+			blackberry.ui.toast.show(
+				'Invoke share with empty string?',
+				{
+					buttonText: 'Yes',
+					buttonCallback: function () {
+						blackberry.invoke.invoke({
+							target: 'sys.bbm.sharehandler',
+							action: 'bb.action.SHARE',
+							data: '',
+							mimeType: 'text/plain'
+						});
+					},
+					dismissCallback: function () {
+					}
+				}
+			);
 		}
+	},
+
+	/**
+	 * shareImage: Starts a chat session with attached image.
+	 * Must be a file:// uri.
+	 */
+	shareImage: function () {
+		blackberry.invoke.card.invokeFilePicker({
+			mode: blackberry.invoke.card.FILEPICKER_MODE_PICKER,
+			type: [blackberry.invoke.card.FILEPICKER_TYPE_PICTURE, blackberry.invoke.card.FILEPICKER_TYPE_MUSIC]
+		}, function (path) {
+			blackberry.invoke.invoke({
+				target: 'sys.bbm.sharehandler',
+				action: 'bb.action.SHARE',
+				uri: 'file://' + path[0]
+			});
+		}, function (reason) {
+			/* Cancelled. */
+			console.log(reason);
+		}, function (error) {
+			/* Error. */
+			console.log(error);
+		});
+	},
+
+	/**
+	 * populate: Retrieve BBM profile information and populate a BBUI screen.
+	 */
+	populate: function (element) {
+		element.querySelector('#displayname').setCaption(blackberry.bbm.platform.self.displayName);
+
+		element.querySelector('#available').setChecked(
+			blackberry.bbm.platform.self.status === 'available' ? true : false
+		);
+
+		element.querySelector('#statusmessage').value		= blackberry.bbm.platform.self.statusMessage;
+		element.querySelector('#personalmessage').value		= blackberry.bbm.platform.self.personalMessage;
+		element.querySelector('#ppid').value				= blackberry.bbm.platform.self.ppid;
+		element.querySelector('#handle').value				= blackberry.bbm.platform.self.handle;
+		element.querySelector('#applicationversion').value	= blackberry.bbm.platform.self.appVersion;
+		element.querySelector('#bbmsdkversion').value		= blackberry.bbm.platform.self.bbmsdkVersion;
+	},
+
+	/**
+	 * save: Updates the user's BBM profile based on the current information.
+	 */
+	save: function () {
+		/* Update status. */
+		blackberry.bbm.platform.self.setStatus(
+			document.querySelector('#available').getChecked() === true ? 'available' : 'busy',
+			document.querySelector('#statusmessage').value,
+			function (accepted) {
+				/* Complete. */
+				console.log(accepted);
+			}
+		);
+
+		/* Update personal message. */
+		blackberry.bbm.platform.self.setPersonalMessage(
+			document.querySelector('#personalmessage').value,
+			function (accepted) {
+				/* Complete. */
+				console.log(accepted);
+			}
+		);
 	}
 };
