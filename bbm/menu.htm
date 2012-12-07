@@ -18,34 +18,19 @@
 <div style="background-color: #202020" data-bb-type="screen">
 	<div data-bb-type="image-list">
 		<div data-bb-type="header">blackberry.bbm.platform</div>
-		<div id="register"	data-bb-type="item" data-bb-img="./img/Large/White/icon_127.png" data-bb-title="Register"></div>
-		<div id="myprofile"	data-bb-type="item" data-bb-img="./img/Large/White/icon_186.png" data-bb-title="My Profile"></div>
-		<div id="setdispla"	data-bb-type="item" data-bb-img="./img/Large/White/icon_273.png" data-bb-title="Set Display Picture"></div>
-		<div id="invitedl"	data-bb-type="item" data-bb-img="./img/Large/White/icon_194.png" data-bb-title="Invite to Download"></div>
+		<div id="register" data-bb-type="item" data-bb-img="./img/Large/White/icon_127.png" data-bb-title="Register" data-bb-accent-text="See Notes"></div>
+		<div id="myprofile" data-bb-type="item" data-bb-img="./img/Large/White/icon_186.png" data-bb-title="My Profile" data-bb-accent-text="See Notes"></div>
+		<div id="setdisplay" data-bb-type="item" data-bb-img="./img/Large/White/icon_273.png" data-bb-title="Set Display Picture" data-bb-accent-text="See Notes"></div>
+		<div id="invitedl" data-bb-type="item" data-bb-img="./img/Large/White/icon_194.png" data-bb-title="Invite to Download"></div>
 		<div data-bb-type="header">blackberry.invoke</div>
-		<div id="invitebbm"	data-bb-type="item" data-bb-img="./img/Large/White/icon_212.png" data-bb-title="Invite to BBM"></div>
-		<div id="setavatar"	data-bb-type="item" data-bb-img="./img/Large/White/icon_086.png" data-bb-title="Set Avatar"></div>
-		<div id="startchat"	data-bb-type="item" data-bb-img="./img/Large/White/icon_280.png" data-bb-title="Start Chat"></div>
-		<div id="sharetext"	data-bb-type="item" data-bb-img="./img/Large/White/icon_242.png" data-bb-title="Share Text"></div>
-		<div id="shareimg"	data-bb-type="item" data-bb-img="./img/Large/White/icon_209.png" data-bb-title="Share Image"></div>
-		<div data-bb-type="header">Notes and Known Issues</div>
+		<div id="invitebbm" data-bb-type="item" data-bb-img="./img/Large/White/icon_212.png" data-bb-title="Invite to BBM"></div>
+		<div id="setavatarlocal" data-bb-type="item" data-bb-img="./img/Large/White/icon_086.png" data-bb-title="Set Avatar" data-bb-accent-text="local://"></div>
+		<div id="setavatarshared" data-bb-type="item" data-bb-img="./img/Large/White/icon_086.png" data-bb-title="Set Avatar" data-bb-accent-text="file://"></div>
+		<div id="startchat" data-bb-type="item" data-bb-img="./img/Large/White/icon_280.png" data-bb-title="Start Chat" data-bb-accent-text="See Notes"></div>
+		<div id="sharetext" data-bb-type="item" data-bb-img="./img/Large/White/icon_242.png" data-bb-title="Share Text"></div>
+		<div id="shareimg" data-bb-type="item" data-bb-img="./img/Large/White/icon_209.png" data-bb-title="Share Image" data-bb-accent-text="file://"></div>
 	</div>
-	<div style="background-color: #202020" data-bb-type="round-panel"> 
-		<div style="color: white;">Registration must occur before any of the <b>blackberry.bbm.platform</b> functionality becomes available; working as intended.</div>
-	</div>
-	<div style="background-color: #202020" data-bb-type="round-panel"> 
-		<div style="color: white;"><b>Set Display Picture</b> is not properly initiating an update. As a workaround, the <b>Set Avatar</b> invocation can be used.</div>
-	</div>
-	<div style="background-color: #202020" data-bb-type="round-panel"> 
-		<div style="color: white;"><b>Start Chat</b> is not properly initating a chat when no URI is provided; expected to provide <b>Contact Picker</b>. As a workaround, <b>Share Text</b> can be invoked with an empty <b>data</b> property.</div>
-	</div>
-	<div style="background-color: #202020" data-bb-type="round-panel"> 
-		<div style="color: white;"><b>Start Chat</b> will invite the contact to BBM if the provided PIN <b>does not exist</b> in your <b>Contact List</b>; working as intended.</div>
-	</div>
-	<div style="background-color: #202020" data-bb-type="round-panel"> 
-		<div style="color: white;"><b>Start Chat</b> will immediately start a chat session if the provided PIN <b>exists</b> in your <b>Contact List</b>; working as intended.</div>
-	</div>
-	<div style="background-color: #202020" data-bb-type="round-panel"> 
-		<div style="color: white;">There are currently some issues while saving modified <b>status</b> and <b>personal message</b> values.</div>
-	</div>
+	<div data-bb-type="action-bar">
+		<div id="notes" data-bb-type="action" data-bb-style="button" data-bb-overflow="false" data-bb-img="./img/Large/White/icon_180.png">Notes</div>
+	 </div>
 </div>

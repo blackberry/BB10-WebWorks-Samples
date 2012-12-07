@@ -63,13 +63,35 @@ var bbm = {
 	},
 
 	/**
-	 * setAvatar: Invokes the avatar selector on the specified image.
+	 * setAvatarLocal: Invokes the avatar selector on the specified local:// image.
 	 */
-	setAvatar: function () {
+	setAvatarLocal: function () {
 		blackberry.invoke.invoke({
 			target: 'sys.bbm.imagehandler',
 			action: 'bb.action.SET',
 			uri: 'local:///img/avatar.png'
+		});
+	},
+
+	/**
+	 * setAvatarShared: Invokes the avatar selector on the specified file:// image.
+	 */
+	setAvatarShared: function () {
+		blackberry.invoke.card.invokeFilePicker({
+			mode: blackberry.invoke.card.FILEPICKER_MODE_PICKER,
+			type: [blackberry.invoke.card.FILEPICKER_TYPE_PICTURE, blackberry.invoke.card.FILEPICKER_TYPE_MUSIC]
+		}, function (path) {
+			blackberry.invoke.invoke({
+				target: 'sys.bbm.imagehandler',
+				action: 'bb.action.SET',
+				uri: 'file://' + path[0]
+			});
+		}, function (reason) {
+			/* Cancelled. */
+			console.log(reason);
+		}, function (error) {
+			/* Error. */
+			console.log(error);
 		});
 	},
 
@@ -102,12 +124,24 @@ var bbm = {
 
 	/**
 	 * shareImage: Starts a chat session with attached image.
+	 * Must be a file:// uri.
 	 */
 	shareImage: function () {
-		blackberry.invoke.invoke({
-			target: 'sys.bbm.sharehandler',
-			action: 'bb.action.SHARE',
-			uri: 'local:///img/avatar.png'
+		blackberry.invoke.card.invokeFilePicker({
+			mode: blackberry.invoke.card.FILEPICKER_MODE_PICKER,
+			type: [blackberry.invoke.card.FILEPICKER_TYPE_PICTURE, blackberry.invoke.card.FILEPICKER_TYPE_MUSIC]
+		}, function (path) {
+			blackberry.invoke.invoke({
+				target: 'sys.bbm.sharehandler',
+				action: 'bb.action.SHARE',
+				uri: 'file://' + path[0]
+			});
+		}, function (reason) {
+			/* Cancelled. */
+			console.log(reason);
+		}, function (error) {
+			/* Error. */
+			console.log(error);
 		});
 	},
 
@@ -138,6 +172,8 @@ var bbm = {
 			document.querySelector('#available').getChecked() === true ? 'available' : 'busy',
 			document.querySelector('#statusmessage').value,
 			function (accepted) {
+				/* Complete. */
+				console.log(accepted);
 			}
 		);
 
@@ -145,6 +181,8 @@ var bbm = {
 		blackberry.bbm.platform.self.setPersonalMessage(
 			document.querySelector('#personalmessage').value,
 			function (accepted) {
+				/* Complete. */
+				console.log(accepted);
 			}
 		);
 	}

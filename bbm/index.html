@@ -19,6 +19,7 @@
 -->
 
 <head>
+	<title>BBM APIs</title>
 	<link type="text/css" rel="stylesheet" href="./css/bbui-0.9.5.css" />
 </head>
 
@@ -55,7 +56,7 @@
 							}, false);
 
 							/* Set Display Picture. */
-							element.querySelector('#setdispla').addEventListener('click', function () {
+							element.querySelector('#setdisplay').addEventListener('click', function () {
 								if (bbm.registered === true) {
 									bbm.setDisplayPicture();
 								}
@@ -77,9 +78,14 @@
 								bbm.inviteToBBM();
 							}, false);
 
-							/* Set Avatar. */
-							element.querySelector('#setavatar').addEventListener('click', function () {
-								bbm.setAvatar();
+							/* Set Avatar, local:// file. */
+							element.querySelector('#setavatarlocal').addEventListener('click', function () {
+								bbm.setAvatarLocal();
+							}, false);
+
+							/* Set Avatar, file:// file*/
+							element.querySelector('#setavatarshared').addEventListener('click', function () {
+								bbm.setAvatarShared();
 							}, false);
 
 							/* Start Chat. */
@@ -96,7 +102,18 @@
 							element.querySelector('#shareimg').addEventListener('click', function () {
 								bbm.shareImage();
 							}, false);
+
+							/************************************************/
+							/*	Action bar.									*/
+							/************************************************/
+
+							/* Notes and Known Issues. */
+							element.querySelector('#notes').addEventListener('click', function () {
+								bb.pushScreen('notes.htm', 'notes');
+							}, false);
+
 						} else if (id === 'profile') {
+
 							/* Populate the profile. */
 							bbm.populate(element);
 

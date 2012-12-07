@@ -27,6 +27,7 @@
     <name>BBM APIs</name>
     <author>Oros</author>
     <content src="index.html"/>
+	<icon src="img/avatar-128x128.png" />
 
 	<!-- Required features for BBUI.js. -->
 	<feature id="blackberry.app" />
@@ -36,6 +37,7 @@
 	<!-- Additional features. -->
 	<feature id="blackberry.bbm.platform" />
 	<feature id="blackberry.invoke" />
+	<feature id="blackberry.invoke.card" />
 	<feature id="blackberry.system" />
 
 	<!-- Required permissions. -->
