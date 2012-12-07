@@ -19,40 +19,27 @@
 
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:rim="http://www.blackberry.com/ns/widgets"
-        version="1.0.0.895"
-        id="bbmsample"
+        version="1.0.0.0"
+        id="bbmapis"
         xml:lang="en">
 
 	<!-- Application details. -->
-    <name>BBM Sample</name>
-    <author>Research In Motion</author>
-
-	<!-- Application startup page. -->
+    <name>BBM APIs</name>
+    <author>Oros</author>
     <content src="index.html"/>
-
-	<!-- Application icon. -->
-	<icon src="appicon.png" />
-
-	<!-- Allow access to external URLs. -->
-    <access uri="*" subdomains="true" />
-
-	<!-- Do not cache content. -->
-    <rim:cache disableAllCache="true" />
-
-	<!-- Focus-based navigation for BBUI.js. -->
-	<rim:navigation mode="focus" />
-
-	<!-- Required permissions. -->
-	<rim:permissions>
-		<rim:permit>bbm_connect</rim:permit>
-	</rim:permissions>
 
 	<!-- Required features for BBUI.js. -->
 	<feature id="blackberry.app" />
 	<feature id="blackberry.app.event"/>
 	<feature id="blackberry.system.event" />
-	<feature id="blackberry.ui.dialog" />
-	
+
 	<!-- Additional features. -->
 	<feature id="blackberry.bbm.platform" />
+	<feature id="blackberry.invoke" />
+	<feature id="blackberry.system" />
+
+	<!-- Required permissions. -->
+	<rim:permissions>
+		<rim:permit>bbm_connect</rim:permit>
+	</rim:permissions>
 </widget>

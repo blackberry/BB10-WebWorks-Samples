@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <!--
  * Copyright (c) 2012 Research In Motion Limited.
@@ -17,34 +18,104 @@
  * limitations under the License.
 -->
 
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<link type="text/css" rel="stylesheet" href="./css/bbui-0.9.5.css" />
+</head>
 
-		<title>BBM Sample</title>
+<body>
+	<script type="text/javascript" src="local:///chrome/webworks.js"></script>
+	<script type="text/javascript" src="./js/bbui-0.9.5.js"></script>
+	<script type="text/javascript" src="./js/bbm.js"></script>
+	<script type="text/javascript">
+		/*global bb, bbm */
 
-		<link type="text/css" rel="stylesheet" href="./css/bbui-0.9.4.css" />
-	</head>
-	<body>
-		<script type="text/javascript" src="local:///chrome/webworks.js"></script>
-		<script type="text/javascript" src="./js/bbui-0.9.4.js"></script>
-		<script type="text/javascript">
-			/*global window, document, console, alert, blackberry, bb, _invoke */
+		window.addEventListener('DOMContentLoaded', function () {
+			document.addEventListener('webworksready', function () {
+				bb.init({
+					controlsDark: true,
+					listsDark: true,
+					ondomready: function (element, id) {
+						if (id === 'menu') {
+							/************************************************/
+							/*	blackberry.bbm.platform						*/
+							/************************************************/
 
-			'use strict';
+							/* Register. */
+							element.querySelector('#register').addEventListener('click', function () {
+								if (bbm.registered === false) {
+									bbm.register();
+								}
+							}, false);
 
-			function onwebworksready() {
-				document.removeEventListener('webworksready', onwebworksready, false);
+							/* My Profile. */
+							element.querySelector('#myprofile').addEventListener('click', function () {
+								if (bbm.registered === true) {
+									bb.pushScreen('profile.htm', 'profile');
+								}
+							}, false);
 
-				bb.init();
-				bb.pushScreen('bbm.html', 'bbm');
-			}
+							/* Set Display Picture. */
+							element.querySelector('#setdispla').addEventListener('click', function () {
+								if (bbm.registered === true) {
+									bbm.setDisplayPicture();
+								}
+							}, false);
 
-			function onload() {
-				window.removeEventListener('load', onload, false);
-				document.addEventListener('webworksready', onwebworksready, false);
-			}
-			window.addEventListener('load', onload, false);
-		</script>
-	</body>
+							/* Invite to Download. */
+							element.querySelector('#invitedl').addEventListener('click', function () {
+								if (bbm.registered === true) {
+									bbm.inviteToDownload();
+								}
+							}, false);
+
+							/************************************************/
+							/*	blackberry.invoke							*/
+							/************************************************/
+
+							/* Invite to BBM. */
+							element.querySelector('#invitebbm').addEventListener('click', function () {
+								bbm.inviteToBBM();
+							}, false);
+
+							/* Set Avatar. */
+							element.querySelector('#setavatar').addEventListener('click', function () {
+								bbm.setAvatar();
+							}, false);
+
+							/* Start Chat. */
+							element.querySelector('#startchat').addEventListener('click', function () {
+								bbm.startChat();
+							}, false);
+
+							/* Share Text. */
+							element.querySelector('#sharetext').addEventListener('click', function () {
+								bbm.shareText();
+							}, false);
+
+							/* Share Image. */
+							element.querySelector('#shareimg').addEventListener('click', function () {
+								bbm.shareImage();
+							}, false);
+						} else if (id === 'profile') {
+							/* Populate the profile. */
+							bbm.populate(element);
+
+							/* Refresh Profile. */
+							element.querySelector('#refresh').addEventListener('click', function () {
+								bbm.populate(element);
+							}, false);
+
+							/* Save profile. */
+							element.querySelector('#save').addEventListener('click', function () {
+								bbm.save();
+							}, false);
+						}
+					}
+				});
+				bb.pushScreen('menu.htm', 'menu');
+			}, false);
+		}, false);
+	</script>
+</body>
+
 </html>
