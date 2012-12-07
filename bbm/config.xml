@@ -42,6 +42,7 @@
 
 	<!-- Required permissions. -->
 	<rim:permissions>
+		<rim:permit>access_shared</rim:permit>
 		<rim:permit>bbm_connect</rim:permit>
 	</rim:permissions>
 </widget>
