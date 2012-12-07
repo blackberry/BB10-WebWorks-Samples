@@ -104,22 +104,82 @@ var bbm = {
 	 *
 	 * Specifying no PIN should invoke the Contact Picker, but currently does not. However, shareText with empty data string should do the job.
 	 */
-	startChat: function () {
-		blackberry.invoke.invoke({
-			action: 'bb.action.BBMCHAT'
-		});
+	startChat: function (pin) {
+		pin = prompt('Contact PIN (Ex. 2100000A)', pin);
+
+		/* null is returned on Cancel or empty string; check valid text first. */
+		if (pin !== null) {
+			if (/^[A-Fa-f0-9]{8}$/.test(pin)) {
+				/* Valid PIN format: Invoke Chat/Invite. */
+				blackberry.invoke.invoke({
+					action: 'bb.action.BBMCHAT',
+					uri: 'pin:' + pin
+				});
+			} else {
+				/* Invalid PIN: Prompt to Retry. */
+				blackberry.ui.toast.show(
+					'Invalid PIN',
+					{
+						buttonText: 'Retry',
+						buttonCallback: function () {
+							bbm.startChat(pin);
+						},
+						dismissCallback: function () {
+						}
+					}
+				);
+			}
+		} else {
+			/* Confirm Cancel or empty string. */
+			blackberry.ui.toast.show(
+				'Invoke chat with empty string?',
+				{
+					buttonText: 'Yes',
+					buttonCallback: function () {
+						/* Empty PIN: Invoke Contact Picker. */
+						blackberry.invoke.invoke({
+							action: 'bb.action.BBMCHAT'
+						});
+					},
+					dismissCallback: function () {
+					}
+				}
+			);
+		}
 	},
 
 	/**
 	 * shareText: Starts a chat session with pre-populated text.
 	 */
 	shareText: function () {
-		blackberry.invoke.invoke({
-			target: 'sys.bbm.sharehandler',
-			action: 'bb.action.SHARE',
-			data: 'This is some text.',
-			mimeType: 'text/plain'
-		});
+		var text = prompt('Default Text', '');
+
+		if (text !== null) {
+			blackberry.invoke.invoke({
+				target: 'sys.bbm.sharehandler',
+				action: 'bb.action.SHARE',
+				data: text,
+				mimeType: 'text/plain'
+			});
+		} else {
+			/* Confirm Cancel or empty string. */
+			blackberry.ui.toast.show(
+				'Invoke share with empty string?',
+				{
+					buttonText: 'Yes',
+					buttonCallback: function () {
+						blackberry.invoke.invoke({
+							target: 'sys.bbm.sharehandler',
+							action: 'bb.action.SHARE',
+							data: '',
+							mimeType: 'text/plain'
+						});
+					},
+					dismissCallback: function () {
+					}
+				}
+			);
+		}
 	},
 
 	/**

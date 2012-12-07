@@ -39,6 +39,7 @@
 	<feature id="blackberry.invoke" />
 	<feature id="blackberry.invoke.card" />
 	<feature id="blackberry.system" />
+	<feature id="blackberry.ui.toast" />
 
 	<!-- Required permissions. -->
 	<rim:permissions>
