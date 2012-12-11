@@ -26,7 +26,7 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/ShareTargets/screenshot.png)
 
 ## API Documentation ##
-The documentation for this API is available at https://developer.blackberry.com/html5/apis/
+The documentation for this API is available at https://developer.blackberry.com/html5/apis/blackberry.invoke.card.html#.invokeTargetPicker
 
 ## How to Use
 

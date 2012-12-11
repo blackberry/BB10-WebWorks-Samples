@@ -22,7 +22,7 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
 ## API Documentation ##
-The documentation for this API is available at https://developer.blackberry.com/html5/apis/
+The documentation for this API is available at https://developer.blackberry.com/html5/apis/blackberry.system.html#.setWallpaper
 
 ## How to Use
 
