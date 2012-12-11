@@ -21,27 +21,27 @@
  */
 
 /**
- * This function is called when new push content comes in. It checks for duplicate pushes, 
- * stores the push in the database, and updates the push list.
+ * This function is called when new push content comes in. It checks for duplicate pushes, stores the push in the database, and
+ * updates the push list.
  * 
  * @param {blackberry.push.PushPayload}
  *            pushpayload the newly received push content
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.pushNotificationHandler = function(pushpayload) {	
+sample.pushcapture.constructor.prototype.pushNotificationHandler = function(pushpayload) {
     var contentType = pushpayload.headers["Content-Type"];
 
     sample.pushcapture.checkForDuplicateMessage(pushpayload.id, pushpayload.data, contentType);
 
-	// If an acknowledgement of the push is required (that is, the push was sent as a confirmed push 
-	// - which is equivalent terminology to the push being sent with application level reliability),
-	// then you must either accept the push or reject the push
+    // If an acknowledgement of the push is required (that is, the push was sent as a confirmed push
+    // - which is equivalent terminology to the push being sent with application level reliability),
+    // then you must either accept the push or reject the push
     if (pushpayload.isAcknowledgeRequired) {
-		// In our sample, we always accept the push, but situations might arise where an application
-		// might want to reject the push (for example, after looking at the headers that came with the push
-		// or the data of the push, we might decide that the push received did not match what we expected
-		// and so we might want to reject it)
-    	pushpayload.acknowledge(true);
+        // In our sample, we always accept the push, but situations might arise where an application
+        // might want to reject the push (for example, after looking at the headers that came with the push
+        // or the data of the push, we might decide that the push received did not match what we expected
+        // and so we might want to reject it)
+        pushpayload.acknowledge(true);
     }
 };
 
@@ -63,10 +63,9 @@ sample.pushcapture.constructor.prototype.checkForDuplicateMessage = function(mes
     } else {
         sample.pushcapture.db.transaction(function(tx) {
             tx.executeSql("CREATE TABLE IF NOT EXISTS messageidhistory"
-                + "(rownum INTEGER PRIMARY KEY AUTOINCREMENT, messageid TEXT);", [], 
-                function(tx, results) {
-                    sample.pushcapture.successMessageIdHistoryCreation(messageId, content, contentType);
-                });
+                    + "(rownum INTEGER PRIMARY KEY AUTOINCREMENT, messageid TEXT);", [], function(tx, results) {
+                sample.pushcapture.successMessageIdHistoryCreation(messageId, content, contentType);
+            });
         });
     }
 };
@@ -84,22 +83,20 @@ sample.pushcapture.constructor.prototype.checkForDuplicateMessage = function(mes
  */
 sample.pushcapture.constructor.prototype.successMessageIdHistoryCreation = function(messageId, content, contentType) {
     sample.pushcapture.db.readTransaction(function(tx) {
-        tx.executeSql("SELECT messageid FROM messageidhistory WHERE messageid = ?;", [ messageId ], 
-            function(tx, results) {
-	            if (results.rows.length != 0) {
-	                // A duplicate was found
-	                sample.pushcapture.duplicateFoundAction();
-	            } else {
-	                // No duplicate was found, insert a new entry into the history
-	                sample.pushcapture.db.transaction(function(tx) {
-	                    tx.executeSql("INSERT INTO messageidhistory (rownum, messageid) VALUES(?, ?);",
-                            [ null, messageId ], 
+        tx.executeSql("SELECT messageid FROM messageidhistory WHERE messageid = ?;", [ messageId ], function(tx, results) {
+            if (results.rows.length != 0) {
+                // A duplicate was found
+                sample.pushcapture.duplicateFoundAction();
+            } else {
+                // No duplicate was found, insert a new entry into the history
+                sample.pushcapture.db.transaction(function(tx) {
+                    tx.executeSql("INSERT INTO messageidhistory (rownum, messageid) VALUES(?, ?);", [ null, messageId ],
                             function(tx, results) {
                                 sample.pushcapture.successMessageIdInsert(content, contentType);
                             });
-	                });
-	            }
-            });
+                });
+            }
+        });
     });
 };
 
@@ -114,37 +111,38 @@ sample.pushcapture.constructor.prototype.successMessageIdHistoryCreation = funct
  */
 sample.pushcapture.constructor.prototype.successMessageIdInsert = function(content, contentType) {
     sample.pushcapture.db.readTransaction(function(tx) {
-        tx.executeSql("SELECT COUNT(*) AS count FROM messageidhistory;", [], 
-            function(tx, results) {
-	            if (results.rows.item(0).count > 10) {
-	                sample.pushcapture.db.transaction(function(tx) {
-	                    // Remove the oldest message Id in the history
-	                    tx.executeSql(
-                            "DELETE FROM messageidhistory WHERE rownum = (SELECT min(rownum) FROM messageidhistory);",
-                            [], function(tx, results) {
+        tx.executeSql("SELECT COUNT(*) AS count FROM messageidhistory;", [], function(tx, results) {
+            if (results.rows.item(0).count > 10) {
+                sample.pushcapture.db.transaction(function(tx) {
+                    // Remove the oldest message Id in the history
+                    tx.executeSql("DELETE FROM messageidhistory WHERE rownum = (SELECT min(rownum) FROM messageidhistory);", [],
+                            function(tx, results) {
                                 sample.pushcapture.processPush(content, contentType);
                             });
-	                });
-	            } else {
-	                sample.pushcapture.processPush(content, contentType);
-	            }
-            });
+                });
+            } else {
+                sample.pushcapture.processPush(content, contentType);
+            }
+        });
     });
 };
 
 /**
- * Action to be taken when a duplicate push is detected. Currently, this function does nothing. 
- * We just discard the duplicate.
+ * Action to be taken when a duplicate push is detected. Currently, this function does nothing. We just discard the duplicate and
+ * exit the application if it has not been brought to the foreground.
  * 
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.duplicateFoundAction = function() {
-    // Currently, does nothing
+    // Exit the application if it has not been brought to the foreground
+    if (!sample.pushcapture.hasBeenInForeground) {
+        blackberry.app.exit();
+    }
 };
 
 /**
- * Performs all the processing required of a newly received push 
- * (now that it has been determined that that push is not a duplicate).
+ * Performs all the processing required of a newly received push (now that it has been determined that that push is not a
+ * duplicate).
  * 
  * @param {Blob}
  *            content the content of the push
@@ -155,7 +153,7 @@ sample.pushcapture.constructor.prototype.duplicateFoundAction = function() {
 sample.pushcapture.constructor.prototype.processPush = function(content, contentType) {
     // Remove the push list from local storage since the push list
     // is going to be updated with this new push we are processing
-	localStorage.removeItem(sample.pushcapture.localStorageKey);
+    localStorage.removeItem(sample.pushcapture.localStorageKey);
 
     var currentTime = new Date();
 
@@ -233,28 +231,24 @@ sample.pushcapture.constructor.prototype.getPushTime = function(currentDate) {
  *            pushtime the time of the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.storePush = function(content, contentType, pushdate, pushtime) {	
+sample.pushcapture.constructor.prototype.storePush = function(content, contentType, pushdate, pushtime) {
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS push (seqnum INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "pushdate TEXT, type TEXT, pushtime TEXT, extension TEXT, content TEXT, unread TEXT);", [], 
-            function(tx, results) {
-                var type = sample.pushcapture.getPushedContentType(contentType);
-                var extension = sample.pushcapture.getPushedContentFileExtension(contentType);
-                
-                if (type == "image") {                    	
-                	sample.pushcapture.blobToBinaryBase64String(content,
-                    	function(binaryBase64Str) {
-                		    sample.pushcapture.insertPush(binaryBase64Str, type, extension, pushdate, pushtime);
-                	    }
-                	);
-                } else {                    	
-                	sample.pushcapture.blobToTextString(content, "UTF-8", 
-                	    function(textStr) {                              			
-                		    sample.pushcapture.insertPush(sample.pushcapture.utf8_to_b64(textStr), type, extension, pushdate, pushtime);
-                	    }
-                	);
-                }                	
-            });
+                + "pushdate TEXT, type TEXT, pushtime TEXT, extension TEXT, content TEXT, unread TEXT);", [], function(tx,
+                results) {
+            var type = sample.pushcapture.getPushedContentType(contentType);
+            var extension = sample.pushcapture.getPushedContentFileExtension(contentType);
+
+            if (type == "image") {
+                sample.pushcapture.blobToBinaryBase64String(content, function(binaryBase64Str) {
+                    sample.pushcapture.insertPush(binaryBase64Str, type, extension, pushdate, pushtime);
+                });
+            } else {
+                sample.pushcapture.blobToTextString(content, "UTF-8", function(textStr) {
+                    sample.pushcapture.insertPush(sample.pushcapture.utf8_to_b64(textStr), type, extension, pushdate, pushtime);
+                });
+            }
+        });
     });
 };
 
@@ -266,36 +260,44 @@ sample.pushcapture.constructor.prototype.storePush = function(content, contentTy
  * @param {String}
  *            type the content type
  * @param {String}
- * 			  extension the file extension of the push content
+ *            extension the file extension of the push content
  * @param {String}
  *            pushdate the date of the push
  * @param {String}
  *            pushtime the time of the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.insertPush = function(content, type, extension, pushdate, pushtime) {	
+sample.pushcapture.constructor.prototype.insertPush = function(content, type, extension, pushdate, pushtime) {
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("INSERT INTO push (seqnum, pushdate, type, pushtime, extension, content, unread) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?);", [ null, pushdate, type, pushtime, extension, content, "T" ],
-            function(tx, results) {
-                var seqnum = results.insertId;
-                
-                sample.pushcapture.addPushItem(content, type, extension, pushdate, pushtime, seqnum);
-                
-                // Add a notification to the BlackBerry Hub for this push
-                var title = "Push Capture";
-                var options = {
-                    body: "New " + extension + " push received",
-                    tag: sample.pushcapture.notificationPrefix + seqnum,
-                    target: sample.pushcapture.invokeTargetIdOpen,
-                    targetAction : "bb.action.OPEN",
-        			// We set the data of the invoke to be the seqnum of the 
-        			// push so that we know which push needs to be opened
-                    payload : sample.pushcapture.utf8_to_b64(seqnum.toString(10))
-                };
-                new Notification(title, options);
-            });
-    });	
+                + "VALUES (?, ?, ?, ?, ?, ?, ?);", [ null, pushdate, type, pushtime, extension, content, "T" ], function(tx,
+                results) {
+            var seqnum = results.insertId;
+
+            sample.pushcapture.addPushItem(content, type, extension, pushdate, pushtime, seqnum);
+
+            // Add a notification to the BlackBerry Hub for this push
+            var title = "Push Capture";
+            var options = {
+                body : "New " + extension + " push received",
+                tag : seqnum + sample.pushcapture.notificationSuffix,
+                target : sample.pushcapture.invokeTargetIdOpen,
+                targetAction : "bb.action.OPEN",
+                // We set the data of the invoke to be the seqnum of the
+                // push so that we know which push needs to be opened
+                payload : sample.pushcapture.utf8_to_b64(seqnum.toString(10))
+            };
+            new Notification(title, options);
+
+            // Exit the application after processing the push if the
+            // application has not been brought to the foreground
+            if (!sample.pushcapture.hasBeenInForeground) {
+                setTimeout(function() {
+                    blackberry.app.exit();
+                }, 1000);
+            }
+        });
+    });
 };
 
 /**
@@ -306,7 +308,7 @@ sample.pushcapture.constructor.prototype.insertPush = function(content, type, ex
  * @param {String}
  *            type the content type
  * @param {String}
- * 			  extension the file extension of the push content
+ *            extension the file extension of the push content
  * @param {String}
  *            pushdate the date of the push
  * @param {String}
@@ -315,89 +317,89 @@ sample.pushcapture.constructor.prototype.insertPush = function(content, type, ex
  *            seqnum the unique id identifying the push
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.addPushItem = function(content, type, extension, 
-		pushdate, pushtime, seqnum) {    	
-	// Check if we are on the push list screen
-	// Otherwise, there is no need to add the push item to the list
-	// It will instead be handled when loading the pushes for the push list screen
-	if (document.getElementById("push-screen") != null) {
-		// Create a push row
-	    var pushRow = document.createElement("tr");
-	    pushRow.id = seqnum.toString(10);
-	    pushRow.className = "unread-push";	    
-	
-	    // First column
-	    var firstColumn = document.createElement("td");
-	    firstColumn.setAttribute("onclick", "sample.pushcapture.openPush('" + pushRow.id + "');");
-	    firstColumn.className = "column1";
-	    
-	    var firstColumnImage = document.createElement("img");
-	    firstColumnImage.src = sample.pushcapture.getIconForType(type);
-	    
-	    firstColumn.appendChild(firstColumnImage);
-	
-	    // Second column
-	    var secondColumn = document.createElement("td");
-	    secondColumn.setAttribute("onclick", "sample.pushcapture.openPush('" + pushRow.id + "');");
-	    secondColumn.className = "column2";
-	    
-	    var secondColumnText = document.createTextNode(sample.pushcapture.getPushPreview(type, extension, content));
-	    
-	    secondColumn.appendChild(secondColumnText);
-	
-	    // Third column
-	    var thirdColumn = document.createElement("td");
-	    thirdColumn.setAttribute("onclick", "sample.pushcapture.openPush('" + pushRow.id + "');");
-	    thirdColumn.className = "column3";
+sample.pushcapture.constructor.prototype.addPushItem = function(content, type, extension, pushdate, pushtime, seqnum) {
+    // Check if we are on the push list screen
+    // Otherwise, there is no need to add the push item to the list
+    // It will instead be handled when loading the pushes for the push list screen
+    if (document.getElementById("push-screen") != null) {
+        // Create a push row
+        var pushRow = document.createElement("tr");
+        pushRow.id = seqnum.toString(10);
+        pushRow.className = "unread-push";
 
-	    var thirdColumnText = document.createTextNode(pushtime);
-	    
-	    thirdColumn.appendChild(thirdColumnText);
-	
-	    // Fourth column
-	    var fourthColumn = document.createElement("td");
-	    fourthColumn.setAttribute("onclick", "sample.pushcapture.deletePush('" + pushRow.id + "');");
-	    fourthColumn.className = "column4";
-	    
-	    var fourthColumnImage = document.createElement("img");
-	    fourthColumnImage.id = "img" + pushRow.id;
-	    fourthColumnImage.src = "Images/trash.png";
-	    
-	    fourthColumn.appendChild(fourthColumnImage);
-	    
-	    pushRow.appendChild(firstColumn);
-	    pushRow.appendChild(secondColumn);
-	    pushRow.appendChild(thirdColumn);
-	    pushRow.appendChild(fourthColumn);
-	    
-	    // Create a date row
+        // First column
+        var firstColumn = document.createElement("td");
+        firstColumn.setAttribute("onclick", "sample.pushcapture.openPush('" + pushRow.id + "');");
+        firstColumn.className = "column1";
+
+        var firstColumnImage = document.createElement("img");
+        firstColumnImage.src = sample.pushcapture.getIconForType(type);
+
+        firstColumn.appendChild(firstColumnImage);
+
+        // Second column
+        var secondColumn = document.createElement("td");
+        secondColumn.setAttribute("onclick", "sample.pushcapture.openPush('" + pushRow.id + "');");
+        secondColumn.className = "column2";
+
+        var secondColumnText = document.createTextNode(sample.pushcapture.getPushPreview(type, extension, content));
+
+        secondColumn.appendChild(secondColumnText);
+
+        // Third column
+        var thirdColumn = document.createElement("td");
+        thirdColumn.setAttribute("onclick", "sample.pushcapture.openPush('" + pushRow.id + "');");
+        thirdColumn.className = "column3";
+
+        var thirdColumnText = document.createTextNode(pushtime);
+
+        thirdColumn.appendChild(thirdColumnText);
+
+        // Fourth column
+        var fourthColumn = document.createElement("td");
+        fourthColumn.setAttribute("onclick", "sample.pushcapture.deletePush('" + pushRow.id + "');");
+        fourthColumn.className = "column4";
+
+        var fourthColumnImage = document.createElement("img");
+        fourthColumnImage.id = "img" + pushRow.id;
+        fourthColumnImage.src = "Images/trash.png";
+
+        fourthColumn.appendChild(fourthColumnImage);
+
+        pushRow.appendChild(firstColumn);
+        pushRow.appendChild(secondColumn);
+        pushRow.appendChild(thirdColumn);
+        pushRow.appendChild(fourthColumn);
+
+        // Create a date row
         var dateRow = document.createElement("tr");
         var dateColumn = document.createElement("td");
         dateColumn.colSpan = 4;
         dateColumn.className = "heading";
-        
+
         var dateColumnText = document.createTextNode(pushdate);
-        
+
         dateColumn.appendChild(dateColumnText);
         dateRow.appendChild(dateColumn);
-	
-	    if (document.getElementById("no-results") != null) {
-	    	  // Remove the "no pushes" message
-	    	document.getElementById("push-screen").removeChild(document.getElementById("no-results"));
-	
-	        document.getElementById("push-table").appendChild(dateRow);
-	
-	        document.getElementById("push-table").appendChild(pushRow);
-	    } else if (document.getElementById("push-table").firstChild.firstChild.firstChild.nodeValue == pushdate) {
-	        // Insert below the current date row (since the date matches)
-	    	document.getElementById("push-table").insertBefore(pushRow, document.getElementById("push-table").firstChild.nextSibling);
-	    } else {
-	        // Insert a row for the date heading (since the date did not match)	and the push
-	    	document.getElementById("push-table").insertBefore(pushRow, document.getElementById("push-table").firstChild);
-	    	
-	    	document.getElementById("push-table").insertBefore(dateRow, document.getElementById("push-table").firstChild);
-	    }
-	}
+
+        if (document.getElementById("no-results") != null) {
+            // Remove the "no pushes" message
+            document.getElementById("push-screen").removeChild(document.getElementById("no-results"));
+
+            document.getElementById("push-table").appendChild(dateRow);
+
+            document.getElementById("push-table").appendChild(pushRow);
+        } else if (document.getElementById("push-table").firstChild.firstChild.firstChild.nodeValue == pushdate) {
+            // Insert below the current date row (since the date matches)
+            document.getElementById("push-table").insertBefore(pushRow,
+                    document.getElementById("push-table").firstChild.nextSibling);
+        } else {
+            // Insert a row for the date heading (since the date did not match) and the push
+            document.getElementById("push-table").insertBefore(pushRow, document.getElementById("push-table").firstChild);
+
+            document.getElementById("push-table").insertBefore(dateRow, document.getElementById("push-table").firstChild);
+        }
+    }
 };
 
 /**
@@ -409,11 +411,11 @@ sample.pushcapture.constructor.prototype.addPushItem = function(content, type, e
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.getPushedContentFileExtension = function(contentType) {
-	if (!contentType) {
-		alert("Missing Content-Type header for push. Defaulting to text.");
-		return ".txt";
-	}
-	
+    if (!contentType) {
+        alert("Missing Content-Type header for push. Defaulting to text.");
+        return ".txt";
+    }
+
     if (contentType.startsWith("application/xml")) {
         return ".xml";
     } else if (contentType.startsWith("text/html")) {
@@ -427,8 +429,8 @@ sample.pushcapture.constructor.prototype.getPushedContentFileExtension = functio
     } else if (contentType.startsWith("text/plain")) {
         return ".txt";
     } else {
-    	alert("File extension is unknown for Content-Type header value: " + contentType + ".");
-    	return null;
+        alert("File extension is unknown for Content-Type header value: " + contentType + ".");
+        return null;
     }
 };
 
@@ -441,11 +443,11 @@ sample.pushcapture.constructor.prototype.getPushedContentFileExtension = functio
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.getPushedContentType = function(contentType) {
-	if(!contentType) {
-		alert("Missing Content-Type header for push. Defaulting to text.");
-		return "text";
-	}
-	
+    if (!contentType) {
+        alert("Missing Content-Type header for push. Defaulting to text.");
+        return "text";
+    }
+
     if (contentType.startsWith("image")) {
         return "image";
     } else if (contentType.startsWith("text/html") || contentType.startsWith("application/xml")) {

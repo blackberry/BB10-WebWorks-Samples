@@ -110,12 +110,12 @@ sample.pushcapture.constructor.prototype.openPush = function(pushId) {
 sample.pushcapture.constructor.prototype.updateAndOpenPush = function(content, isUnread) {	
     // Check if the push is currently marked as unread
     if (isUnread) {
-        // Remove the push list from local storage since we are  
+        // Remove the push list from local storage since we are
     	// updating one of the pushes in the list
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
     	// Remove the notification from the BlackBerry Hub since the push has been read
-    	Notification.remove(sample.pushcapture.notificationPrefix + sample.pushcapture.selectedPushSeqnum);
+    	Notification.remove(sample.pushcapture.selectedPushSeqnum + sample.pushcapture.notificationSuffix);
     	
         sample.pushcapture.updatePush(content);
     } else {
@@ -187,12 +187,12 @@ sample.pushcapture.constructor.prototype.deleteCallback = function(selection) {
 	document.getElementById("img" + sample.pushcapture.selectedPushSeqnum).src = "Images/trash.png";
 	
 	if (selection.return == "Yes") {
-        // Remove the push list from local storage since we are  
+        // Remove the push list from local storage since we are
     	// deleting one of the pushes in the list
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
 	
     	// Remove the notification from the BlackBerry Hub since the push has been deleted
-    	Notification.remove(sample.pushcapture.notificationPrefix + sample.pushcapture.selectedPushSeqnum);
+    	Notification.remove(sample.pushcapture.selectedPushSeqnum + sample.pushcapture.notificationSuffix);
     	
 	    // Delete the push from storage
 	    sample.pushcapture.db.transaction(function(tx) {
@@ -298,14 +298,13 @@ sample.pushcapture.constructor.prototype.updateAllUnopenedPushes = function(tx, 
         progressDiv.innerHTML = "Processing...";
         document.getElementById("push-screen").appendChild(progressDiv);
 
-        // Remove the push list from local storage since the  
+        // Remove the push list from local storage since the
     	// push list is going to be updated
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
 
     	// Remove all the notifications from the BlackBerry Hub for this app
         for (var i = 0; i < results.rows.length; i++) {
-        	Notification.remove(sample.pushcapture.notificationPrefix + 
-        	    results.rows.item(i).seqnum);	
+        	Notification.remove(results.rows.item(i).seqnum + sample.pushcapture.notificationSuffix);	
         } 	
     	
         // Update the unread flags for all pushes to "F"
@@ -359,7 +358,7 @@ sample.pushcapture.constructor.prototype.deleteAllCallback = function(selection)
         progressDiv.innerHTML = "Processing...";
         document.getElementById("push-screen").appendChild(progressDiv);
 
-        // Remove the push list from local storage since 
+        // Remove the push list from local storage since
     	// the push list is going to be deleted
     	localStorage.removeItem(sample.pushcapture.localStorageKey);
     	    	
@@ -368,15 +367,14 @@ sample.pushcapture.constructor.prototype.deleteAllCallback = function(selection)
             tx.executeSql("SELECT seqnum FROM push WHERE unread = ?;", [ "T" ], 
                 function(tx, results) {
                     for (var i = 0; i < results.rows.length; i++) {
-                    	Notification.remove(sample.pushcapture.notificationPrefix + 
-                    	    results.rows.item(i).seqnum);	
+                    	Notification.remove(results.rows.item(i).seqnum + sample.pushcapture.notificationSuffix);	
                     }
                     
                     // Now, drop the push table to delete all the pushes
                     sample.pushcapture.dropPushTable();
                 },
                 function(tx, e) {
-                	// If the push table is not there, no need to 
+                	// If the push table is not there, no need to
                 	// remove any notifications or pushes
                 	sample.pushcapture.successDeleteAllPushes();
                 }
@@ -424,8 +422,7 @@ sample.pushcapture.constructor.prototype.successDeleteAllPushes = function() {
  * Loads pushes from the database.
  * 
  * @param {Element}
- *            element the root element of the screen (might be null, in which case, use the
- *            document DOM element)
+ *            element the root element of the screen (might be null, in which case, use the document DOM element)
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.loadPushes = function(element) {	
@@ -458,7 +455,6 @@ sample.pushcapture.constructor.prototype.loadPushes = function(element) {
         // Highlight the last selected push (if there was one)
         if (sample.pushcapture.selectedPushSeqnum != null) {
         	sample.pushcapture.highlightSelectedPush(rootElem);
-        	rootElem.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
         }
     } else {
         try {
@@ -609,7 +605,7 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
     // Highlight the last selected push (if there was one)
     if (sample.pushcapture.selectedPushSeqnum != null) {  
     	sample.pushcapture.highlightSelectedPush(element);
-    	element.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
+        element.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
     }
 };
 
@@ -645,9 +641,9 @@ sample.pushcapture.constructor.prototype.getPushDates = function(results) {
 };
 
 /**
- * Highlights the selected push. It is expected the <code>sample.pushcapture.selectedPushSeqnum</code> variable 
- * is set on the <code>openPush()</code> function. The current/previously highlighted row will always been 
- * unselected and the new row will be selected. 
+ * Highlights the selected push. It is expected the <code>sample.pushcapture.selectedPushSeqnum</code> variable is set on the
+ * <code>openPush()</code> function. The current/previously highlighted row will always been unselected and the new row will be
+ * selected.
  * 
  * @param {Element}
  *            element the root element of the screen

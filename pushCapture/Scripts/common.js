@@ -81,7 +81,7 @@ sample.pushcapture = (function() {
             // Do nothing here since the db will be left uninitialized and the proper error will be
             // displayed when the user attempts to perform an operation that requires a db transaction
         }
-        
+
         /**
          * The key to use to store the list of pushes in local storage to make it quicker to display when possible.
          * 
@@ -90,70 +90,76 @@ sample.pushcapture = (function() {
         this.localStorageKey = "sample.pushcapture.pushlistkey";
 
         /**
-         * The error message received when attempting to use the application and a database error
-         * is encountered.
+         * The error message received when attempting to use the application and a database error is encountered.
          * 
          * @constant
          */
         this.databaseError = "Error: Problem was encountered while attempting to access the database.";
-        
+
         /**
          * The message to be displayed when no pushes exist in the database.
          * 
          * @constant
          */
         this.noPushesMessage = "There are currently no pushes.";
-        
+
         /**
          * PushService object obtained from a success call to blackberry.push.PushService.create.
          */
         this.pushService = null;
-        
+
         /**
          * Invoke target ID for receiving new push notifications.
          */
         this.invokeTargetIdPush = "sample.pushcapture.invoke.push";
-        
+
         /**
          * Invoke target ID when clicking on a notification in the BlackBerry Hub opens the app.
-         */  
+         */
         this.invokeTargetIdOpen = "sample.pushcapture.invoke.open";
-        
+
         /**
-         * Prefix to use for the tag for new notifications sent to the BlackBerry Hub for this app.
-         */ 
-        this.notificationPrefix = "pushcapture_";
-        
+         * Suffix to use for the tag for new notifications sent to the BlackBerry Hub for this app.
+         */
+        this.notificationSuffix = "_pushcapture";
+
         /**
          * Boolean indicating whether the DOM is ready (and can be manipulated).
          */
         this.isDomReady = false;
-        
+
         /**
          * Boolean indicating whether an invoke has been received wanting to open the application.
          */
         this.isOpenInvoke = false;
-        
+
         /**
-         * Use SDK as Push Initiator configuration setting.
-         * This indicates whether or not the Push Service SDK will be used to manage
-         * subscriptions for the Push Initiator.
+         * Boolean indicating whether the application has ever been in the foreground. This boolean is used to determine whether
+         * we are dealing with the situation where the application is set to launch on a new push, the application is currently
+         * not running, and a new push comes in. The application will be launched in the background to process the push. If the
+         * user does not bring the app to the foreground while we are processing the push, then we exit the application. This is
+         * to save battery life and performance on the device by not having the application running in the background after every
+         * push that comes in.
+         */
+        this.hasBeenInForeground = false;
+
+        /**
+         * Use SDK as Push Initiator configuration setting. This indicates whether or not the Push Service SDK will be used to
+         * manage subscriptions for the Push Initiator.
          */
         this.usesdkaspi = true;
-        
+
         /**
-         * Whether the public/BIS PPG is being used.  If set to false, an
-         * enterprise/BDS PPG is being used.
+         * Whether the public/BIS PPG is being used. If set to false, an enterprise/BDS PPG is being used.
          */
         this.usingpublicppg = true;
-        
+
         /**
-         * Launch Application on a New Push configuration setting.
-         * This indicates whether or not the application should be launched/started up
-         * if it is closed and a new push comes in.
+         * Launch Application on a New Push configuration setting. This indicates whether or not the application should be
+         * launched/started up if it is closed and a new push comes in.
          */
         this.launchapp = false;
-        
+
         /**
          * Application ID configuration setting.
          */
@@ -178,17 +184,17 @@ sample.pushcapture = (function() {
          * Password registration information.
          */
         this.passwd = null;
-        
+
         /**
          * The push that is currently selected.
          */
         this.selectedPushSeqnum = null;
-        
+
         /**
          * The push content to be displayed.
-         */     
+         */
         this.content = null;
-        
+
         /**
          * Keep a count of the number of unregister attempts with the Push Initiator.
          */
@@ -203,109 +209,111 @@ sample.pushcapture = (function() {
      * @param {String}
      *            encoding the encoding of the Blob
      * @param {function}
-     *            callback the callback to be called with the string result. If blob is undefined or is an empty string then returns an empty string         
+     *            callback the callback to be called with the string result. If blob is undefined or is an empty string then
+     *            returns an empty string
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.blobToTextString = function(blob, encoding, callback) {
-    	if(!blob) {
-    		callback('');
-    	}
-    	
-    	var reader = new FileReader();
-    	
-    	reader.onload = function(evt) {    		
-        	// No errors, get the result and call the callback
-        	callback(evt.target.result);
-    	};
-    	
-    	reader.onerror = function(evt) {    		
-        	console.log("Error converting Blob to string: " + evt.target.error);
-    	};
-    	
+        if (!blob) {
+            callback('');
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function(evt) {
+            // No errors, get the result and call the callback
+            callback(evt.target.result);
+        };
+
+        reader.onerror = function(evt) {
+            console.log("Error converting Blob to string: " + evt.target.error);
+        };
+
         reader.readAsText(blob, encoding);
     };
-    
+
     /**
      * Converts a Blob to a binary base64 encoded string.
      * 
      * @param {Blob}
      *            blob the blob to be converted
      * @param {function}
-     *            callback the callback to be called with the binary base64 encoded string. If blob is undefined or is an empty string then returns an empty string         
+     *            callback the callback to be called with the binary base64 encoded string. If blob is undefined or is an empty
+     *            string then returns an empty string
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.blobToBinaryBase64String = function(blob, callback) {
-    	if(!blob) {
-    		callback('');
-    	}
-    	
-    	var reader = new FileReader();
-    	
-    	reader.onload = function(evt) {
-        	// No errors, base64 encode the result and call the callback
-        	callback(sample.pushcapture.arrayBufferToBase64(evt.target.result));
-    	};
-    	
-    	reader.onerror = function(evt) {
-        	console.log("Error converting Blob to binary base64 string: " + evt.target.error);
-    	};
-        
+        if (!blob) {
+            callback('');
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function(evt) {
+            // No errors, base64 encode the result and call the callback
+            callback(sample.pushcapture.arrayBufferToBase64(evt.target.result));
+        };
+
+        reader.onerror = function(evt) {
+            console.log("Error converting Blob to binary base64 string: " + evt.target.error);
+        };
+
         reader.readAsArrayBuffer(blob);
     };
-    
+
     /**
      * Converts an ArrayBuffer to a base64 encoded string.
      * 
      * @param {ArrayBuffer}
-     *            arrayBuffer the ArrayBuffer to be converted       
+     *            arrayBuffer the ArrayBuffer to be converted
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.arrayBufferToBase64 = function(arrayBuffer) {
         var binary = "";
         var bytes = new Uint8Array(arrayBuffer);
         var len = bytes.byteLength;
-        
-        for (var i = 0; i < len; i++) {
+
+        for ( var i = 0; i < len; i++) {
             binary += String.fromCharCode(bytes[i]);
         }
-            
+
         return window.btoa(binary);
-    };       
-    
+    };
+
     /**
      * Converts a Unicode/UTF8 string to Base64.
      * 
-     * This function is a workaround because the atob and btoa browser functions that should convert 
-     * between a binary string and a Base64 encoded ASCII string
-     * blow up when faced with Unicode with a INVALID_CHARACTER_ERR: DOM Exception 5.
+     * This function is a workaround because the atob and btoa browser functions that should convert between a binary string and a
+     * Base64 encoded ASCII string blow up when faced with Unicode with a INVALID_CHARACTER_ERR: DOM Exception 5.
      * 
      * http://ecmanaut.blogspot.ca/2006/07/encoding-decoding-utf8-in-javascript.html
      * http://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
-     *  
-     * @param str the Unicode string to base64 encode
+     * 
+     * @param str
+     *            the Unicode string to base64 encode
      * @returns the base64 encoded Unicode string
      */
-    PushCapture.prototype.utf8_to_b64 = function (str) {
+    PushCapture.prototype.utf8_to_b64 = function(str) {
         return window.btoa(unescape(encodeURIComponent(str)));
     };
 
     /**
      * Converts a Base64 string to Unicode/UTF8 string.
      * 
-     * This function is a workaround because the atob and btoa browser functions that should convert 
-     * between a binary string and a Base64 encoded ASCII string
-     * blow up when faced with Unicode with a INVALID_CHARACTER_ERR: DOM Exception 5.
+     * This function is a workaround because the atob and btoa browser functions that should convert between a binary string and a
+     * Base64 encoded ASCII string blow up when faced with Unicode with a INVALID_CHARACTER_ERR: DOM Exception 5.
      * 
      * http://ecmanaut.blogspot.ca/2006/07/encoding-decoding-utf8-in-javascript.html
      * http://monsur.hossa.in/2012/07/20/utf-8-in-javascript.html
-     *  
-     * @param str the base64 Unicode encoded string
-     * @returns  the Unicode string
+     * 
+     * @param str
+     *            the base64 Unicode encoded string
+     * @returns the Unicode string
      */
-    PushCapture.prototype.b64_to_utf8 =function(str) {
+    PushCapture.prototype.b64_to_utf8 = function(str) {
         return decodeURIComponent(escape(window.atob(str)));
     };
-    
+
     /**
      * Returns the English abbreviation for a month.
      * 
@@ -392,7 +400,7 @@ sample.pushcapture = (function() {
      * @param {String}
      *            type the content type
      * @param {String}
-     *            extension the file extension of the push content      
+     *            extension the file extension of the push content
      * @param {String}
      *            content the content to be previewed (a base64 encoded string)
      * @returns {String} a preview of the content
@@ -409,11 +417,11 @@ sample.pushcapture = (function() {
             }
         } else {
             // Base 64 decode the string
-        	var textStr = sample.pushcapture.b64_to_utf8(content);
-        	
+            var textStr = sample.pushcapture.b64_to_utf8(content);
+
             // We want to limit the previewed content to 25 characters (including the "..." part)
             var part = textStr.substring(0, 22);
-            
+
             if (textStr != part) {
                 part += "...";
             }
@@ -421,7 +429,7 @@ sample.pushcapture = (function() {
             return part;
         }
     };
-    
+
     /**
      * Shows the user input screen.
      * 
@@ -430,57 +438,61 @@ sample.pushcapture = (function() {
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.showUserInputScreen = function(tabId) {
-    	bb.pushScreen('userinput.htm', tabId);
+        bb.pushScreen('userinput.htm', tabId);
     };
-   
+
     /**
      * Shows the config tab.
      * 
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.showConfigTab = function() {
-    	// Only do something if we are not already on the config tab
-    	if (document.getElementById("config-tab").style.display == "none") {    		
-	    	// Updates the title bar
-	    	document.getElementById("user-input-title").setCaption("Configuration");
-	    	document.getElementById("user-input-title").setActionCaption("Save");
-	    	document.getElementById("user-input-title").onactionclick = function() { sample.pushcapture.configure(); };
-			
-	    	// Shows the config tab, hides the others
-	    	document.getElementById("errordiv").style.display = "none";
-	    	document.getElementById("progressinfo").style.display = "none";
-	        document.getElementById("register-tab").style.display = "none";
-	        document.getElementById("unregister-tab").style.display = "none";
-	        document.getElementById("config-tab").style.display = "block";
-	        
-	    	sample.pushcapture.initConfiguration(document);
-    	} 
+        // Only do something if we are not already on the config tab
+        if (document.getElementById("config-tab").style.display == "none") {
+            // Updates the title bar
+            document.getElementById("user-input-title").setCaption("Configuration");
+            document.getElementById("user-input-title").setActionCaption("Save");
+            document.getElementById("user-input-title").onactionclick = function() {
+                sample.pushcapture.configure();
+            };
+
+            // Shows the config tab, hides the others
+            document.getElementById("errordiv").style.display = "none";
+            document.getElementById("progressinfo").style.display = "none";
+            document.getElementById("register-tab").style.display = "none";
+            document.getElementById("unregister-tab").style.display = "none";
+            document.getElementById("config-tab").style.display = "block";
+
+            sample.pushcapture.initConfiguration(document);
+        }
     };
-    
+
     /**
      * Shows the register tab.
      * 
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.showRegisterTab = function() {
-    	// Only do something if we are not already on the register tab
-    	if (document.getElementById("register-tab").style.display == "none") {
-	    	// Updates the title bar
-	    	document.getElementById("user-input-title").setCaption("Register");
-		    document.getElementById("user-input-title").setActionCaption("Submit");
-	    	document.getElementById("user-input-title").onactionclick = function() { sample.pushcapture.register(); };
-	    	
-	    	// Shows the register tab, hides the others
-	    	document.getElementById("errordiv").style.display = "none";
-	    	document.getElementById("progressinfo").style.display = "none";
-	        document.getElementById("config-tab").style.display = "none";
-	        document.getElementById("unregister-tab").style.display = "none";
-	        document.getElementById("register-tab").style.display = "block";
-	       
-	        sample.pushcapture.initRegister(document);
-			
-			sample.pushcapture.checkIfConfigExists();
-    	}
+        // Only do something if we are not already on the register tab
+        if (document.getElementById("register-tab").style.display == "none") {
+            // Updates the title bar
+            document.getElementById("user-input-title").setCaption("Register");
+            document.getElementById("user-input-title").setActionCaption("Submit");
+            document.getElementById("user-input-title").onactionclick = function() {
+                sample.pushcapture.register();
+            };
+
+            // Shows the register tab, hides the others
+            document.getElementById("errordiv").style.display = "none";
+            document.getElementById("progressinfo").style.display = "none";
+            document.getElementById("config-tab").style.display = "none";
+            document.getElementById("unregister-tab").style.display = "none";
+            document.getElementById("register-tab").style.display = "block";
+
+            sample.pushcapture.initRegister(document);
+
+            sample.pushcapture.checkIfConfigExists();
+        }
     };
 
     /**
@@ -489,32 +501,34 @@ sample.pushcapture = (function() {
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.showUnregisterTab = function() {
-    	// Only do something if we are not already on the unregister tab
-    	if (document.getElementById("unregister-tab").style.display == "none") {
-	    	// Updates the title bar
-	    	document.getElementById("user-input-title").setCaption("Unregister");
-	    	document.getElementById("user-input-title").setActionCaption("Submit");
-	    	document.getElementById("user-input-title").onactionclick = function() { sample.pushcapture.unregister(); };
-			
-	    	// Shows the unregister tab, hides the others
-	    	document.getElementById("errordiv").style.display = "none";
-	    	document.getElementById("progressinfo").style.display = "none";
-	        document.getElementById("config-tab").style.display = "none";
-	        document.getElementById("register-tab").style.display = "none";
-	        document.getElementById("unregister-tab").style.display = "block";
-	        
-	        sample.pushcapture.initUnregister(document);
-			
-			sample.pushcapture.checkIfConfigExists();
-    	}
+        // Only do something if we are not already on the unregister tab
+        if (document.getElementById("unregister-tab").style.display == "none") {
+            // Updates the title bar
+            document.getElementById("user-input-title").setCaption("Unregister");
+            document.getElementById("user-input-title").setActionCaption("Submit");
+            document.getElementById("user-input-title").onactionclick = function() {
+                sample.pushcapture.unregister();
+            };
+
+            // Shows the unregister tab, hides the others
+            document.getElementById("errordiv").style.display = "none";
+            document.getElementById("progressinfo").style.display = "none";
+            document.getElementById("config-tab").style.display = "none";
+            document.getElementById("register-tab").style.display = "none";
+            document.getElementById("unregister-tab").style.display = "block";
+
+            sample.pushcapture.initUnregister(document);
+
+            sample.pushcapture.checkIfConfigExists();
+        }
     };
-    
+
     /**
      * Checks if configuration settings are found in the database and displays an error if there are not any.
      * 
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.checkIfConfigExists = function() {        
+    PushCapture.prototype.checkIfConfigExists = function() {
         try {
             sample.pushcapture.db.readTransaction(function(tx) {
                 tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", [], null,
@@ -526,68 +540,87 @@ sample.pushcapture = (function() {
     };
 
     /**
-     * Initializes the push service. 
-     * <br/> 
-     * NOTE: This must be called every time a new page loads up.
+     * Initializes the push service. <br/> NOTE: This must be called every time a new page loads up.
      * 
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.initPushService = function() {    	    	
+    PushCapture.prototype.initPushService = function() {
+        // Check if the application started up in the foreground
+        // We are trying to determine if the application was launched in the background
+        // and so we would be able to process a push and exit from the application
+        if (blackberry.app.windowState == "fullscreen") {
+            sample.pushcapture.hasBeenInForeground = true;
+        }
+
+        // We also use the resume event to help determine if the application has
+        // ever been brought to the foreground (from the background - hence it's
+        // being "resumed")
+        blackberry.event.addEventListener("resume", sample.pushcapture.onResume);
+
         try {
             sample.pushcapture.db.readTransaction(function(tx) {
                 tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", [],
-                    sample.pushcapture.loadRegistration);
+                        sample.pushcapture.loadRegistration);
             });
         } catch (e) {
             alert(sample.pushcapture.databaseError);
         }
     };
-    
+
     /**
-     * Handles an incoming invoke request.  Note that non-push invokes are ignored.
-     * Push invokes will have the <code>PushPayload</code> extracted and be passed off to 
-     * <code>sample.pushcapture.pushNotificationHandler</code> for processing.
+     * Indicates that an application has been brought to the foreground.
+     * 
+     * @memberOf sample.pushcapture
+     */
+    PushCapture.prototype.onResume = function() {
+        sample.pushcapture.hasBeenInForeground = true;
+    };
+
+    /**
+     * Handles an incoming invoke request. Note that non-push invokes are ignored. Push invokes will have the
+     * <code>PushPayload</code> extracted and be passed off to <code>sample.pushcapture.pushNotificationHandler</code> for
+     * processing.
      * 
      * @param {JSON}
      *            invokeRequest an invoke request
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.onInvoke = function(invokeRequest) {
-    	if (invokeRequest.action != null && invokeRequest.action == "bb.action.PUSH") {
-        	var pushPayload = sample.pushcapture.pushService.extractPushPayload(invokeRequest);
-        	sample.pushcapture.pushNotificationHandler(pushPayload);
-    	} else if (invokeRequest.action != null && invokeRequest.action == "bb.action.OPEN") {
-    		// The payload from the open invoke is the seqnum for the push in the database
-			var payload = sample.pushcapture.b64_to_utf8(invokeRequest.data);
-			
-    		if (sample.pushcapture.isDomReady) {
-    			if (document.getElementById("push-list") == null) {
-    				// We are not on the home screen
-    				// Pop off the current screen so that the push can be opened properly
-    				bb.popScreen();
+        if (invokeRequest.action != null && invokeRequest.action == "bb.action.PUSH") {
+            var pushPayload = sample.pushcapture.pushService.extractPushPayload(invokeRequest);
+            sample.pushcapture.pushNotificationHandler(pushPayload);
+        } else if (invokeRequest.action != null && invokeRequest.action == "bb.action.OPEN") {
+            // The payload from the open invoke is the seqnum for the push in the database
+            var payload = sample.pushcapture.b64_to_utf8(invokeRequest.data);
 
-    				// We have to wait until the pop finishes and the home screen 
-    				// loads before we can open the push, so we do it after the pushes 
-    				// are displayed by the call to initPushList() in pushlist.js
-    				sample.pushcapture.isOpenInvoke = true;
-    				sample.pushcapture.selectedPushSeqnum = payload;
-    			} else {
-    				// We are on the home screen, simply open the push
-    				sample.pushcapture.openPush(payload);
-    			}
-    		} else {
-    			// The home screen has not loaded up yet.  We need to wait until it
-    			// loads before we can open the push, so we do it after the pushes
-    			// are displayed by the call to initPushList() in pushlist.js
-				sample.pushcapture.isOpenInvoke = true;
-				sample.pushcapture.selectedPushSeqnum = payload;
-    		}
-    	}
+            if (sample.pushcapture.isDomReady) {
+                if (document.getElementById("push-list") == null) {
+                    // We are not on the home screen
+                    // Pop off the current screen so that the push can be opened properly
+                    bb.popScreen();
+
+                    // We have to wait until the pop finishes and the home screen
+                    // loads before we can open the push, so we do it after the pushes
+                    // are displayed by the call to initPushList() in pushlist.js
+                    sample.pushcapture.isOpenInvoke = true;
+                    sample.pushcapture.selectedPushSeqnum = payload;
+                } else {
+                    // We are on the home screen, simply open the push
+                    sample.pushcapture.openPush(payload);
+                }
+            } else {
+                // The home screen has not loaded up yet. We need to wait until it
+                // loads before we can open the push, so we do it after the pushes
+                // are displayed by the call to initPushList() in pushlist.js
+                sample.pushcapture.isOpenInvoke = true;
+                sample.pushcapture.selectedPushSeqnum = payload;
+            }
+        }
     };
-    
+
     /**
-     * Loads the stored registration information (i.e. user id and password) and then tries to
-     * create a <code>blackberry.push.PushService</code> object with a call to <code>createPushService</code>.
+     * Loads the stored registration information (i.e. user id and password) and then tries to create a
+     * <code>blackberry.push.PushService</code> object with a call to <code>createPushService</code>.
      * 
      * @param {SQLTransaction}
      *            tx a database transaction
@@ -600,166 +633,163 @@ sample.pushcapture = (function() {
         sample.pushcapture.piurl = results.rows.item(0).piurl;
         sample.pushcapture.ppgurl = results.rows.item(0).ppgurl;
         if (results.rows.item(0).usingpublicppg == 1) {
-        	sample.pushcapture.usingpublicppg = true;
+            sample.pushcapture.usingpublicppg = true;
         } else {
-        	sample.pushcapture.usingpublicppg = false;
+            sample.pushcapture.usingpublicppg = false;
         }
         if (results.rows.item(0).launchapp == 1) {
-        	sample.pushcapture.launchapp = true;
+            sample.pushcapture.launchapp = true;
         } else {
-        	sample.pushcapture.launchapp = false;
+            sample.pushcapture.launchapp = false;
         }
         if (results.rows.item(0).usesdkaspi == 1) {
-        	sample.pushcapture.usesdkaspi = true;
+            sample.pushcapture.usesdkaspi = true;
         } else {
-        	sample.pushcapture.usesdkaspi = false;
-        }        
-        
+            sample.pushcapture.usesdkaspi = false;
+        }
+
         sample.pushcapture.db.readTransaction(function(tx) {
-            tx.executeSql("SELECT userid, passwd FROM registration;", [],
-                function(tx, results) {
-                    sample.pushcapture.userid = results.rows.item(0).userid;
-                    sample.pushcapture.passwd = results.rows.item(0).passwd;
-                
-                    sample.pushcapture.createPushService();
-                }, function(tx, e) {
-                    sample.pushcapture.createPushService();
-                });
+            tx.executeSql("SELECT userid, passwd FROM registration;", [], function(tx, results) {
+                sample.pushcapture.userid = results.rows.item(0).userid;
+                sample.pushcapture.passwd = results.rows.item(0).passwd;
+
+                sample.pushcapture.createPushService();
+            }, function(tx, e) {
+                sample.pushcapture.createPushService();
+            });
         });
     };
 
     /**
-     * Attempts to create a <code>blackberry.push.PushService</code> object to
-     * be used for performing push-related operations such as createChannel, etc.
-	 *
+     * Attempts to create a <code>blackberry.push.PushService</code> object to be used for performing push-related operations
+     * such as createChannel, etc.
+     * 
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.createPushService = function() {    	
-    	var ops;
-    	if (sample.pushcapture.usingpublicppg) {
-    		// Consumer application using public push
-    		ops = { invokeTargetId : sample.pushcapture.invokeTargetIdPush, 
-    				appId : sample.pushcapture.appid, 
-    				ppgUrl : sample.pushcapture.ppgurl 
-    			  };
-    	} else {
-    	    // Enterprise application using enterprise push
-    		if (sample.pushcapture.usesdkaspi) {
-    			// If we're using the Push Service SDK for our Push Initiator 
-    			// implementation, we will have specified our own application ID to use
-        		ops = { invokeTargetId : sample.pushcapture.invokeTargetIdPush, 
-        				appId : sample.pushcapture.appid
-        			  };
-    		} else {
-    			ops = { invokeTargetId : sample.pushcapture.invokeTargetIdPush };
-    		}
-    	}
-    	
-    	blackberry.push.PushService.create(ops, sample.pushcapture.successCreatePushService, 
-        	    sample.pushcapture.failCreatePushService, sample.pushcapture.onSimChange,
-        	    sample.pushcapture.onPushTransportReady);
+    PushCapture.prototype.createPushService = function() {
+        var ops;
+        if (sample.pushcapture.usingpublicppg) {
+            // Consumer application using public push
+            ops = {
+                invokeTargetId : sample.pushcapture.invokeTargetIdPush,
+                appId : sample.pushcapture.appid,
+                ppgUrl : sample.pushcapture.ppgurl
+            };
+        } else {
+            // Enterprise application using enterprise push
+            if (sample.pushcapture.usesdkaspi) {
+                // If we're using the Push Service SDK for our Push Initiator
+                // implementation, we will have specified our own application ID to use
+                ops = {
+                    invokeTargetId : sample.pushcapture.invokeTargetIdPush,
+                    appId : sample.pushcapture.appid
+                };
+            } else {
+                ops = {
+                    invokeTargetId : sample.pushcapture.invokeTargetIdPush
+                };
+            }
+        }
+
+        blackberry.push.PushService
+                .create(ops, sample.pushcapture.successCreatePushService, sample.pushcapture.failCreatePushService,
+                        sample.pushcapture.onSimChange, sample.pushcapture.onPushTransportReady);
     };
-    
+
     /**
-     * After successfully creating a <code>blackberry.push.PushService</code> object,
-     * we store it to a global variable so that it can be used across pages.
-     * A call will also be made to set the application to launch on a new push if the 
-     * (configuration settings checkbox had been checked).  If the checkbox had been 
-     * unchecked, we will tell the application not to launch on a new push.
+     * After successfully creating a <code>blackberry.push.PushService</code> object, we store it to a global variable so that
+     * it can be used across pages. A call will also be made to set the application to launch on a new push if the (configuration
+     * settings checkbox had been checked). If the checkbox had been unchecked, we will tell the application not to launch on a
+     * new push.
      * 
      * @param {blackberry.push.PushService}
      *            service a <code>blackberry.push.PushService</code> object
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.successCreatePushService = function(service) {    	
-    	// Save the service into a global variable so that it can be used later for operations
+    PushCapture.prototype.successCreatePushService = function(service) {
+        // Save the service into a global variable so that it can be used later for operations
         // such as create channel, destroy channel, etc.
-    	sample.pushcapture.pushService = service;
-    	
-		// Add an event listener to handle incoming invokes
-    	blackberry.event.addEventListener("invoked", sample.pushcapture.onInvoke);
-    	
-    	// We'll use the PushService object right now in fact to indicate whether we want to
-    	// launch the application on a new push or not
-    	sample.pushcapture.pushService.launchApplicationOnPush(sample.pushcapture.launchapp, 
-    	    sample.pushcapture.launchApplicationCallback);
+        sample.pushcapture.pushService = service;
+
+        // Add an event listener to handle incoming invokes
+        blackberry.event.addEventListener("invoked", sample.pushcapture.onInvoke);
+
+        // We'll use the PushService object right now in fact to indicate whether we want to
+        // launch the application on a new push or not
+        sample.pushcapture.pushService.launchApplicationOnPush(sample.pushcapture.launchapp,
+                sample.pushcapture.launchApplicationCallback);
     };
-    
+
     /**
-     * After failing to create a <code>blackberry.push.PushService</code> object,
-     * respond to the possible errors.
+     * After failing to create a <code>blackberry.push.PushService</code> object, respond to the possible errors.
      * 
      * @param {Number}
      *            result an error code
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.failCreatePushService = function(result) {
-		if (document.getElementById("config-table") != null) {
-			// On the configuration screen
-			document.body.removeChild(document.getElementById("op-in-progress"));
-			document.getElementById("activityindicator").style.display = "none";
-			document.getElementById("progressinfo").style.display = "none";
-		}
-    	
-    	if (result == blackberry.push.PushService.INTERNAL_ERROR) {
-			alert("Error: An internal error occurred while calling " +
-			"blackberry.push.PushService.create. Try restarting the application.");
-    	} else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
-    		// This error only applies to consumer applications that use a public/BIS PPG
-			alert("Error: Called blackberry.push.PushService.create with a missing " +
-			"or invalid appId value. It usually means a programming error.");
-    	} else if (result == blackberry.push.PushService.MISSING_INVOKE_TARGET_ID) {
-			alert("Error: Called blackberry.push.PushService.create with a missing " +
-			"invokeTargetId value. It usually means a programming error.");
-    	} else if (result == blackberry.push.PushService.SESSION_ALREADY_EXISTS) {
-			alert("Error: Called blackberry.push.PushService.create with an appId or " +
-			"invokeTargetId value that matches another application. It usually means a " +
-			"programming error.");    		
-    	} else {
-			alert("Error: Received error code (" + result + ") after " +
-			"calling blackberry.push.PushService.create.");
-    	}
+        if (document.getElementById("config-table") != null) {
+            // On the configuration screen
+            document.body.removeChild(document.getElementById("op-in-progress"));
+            document.getElementById("activityindicator").style.display = "none";
+            document.getElementById("progressinfo").style.display = "none";
+        }
+
+        if (result == blackberry.push.PushService.INTERNAL_ERROR) {
+            alert("Error: An internal error occurred while calling "
+                    + "blackberry.push.PushService.create. Try restarting the application.");
+        } else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
+            // This error only applies to consumer applications that use a public/BIS PPG
+            alert("Error: Called blackberry.push.PushService.create with a missing "
+                    + "or invalid appId value. It usually means a programming error.");
+        } else if (result == blackberry.push.PushService.MISSING_INVOKE_TARGET_ID) {
+            alert("Error: Called blackberry.push.PushService.create with a missing "
+                    + "invokeTargetId value. It usually means a programming error.");
+        } else if (result == blackberry.push.PushService.SESSION_ALREADY_EXISTS) {
+            alert("Error: Called blackberry.push.PushService.create with an appId or "
+                    + "invokeTargetId value that matches another application. It usually means a " + "programming error.");
+        } else {
+            alert("Error: Received error code (" + result + ") after " + "calling blackberry.push.PushService.create.");
+        }
     };
-    
+
     /**
      * This is the callback after calling the <code>launchApplicationOnPush</code> function on a
-     * <code>blackberry.push.PushService</code> object. The call may or may not have been successful.
-     * Handle possible errors accordingly.
+     * <code>blackberry.push.PushService</code> object. The call may or may not have been successful. Handle possible errors
+     * accordingly.
      * 
      * @param {Number}
      *            result either a success code or an error code
      * @memberOf sample.pushcapture
      */
-    PushCapture.prototype.launchApplicationCallback = function(result) {    	
-    	if (result == blackberry.push.PushService.SUCCESS) {
-    		if (document.getElementById("config-table") != null) {
-    			// On the configuration screen
-    			sample.pushcapture.successfulConfiguration();
-    		}
-    	} else {    		
-    		if (document.getElementById("config-table") != null) {
-    			// On the configuration screen
-    			document.body.removeChild(document.getElementById("op-in-progress"));
-    			document.getElementById("activityindicator").style.display = "none";
-    			document.getElementById("progressinfo").style.display = "none";
-    		}
-    		
-	    	if (result == blackberry.push.PushService.INTERNAL_ERROR) {
-				alert("Error: An internal error occurred while calling launchApplicationOnPush. " +
-				"Try restarting the application.");
-	    	} else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
-				alert("Error: Called launchApplicationOnPush without an " +
-				"existing session. It usually means a programming error.");
-	    	} else {
-				alert("Error: Received error code (" + result + ") after " +
-				"calling launchApplicationOnPush."); 		
-	    	}
-    	}
+    PushCapture.prototype.launchApplicationCallback = function(result) {
+        if (result == blackberry.push.PushService.SUCCESS) {
+            if (document.getElementById("config-table") != null) {
+                // On the configuration screen
+                sample.pushcapture.successfulConfiguration();
+            }
+        } else {
+            if (document.getElementById("config-table") != null) {
+                // On the configuration screen
+                document.body.removeChild(document.getElementById("op-in-progress"));
+                document.getElementById("activityindicator").style.display = "none";
+                document.getElementById("progressinfo").style.display = "none";
+            }
+
+            if (result == blackberry.push.PushService.INTERNAL_ERROR) {
+                alert("Error: An internal error occurred while calling launchApplicationOnPush. "
+                        + "Try restarting the application.");
+            } else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
+                alert("Error: Called launchApplicationOnPush without an "
+                        + "existing session. It usually means a programming error.");
+            } else {
+                alert("Error: Received error code (" + result + ") after " + "calling launchApplicationOnPush.");
+            }
+        }
     };
-    
+
     /**
-     * Displays an error if no configuration settings are found in the database and 
-     * shows the configuration tab.
+     * Displays an error if no configuration settings are found in the database and shows the configuration tab.
      * 
      * @memberOf sample.pushcapture
      */
@@ -767,15 +797,16 @@ sample.pushcapture = (function() {
         alert("Error: No configuration settings were found. Please fill them in.");
 
         // Show the configuration tab
-    	// Check if we are already on the user input screen
+        // Check if we are already on the user input screen
         if (document.getElementById("user-input-screen") != null) {
-        	// Highlight the config tab in the action bar
-        	var tab = document.getElementById("user-input-config-action");
-        	bb.actionBar.highlightAction(tab);
+            // Highlight the config tab in the action bar
+            var actionBar = document.getElementById("user-input-action-bar");
+            var tab = document.getElementById("user-input-config-action");
+            actionBar.setSelectedTab(tab);
 
-        	sample.pushcapture.showConfigTab();
+            sample.pushcapture.showConfigTab();
         } else {
-            sample.pushcapture.showUserInputScreen("configuration");	
+            sample.pushcapture.showUserInputScreen("configuration");
         }
     };
 

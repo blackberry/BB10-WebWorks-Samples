@@ -16,10 +16,10 @@
 -->
  <html> 
 	<head>
-		<link rel="stylesheet" type="text/css" href="Styles/bbui-0.9.5.css"></link>
+		<link rel="stylesheet" type="text/css" href="Styles/bbui-min.css"></link>
 			
 		<script type="text/javascript" src="local:///chrome/webworks.js"></script>
-		<script type="text/javascript" src="Scripts/bbui-0.9.5.js"></script>		
+		<script type="text/javascript" src="Scripts/bbui-min.js"></script>		
 		<script type="text/javascript" src="Scripts/common.js"></script>	
 		<script type="text/javascript" src="Scripts/pushhandler.js"></script>
 		<script type="text/javascript" src="Scripts/simchangehandler.js"></script>
@@ -101,6 +101,12 @@
     					    	sample.pushcapture.openHighlightedPush();
     					    } else {
     					    	sample.pushcapture.checkIfConfigExists();
+    					    	
+    					    	// If the push list was loaded from localStorage, then it loaded super quickly
+    					    	// We need to wait for the DOM to be ready before scrolling down to the currently selected push
+    					    	if (sample.pushcapture.selectedPushSeqnum && localStorage.getItem(sample.pushcapture.localStorageKey) != null) {
+    					    	    document.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
+    					    	}
     					    }
     					} else if (id != "configuration") {
     						sample.pushcapture.checkIfConfigExists();

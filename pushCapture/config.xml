@@ -31,6 +31,7 @@
   <feature id="blackberry.app">
       <param name="orientation" value="portrait" />
   </feature>
+  <feature id="blackberry.app" />
   <feature id="blackberry.push" />
   <feature id="blackberry.system" />
   <feature id="blackberry.invoked" />
