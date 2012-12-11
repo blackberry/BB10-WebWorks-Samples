@@ -23,7 +23,7 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
 
 ## Screenshots 
 
-![Screenshot](http://github.rim.net/ctetreault/BB10-WebWorks-Samples-Internal/raw/master/ShareTargets/screenshot.png)
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/ShareTargets/screenshot.png)
 
 ## API Documentation ##
 The documentation for this API is available at https://developer.blackberry.com/html5/apis/
