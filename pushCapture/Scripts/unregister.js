@@ -28,20 +28,20 @@
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.initUnregister = function(element) {
-	 if (sample.pushcapture.usesdkaspi) {
-		 // The Push Service SDK is being used
-		 // Display the username and password fields
-		 element.getElementById("unreguserid").value = sample.pushcapture.userid;
-		 element.getElementById("unregpwd").value = sample.pushcapture.passwd;
+    if (sample.pushcapture.usesdkaspi) {
+        // The Push Service SDK is being used
+        // Display the username and password fields
+        element.getElementById("unreguserid").value = sample.pushcapture.userid;
+        element.getElementById("unregpwd").value = sample.pushcapture.passwd;
 
-		 if (sample.pushcapture.userid != null) {
-		     element.getElementById("unreguserid").focus();
-		 }
-	 } else {
-		 // The Push Service SDK is not being used
-		 element.getElementById("unreguseridtd").innerHTML = "No username required";
-		 element.getElementById("unregpwdtd").innerHTML = "No password required";
-	 }
+        if (sample.pushcapture.userid != null) {
+            element.getElementById("unreguserid").focus();
+        }
+    } else {
+        // The Push Service SDK is not being used
+        element.getElementById("unreguseridtd").innerHTML = "No username required";
+        element.getElementById("unregpwdtd").innerHTML = "No password required";
+    }
 };
 
 /**
@@ -51,42 +51,42 @@ sample.pushcapture.constructor.prototype.initUnregister = function(element) {
  */
 sample.pushcapture.constructor.prototype.unregister = function() {
     document.getElementById("errordiv").style.display = "none";
-	
+
     var wasValidationSuccessful = sample.pushcapture.validateUnregisterFields();
 
     if (wasValidationSuccessful) {
-        // Hide the fields, so that it cannot be clicked again while attempting to unregister        
-   	    if (sample.pushcapture.usesdkaspi) {
+        // Hide the fields, so that it cannot be clicked again while attempting to unregister
+        if (sample.pushcapture.usesdkaspi) {
             document.getElementById("unreguserid").disabled = true;
             document.getElementById("unregpwd").disabled = true;
-   	    }
-   	 
-	    var opInProgressDiv = document.createElement("div");
-	    opInProgressDiv.id = "op-in-progress";
-	    opInProgressDiv.className = "full-size-dark";
-	    document.body.appendChild(opInProgressDiv);
-	    
-   	    document.getElementById("activityindicator").style.display = "block";
+        }
+
+        var opInProgressDiv = document.createElement("div");
+        opInProgressDiv.id = "op-in-progress";
+        opInProgressDiv.className = "full-size-dark";
+        document.body.appendChild(opInProgressDiv);
+
+        document.getElementById("activityindicator").style.display = "block";
         document.getElementById("progressinfo").style.display = "block";
         document.getElementById("progressinfo").innerHTML = "Destroying push channel...";
-        
+
         if (sample.pushcapture.pushService) {
-        	sample.pushcapture.pushService.destroyChannel(sample.pushcapture.destroyChannelCallback);
+            sample.pushcapture.pushService.destroyChannel(sample.pushcapture.destroyChannelCallback);
         } else {
-        	// This error should not occur since a PushService object should have been created
-        	// before trying to do a destroy channel
-        	// We'll display an error if, by chance, this does happen
-			document.body.removeChild(document.getElementById("op-in-progress"));
-        	document.getElementById("activityindicator").style.display = "none";
-        	document.getElementById("progressinfo").style.display = "none";            
-       	    if (sample.pushcapture.usesdkaspi) {
+            // This error should not occur since a PushService object should have been created
+            // before trying to do a destroy channel
+            // We'll display an error if, by chance, this does happen
+            document.body.removeChild(document.getElementById("op-in-progress"));
+            document.getElementById("activityindicator").style.display = "none";
+            document.getElementById("progressinfo").style.display = "none";
+            if (sample.pushcapture.usesdkaspi) {
                 document.getElementById("unreguserid").disabled = false;
                 document.getElementById("unregpwd").disabled = false;
-       	    }
+            }
             document.getElementById("errordiv").style.display = "block";
-            
-            document.getElementById("errormsg").innerHTML = "Error: Could not destroy push " +
-    		    "channel as no PushService object was found.";
+
+            document.getElementById("errormsg").innerHTML = "Error: Could not destroy push "
+                    + "channel as no PushService object was found.";
         }
     }
 };
@@ -98,9 +98,9 @@ sample.pushcapture.constructor.prototype.unregister = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.validateUnregisterFields = function() {
-	if (!sample.pushcapture.usesdkaspi) {
-		return true;
-	}
+    if (!sample.pushcapture.usesdkaspi) {
+        return true;
+    }
 
     var username = document.getElementById("unreguserid").value.trim();
 
@@ -125,78 +125,77 @@ sample.pushcapture.constructor.prototype.validateUnregisterFields = function() {
  * Actions to perform after attempting to destroy a push channel.
  * 
  * @param {Number}
- *            result the result of the destroy channel operation	  
+ *            result the result of the destroy channel operation
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.destroyChannelCallback = function(result) {
-	if (result == blackberry.push.PushService.SUCCESS || 
-			result == blackberry.push.PushService.CHANNEL_ALREADY_DESTROYED || 
-			result == blackberry.push.PushService.CHANNEL_ALREADY_DESTROYED_BY_PROVIDER ||
-			result == blackberry.push.PushService.CHANNEL_SUSPENDED_BY_PROVIDER ||
-			result == blackberry.push.PushService.PPG_SUBSCRIBER_NOT_FOUND ||
-			result == blackberry.push.PushService.CREATE_CHANNEL_NOT_DONE) {
-	    if (sample.pushcapture.usesdkaspi) {
+    if (result == blackberry.push.PushService.SUCCESS || result == blackberry.push.PushService.CHANNEL_ALREADY_DESTROYED
+            || result == blackberry.push.PushService.CHANNEL_ALREADY_DESTROYED_BY_PROVIDER
+            || result == blackberry.push.PushService.CHANNEL_SUSPENDED_BY_PROVIDER
+            || result == blackberry.push.PushService.PPG_SUBSCRIBER_NOT_FOUND
+            || result == blackberry.push.PushService.CREATE_CHANNEL_NOT_DONE) {
+        if (sample.pushcapture.usesdkaspi) {
             // The Push Service SDK is being used, so attempt to unsubscribe
-	    	// from the Push Initiator
-			sample.pushcapture.unsubscribeFromPushInitiator();
-		 } else {
-			// The Push Service SDK is not being used, jump to displaying a success
-			 sample.pushcapture.successfulUnregister();
-		 }
-	} else {
-		document.body.removeChild(document.getElementById("op-in-progress"));
-		document.getElementById("activityindicator").style.display = "none";
-		document.getElementById("progressinfo").style.display = "none";        
-   	    if (sample.pushcapture.usesdkaspi) {
+            // from the Push Initiator
+            sample.pushcapture.unsubscribeFromPushInitiator();
+        } else {
+            // The Push Service SDK is not being used, jump to displaying a success
+            sample.pushcapture.successfulUnregister();
+        }
+    } else {
+        document.body.removeChild(document.getElementById("op-in-progress"));
+        document.getElementById("activityindicator").style.display = "none";
+        document.getElementById("progressinfo").style.display = "none";
+        if (sample.pushcapture.usesdkaspi) {
             document.getElementById("unreguserid").disabled = false;
             document.getElementById("unregpwd").disabled = false;
-   	    }
+        }
         document.getElementById("errordiv").style.display = "block";
-        
+
         if (result == blackberry.push.PushService.INTERNAL_ERROR) {
-            document.getElementById("errormsg").innerHTML = "Error: An internal error occurred during " +
-				"the destroy channel. Try unregistering again.";
-    	} else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
-            document.getElementById("errormsg").innerHTML = "Error: No call to blackberry.push.PushService.create " +
-            	"was done before destroying the channel. It usually means a programming error.";
-    	} else if (result == blackberry.push.PushService.INVALID_DEVICE_PIN) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-            document.getElementById("errormsg").innerHTML = "Error: The PPG obtained the device's PIN during " +
-				"the destroy channel and considered it invalid. Try unregistering again.";
-    	} else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The application ID was considered " +
-				"invalid or missing during the destroy channel. Check your configuration settings.";
-    	} else if (result == blackberry.push.PushService.INVALID_PPG_SUBSCRIBER_STATE) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The subscriber on the PPG end reached an " +
-    			"invalid state. Report this issue to the RIM support team.";
-    	} else if (result == blackberry.push.PushService.EXPIRED_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: An expired authentication token was" +
-    			"passed to the PPG internally during the destroy channel. Try unregistering again.";
-    	} else if (result == blackberry.push.PushService.INVALID_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: An invalid authentication token was passed " +
-    			"to the PPG internally during the destroy channel. Report this issue to the RIM support team.";
-    	} else if (result == blackberry.push.PushService.PUSH_TRANSPORT_UNAVAILABLE) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the push transport " +
-				"is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will " +
-				"be notified when the push transport is available again.";
-    	} else if (result == blackberry.push.PushService.PPG_SERVER_ERROR) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the PPG is " +
-				"currently returning a server error. You will be notified when the PPG is available again.";    		
-    	} else if (result == blackberry.push.PushService.INVALID_PPG_URL) {
-    		// This error code only applies to a consumer application using the public/BIS PPG
-    		document.getElementById("errormsg").innerHTML = "Error: The PPG URL was considered " +
-				"invalid during the destroy channel. Check your configuration settings.";
-    	} else {
-    		document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") from " +
-				"the destroy channel.";
-    	}
-	}
+            document.getElementById("errormsg").innerHTML = "Error: An internal error occurred during "
+                    + "the destroy channel. Try unregistering again.";
+        } else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
+            document.getElementById("errormsg").innerHTML = "Error: No call to blackberry.push.PushService.create "
+                    + "was done before destroying the channel. It usually means a programming error.";
+        } else if (result == blackberry.push.PushService.INVALID_DEVICE_PIN) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: The PPG obtained the device's PIN during "
+                    + "the destroy channel and considered it invalid. Try unregistering again.";
+        } else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: The application ID was considered "
+                    + "invalid or missing during the destroy channel. Check your configuration settings.";
+        } else if (result == blackberry.push.PushService.INVALID_PPG_SUBSCRIBER_STATE) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: The subscriber on the PPG end reached an "
+                    + "invalid state. Report this issue to the RIM support team.";
+        } else if (result == blackberry.push.PushService.EXPIRED_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: An expired authentication token was"
+                    + "passed to the PPG internally during the destroy channel. Try unregistering again.";
+        } else if (result == blackberry.push.PushService.INVALID_AUTHENTICATION_TOKEN_PROVIDED_TO_PPG) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: An invalid authentication token was passed "
+                    + "to the PPG internally during the destroy channel. Report this issue to the RIM support team.";
+        } else if (result == blackberry.push.PushService.PUSH_TRANSPORT_UNAVAILABLE) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the push transport "
+                    + "is unavailable. Verify your mobile network and/or Wi-Fi are turned on. If they are on, you will "
+                    + "be notified when the push transport is available again.";
+        } else if (result == blackberry.push.PushService.PPG_SERVER_ERROR) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: Destroy channel failed as the PPG is "
+                    + "currently returning a server error. You will be notified when the PPG is available again.";
+        } else if (result == blackberry.push.PushService.INVALID_PPG_URL) {
+            // This error code only applies to a consumer application using the public/BIS PPG
+            document.getElementById("errormsg").innerHTML = "Error: The PPG URL was considered "
+                    + "invalid during the destroy channel. Check your configuration settings.";
+        } else {
+            document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") from "
+                    + "the destroy channel.";
+        }
+    }
 };
 
 /**
@@ -245,14 +244,14 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
     if (status == 200) {
         if (returnCode == "rc=200") {
             // Successful unsubscribe from the Push Initiator, now clear the registration
-        	sample.pushcapture.clearRegistration();
+            sample.pushcapture.clearRegistration();
         } else {
             // Hide the progress info because there was an error
-			document.body.removeChild(document.getElementById("op-in-progress"));
-        	document.getElementById("activityindicator").style.display = "none";
-        	document.getElementById("progressinfo").style.display = "none";
-            
-            // Show the fields again because there was an error            
+            document.body.removeChild(document.getElementById("op-in-progress"));
+            document.getElementById("activityindicator").style.display = "none";
+            document.getElementById("progressinfo").style.display = "none";
+
+            // Show the fields again because there was an error
             document.getElementById("unreguserid").disabled = false;
             document.getElementById("unregpwd").disabled = false;
 
@@ -260,48 +259,48 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
 
             if (returnCode == "rc=10002") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
-                    + "the application ID specified in the configuration settings could not be found, or it was found to "
-                    + "be inactive or expired.";
+                        + "the application ID specified in the configuration settings could not be found, or it was found to "
+                        + "be inactive or expired.";
             } else if (returnCode == "rc=10007") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
-                    + "the subscriber (matching the username and password specified) could not be found.";
+                        + "the subscriber (matching the username and password specified) could not be found.";
             } else if (returnCode == "rc=10020") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe failed since the subscriber ID generated "
-                    + "by the Push Initiator (based on the username and password specified) was null or empty, longer than 42 "
-                    + "characters in length, or matched the 'push_all' keyword.";
+                        + "by the Push Initiator (based on the username and password specified) was null or empty, longer than 42 "
+                        + "characters in length, or matched the 'push_all' keyword.";
             } else if (returnCode == "rc=10025") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe failed since the Push Initiator "
-                    + "application has the bypass subscription flag set to true (so no unsubscribe is allowed).";
+                        + "application has the bypass subscription flag set to true (so no unsubscribe is allowed).";
             } else if (returnCode == "rc=10026") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed since "
-                    + "the username or password specified was incorrect.";
+                        + "the username or password specified was incorrect.";
             } else if (returnCode == "rc=10027") {
                 // Note: You obviously would not want to put an error description like this, but we will to assist with
                 // debugging
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed "
-                    + "because a CPSubscriptionFailureException was thrown by the onUnsubscribeSuccess method of the "
-                    + "implementation being used of the ContentProviderSubscriptionService interface.";
+                        + "because a CPSubscriptionFailureException was thrown by the onUnsubscribeSuccess method of the "
+                        + "implementation being used of the ContentProviderSubscriptionService interface.";
             } else if (returnCode == "rc=-9999") {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed "
-                    + "with a general error (i.e. rc=-9999).";
+                        + "with a general error (i.e. rc=-9999).";
             } else {
                 document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed "
-                    + "with the following error code: " + returnCode + ".";
+                        + "with the following error code: " + returnCode + ".";
             }
         }
     } else {
         // Hide the progress info because there was an error
-		document.body.removeChild(document.getElementById("op-in-progress"));
-    	document.getElementById("activityindicator").style.display = "none";
-    	document.getElementById("progressinfo").style.display = "none";
-        
-        // Show the fields again because there was an error        
+        document.body.removeChild(document.getElementById("op-in-progress"));
+        document.getElementById("activityindicator").style.display = "none";
+        document.getElementById("progressinfo").style.display = "none";
+
+        // Show the fields again because there was an error
         document.getElementById("unreguserid").disabled = false;
         document.getElementById("unregpwd").disabled = false;
 
         document.getElementById("errordiv").style.display = "block";
         document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed with "
-            + "HTTP response code: " + status + ". (" + returnCode + ")";
+                + "HTTP response code: " + status + ". (" + returnCode + ")";
     }
 };
 
@@ -315,12 +314,11 @@ sample.pushcapture.constructor.prototype.clearRegistration = function() {
     sample.pushcapture.passwd = null;
 
     sample.pushcapture.db.transaction(function(tx) {
-        tx.executeSql("DROP TABLE registration;", [], 
-            function(tx, results) {
-                sample.pushcapture.successfulUnregister();
-            }, function(tx, e) {
-                sample.pushcapture.successfulUnregister();
-            });
+        tx.executeSql("DROP TABLE registration;", [], function(tx, results) {
+            sample.pushcapture.successfulUnregister();
+        }, function(tx, e) {
+            sample.pushcapture.successfulUnregister();
+        });
     });
 };
 
@@ -331,13 +329,13 @@ sample.pushcapture.constructor.prototype.clearRegistration = function() {
  */
 sample.pushcapture.constructor.prototype.successfulUnregister = function() {
     // Indicate that the unregister was successful
-	document.body.removeChild(document.getElementById("op-in-progress"));
-	document.getElementById("activityindicator").style.display = "none";
+    document.body.removeChild(document.getElementById("op-in-progress"));
+    document.getElementById("activityindicator").style.display = "none";
     document.getElementById("progressinfo").innerHTML = "Successfully unregistered.";
-    
-    // Show the fields again because the unregister is done    
-	if (sample.pushcapture.usesdkaspi) {
+
+    // Show the fields again because the unregister is done
+    if (sample.pushcapture.usesdkaspi) {
         document.getElementById("unreguserid").disabled = false;
         document.getElementById("unregpwd").disabled = false;
-	}
+    }
 };

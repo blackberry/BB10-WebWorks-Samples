@@ -22,23 +22,23 @@
 
 /**
  * This function is called after a create or destroy channel operation has failed with either a
- * <code>PUSH_TRANSPORT_UNAVAILABLE</code> or <code>PPG_SERVER_ERROR</code> error code and the 
- * push transport/network/PPG is now available again. 
- *  
+ * <code>PUSH_TRANSPORT_UNAVAILABLE</code> or <code>PPG_SERVER_ERROR</code> error code and the push transport/network/PPG is
+ * now available again.
+ * 
  * @param {Number}
  *            lastFailedOperation the last failed operation (i.e. create or destroy channel)
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.onPushTransportReady = function(lastFailedOperation) {
-	var message = "The push transport/wireless network/PPG is now available. Please try ";
+    var message = "The push transport/wireless network/PPG is now available. Please try ";
 
-	if (lastFailedOperation == blackberry.push.PushService.CREATE_CHANNEL_OPERATION) {
-		message += "registering ";
-	} else {
-		message += "unregistering ";
-	}
-	
-	message += "again.";
-	
+    if (lastFailedOperation == blackberry.push.PushService.CREATE_CHANNEL_OPERATION) {
+        message += "registering ";
+    } else {
+        message += "unregistering ";
+    }
+
+    message += "again.";
+
     alert(message);
 };

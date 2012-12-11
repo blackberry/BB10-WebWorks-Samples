@@ -32,16 +32,15 @@ sample.pushcapture.constructor.prototype.publicPPG = function() {
 };
 
 /**
- * When the selected PPG type is "Enterprise/BDS", hides the "PPG URL" text box
- * (and possibly the "Application ID" text box if not using the Push Service SDK
- * for your Push Initiator).
+ * When the selected PPG type is "Enterprise/BDS", hides the "PPG URL" text box (and possibly the "Application ID" text box if not
+ * using the Push Service SDK for your Push Initiator).
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.enterprisePPG = function() {	
+sample.pushcapture.constructor.prototype.enterprisePPG = function() {
     // Hide the PPG URL field
     document.getElementById("ppgurl").style.display = "none";
-    
+
     // Show the App ID field only if the Push Service SDK will be used
     if (document.getElementById("usesdkaspi").checked) {
         document.getElementById("appid").style.display = "";
@@ -51,10 +50,8 @@ sample.pushcapture.constructor.prototype.enterprisePPG = function() {
 };
 
 /**
- * Indicates we are using the Push Service SDK in our Push Initiator (server-side
- * push application) implementation.
- * If using the SDK, we will need to subscribe to the Push Initiator.
- * Therefore, we will display the "Push Initiator URL" text box and the 
+ * Indicates we are using the Push Service SDK in our Push Initiator (server-side push application) implementation. If using the
+ * SDK, we will need to subscribe to the Push Initiator. Therefore, we will display the "Push Initiator URL" text box and the
  * "Application ID" text box.
  * 
  * @memberOf sample.pushcapture
@@ -65,7 +62,7 @@ sample.pushcapture.constructor.prototype.useSDKAsPushInitiator = function() {
         document.getElementById("appid").style.display = "";
     } else {
         document.getElementById("piurl").style.display = "none";
-        
+
         if (document.getElementById("publicradio").checked) {
             document.getElementById("appid").style.display = "";
         } else {
@@ -84,20 +81,18 @@ sample.pushcapture.constructor.prototype.useSDKAsPushInitiator = function() {
 sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
     try {
         sample.pushcapture.db.readTransaction(function(tx) {
-            tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", 
-                [], 
-                function(tx, results) {
-                    sample.pushcapture.displayConfig(element, tx, results);
-                    
-                    if (element.getElementById("appid") != null && element.getElementById("appid").style.display == "") {
-                        element.getElementById("appid").focus();
-                    } else if (element.getElementById("ppgurl").style.display == "") {
-                        element.getElementById("ppgurl").focus();
-                    } else if (element.getElementById("piurl").style.display == "") {
-                        element.getElementById("piurl").focus();
-                    }
+            tx.executeSql("SELECT appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp FROM configuration;", [], function(
+                    tx, results) {
+                sample.pushcapture.displayConfig(element, tx, results);
+
+                if (element.getElementById("appid") != null && element.getElementById("appid").style.display == "") {
+                    element.getElementById("appid").focus();
+                } else if (element.getElementById("ppgurl").style.display == "") {
+                    element.getElementById("ppgurl").focus();
+                } else if (element.getElementById("piurl").style.display == "") {
+                    element.getElementById("piurl").focus();
                 }
-            );
+            });
         });
     } catch (e) {
         alert(sample.pushcapture.databaseError);
@@ -121,7 +116,7 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
     sample.pushcapture.appid = results.rows.item(0).appid;
     element.getElementById("piurl").value = results.rows.item(0).piurl;
     element.getElementById("ppgurl").value = results.rows.item(0).ppgurl;
-    
+
     if (results.rows.item(0).usingpublicppg == 1) {
         sample.pushcapture.usingpublicppg = true;
         element.getElementById("publicradio").setChecked();
@@ -129,7 +124,7 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
     } else {
         sample.pushcapture.usingpublicppg = false;
         element.getElementById("enterpriseradio").setChecked();
-        element.getElementById("ppgurl").style.display = "none";     
+        element.getElementById("ppgurl").style.display = "none";
     }
     bb.radio.disableGroup("ppgtype");
 
@@ -138,20 +133,20 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
     } else {
         element.getElementById("launchapp").setChecked(false);
     }
-    
+
     if (results.rows.item(0).usesdkaspi == 1) {
         element.getElementById("usesdkaspi").setChecked(true);
         element.getElementById("piurl").style.display = "";
     } else {
         element.getElementById("usesdkaspi").setChecked(false);
         element.getElementById("piurl").style.display = "none";
-        // If using an enterprise PPG and not subscribing with the SDK, the app id 
+        // If using an enterprise PPG and not subscribing with the SDK, the app id
         // field is not shown because the APIs will just use the default app id
         if (!sample.pushcapture.usingpublicppg) {
             element.getElementById("appid").style.display = "none";
         }
     }
-    
+
     if (!sample.pushcapture.usingpublicppg) {
         element.getElementById("usesdkaspi").disable();
     }
@@ -162,7 +157,7 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.configure = function() {	
+sample.pushcapture.constructor.prototype.configure = function() {
     var wasValidationSuccessful = sample.pushcapture.validateConfigFields();
 
     if (wasValidationSuccessful) {
@@ -179,24 +174,24 @@ sample.pushcapture.constructor.prototype.configure = function() {
 sample.pushcapture.constructor.prototype.validateConfigFields = function() {
     var usingpublicppg = true;
     var appid = null;
-    
+
     if (document.getElementById("publicradio") != null) {
         if (document.getElementById("publicradio").checked) {
             usingpublicppg = true;
         } else {
-            usingpublicppg = false;	
+            usingpublicppg = false;
         }
-    } 
-    
+    }
+
     if (document.getElementById("appid") != null) {
         appid = document.getElementById("appid").value.trim();
     }
-    
+
     var usesdkaspi = document.getElementById("usesdkaspi").checked;
     var launchapp = document.getElementById("launchapp").checked;
     var piurl = document.getElementById("piurl").value.trim();
     var ppgurl = document.getElementById("ppgurl").value.trim();
-    
+
     if ((usingpublicppg || usesdkaspi) && appid == "") {
         alert("Error: Please specify an Application ID.");
         return false;
@@ -214,7 +209,7 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
         alert("Error: The PPG URL should not end with a /. One will be automatically added.");
         return false;
     }
-    
+
     if (usesdkaspi && piurl == "") {
         alert("Error: Please specify a Push Initiator URL.");
         return false;
@@ -235,7 +230,7 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
     sample.pushcapture.launchapp = launchapp;
     sample.pushcapture.piurl = piurl;
     sample.pushcapture.ppgurl = ppgurl;
-    
+
     return true;
 };
 
@@ -249,17 +244,16 @@ sample.pushcapture.constructor.prototype.storeConfiguration = function() {
     opInProgressDiv.id = "op-in-progress";
     opInProgressDiv.className = "full-size";
     document.body.appendChild(opInProgressDiv);
-    
+
     document.getElementById("activityindicator").style.display = "block";
     document.getElementById("progressinfo").style.display = "block";
     document.getElementById("progressinfo").innerHTML = "Saving...";
 
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("CREATE TABLE IF NOT EXISTS configuration (appid TEXT, piurl TEXT, "
-            + "ppgurl TEXT, usesdkaspi INTEGER, usingpublicppg INTEGER, launchapp INTEGER);", [], 
-            function(tx, results) {
-                sample.pushcapture.successConfigurationCreation();
-            });
+                + "ppgurl TEXT, usesdkaspi INTEGER, usingpublicppg INTEGER, launchapp INTEGER);", [], function(tx, results) {
+            sample.pushcapture.successConfigurationCreation();
+        });
     });
 };
 
@@ -268,10 +262,9 @@ sample.pushcapture.constructor.prototype.storeConfiguration = function() {
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.successConfigurationCreation = function() {	
+sample.pushcapture.constructor.prototype.successConfigurationCreation = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
-        tx.executeSql("SELECT COUNT(*) AS count FROM configuration;", [],
-            sample.pushcapture.insertOrUpdateConfiguration);
+        tx.executeSql("SELECT COUNT(*) AS count FROM configuration;", [], sample.pushcapture.insertOrUpdateConfiguration);
     });
 };
 
@@ -284,7 +277,7 @@ sample.pushcapture.constructor.prototype.successConfigurationCreation = function
  *            results the results of the query executed in the successConfigurationCreation() function
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.insertOrUpdateConfiguration = function(tx, results) {	
+sample.pushcapture.constructor.prototype.insertOrUpdateConfiguration = function(tx, results) {
     if (results.rows.item(0).count == 0) {
         sample.pushcapture.insertConfiguration();
     } else if (results.rows.item(0).count == 1) {
@@ -295,32 +288,34 @@ sample.pushcapture.constructor.prototype.insertOrUpdateConfiguration = function(
 };
 
 /**
- * Inserts a new row into the configuration table in the database and then
- * attempts to create a <code>blackberry.push.PushService</code> object.
+ * Inserts a new row into the configuration table in the database and then attempts to create a
+ * <code>blackberry.push.PushService</code> object.
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.insertConfiguration = function() {   	
+sample.pushcapture.constructor.prototype.insertConfiguration = function() {
     sample.pushcapture.db.transaction(function(tx) {
-        tx.executeSql("INSERT INTO configuration (appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp) VALUES (?, ?, ?, ?, ?, ?);", 
-            [ sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl, 
-            sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0, sample.pushcapture.launchapp ? 1 : 0 ], 
-            sample.pushcapture.createPushService);
+        tx.executeSql("INSERT INTO configuration "
+                + "(appid, piurl, ppgurl, usesdkaspi, usingpublicppg, launchapp) VALUES (?, ?, ?, ?, ?, ?);", [
+                sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl,
+                sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0,
+                sample.pushcapture.launchapp ? 1 : 0 ], sample.pushcapture.createPushService);
     });
 };
 
 /**
- * Updates the existing configuration row in the database and then 
- * attempts to create a <code>blackberry.push.PushService</code> object.
+ * Updates the existing configuration row in the database and then attempts to create a <code>blackberry.push.PushService</code>
+ * object.
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.updateConfiguration = function() {	
+sample.pushcapture.constructor.prototype.updateConfiguration = function() {
     sample.pushcapture.db.transaction(function(tx) {
-        tx.executeSql("UPDATE configuration SET appid = ?, piurl = ?, ppgurl = ?, usesdkaspi = ?, usingpublicppg = ?, launchapp = ?", 
-            [ sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl, 
-            sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0, sample.pushcapture.launchapp ? 1 : 0 ], 
-            sample.pushcapture.createPushService);
+        tx.executeSql("UPDATE configuration "
+                + "SET appid = ?, piurl = ?, ppgurl = ?, usesdkaspi = ?, usingpublicppg = ?, launchapp = ?", [
+                sample.pushcapture.appid, sample.pushcapture.piurl, sample.pushcapture.ppgurl,
+                sample.pushcapture.usesdkaspi ? 1 : 0, sample.pushcapture.usingpublicppg ? 1 : 0,
+                sample.pushcapture.launchapp ? 1 : 0 ], sample.pushcapture.createPushService);
     });
 };
 
@@ -334,14 +329,14 @@ sample.pushcapture.constructor.prototype.successfulConfiguration = function() {
     document.body.removeChild(document.getElementById("op-in-progress"));
     document.getElementById("activityindicator").style.display = "none";
     document.getElementById("progressinfo").innerHTML = "<p>Successfully saved. Please register now.</p>";
-    
-    // Once the configuration has been successfully saved once, 
+
+    // Once the configuration has been successfully saved once,
     // we will not allow the PPG type or the application ID to be changed
-    // This is because WebWorks does not allow you to call the static 
+    // This is because WebWorks does not allow you to call the static
     // blackberry.push.PushService.create function repeatedly with different application IDs
     // In your app, you should hardcode the app ID value somewhere since you will only ever need one
     bb.radio.disableGroup("ppgtype");
-     
+
     document.getElementById("appid").value = sample.pushcapture.appid;
     document.getElementById("appid").disabled = true;
 };

@@ -138,13 +138,13 @@
 	            </td>
 	        </tr>
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="appid" maxlength="42" placeholder="Application ID" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="appid" autocomplete="off" maxlength="42" placeholder="Application ID" /></td>
 			</tr>
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" maxlength="80" placeholder="PPG URL" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" autocomplete="off" maxlength="80" placeholder="PPG URL" /></td>
 			</tr>		
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="piurl" maxlength="80" placeholder="Push Initiator URL" /></td>
+				<td class="user-input-padding"><input class="box-length" type="text" id="piurl" autocomplete="off" maxlength="80" placeholder="Push Initiator URL" /></td>
 			</tr>
 	        <tr>
 	        	<td>
@@ -162,7 +162,7 @@
 	<div id="register-tab">
 		<table id="reg-table" class="user-input-table">
 			<tr>
-				<td id="reguseridtd" class="user-input-padding"><input class="box-length" type="text" id="reguserid" maxlength="42" placeholder="Username" /></td>
+				<td id="reguseridtd" class="user-input-padding"><input class="box-length" type="text" id="reguserid" autocomplete="off" maxlength="42" placeholder="Username" /></td>
 			</tr>
 			<tr>
 				<td id="regpwdtd" class="user-input-padding"><input class="box-length" type="password" id="regpwd" maxlength="42" placeholder="Password" /></td>
@@ -175,7 +175,7 @@
 	<div id="unregister-tab">	
 		<table id="unreg-table" class="user-input-table">
 			<tr>
-				<td id="unreguseridtd" class="user-input-padding"><input class="box-length" type="text" id="unreguserid" maxlength="42" placeholder="Username" /></td>
+				<td id="unreguseridtd" class="user-input-padding"><input class="box-length" type="text" id="unreguserid" autocomplete="off" maxlength="42" placeholder="Username" /></td>
 			</tr>
 			<tr>
 				<td id="unregpwdtd" class="user-input-padding"><input class="box-length" type="password" id="unregpwd" maxlength="42" placeholder="Password" /></td>
@@ -192,7 +192,7 @@
 	<div class="progress" id="progressinfo">
 	</div> 
 	
-	<div data-bb-type="action-bar" data-bb-tab-style="highlight">
+	<div id="user-input-action-bar" data-bb-type="action-bar" data-bb-tab-style="highlight">
 		<div data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/homeicon.png" onclick="bb.popScreen()">Home</div>
 	    <div id="user-input-config-action" data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/configicon.png" onclick="sample.pushcapture.showConfigTab()">Config</div>	
 	    <div id="user-input-reg-action" data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/registericon.png" onclick="sample.pushcapture.showRegisterTab()">Register</div>

@@ -1,10 +1,9 @@
 # Push Capture Sample Application
 
-The Push Capture sample app (post coming soon!) demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
+The Push Capture sample push-enabled application demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
 
-Consult the **PushService** and **PushPayload** classes from the API reference for useful examples and a full description of how to use the
-push APIs. The API reference can be found [here](https://developer.blackberry.com/html5/apis/).  Look under the **Push** heading from the menu
-on the left side.
+Consult the [PushService](https://developer.blackberry.com/html5/apis/blackberry.push.pushservice.html) and [PushPayload](https://developer.blackberry.com/html5/apis/blackberry.push.pushpayload.html) classes from the API reference for useful examples and a full description of how to use the
+push APIs. 
 
 There is also a very valuable developer guide for this sample push-enabled application that you can find [here](https://developer.blackberry.com/html5/documentation/push_service.html).
 
@@ -14,6 +13,8 @@ The developer guide offers the following topics:
 2. The requirements for creating a full push solution
 3. How to download, build, and configure the sample application when it's loaded on your BlackBerry 10 device (This is also described below.)
 4. Code samples to help you write your own push application using the BlackBerry 10 WebWorks SDK
+
+You can also find a useful blog post about developing using the WebWorks SDK and push [here](http://devblog.blackberry.com/2012/08/blackberry-10-webworks-push-app/).
 
 The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
@@ -29,7 +30,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Dependencies**
 
-* bbUI.js 0.9.5 (https://github.com/blackberry/bbUI.js/tree/next)
+* bbUI.js 0.9.6 (https://github.com/blackberry/bbUI.js)
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
