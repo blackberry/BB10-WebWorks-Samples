@@ -37,46 +37,38 @@ The following feature must be included in your project's config.xml.
 ```
 <feature id="blackberry.ui.contextmenu" />
 ```
-**Binding the DOM Element**
-```
-<div data-webworks-context="myMenuItem">This is a test</div>
-```
 
-**Setup the Menu Item**
-
-Note: You can have multiple Context Menus in your application. For this document, we're using **"myMenu"**
+**Define the custom Context Menu**
 ```
-var myMenuItem = {
-	actionId: 'MyActionID',
-	label: 'My Label',
-	icon: '../images/4.png'
+var options = {
+	includeContextItems: [blackberry.ui.contextmenu.CONTEXT_IMAGE],
+	includePlatformItems: true,
+	includeMenuServiceItems: true
 };
 
-var menu = ["myMenu"];
+blackberry.ui.contextmenu.defineCustomContext("myContext", options)
 ```
 
-**Add the Menu Item to the Context Menu**
+**Setup the custom menu item**
 ```
-blackberry.ui.contextmenu.addItem(menu, myMenuItem, function() {
-	alert('You clicked me!');
+var myItem = {
+	actionId: 'MyCustomAction', 
+    label: 'Custom Item', 
+    icon: <path to image>
+},
+```
+
+**Set which context type will trigger the menu**
+```
+contexts = [blackberry.ui.contextmenu.CONTEXT_IMAGE];
+```
+
+**Add the custom menu item to the Context Menu**
+```
+blackberry.ui.contextmenu.addItem(contexts, myItem, function() { 
+	console.log('Custom item selected');
 });
 ```
-
-**Putting it all together**
-```
-var myMenuItem = {
-	actionId: 'MyActionID',
-	label: 'My Label',
-	icon: '../images/4.png'
-};
-
-var menu = ["myMenu"];
-
-blackberry.ui.contextmenu.addItem(menu, myMenuItem, function() {
-	alert('You clicked me!');
-});
-```
-
 ## How to Build
 
 1. Clone the repo to your local machine

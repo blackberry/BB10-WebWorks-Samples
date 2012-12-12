@@ -26,21 +26,21 @@ function initApp() {
 		icon: '../images/1.png'
 	};
 
-	// add a custom context
+	// add a context
 	var context2 = {
 		actionId: 'MyItem2',
 		label: 'Test 2',
 		icon: '../images/2.png'
 	};
 
-	// add a custom context
+	// add a context
 	var context3 = {
 		actionId: 'MyItem3',
 		label: 'Test 3',
 		icon: '../images/3.png'
 	};
 
-	// add a custom context
+	// add a context
 	var context4 = {
 		actionId: 'MyItem4',
 		label: 'Test 4',
@@ -71,6 +71,25 @@ function initApp() {
 	blackberry.ui.contextmenu.addItem(group4, context4, function() {
 		showToast('You clicked 4');
 	});
+
+	// define a custom context menu for CONTEXT_IMAGE
+	var options = {
+        includeContextItems: [blackberry.ui.contextmenu.CONTEXT_IMAGE],
+        includePlatformItems: true,
+        includeMenuServiceItems: true
+    };
+
+    blackberry.ui.contextmenu.defineCustomContext("myContext", options)
+
+    var myItem = {
+    		actionId: 'MyCustomAction', 
+    		label: 'Make it rain!', 
+    		icon:'../images/rain.png'
+    	},
+        contexts = [blackberry.ui.contextmenu.CONTEXT_IMAGE];
+    	blackberry.ui.contextmenu.addItem(contexts, myItem, function() { 
+    		showToast('You made it rain!');
+    	});
 }
 
 // display a simple toast message
