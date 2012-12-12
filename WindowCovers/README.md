@@ -29,6 +29,34 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
 ## API Documentation ##
 The documentation for this API is available at https://developer.blackberry.com/html5/apis/blackberry.ui.cover.html
 
+**Config.xml**
+
+The following feature must be included in your project's config.xml.
+```
+<feature id="blackberry.ui.cover" />
+```
+
+**Set the Cover Photo**
+```
+blackberry.ui.cover.setContent(blackberry.ui.cover.TYPE_IMAGE, {
+	path: <path to the photo>
+});
+```
+
+**Set the Cover Label**
+```
+blackberry.ui.cover.labels.push({
+	label: "This is my label",
+	size: 10,
+	wrap: true
+});
+```
+
+**Update the Cover**
+```
+blackberry.ui.cover.updateCover();
+```
+
 ## How to Build
 
 1. Clone the repo to your local machine
