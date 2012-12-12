@@ -50,13 +50,13 @@ function invokeHelp() {
 
 function invokeAdobeReader() {
     blackberry.invoke.invoke({
-        target: "com.adobe.AdobeReader",
+        target: "com.rim.bb.app.adobeReader",
     }, onSuccess, onError);
 }
 
 function invokeAdobeReaderPdf() {
     blackberry.invoke.invoke({
-        target: "com.adobe.AdobeReader",
+        target: "com.rim.bb.app.adobeReader",
         action: "bb.action.OPEN",
         type: "application/pdf",
         uri: "file:///accounts/1000/shared/documents/Getting Started with Adobe Reader.pdf"
