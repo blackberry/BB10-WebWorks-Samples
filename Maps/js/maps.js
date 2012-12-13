@@ -34,23 +34,10 @@ function initApp() {
 
 // initialize the map
 function initGoogleMaps() {
-
-  // prevent "native" zooming of the map canvas
-  var preventNativeZoom = function (e) {
-    if (e.touches.length > 1) {
-      e.preventDefault()
-    }
-    return false;
-  }
-
-
-  var mapCanvas = document.getElementById("map_canvas");
-  mapCanvas.addEventListener("touchmove", preventNativeZoom, true);
   myLocation = new google.maps.LatLng(myLat, myLong);
-  currentZoom = 5;
 
   var mapOptions = {
-    zoom: currentZoom,
+    zoom: 14,
     center: myLocation,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControl: false,
@@ -58,21 +45,6 @@ function initGoogleMaps() {
     streetViewControl: false
   };
   googleMap = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-  // hammer.js 
-  var hammer = new Hammer(document.getElementById("map_canvas"));
-  hammer.ontransform = function(ev) {
-    // zoom out
-    if (ev.scale < 1) {
-      currentZoom = currentZoom - 1;
-      zoomGoogle();
-
-    // zoom in
-    }  else if (ev.scale > 1) {
-      currentZoom = currentZoom + 1;
-      zoomGoogle();
-    }
-  };
 }
 
 // search for nearby places
@@ -94,13 +66,6 @@ function createGoogleMarker(place) {
     map: googleMap,
     position: place.geometry.location
   });
-}
-
-// zoom google maps
-function zoomGoogle () {
-  console.log('zooming');
-  googleMap.setZoom(currentZoom);
-
 }
 
 
@@ -173,7 +138,7 @@ function createBingMarker(result) {
 function initLeafletMaps() {
   leafletMap = L.map('map_canvas').setView([myLat, myLong], 14);
   L.tileLayer('http://{s}.tile.cloudmade.com/' + APIKey.leaflet + '/997/256/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery Â© <a href="http://cloudmade.com">CloudMade</a>',
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
     maxZoom: 16
   }).addTo(leafletMap);
 }
