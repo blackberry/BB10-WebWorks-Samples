@@ -19,7 +19,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Fotr2.js](https://github.com/Flotr2/Flotr2.js), available under the [MIT License]()
 * [Subway Icons by Pixle](http://subway.pixle.pl/rim/) Licensed under [CC-BY3](http://creativecommons.org/licenses/by/3.0/)
 
-## Screenshots 
+** Screenshots 
 
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000004.png)
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000003.png)
