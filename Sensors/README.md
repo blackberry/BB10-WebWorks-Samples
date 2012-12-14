@@ -19,6 +19,13 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Fotr2.js](https://github.com/Flotr2/Flotr2.js), available under the [MIT License]()
 * [Subway Icons by Pixle](http://subway.pixle.pl/rim/) Licensed under [CC-BY3](http://creativecommons.org/licenses/by/3.0/)
 
+## Screenshots 
+
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000004.png)
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000003.png)
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000002.png)
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000001.png)
+
 **Known Issues**
 
 * The Y axis of the graphs is set to autoscale. When significant changes happen, there can be a pause while the graph recalculates the appropriate size, and no graph is shown temporarily.
