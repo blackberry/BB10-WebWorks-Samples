@@ -605,7 +605,9 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
     // Highlight the last selected push (if there was one)
     if (sample.pushcapture.selectedPushSeqnum != null) {  
     	sample.pushcapture.highlightSelectedPush(element);
-        element.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
+
+        var selectedPush = element.getElementById(sample.pushcapture.selectedPushSeqnum);
+        element.getElementById("push-screen").scrollToElement(selectedPush);
     }
 };
 
