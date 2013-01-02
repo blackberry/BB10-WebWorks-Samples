@@ -45,10 +45,14 @@ twitterOptions = {
 ## Config.xml 
 As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
 
+**Note as of SDK 1.0.4.5 we must now also whitelist the Facebook callback URL! Also, if your callback URL is pointing to a subdomain, whitelist the entire domain and subdomain i.e. "http://oauth.mydomain.com"**
+
 ```
 <access uri="*" subdomains="true" />
 <access uri="https://twitter.com" subdomains="true" />
 <access uri="http://twitter.com" subdomains="true" />
+
+<access uri="http://callbackUrl.com" subdomains="true" />
 ```
 
 ## Server-side Setup

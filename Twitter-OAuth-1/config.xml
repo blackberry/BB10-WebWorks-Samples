@@ -39,7 +39,8 @@ limitations under the License.
     <access uri="*" subdomains="true" />
     <access uri="https://twitter.com" subdomains="true" />
     <access uri="http://twitter.com" subdomains="true" />
-    
+    <access uri="https://callbackUrl.com" subdomains="true" />
+
     <icon src="images\icon.png"/>
     <rim:permissions>
     </rim:permissions>
