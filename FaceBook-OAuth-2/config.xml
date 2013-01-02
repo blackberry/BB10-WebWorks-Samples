@@ -41,4 +41,5 @@
     <access uri="https://facebook.com" subdomains="true" />
     <access uri="http://fbcdn.net" subdomains="true" />
     <access uri="https://fbcdn.net" subdomains="true" />
+    <access uri="https://callbackUrl.com" subdomains="true" />
 </widget>
