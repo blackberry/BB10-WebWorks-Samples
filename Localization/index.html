@@ -1,0 +1,68 @@
+<!--
+ Copyright 2012 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Localization Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <!-- css -->
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/bbui-0.9.4.css" type="text/css" media="screen" />
+
+        <!-- framework -->
+        <script src="local:///chrome/webworks.js" type="text/javascript"></script>
+
+        <!-- libraries -->
+        <script src="js/lib/bbui-0.9.4.js" type="text/javascript"></script>
+        <script src="js/lib/handlebars_1.0.rc.1.js" type="text/javascript"></script>
+
+        <!-- sample code -->
+        <script src="locales/messages.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- initialization -->
+        <script type="text/javascript">
+            window.addEventListener("load", function(e) {
+                document.addEventListener("webworksready", app.doReady);
+            }, false);
+
+            // You must call init on bbUI before any other code loads.
+            // If you want default functionality simply don't pass any parameters.. bb.init();
+            bb.init({
+                    actionBarDark: true,
+                    controlsDark: true,
+                    listsDark: false,
+
+                    // Fires "before" styling is applied and "before" the screen is inserted in the DOM
+                    onscreenready: function(element, id) {
+                                   },
+
+                    // Fires "after" styling is applied and "after" the screen is inserted in the DOM
+                    ondomready: function(element, id) {
+                                    if (id === "main") {
+                                        app.localizeContent();
+                                    } else if (id === "languages") {
+                                        app.showLanguages();
+                                    }
+                                }
+                    });
+        </script>
+
+    </head>
+    <body>
+    </body>
+</html>
