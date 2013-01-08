@@ -42,6 +42,19 @@ function invokePhone() {
     }, onSuccess, onError);
 }
 
+function invokeSettings() {
+    blackberry.invoke.invoke({
+        target: "sys.settings.target"
+    }, onSuccess, onError);
+}
+
+function invokeWiFiSettings() {
+    blackberry.invoke.invoke({
+        target: "sys.settings.target",
+        uri: "settings://wifi"
+    }, onSuccess, onError);
+}
+
 function invokeHelp() {
     blackberry.invoke.invoke({
         target: "sys.help"
