@@ -21,17 +21,17 @@
  */
 
 /**
- * This function is called when a SIM card change has occurred. Clears up storage, unsubscribes from the Push Initiator, and
- * advises the potentially new user to re-register.
+ * This function is called when a SIM card change has occurred. Clears up storage, unsubscribes from the Push Initiator (if needed), and
+ * advises the potentially new user to register.
  * 
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.onSimChange = function() {
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("DROP TABLE push;", [], function(tx, results) {
-            sample.pushcapture.successSimChangeDropPushTable();
+            sample.pushcapture.simChangeSuccessDropPushTable();
         }, function(tx, e) {
-            sample.pushcapture.successSimChangeDropPushTable();
+            sample.pushcapture.simChangeSuccessDropPushTable();
         });
     });
 };
@@ -41,12 +41,12 @@ sample.pushcapture.constructor.prototype.onSimChange = function() {
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.successSimChangeDropPushTable = function() {
+sample.pushcapture.constructor.prototype.simChangeSuccessDropPushTable = function() {
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("DROP TABLE messageidhistory;", [], function(tx, results) {
-            sample.pushcapture.successSimChangeDropMessageHistory();
+            sample.pushcapture.simChangeSuccessDropMessageHistory();
         }, function(tx, e) {
-            sample.pushcapture.successSimChangeDropMessageHistory();
+            sample.pushcapture.simChangeSuccessDropMessageHistory();
         });
     });
 };
@@ -56,25 +56,25 @@ sample.pushcapture.constructor.prototype.successSimChangeDropPushTable = functio
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.successSimChangeDropMessageHistory = function() {
+sample.pushcapture.constructor.prototype.simChangeSuccessDropMessageHistory = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
-        tx.executeSql("SELECT appid, piurl, usesdkaspi FROM configuration;", [], sample.pushcapture.setConfigurationAndDropTable,
-                sample.pushcapture.successSimChange);
+        tx.executeSql("SELECT appid, piurl, usesdkaspi FROM configuration;", [], sample.pushcapture.simChangeLoadConfigAndUser,
+                sample.pushcapture.simChangeSuccess);
     });
 };
 
 /**
- * Retrieves the appid, whether or not the SDK is being used as the Push Initiator, and the Push Initiator URL from the
- * configuration table. These will be needed for the unsubscribe from the Push Initiator (if the SDK is being used). Then,
- * attempts to drop the configuration table.
+ * Retrieves the appid, whether or not the Push Initiator is being subscribed to (using the Push Service SDK), and the Push Initiator URL 
+ * from the configuration table. If the Push Initiator is being subscribed to, we also load the currently registered user so that we can 
+ * unsubscribe them.
  * 
  * @param {SQLTransaction}
  *            tx a database transaction
  * @param {SQLResultSet}
- *            results the results of the query executed in the successSimChangeDropMessageHistory() function
+ *            results the results of the query executed in the simChangeSuccessDropMessageHistory() function
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.setConfigurationAndDropTable = function(tx, results) {
+sample.pushcapture.constructor.prototype.simChangeLoadConfigAndUser = function(tx, results) {
     sample.pushcapture.appid = results.rows.item(0).appid;
     sample.pushcapture.piurl = results.rows.item(0).piurl;
     if (results.rows.item(0).usesdkaspi == 1) {
@@ -83,47 +83,36 @@ sample.pushcapture.constructor.prototype.setConfigurationAndDropTable = function
         sample.pushcapture.usesdkaspi = false;
     }
 
-    sample.pushcapture.db.transaction(function(tx) {
-        tx.executeSql("DROP TABLE configuration;", [], function(tx, results) {
-            // We need to put a delay before attempting to unsubscribe.
-            // It takes awhile after a SIM swap for the device to initialize
-            // with the new service books.
-            // We can only attempt an unsubscribe once the new service books
-            // are present.
-            setTimeout(sample.pushcapture.successSimChangeDropConfiguration, 90000);
-        }, function(tx, e) {
-            setTimeout(sample.pushcapture.successSimChangeDropConfiguration, 90000);
-        });
-    });
-};
-
-/**
- * Called after successfully dropping the configuration table from storage on a SIM change.
- * 
- * @memberOf sample.pushcapture
- */
-sample.pushcapture.constructor.prototype.successSimChangeDropConfiguration = function() {
     if (sample.pushcapture.usesdkaspi) {
-        // The Push Service SDK is being used
-        sample.pushcapture.db.readTransaction(function(tx) {
-            tx.executeSql("SELECT userid, passwd FROM registration;", [],
-                    sample.pushcapture.simChangeUnsubscribeFromPushInitiator, function(tx, e) {
-                        sample.pushcapture.successSimChange();
-                    });
-        });
+        // The Push Service SDK is being used for subscription
+        sample.pushcapture.simChangeLoadUser();
     } else {
-        // The Push Service SDK is not being used
-        sample.pushcapture.successSimChange();
+        // The Push Service SDK is not being used for subscription
+        sample.pushcapture.simChangeSuccess();
     }
 };
 
 /**
- * Attempts to unsubscribe from the Push Initiator.
+ * Loads the currently registered user so that we can unsubscribe them from the Push Initiator (using the Push Service SDK).
+ * 
+ * @memberOf sample.pushcapture
+ */
+sample.pushcapture.constructor.prototype.simChangeLoadUser = function() {
+    sample.pushcapture.db.readTransaction(function(tx) {
+        tx.executeSql("SELECT userid, passwd FROM registration;", [],
+                sample.pushcapture.simChangeUnsubscribeFromPushInitiator, function(tx, e) {
+                    sample.pushcapture.simChangeSuccess();
+                });
+    });
+};
+
+/**
+ * Attempts to unsubscribe from the Push Initiator (using the Push Service SDK).
  * 
  * @param {SQLTransaction}
  *            tx a database transaction
  * @param {SQLResultSet}
- *            results the results of the query executed in the successSimChangeDropConfiguration() function
+ *            results the results of the query executed in the simChangeLoadUser() function
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.simChangeUnsubscribeFromPushInitiator = function(tx, results) {
@@ -149,15 +138,15 @@ sample.pushcapture.constructor.prototype.simChangeUnsubscribeFromPushInitiator =
 
             if (sample.pushcapture.unregisterAttemptCount < 3 && (status != 200 || returnCode != "rc=200")) {
                 // Give it a couple extra tries just in case it fails for some reason
-                setTimeout(sample.pushcapture.successSimChangeDropConfiguration, 5000);
+                setTimeout(sample.pushcapture.simChangeLoadUser, 1000);
             }
 
             // Clear the username and password since the user was unsubscribed
             sample.pushcapture.db.transaction(function(tx) {
                 tx.executeSql("DROP TABLE registration;", [], function(tx, results) {
-                    sample.pushcapture.successSimChange();
+                    sample.pushcapture.simChangeSuccess();
                 }, function(tx, e) {
-                    sample.pushcapture.successSimChange();
+                    sample.pushcapture.simChangeSuccess();
                 });
             });
         }
@@ -167,23 +156,25 @@ sample.pushcapture.constructor.prototype.simChangeUnsubscribeFromPushInitiator =
 };
 
 /**
- * Called after successfully clearing the necessary database tables and unsubscribing.
+ * Called after successfully clearing the necessary database tables and unsubscribing
+ * from the Push Initiator (if using the Push Service SDK for subscription with the 
+ * Push Initiator).
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.successSimChange = function() {
-    alert("A SIM card change was detected. Please configure and then re-register.");
+sample.pushcapture.constructor.prototype.simChangeSuccess = function() {
+    alert("The SIM card was changed and, as a result, the current user has been unregistered. Please register again.");
 
-    // Show the configuration tab
+    // Show the register tab
     // Check if we are already on the user input screen
     if (document.getElementById("user-input-screen") != null) {
-        // Highlight the config tab in the action bar
+        // Highlight the register tab in the action bar
         var actionBar = document.getElementById("user-input-action-bar");
-        var tab = document.getElementById("user-input-config-action");
+        var tab = document.getElementById("user-input-reg-action");
         actionBar.setSelectedTab(tab);
 
-        sample.pushcapture.showConfigTab();
+        sample.pushcapture.showRegisterTab();
     } else {
-        sample.pushcapture.showUserInputScreen("configuration");
+        sample.pushcapture.showUserInputScreen("register");
     }
 };

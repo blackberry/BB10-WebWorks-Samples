@@ -27,8 +27,8 @@
  */
 sample.pushcapture.constructor.prototype.publicPPG = function() {
     // Show both the PPG URL and App ID fields
-    document.getElementById("ppgurl").style.display = "";
-    document.getElementById("appid").style.display = "";
+    document.getElementById("ppgurl").show();
+    document.getElementById("appid").show();
 };
 
 /**
@@ -39,13 +39,13 @@ sample.pushcapture.constructor.prototype.publicPPG = function() {
  */
 sample.pushcapture.constructor.prototype.enterprisePPG = function() {
     // Hide the PPG URL field
-    document.getElementById("ppgurl").style.display = "none";
+    document.getElementById("ppgurl").hide();
 
     // Show the App ID field only if the Push Service SDK will be used
     if (document.getElementById("usesdkaspi").checked) {
-        document.getElementById("appid").style.display = "";
+        document.getElementById("appid").show();
     } else {
-        document.getElementById("appid").style.display = "none";
+        document.getElementById("appid").hide();
     }
 };
 
@@ -58,15 +58,15 @@ sample.pushcapture.constructor.prototype.enterprisePPG = function() {
  */
 sample.pushcapture.constructor.prototype.useSDKAsPushInitiator = function() {
     if (document.getElementById("usesdkaspi").checked) {
-        document.getElementById("piurl").style.display = "";
-        document.getElementById("appid").style.display = "";
+        document.getElementById("piurl").show();
+        document.getElementById("appid").show();
     } else {
-        document.getElementById("piurl").style.display = "none";
+        document.getElementById("piurl").hide();
 
         if (document.getElementById("publicradio").checked) {
-            document.getElementById("appid").style.display = "";
+            document.getElementById("appid").show();
         } else {
-            document.getElementById("appid").style.display = "none";
+            document.getElementById("appid").hide();
         }
     }
 };
@@ -85,11 +85,9 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
                     tx, results) {
                 sample.pushcapture.displayConfig(element, tx, results);
 
-                if (element.getElementById("appid") != null && element.getElementById("appid").style.display == "") {
-                    element.getElementById("appid").focus();
-                } else if (element.getElementById("ppgurl").style.display == "") {
+                if (element.getElementById("ppgurl").container.style.display == "") {
                     element.getElementById("ppgurl").focus();
-                } else if (element.getElementById("piurl").style.display == "") {
+                } else if (element.getElementById("piurl").container.style.display == "") {
                     element.getElementById("piurl").focus();
                 }
             });
@@ -112,7 +110,7 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
  */
 sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, results) {
     element.getElementById("appid").value = results.rows.item(0).appid;
-    element.getElementById("appid").disabled = true;
+    element.getElementById("appid").disable();
     sample.pushcapture.appid = results.rows.item(0).appid;
     element.getElementById("piurl").value = results.rows.item(0).piurl;
     element.getElementById("ppgurl").value = results.rows.item(0).ppgurl;
@@ -120,11 +118,11 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
     if (results.rows.item(0).usingpublicppg == 1) {
         sample.pushcapture.usingpublicppg = true;
         element.getElementById("publicradio").setChecked();
-        element.getElementById("ppgurl").style.display = "";
+        element.getElementById("ppgurl").show();
     } else {
         sample.pushcapture.usingpublicppg = false;
         element.getElementById("enterpriseradio").setChecked();
-        element.getElementById("ppgurl").style.display = "none";
+        element.getElementById("ppgurl").hide();
     }
     bb.radio.disableGroup("ppgtype");
 
@@ -136,14 +134,14 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
 
     if (results.rows.item(0).usesdkaspi == 1) {
         element.getElementById("usesdkaspi").setChecked(true);
-        element.getElementById("piurl").style.display = "";
+        element.getElementById("piurl").show();
     } else {
         element.getElementById("usesdkaspi").setChecked(false);
-        element.getElementById("piurl").style.display = "none";
+        element.getElementById("piurl").hide();
         // If using an enterprise PPG and not subscribing with the SDK, the app id
         // field is not shown because the APIs will just use the default app id
         if (!sample.pushcapture.usingpublicppg) {
-            element.getElementById("appid").style.display = "none";
+            element.getElementById("appid").hide();
         }
     }
 
@@ -338,5 +336,5 @@ sample.pushcapture.constructor.prototype.successfulConfiguration = function() {
     bb.radio.disableGroup("ppgtype");
 
     document.getElementById("appid").value = sample.pushcapture.appid;
-    document.getElementById("appid").disabled = true;
+    document.getElementById("appid").disable();
 };

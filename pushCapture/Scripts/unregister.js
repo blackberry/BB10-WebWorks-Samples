@@ -30,6 +30,23 @@
 sample.pushcapture.constructor.prototype.initUnregister = function(element) {
     if (sample.pushcapture.usesdkaspi) {
         // The Push Service SDK is being used
+        
+        // The user might have previously been on the unregister tab 
+        // with the sample.pushcapture.usesdkaspi set to false.
+        // In that case, the username and password text boxes 
+        // would have been removed.  We will have to add them back in.
+        if (element.getElementById("unreguserid") == null) {
+            element.getElementById("unreguseridtd").innerHTML = "<input type='text' id='unreguserid' autocomplete='off' maxlength='42' placeholder='Username' />";
+            element.getElementById("unregpwdtd").innerHTML = "<input type='password' id='unregpwd' maxlength='42' placeholder='Password' />";   
+            
+            // Apply the bbUI styling to the text boxes
+            var unregisterTextInputs = new Array();
+            unregisterTextInputs[0] = element.getElementById("unreguserid");
+            unregisterTextInputs[1] = element.getElementById("unregpwd");
+            
+            bb.textInput.apply(unregisterTextInputs);
+        }
+        
         // Display the username and password fields
         element.getElementById("unreguserid").value = sample.pushcapture.userid;
         element.getElementById("unregpwd").value = sample.pushcapture.passwd;
@@ -55,10 +72,11 @@ sample.pushcapture.constructor.prototype.unregister = function() {
     var wasValidationSuccessful = sample.pushcapture.validateUnregisterFields();
 
     if (wasValidationSuccessful) {
-        // Hide the fields, so that it cannot be clicked again while attempting to unregister
+        // Disable the fields, so that they cannot be clicked while attempting to unregister
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("unreguserid").disabled = true;
-            document.getElementById("unregpwd").disabled = true;
+            document.getElementById("user-input-title").actionButton.disabled = true;
+            document.getElementById("unreguserid").disable();
+            document.getElementById("unregpwd").disable();
         }
 
         var opInProgressDiv = document.createElement("div");
@@ -80,8 +98,9 @@ sample.pushcapture.constructor.prototype.unregister = function() {
             document.getElementById("activityindicator").style.display = "none";
             document.getElementById("progressinfo").style.display = "none";
             if (sample.pushcapture.usesdkaspi) {
-                document.getElementById("unreguserid").disabled = false;
-                document.getElementById("unregpwd").disabled = false;
+                document.getElementById("user-input-title").actionButton.disabled = false;
+                document.getElementById("unreguserid").enable();
+                document.getElementById("unregpwd").enable();
             }
             document.getElementById("errordiv").style.display = "block";
 
@@ -147,8 +166,9 @@ sample.pushcapture.constructor.prototype.destroyChannelCallback = function(resul
         document.getElementById("activityindicator").style.display = "none";
         document.getElementById("progressinfo").style.display = "none";
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("unreguserid").disabled = false;
-            document.getElementById("unregpwd").disabled = false;
+            document.getElementById("user-input-title").actionButton.disabled = false;
+            document.getElementById("unreguserid").enable();
+            document.getElementById("unregpwd").enable();
         }
         document.getElementById("errordiv").style.display = "block";
 
@@ -251,9 +271,10 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
             document.getElementById("activityindicator").style.display = "none";
             document.getElementById("progressinfo").style.display = "none";
 
-            // Show the fields again because there was an error
-            document.getElementById("unreguserid").disabled = false;
-            document.getElementById("unregpwd").disabled = false;
+            // Enable the fields again because there was an error
+            document.getElementById("user-input-title").actionButton.disabled = false;
+            document.getElementById("unreguserid").enable();
+            document.getElementById("unregpwd").enable();
 
             document.getElementById("errordiv").style.display = "block";
 
@@ -294,9 +315,10 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
         document.getElementById("activityindicator").style.display = "none";
         document.getElementById("progressinfo").style.display = "none";
 
-        // Show the fields again because there was an error
-        document.getElementById("unreguserid").disabled = false;
-        document.getElementById("unregpwd").disabled = false;
+        // Enable the fields again because there was an error
+        document.getElementById("user-input-title").actionButton.disabled = false;
+        document.getElementById("unreguserid").enable();
+        document.getElementById("unregpwd").enable();
 
         document.getElementById("errordiv").style.display = "block";
         document.getElementById("errormsg").innerHTML = "Error: Unsubscribe from the Push Initiator failed with "
@@ -333,9 +355,10 @@ sample.pushcapture.constructor.prototype.successfulUnregister = function() {
     document.getElementById("activityindicator").style.display = "none";
     document.getElementById("progressinfo").innerHTML = "Successfully unregistered.";
 
-    // Show the fields again because the unregister is done
+    // Enable the fields again because the unregister is done
     if (sample.pushcapture.usesdkaspi) {
-        document.getElementById("unreguserid").disabled = false;
-        document.getElementById("unregpwd").disabled = false;
+        document.getElementById("user-input-title").actionButton.disabled = false;
+        document.getElementById("unreguserid").enable();
+        document.getElementById("unregpwd").enable();
     }
 };
