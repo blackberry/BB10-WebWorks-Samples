@@ -30,6 +30,23 @@
 sample.pushcapture.constructor.prototype.initRegister = function(element) {
     if (sample.pushcapture.usesdkaspi) {
         // The Push Service SDK is being used
+        
+        // The user might have previously been on the register tab 
+        // with the sample.pushcapture.usesdkaspi set to false.
+        // In that case, the username and password text boxes 
+        // would have been removed.  We will have to add them back in.
+        if (element.getElementById("reguserid") == null) {
+            element.getElementById("reguseridtd").innerHTML = "<input type='text' id='reguserid' autocomplete='off' maxlength='42' placeholder='Username' />";
+            element.getElementById("regpwdtd").innerHTML = "<input type='password' id='regpwd' maxlength='42' placeholder='Password' />";   
+            
+            // Apply the bbUI styling to the text boxes
+            var registerTextInputs = new Array();
+            registerTextInputs[0] = element.getElementById("reguserid");
+            registerTextInputs[1] = element.getElementById("regpwd");
+            
+            bb.textInput.apply(registerTextInputs);
+        }
+        
         // Display the username and password fields
         element.getElementById("reguserid").value = sample.pushcapture.userid;
         element.getElementById("regpwd").value = sample.pushcapture.passwd;
@@ -56,8 +73,9 @@ sample.pushcapture.constructor.prototype.register = function() {
 
     if (wasValidationSuccessful) {
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("reguserid").disabled = true;
-            document.getElementById("regpwd").disabled = true;
+            document.getElementById("user-input-title").actionButton.disabled = true;
+            document.getElementById("reguserid").disable();
+            document.getElementById("regpwd").disable();
         }
 
         var opInProgressDiv = document.createElement("div");
@@ -79,8 +97,9 @@ sample.pushcapture.constructor.prototype.register = function() {
             document.getElementById("activityindicator").style.display = "none";
             document.getElementById("progressinfo").style.display = "none";
             if (sample.pushcapture.usesdkaspi) {
-                document.getElementById("reguserid").disabled = false;
-                document.getElementById("regpwd").disabled = false;
+                document.getElementById("user-input-title").actionButton.disabled = false;
+                document.getElementById("reguserid").enable();
+                document.getElementById("regpwd").enable();
             }
             document.getElementById("errordiv").style.display = "block";
 
@@ -144,8 +163,9 @@ sample.pushcapture.constructor.prototype.createChannelCallback = function(result
         document.getElementById("activityindicator").style.display = "none";
         document.getElementById("progressinfo").style.display = "none";
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("reguserid").disabled = false;
-            document.getElementById("regpwd").disabled = false;
+            document.getElementById("user-input-title").actionButton.disabled = false;
+            document.getElementById("reguserid").enable();
+            document.getElementById("regpwd").enable();
         }
         document.getElementById("errordiv").style.display = "block";
 
@@ -283,8 +303,9 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
             document.getElementById("activityindicator").style.display = "none";
             document.getElementById("progressinfo").style.display = "none";
 
-            document.getElementById("reguserid").disabled = false;
-            document.getElementById("regpwd").disabled = false;
+            document.getElementById("user-input-title").actionButton.disabled = false;
+            document.getElementById("reguserid").enable();
+            document.getElementById("regpwd").enable();
 
             document.getElementById("errordiv").style.display = "block";
 
@@ -338,8 +359,9 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
         document.getElementById("progressinfo").style.display = "none";
 
         // Enabled the fields again because there was an error
-        document.getElementById("reguserid").disabled = false;
-        document.getElementById("regpwd").disabled = false;
+        document.getElementById("user-input-title").actionButton.disabled = false;
+        document.getElementById("reguserid").enable();
+        document.getElementById("regpwd").enable();
 
         document.getElementById("errordiv").style.display = "block";
         document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed with HTTP response code: "
@@ -404,9 +426,10 @@ sample.pushcapture.constructor.prototype.successfulRegistration = function() {
     document.getElementById("activityindicator").style.display = "none";
     document.getElementById("progressinfo").innerHTML = "Successfully registered.";
 
-    // Show the fields again because the registration is done
+    // Enable the fields again because the registration is done
     if (sample.pushcapture.usesdkaspi) {
-        document.getElementById("reguserid").disabled = false;
-        document.getElementById("regpwd").disabled = false;
+        document.getElementById("user-input-title").actionButton.disabled = false;
+        document.getElementById("reguserid").enable();
+        document.getElementById("regpwd").enable();
     }
 };

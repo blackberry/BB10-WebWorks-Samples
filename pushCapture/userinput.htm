@@ -19,89 +19,70 @@
 	<script id="unregisterJS" src="Scripts/unregister.js"></script>
 
     <style type="text/css">		    
-		.user-input-table {
-			width: 100%;
-			text-align: left;
-			border-collapse: collapse;
-			margin: 0;
-			background: white;
-			color: black;
-		}
+        .user-input-table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
 		
-		.user-input-padding {
-		    padding-left: 0.8em;
-		    padding-right: 0.8em;
-		    padding-top: 0.4em;
-		    padding-bottom: 0.4em;
-		}
+        .user-input-padding {
+            padding: 0.4em;
+        }
 		
-		.column1 {
-		    width: 10%;
-		    padding-left: 0.8em;
-		    padding-right: 0.2em;
-		    padding-top: 0.2em;
-		    padding-bottom: 0.2em;
-		}
+        .column1 {
+            width: 10%;
+        }
 		
-		.column2 {
-		    width: 90%;
-		    padding-left: 0.2em;
-		    padding-right: 0.8em;		    
-		    padding-top: 0.2em;
-		    padding-bottom: 0.2em;
-		}				
+        .column2 {
+            width: 90%;
+        }
 		
-		input.box-length {
-			width: 100%;
-		}
-		
-		.center {
-			text-align: center;
-		}		
-		
-		div.hidden {
-			display: none;
-		}
+        div.hidden {
+            display: none;
+        }
     
-		div.error {
-			width: 90%;
-			word-wrap: break-word;
-			margin-left: auto;
-			margin-right: auto;
-			text-align: left;
-			padding: 0.5em;
-			border: 6px solid red;
-			background: #fcc;
-		}  	
+        div.error {
+            width: 90%;
+            word-wrap: break-word;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            padding: 0.5em;
+            border: 6px solid red;
+            background: #fcc;
+        }
 		
-		div.progress {
-			display: none;
-			text-align: center;
-			color: blue;
-		}	
+        div.progress {
+            display: none;
+            text-align: center;
+            color: blue;
+        }
 		
-		div.full-size {
-		    height: 100%;
-		    width: 100%;
-		    position: absolute;
-		    top: 0;
-		    left: 0;
-		    overflow: hidden;
-		    z-index: 2000;
-		}
+        div.full-size {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 2000;
+        }
 		
-		div.full-size-dark {
-		    height: 100%;
-		    width: 100%;
-		    position: absolute;
-		    top: 0;
-		    left: 0;
-		    overflow: hidden;
-		    background-color: black;
-		    opacity: .5; 
-		    filter: alpha(opacity=50);		    
-		    z-index: 2000;
-		}							
+        div.full-size-dark {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            background-color: black;
+            opacity: .5; 
+            filter: alpha(opacity=50);		    
+            z-index: 2000;
+        }
     </style>
 
     <div id="user-input-title" data-bb-type="title"></div>
@@ -138,13 +119,13 @@
 	            </td>
 	        </tr>
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="appid" autocomplete="off" maxlength="42" placeholder="Application ID" /></td>
+				<td class="user-input-padding"><input type="text" id="appid" autocomplete="off" maxlength="42" placeholder="Application ID" /></td>
 			</tr>
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="ppgurl" autocomplete="off" maxlength="80" placeholder="PPG URL" /></td>
+				<td class="user-input-padding"><input type="text" id="ppgurl" autocomplete="off" maxlength="80" placeholder="PPG URL" /></td>
 			</tr>		
 			<tr>
-				<td class="user-input-padding"><input class="box-length" type="text" id="piurl" autocomplete="off" maxlength="80" placeholder="Push Initiator URL" /></td>
+				<td class="user-input-padding"><input type="text" id="piurl" autocomplete="off" maxlength="80" placeholder="Push Initiator URL" /></td>
 			</tr>
 	        <tr>
 	        	<td>
@@ -162,10 +143,10 @@
 	<div id="register-tab">
 		<table id="reg-table" class="user-input-table">
 			<tr>
-				<td id="reguseridtd" class="user-input-padding"><input class="box-length" type="text" id="reguserid" autocomplete="off" maxlength="42" placeholder="Username" /></td>
+				<td id="reguseridtd" class="user-input-padding"><input type="text" id="reguserid" autocomplete="off" maxlength="42" placeholder="Username" /></td>
 			</tr>
 			<tr>
-				<td id="regpwdtd" class="user-input-padding"><input class="box-length" type="password" id="regpwd" maxlength="42" placeholder="Password" /></td>
+				<td id="regpwdtd" class="user-input-padding"><input type="password" id="regpwd" maxlength="42" placeholder="Password" /></td>
 			</tr>		
 		</table>
 		
@@ -175,10 +156,10 @@
 	<div id="unregister-tab">	
 		<table id="unreg-table" class="user-input-table">
 			<tr>
-				<td id="unreguseridtd" class="user-input-padding"><input class="box-length" type="text" id="unreguserid" autocomplete="off" maxlength="42" placeholder="Username" /></td>
+				<td id="unreguseridtd" class="user-input-padding"><input type="text" id="unreguserid" autocomplete="off" maxlength="42" placeholder="Username" /></td>
 			</tr>
 			<tr>
-				<td id="unregpwdtd" class="user-input-padding"><input class="box-length" type="password" id="unregpwd" maxlength="42" placeholder="Password" /></td>
+				<td id="unregpwdtd" class="user-input-padding"><input type="password" id="unregpwd" maxlength="42" placeholder="Password" /></td>
 			</tr>		
 		</table>
 		
