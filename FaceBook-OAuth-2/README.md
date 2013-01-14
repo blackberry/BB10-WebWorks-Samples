@@ -6,73 +6,66 @@ Facebook OAuth Sample is the name of a proof-of-concept WebWorks application tha
 
 The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
-
 **Applies To**
 
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
 
 **Author(s)** 
 
-* Chad Tetreault (http://www.twitter.com/chadtatro)
+* [Chad Tetreault](http://www.twitter.com/chadtatro)
 
 **Dependencies**
 
-1. [jquery-1.7.2.js](http://code.jquery.com/jquery-1.7.2.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
+1. [bbUI.js] (https://github.com/blackberry/bbUI.js) is [licensed] (https://github.com/blackberry/bbUI.js/blob/master/LICENSE) under the Apache 2.0 license.
+
+2. [jquery-1.7.2.js](http://code.jquery.com/jquery-1.7.2.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
-## Initial Facebook Setup
+**Icons**<br/>
+Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim) are [licensed](http://creativecommons.org/licenses/by/3.0/) under the CC-BY-3.0 license.  This is a subset of the Subway icons available at http://subway.pixle.pl/
 
-***Note: At this time Facebook doesn't allow apps to use "local:///" for their OAuth callback.  To work-around this, we're hosting a small PHP script on a webserver which will handle the redirection back to our app.  This PHP script needs to be hosted on the same domain you specify in your app settings on Facebook.***
+## What's new?
+
+As of WebWorks SDK 1.0.4.7 we now take advantage of the window.open support.  OAuth samples **no longer need to rely on a server-side component** to redirect the webview back to your application.  This provides a nice flowing user experience.
+
+## Initial Twitter Setup
 
 1. Create an application on Facebook (http://developers.facebook.com/) 
-2. Under "App Domains" enter a domain where you'll be hosting your callback PHP script (E.g. mydomain.com)
+2. Under "App Domains" enter a domain where you'll be redirecting the user after they authenticate
 3. Under "Select how your app integrates with Facebook", choose "Website with Facebook Login"
-4. Enter the domain where your PHP script is located (E.g. http://www.mydomain.com/oauth)
+4. Enter the domain again, where the users will be redirect to after authentication
 3. When your app is created, copy down your App ID, and App Secret
 
+**For STEP 4. Make sure you enter a trailing slash after the domain name, for example: http://mycallbackurl.com/**
+
 ## WebWorks App Setup
-1. Open js/oauth.js from the project folder
-2. Edit clientId and clientSecret to reflect the keys given to you from Facebook
-3. Move the ***_php*** folder out of the project directory, and see ***Server-side Setup***
+
+Open app.js and edit the following object
 
 ```
 // facebook setup
 facebookOptions = {
-   clientId: '<App ID>',
-   clientSecret: '<App Secret>',
-   redirectUri: 'http://www.mydomain.com/oauth/redirect.php'
+   clientId: '',
+   clientSecret: '',
+   redirectUri: ''
 };
 ```
 ## Config.xml 
-As of BlackBerry WebWorks 1.0.2.9 (Gold) SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
+As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
 
-**Note as of SDK 1.0.4.5 we must now also whitelist the Facebook callback URL! Also, if your callback URL is pointing to a subdomain, whitelist the entire domain and subdomain i.e. "http://oauth.mydomain.com"**
+**Note: While we need to disable web security in order to read the location of our childWindow object, it's recommended that you don't do this in your apps unless absolutely necessary.**
 
 ```
 <access uri="*" subdomains="true" />
-<access uri="http://facebook.com" subdomains="true" />
-<access uri="https://facebook.com" subdomains="true" />
-<access uri="http://fbcdn.net" subdomains="true" />
-<access uri="https://fbcdn.net" subdomains="true" />
 
-<access uri="http://callbackUrl.com" subdomains="true" />
+<feature id="blackberry.app" >
+   <param name="websecurity" value="disable" />
+</feature>
 ```
-
-## Server-side Setup
-1. Upload the ***redirect.php*** script from the ***_php*** folder to your web server
-2. ***[optional]*** By default the script is set to redirect to ***local:///index.html***, if you need it to redirect to a different url then edit the PHP script.
-
-```
-<?php
-   $queryString = $_SERVER['QUERY_STRING'];
-   header("Location: local:///index.html?" . $queryString);
-?>
-```
-
 ## Security Considerations
 
-Your App Secret key, is intended to stay SECRET.  For demonstration purposes we coded the App ID and App Secret right in the JavaScript source.  This is not best practice, and is not recommended.  You don’t want anybody to get access to your keys.
+Your App Secret key, is intended to stay SECRET.  For demonstration purposes we coded the App ID and App Secret right in the JavaScript source.  This is not best practice, and is not recommended.  You donâ€™t want anybody to get access to your keys.
 
 One way to securely pass your App Secret to your application is to host it on a server, then use SSL and do a POST to obtain your key. It can then be used to obtain an Access Token from the service (in this case, Facebook).
 
@@ -82,12 +75,13 @@ This sample app shows how to connect your application with a few different Faceb
 
 ### User is prompted to allow your application access to their info.  Facebook returns an access "code".
 
-Note the ***scope*** parameter in the url below.  This is how your application requests all the permissions it will need to interact with the user’s Facebook profile.  In this sample we are requesting permission to ***publish*** and ***read*** the users stream.
+Note the ***scope*** parameter in the url below.  This is how your application requests all the permissions it will need to interact with the userâ€™s Facebook profile.  In this sample we are requesting permission to ***publish*** and ***read*** the users stream.
 
-See Facebook’s [Permissions Reference]( https://developers.facebook.com/docs/authentication/permissions/) for a list of additional permissions your app may require.
+See Facebookâ€™s [Permissions Reference]( https://developers.facebook.com/docs/authentication/permissions/) for a list of additional permissions your app may require.
 
 ```
-window.location.replace('https://www.facebook.com/dialog/oauth?client_id=' + facebookOptions.clientId + '&redirect_uri=' + facebookOptions.redirectUri + '&scope=publish_stream,read_stream');
+var url = 'https://www.facebook.com/dialog/oauth?client_id=' + facebookOptions.clientId + '&redirect_uri=' + facebookOptions.redirectUri + '&scope=publish_stream,read_stream';
+childWindow = window.open(url, '_blank');
 ```
 ### Exchange the access code, for an access token (we use this token for authenticated requests)
 		
@@ -97,13 +91,21 @@ var url = 'https://graph.facebook.com/oauth/access_token?client_id=' + facebookO
 $.ajax({
    type: 'GET',
    url: url,
-
-   // success callback
    success: function(data) {
+      var response = data;
+
+      // parse 'access_token' from the response
+      var response = response.split('&');
+      var theAccessToken = response[0].split('=');
+      window.accessToken = theAccessToken[1];
+
+      // get authenticated users' info/name
+      getUserInfo();
    },
 
-   // failure callback
    error: function(data) {
+      alert('Error getting access_token: ' + data.responseText);
+      return false;
    }
 });
 ```
@@ -117,13 +119,14 @@ $.ajax({
    type: 'GET',
    url: url,
    dataType: 'json',
-
-   // success callback
    success: function(data) {
+      bb.pushScreen('connected.html', 'connected');
+      window.userName = data.name;
    },
 
-   // failure callback
-    error: function(data) {
+   error: function(data) {
+      alert('Error getting users info: ' + data.responseText);
+      return false;
    }
 });
 ```
@@ -131,19 +134,21 @@ $.ajax({
 ### Posting an update to the news feed
 
 ```
-var url = 'https://graph.facebook.com/me/feed?message=your_message_goes_here&access_token=' + accessToken;
+var randomNum = Math.round(Math.random() * 999 + 1);
+var status = 'Test (' + randomNum + ') of the Facebook OAuth sample for BlackBerry 10 by @chadtatro! (http://twitter.com/chadtatro) http://bit.ly/106Blwv';
+var url = 'https://graph.facebook.com/me/feed?message=' + status + '&access_token=' + accessToken;
 
 $.ajax({
    type: 'POST',
    url: url,
    dataType: 'json',
-
-   // success callback
    success: function(data) {
+      getFeed();
    },
 
-   // failure callback
    error: function(data) {
+      alert('Error updating status: ' + data.responseText);
+      return false;
    }
 });
 ```
@@ -151,23 +156,34 @@ $.ajax({
 ### Fetching the user's news feed
 
 ```
+toast('Refreshing feed...');
+
+$('#content p').remove();
 var url = 'https://graph.facebook.com/me/feed?access_token=' + accessToken;
 
 $.ajax({
    type: 'GET',
    url: url,
    dataType: 'json',
-
-   // success callback
    success: function(data) {
+      var feed = data.data;
+
+      // show the last 10 items from the users news feed
+      // note: there are several objects that could be posted in a news feed. for simplicity
+      // we're only showing objects with a 'story' attribute
+      for(var i = 0; $('#content p').size() < 10; i++) {
+         if(typeof feed[i].message !== 'undefined') {
+            $('#content').append('<p>' + feed[i].message + '</p>');
+         }
+      }
    },
 
-   // failure callback
    error: function(data) {
+      alert('Error loading news feed: ' + data.responseText);
+      return false;
    }
 });
 ```
-
 ## How to Build
 
 1. Clone the repo to your local machine
@@ -193,4 +209,3 @@ If you find a bug in a Sample, or have an enhancement request, simply file an [I
 ## Disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
