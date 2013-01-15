@@ -36,7 +36,7 @@
     <access uri="https://foursquare.com" subdomains="true" />    
 
     <rim:permissions>
-        <rim:permit>read_geolocation</rim:permit> 
+        <rim:permit>access_location_services</rim:permit>
     </rim:permissions>
 
     <feature id="blackberry.ui.toast" />

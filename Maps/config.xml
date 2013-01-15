@@ -40,6 +40,6 @@
     </feature>
 
     <rim:permissions>  
-        <rim:permit>read_geolocation</rim:permit>
+        <rim:permit>access_location_services</rim:permit>
     </rim:permissions>
 </widget>
