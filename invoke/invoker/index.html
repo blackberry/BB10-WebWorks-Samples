@@ -25,6 +25,8 @@
     <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
     <script type="text/javascript">
         function ready () {
+            document.getElementById("twitter").onclick = invokeTwitter;
+            document.getElementById("facebook").onclick = invokeFacebook;
             document.getElementById("browser").onclick = invokeBrowser;
             document.getElementById("browserUri").onclick = invokeBrowserUri;
             document.getElementById("help").onclick = invokeHelp;
@@ -49,6 +51,8 @@
     </div>
     <div data-role="content">
       <ul data-role="listview">
+        <li id="twitter">Invoke Twitter</li>
+        <li id="facebook">Invoke Facebook</li>
         <li id="browser">Invoke Browser</li>
         <li id="browserUri">Open a hyperlink in Browser</li>
         <li id="help">Invoke Help</li>
