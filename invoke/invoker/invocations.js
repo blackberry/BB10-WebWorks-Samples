@@ -23,6 +23,24 @@ function onError(error) {
     document.getElementById("log").innerHTML += "<p>Invocation error: " + error + "</p>";
 }
 
+function invokeTwitter() {
+    blackberry.invoke.invoke({
+        target: "Twitter",
+        action: "bb.action.SHARE",
+        type: "text/plain",
+        data: "Testing out the BlackBerry 10 Invoke sample for WebWorks! https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/invoke #bb10believe"
+    }, onSuccess, onError);
+}
+
+function invokeFacebook() {
+    blackberry.invoke.invoke({
+        target: "Facebook",
+        action: "bb.action.SHARE",
+        type: "text/plain",
+        data: "Testing out the BlackBerry 10 Invoke sample for WebWorks! https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/invoke #bb10believe"
+    }, onSuccess, onError);
+}
+
 function invokeBrowser() {
     blackberry.invoke.invoke({
         target: "sys.browser",

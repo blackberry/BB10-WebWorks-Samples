@@ -9,6 +9,7 @@ Sample applications that demonstrate how to use the blackberry.invoke API for th
 **Author(s)** 
 
 * [Hasan Ahmad](https://github.com/haahmad)
+* [Chad Tetreault](http://twitter.com/chadtatro)
 
 **Dependencies**
 
