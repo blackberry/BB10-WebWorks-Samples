@@ -21,20 +21,17 @@
  */
 
 /**
- * This function is called when a SIM card change has occurred. Clears up storage, unsubscribes from the Push Initiator (if needed), and
- * advises the potentially new user to register.
+ * This function is called when a SIM card change has occurred. Clears up storage, unsubscribes from the Push Initiator (if
+ * needed), and advises the potentially new user to register.
  * 
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.onSimChange = function() {
     // If we are on the home screen, we need to clear the screen
     if (document.getElementById("push-list") != null) {
-        if (document.getElementById("progressinfo") != null) {
-            document.getElementById("push-screen").removeChild(document.getElementById("progressinfo"));
-        }
-        if (document.getElementById("no-results") != null) {
-            document.getElementById("push-screen").removeChild(document.getElementById("no-results"));
-        }
+        document.getElementById("progressinfo").style.display = "none";
+        document.getElementById("no-results").style.display = "none";
+
         var pushTable = document.getElementById("push-table");
         if (pushTable.hasChildNodes()) {
             while (pushTable.childNodes.length >= 1) {
@@ -45,39 +42,34 @@ sample.pushcapture.constructor.prototype.onSimChange = function() {
         if (pushTable.hasAttribute("selectedPush")) {
             pushTable.removeAttribute("selectedPush");
         }
-        
+
         // Indicate that processing is currently being done
-        var progressDiv = document.createElement("div");
-        progressDiv.id = "progressinfo";
-        progressDiv.innerHTML = "Processing...";
-        document.getElementById("push-screen").appendChild(progressDiv);        
+        document.getElementById("progressinfo").style.display = "block";
+        document.getElementById("progressinfo").innerHTML = "Processing...";
     }
-    
+
     // No push should be selected anymore
     sample.pushcapture.selectedPushSeqnum = null;
-    
+
     // Remove the push list from local storage since
     // the push list is going to be deleted
     localStorage.removeItem(sample.pushcapture.localStorageKey);
-            
+
     // Remove all the notifications from the BlackBerry Hub for this app
     sample.pushcapture.db.transaction(function(tx) {
-        tx.executeSql("SELECT seqnum FROM push WHERE unread = ?;", [ "T" ], 
-            function(tx, results) {
-                for (var i = 0; i < results.rows.length; i++) {
-                    Notification.remove(results.rows.item(i).seqnum + sample.pushcapture.notificationSuffix);   
-                }
-                
-                // Now, drop the push table to delete all the pushes
-                sample.pushcapture.simChangeDropPushTable();
-            },
-            function(tx, e) {
-                // If the push table is not there, no need to
-                // remove any notifications or pushes
-                sample.pushcapture.simChangeSuccessDropPushTable();
+        tx.executeSql("SELECT seqnum FROM push WHERE unread = ?;", [ "T" ], function(tx, results) {
+            for ( var i = 0; i < results.rows.length; i++) {
+                Notification.remove(results.rows.item(i).seqnum + sample.pushcapture.notificationSuffix);
             }
-        );
-    });    
+
+            // Now, drop the push table to delete all the pushes
+            sample.pushcapture.simChangeDropPushTable();
+        }, function(tx, e) {
+            // If the push table is not there, no need to
+            // remove any notifications or pushes
+            sample.pushcapture.simChangeSuccessDropPushTable();
+        });
+    });
 };
 
 /**
@@ -85,7 +77,7 @@ sample.pushcapture.constructor.prototype.onSimChange = function() {
  * 
  * @memberOf sample.pushcapture
  */
-sample.pushcapture.constructor.prototype.simChangeDropPushTable = function() {    
+sample.pushcapture.constructor.prototype.simChangeDropPushTable = function() {
     sample.pushcapture.db.transaction(function(tx) {
         tx.executeSql("DROP TABLE push;", [], function(tx, results) {
             sample.pushcapture.simChangeSuccessDropPushTable();
@@ -123,9 +115,9 @@ sample.pushcapture.constructor.prototype.simChangeSuccessDropMessageHistory = fu
 };
 
 /**
- * Retrieves the appid, whether or not the Push Initiator is being subscribed to (using the Push Service SDK), and the Push Initiator URL 
- * from the configuration table. If the Push Initiator is being subscribed to, we also load the currently registered user so that we can 
- * unsubscribe them.
+ * Retrieves the appid, whether or not the Push Initiator is being subscribed to (using the Push Service SDK), and the Push
+ * Initiator URL from the configuration table. If the Push Initiator is being subscribed to, we also load the currently registered
+ * user so that we can unsubscribe them.
  * 
  * @param {SQLTransaction}
  *            tx a database transaction
@@ -158,8 +150,8 @@ sample.pushcapture.constructor.prototype.simChangeLoadConfigAndUser = function(t
  */
 sample.pushcapture.constructor.prototype.simChangeLoadUser = function() {
     sample.pushcapture.db.readTransaction(function(tx) {
-        tx.executeSql("SELECT userid, passwd FROM registration;", [],
-                sample.pushcapture.simChangeUnsubscribeFromPushInitiator, function(tx, e) {
+        tx.executeSql("SELECT userid, passwd FROM registration;", [], sample.pushcapture.simChangeUnsubscribeFromPushInitiator,
+                function(tx, e) {
                     sample.pushcapture.simChangeSuccess();
                 });
     });
@@ -215,21 +207,24 @@ sample.pushcapture.constructor.prototype.simChangeUnsubscribeFromPushInitiator =
 };
 
 /**
- * Called after successfully clearing the necessary database tables and unsubscribing
- * from the Push Initiator (if using the Push Service SDK for subscription with the 
- * Push Initiator).
+ * Called after successfully clearing the necessary database tables and unsubscribing from the Push Initiator (if using the Push
+ * Service SDK for subscription with the Push Initiator).
  * 
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.simChangeSuccess = function() {
     // If we are on the home screen, we need to now remove the processing message
     if (document.getElementById("push-list") != null) {
-        document.getElementById("push-screen").removeChild(document.getElementById("progressinfo"));
-        
+        document.getElementById("progressinfo").style.display = "none";
+
         sample.pushcapture.displayNoResults();
     }
-    
-    alert("The SIM card was changed and, as a result, the current user has been unregistered. Please register again.");
+
+    blackberry.ui.dialog.standardAskAsync(
+            "The SIM card was changed and, as a result, the current user has been unregistered. Please register again.",
+            blackberry.ui.dialog.D_OK, null, {
+                title : "Push Capture"
+            });
 
     // Show the register tab
     // Check if we are already on the user input screen

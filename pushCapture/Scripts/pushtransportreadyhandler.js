@@ -40,5 +40,7 @@ sample.pushcapture.constructor.prototype.onPushTransportReady = function(lastFai
 
     message += "again.";
 
-    alert(message);
+    blackberry.ui.dialog.standardAskAsync(message, blackberry.ui.dialog.D_OK, null, {
+        title : "Push Capture"
+    });
 };

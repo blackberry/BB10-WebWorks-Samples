@@ -97,13 +97,6 @@ sample.pushcapture = (function() {
         this.databaseError = "Error: Problem was encountered while attempting to access the database.";
 
         /**
-         * The message to be displayed when no pushes exist in the database.
-         * 
-         * @constant
-         */
-        this.noPushesMessage = "There are currently no pushes.";
-
-        /**
          * PushService object obtained from a success call to blackberry.push.PushService.create.
          */
         this.pushService = null;
@@ -535,7 +528,8 @@ sample.pushcapture = (function() {
                         sample.pushcapture.displayNoConfigError);
             });
         } catch (e) {
-            alert(sample.pushcapture.databaseError);
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = sample.pushcapture.databaseError;
         }
     };
 
@@ -563,7 +557,10 @@ sample.pushcapture = (function() {
                         sample.pushcapture.loadRegistration);
             });
         } catch (e) {
-            alert(sample.pushcapture.databaseError);
+            // The DOM might not be ready yet for bbUI, so we display a dialog here instead
+            blackberry.ui.dialog.standardAskAsync(sample.pushcapture.databaseError, blackberry.ui.dialog.D_OK, null, {
+                title : "Push Capture"
+            });
         }
     };
 
@@ -730,26 +727,30 @@ sample.pushcapture = (function() {
     PushCapture.prototype.failCreatePushService = function(result) {
         if (document.getElementById("config-table") != null) {
             // On the configuration screen
-            document.body.removeChild(document.getElementById("op-in-progress"));
-            document.getElementById("activityindicator").style.display = "none";
-            document.getElementById("progressinfo").style.display = "none";
+            sample.pushcapture.restoreScreenAfterOperation();
         }
 
         if (result == blackberry.push.PushService.INTERNAL_ERROR) {
-            alert("Error: An internal error occurred while calling "
-                    + "blackberry.push.PushService.create. Try restarting the application.");
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = "Error: An internal error occurred while calling "
+                    + "blackberry.push.PushService.create. Try restarting the application.";
         } else if (result == blackberry.push.PushService.INVALID_PROVIDER_APPLICATION_ID) {
             // This error only applies to consumer applications that use a public/BIS PPG
-            alert("Error: Called blackberry.push.PushService.create with a missing "
-                    + "or invalid appId value. It usually means a programming error.");
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = "Error: Called blackberry.push.PushService.create with a missing "
+                    + "or invalid appId value. It usually means a programming error.";
         } else if (result == blackberry.push.PushService.MISSING_INVOKE_TARGET_ID) {
-            alert("Error: Called blackberry.push.PushService.create with a missing "
-                    + "invokeTargetId value. It usually means a programming error.");
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = "Error: Called blackberry.push.PushService.create with a missing "
+                    + "invokeTargetId value. It usually means a programming error.";
         } else if (result == blackberry.push.PushService.SESSION_ALREADY_EXISTS) {
-            alert("Error: Called blackberry.push.PushService.create with an appId or "
-                    + "invokeTargetId value that matches another application. It usually means a " + "programming error.");
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = "Error: Called blackberry.push.PushService.create with an appId or "
+                    + "invokeTargetId value that matches another application. It usually means a " + "programming error.";
         } else {
-            alert("Error: Received error code (" + result + ") after " + "calling blackberry.push.PushService.create.");
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") after "
+                    + "calling blackberry.push.PushService.create.";
         }
     };
 
@@ -771,19 +772,21 @@ sample.pushcapture = (function() {
         } else {
             if (document.getElementById("config-table") != null) {
                 // On the configuration screen
-                document.body.removeChild(document.getElementById("op-in-progress"));
-                document.getElementById("activityindicator").style.display = "none";
-                document.getElementById("progressinfo").style.display = "none";
+                sample.pushcapture.restoreScreenAfterOperation();
             }
 
             if (result == blackberry.push.PushService.INTERNAL_ERROR) {
-                alert("Error: An internal error occurred while calling launchApplicationOnPush. "
-                        + "Try restarting the application.");
+                document.getElementById("errordiv").style.display = "block";
+                document.getElementById("errormsg").innerHTML = "Error: An internal error occurred while calling launchApplicationOnPush. "
+                        + "Try restarting the application.";
             } else if (result == blackberry.push.PushService.CREATE_SESSION_NOT_DONE) {
-                alert("Error: Called launchApplicationOnPush without an "
-                        + "existing session. It usually means a programming error.");
+                document.getElementById("errordiv").style.display = "block";
+                document.getElementById("errormsg").innerHTML = "Error: Called launchApplicationOnPush without an "
+                        + "existing session. It usually means a programming error.";
             } else {
-                alert("Error: Received error code (" + result + ") after " + "calling launchApplicationOnPush.");
+                document.getElementById("errordiv").style.display = "block";
+                document.getElementById("errormsg").innerHTML = "Error: Received error code (" + result + ") after "
+                        + "calling launchApplicationOnPush.";
             }
         }
     };
@@ -794,8 +797,22 @@ sample.pushcapture = (function() {
      * @memberOf sample.pushcapture
      */
     PushCapture.prototype.displayNoConfigError = function() {
-        alert("Error: No configuration settings were found. Please fill them in.");
+        var toastMessage = "Config is needed.";
+        var toastOptions = {
+            buttonText : "Configure",
+            dismissCallback : sample.pushcapture.noConfigToastCallback,
+            timeout : 2000
+        };
 
+        blackberry.ui.toast.show(toastMessage, toastOptions);
+    };
+
+    /**
+     * Redirects to the config tab if no configuration settings are found.
+     * 
+     * @memberOf sample.pushcapture
+     */
+    PushCapture.prototype.noConfigToastCallback = function() {
         // Show the configuration tab
         // Check if we are already on the user input screen
         if (document.getElementById("user-input-screen") != null) {
@@ -808,6 +825,41 @@ sample.pushcapture = (function() {
         } else {
             sample.pushcapture.showUserInputScreen("configuration");
         }
+    };
+
+    /**
+     * Changes the screen to "operation in progress" mode. (Showing an activity indicator, disabling buttons, etc.)
+     * 
+     * @param {String}
+     *            screenType the config screen uses a transparent screen cover while the register / unregister screens use a
+     *            darker one
+     * @memberOf sample.pushcapture
+     */
+    PushCapture.prototype.operationInProgress = function(screenType) {
+        document.getElementById("user-input-title").actionButton.disabled = true;
+
+        var opInProgressDiv = document.createElement("div");
+        opInProgressDiv.id = "op-in-progress";
+        opInProgressDiv.className = screenType;
+        document.body.appendChild(opInProgressDiv);
+
+        document.getElementById("activityindicator").style.display = "block";
+        document.getElementById("progressinfo").style.display = "block";
+    };
+
+    /**
+     * Restores the screen to how it looked prior to performing an operation which used an activity indicator, disabled buttons,
+     * etc.
+     * 
+     * @memberOf sample.pushcapture
+     */
+    PushCapture.prototype.restoreScreenAfterOperation = function() {
+        document.getElementById("user-input-title").actionButton.disabled = false;
+
+        document.body.removeChild(document.getElementById("op-in-progress"));
+
+        document.getElementById("activityindicator").style.display = "none";
+        document.getElementById("progressinfo").style.display = "none";
     };
 
     return new PushCapture();
