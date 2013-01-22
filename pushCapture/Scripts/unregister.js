@@ -30,23 +30,23 @@
 sample.pushcapture.constructor.prototype.initUnregister = function(element) {
     if (sample.pushcapture.usesdkaspi) {
         // The Push Service SDK is being used
-        
-        // The user might have previously been on the unregister tab 
+
+        // The user might have previously been on the unregister tab
         // with the sample.pushcapture.usesdkaspi set to false.
-        // In that case, the username and password text boxes 
-        // would have been removed.  We will have to add them back in.
+        // In that case, the username and password text boxes
+        // would have been removed. We will have to add them back in.
         if (element.getElementById("unreguserid") == null) {
             element.getElementById("unreguseridtd").innerHTML = "<input type='text' id='unreguserid' autocomplete='off' maxlength='42' placeholder='Username' />";
-            element.getElementById("unregpwdtd").innerHTML = "<input type='password' id='unregpwd' maxlength='42' placeholder='Password' />";   
-            
+            element.getElementById("unregpwdtd").innerHTML = "<input type='password' id='unregpwd' maxlength='42' placeholder='Password' />";
+
             // Apply the bbUI styling to the text boxes
             var unregisterTextInputs = new Array();
             unregisterTextInputs[0] = element.getElementById("unreguserid");
             unregisterTextInputs[1] = element.getElementById("unregpwd");
-            
+
             bb.textInput.apply(unregisterTextInputs);
         }
-        
+
         // Display the username and password fields
         element.getElementById("unreguserid").value = sample.pushcapture.userid;
         element.getElementById("unregpwd").value = sample.pushcapture.passwd;
@@ -67,25 +67,20 @@ sample.pushcapture.constructor.prototype.initUnregister = function(element) {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.unregister = function() {
+    document.getElementById("progressinfo").style.display = "none";
     document.getElementById("errordiv").style.display = "none";
 
     var wasValidationSuccessful = sample.pushcapture.validateUnregisterFields();
 
     if (wasValidationSuccessful) {
-        // Disable the fields, so that they cannot be clicked while attempting to unregister
+        // Disable the fields, so that they cannot be changed while attempting to unregister
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("user-input-title").actionButton.disabled = true;
             document.getElementById("unreguserid").disable();
             document.getElementById("unregpwd").disable();
         }
 
-        var opInProgressDiv = document.createElement("div");
-        opInProgressDiv.id = "op-in-progress";
-        opInProgressDiv.className = "full-size-dark";
-        document.body.appendChild(opInProgressDiv);
+        sample.pushcapture.operationInProgress("full-size-dark");
 
-        document.getElementById("activityindicator").style.display = "block";
-        document.getElementById("progressinfo").style.display = "block";
         document.getElementById("progressinfo").innerHTML = "Destroying push channel...";
 
         if (sample.pushcapture.pushService) {
@@ -94,16 +89,14 @@ sample.pushcapture.constructor.prototype.unregister = function() {
             // This error should not occur since a PushService object should have been created
             // before trying to do a destroy channel
             // We'll display an error if, by chance, this does happen
-            document.body.removeChild(document.getElementById("op-in-progress"));
-            document.getElementById("activityindicator").style.display = "none";
-            document.getElementById("progressinfo").style.display = "none";
+            sample.pushcapture.restoreScreenAfterOperation();
+
             if (sample.pushcapture.usesdkaspi) {
-                document.getElementById("user-input-title").actionButton.disabled = false;
                 document.getElementById("unreguserid").enable();
                 document.getElementById("unregpwd").enable();
             }
-            document.getElementById("errordiv").style.display = "block";
 
+            document.getElementById("errordiv").style.display = "block";
             document.getElementById("errormsg").innerHTML = "Error: Could not destroy push "
                     + "channel as no PushService object was found.";
         }
@@ -162,14 +155,13 @@ sample.pushcapture.constructor.prototype.destroyChannelCallback = function(resul
             sample.pushcapture.successfulUnregister();
         }
     } else {
-        document.body.removeChild(document.getElementById("op-in-progress"));
-        document.getElementById("activityindicator").style.display = "none";
-        document.getElementById("progressinfo").style.display = "none";
+        sample.pushcapture.restoreScreenAfterOperation();
+
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("user-input-title").actionButton.disabled = false;
             document.getElementById("unreguserid").enable();
             document.getElementById("unregpwd").enable();
         }
+
         document.getElementById("errordiv").style.display = "block";
 
         if (result == blackberry.push.PushService.INTERNAL_ERROR) {
@@ -266,13 +258,9 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
             // Successful unsubscribe from the Push Initiator, now clear the registration
             sample.pushcapture.clearRegistration();
         } else {
-            // Hide the progress info because there was an error
-            document.body.removeChild(document.getElementById("op-in-progress"));
-            document.getElementById("activityindicator").style.display = "none";
-            document.getElementById("progressinfo").style.display = "none";
+            sample.pushcapture.restoreScreenAfterOperation();
 
             // Enable the fields again because there was an error
-            document.getElementById("user-input-title").actionButton.disabled = false;
             document.getElementById("unreguserid").enable();
             document.getElementById("unregpwd").enable();
 
@@ -310,13 +298,9 @@ sample.pushcapture.constructor.prototype.pushInitiatorUnsubscribeHandler = funct
             }
         }
     } else {
-        // Hide the progress info because there was an error
-        document.body.removeChild(document.getElementById("op-in-progress"));
-        document.getElementById("activityindicator").style.display = "none";
-        document.getElementById("progressinfo").style.display = "none";
+        sample.pushcapture.restoreScreenAfterOperation();
 
         // Enable the fields again because there was an error
-        document.getElementById("user-input-title").actionButton.disabled = false;
         document.getElementById("unreguserid").enable();
         document.getElementById("unregpwd").enable();
 
@@ -351,13 +335,13 @@ sample.pushcapture.constructor.prototype.clearRegistration = function() {
  */
 sample.pushcapture.constructor.prototype.successfulUnregister = function() {
     // Indicate that the unregister was successful
-    document.body.removeChild(document.getElementById("op-in-progress"));
-    document.getElementById("activityindicator").style.display = "none";
+    sample.pushcapture.restoreScreenAfterOperation();
+
+    document.getElementById("progressinfo").style.display = "block";
     document.getElementById("progressinfo").innerHTML = "Successfully unregistered.";
 
     // Enable the fields again because the unregister is done
     if (sample.pushcapture.usesdkaspi) {
-        document.getElementById("user-input-title").actionButton.disabled = false;
         document.getElementById("unreguserid").enable();
         document.getElementById("unregpwd").enable();
     }

@@ -66,7 +66,7 @@ Note that in order to use the Push Service for developing an application for the
 ## How to receive a push
 
 1. Start the Push Capture sample application (if you haven't done so already).
-2. An alert will pop up telling you that you need to configure the sample application.  You will be taken to the configuration screen.
+2. A toast will pop up telling you that you need to configure the sample application.  You will be taken to the configuration screen.
 3. Click **Public/BIS** if the PPG is the BlackBerry Internet Service or **Enterprise/BDS** if the PPG is the BlackBerry Device Service.
 4. Clear the **Subscribe with Push Service SDK** check box if one of the following is true:
 i) You implemented a Push Initiator that does not use the Push Service SDK.

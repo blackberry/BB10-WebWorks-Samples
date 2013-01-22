@@ -382,9 +382,9 @@ sample.pushcapture.constructor.prototype.addPushItem = function(content, type, e
         dateColumn.appendChild(dateColumnText);
         dateRow.appendChild(dateColumn);
 
-        if (document.getElementById("no-results") != null) {
-            // Remove the "no pushes" message
-            document.getElementById("push-screen").removeChild(document.getElementById("no-results"));
+        if (document.getElementById("no-results").style.display == "block") {
+            // Hide the "no pushes" message
+            document.getElementById("no-results").style.display = "none";
 
             document.getElementById("push-table").appendChild(dateRow);
 
@@ -412,7 +412,11 @@ sample.pushcapture.constructor.prototype.addPushItem = function(content, type, e
  */
 sample.pushcapture.constructor.prototype.getPushedContentFileExtension = function(contentType) {
     if (!contentType) {
-        alert("Missing Content-Type header for push. Defaulting to text.");
+        blackberry.ui.dialog.standardAskAsync("Missing Content-Type header for push. Defaulting to text.",
+                blackberry.ui.dialog.D_OK, null, {
+                    title : "Push Capture"
+                });
+
         return ".txt";
     }
 
@@ -429,7 +433,11 @@ sample.pushcapture.constructor.prototype.getPushedContentFileExtension = functio
     } else if (contentType.startsWith("text/plain")) {
         return ".txt";
     } else {
-        alert("File extension is unknown for Content-Type header value: " + contentType + ".");
+        blackberry.ui.dialog.standardAskAsync("File extension is unknown for Content-Type header value: " + contentType + ".",
+                blackberry.ui.dialog.D_OK, null, {
+                    title : "Push Capture"
+                });
+
         return null;
     }
 };
@@ -444,7 +452,11 @@ sample.pushcapture.constructor.prototype.getPushedContentFileExtension = functio
  */
 sample.pushcapture.constructor.prototype.getPushedContentType = function(contentType) {
     if (!contentType) {
-        alert("Missing Content-Type header for push. Defaulting to text.");
+        blackberry.ui.dialog.standardAskAsync("Missing Content-Type header for push. Defaulting to text.",
+                blackberry.ui.dialog.D_OK, null, {
+                    title : "Push Capture"
+                });
+
         return "text";
     }
 
