@@ -15,18 +15,11 @@
 */
 
 define([
+
+    "text!./template.html",
+    "link!./style-hdpi.css",
 	
-	"backbone",
-	
-	//use the text! plugin to load the HTML file and pass it into our view
-	"text!effectsView/../template.html",
-	
-	//use the css! plugin to load the css file and apply to our view
-	"link!effectsView/../style-hdpi.css",
-	
-	
-	
-	], function(Backbone,template){
+	], function(template){
 	    
     effectsCollection = Backbone.Collection.extend({
         
@@ -51,7 +44,7 @@ define([
   	    
  		tagName:  "section",
  		
- 		className: "effects-view view with-action-bar half-view",
+ 		className: "effects-view",
 		
 		layoutTemplate: _.template($(template).html()),
 
@@ -137,7 +130,7 @@ define([
     	
     	clear: function(){
             //clear effect
-    	    $(window.cameraLayer).css("-webkit-filter","");
+    	    $(window.cameraLayer).css("-webkit-filter","none");
     	    this.turnedOn = false;
     	    this.render();  
     	},
@@ -153,8 +146,10 @@ define([
                 //set css filter on the canvas
                 $(window.cameraLayer).css("-webkit-filter",this.effect.get("effect"));       	       
             }
-            else
-                this.clear();
+            else{
+                //turn off all other effects
+                effects.trigger("clearAllFx");
+            }
            
             this.render();
          }
