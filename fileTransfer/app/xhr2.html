@@ -16,6 +16,7 @@
 -->
 
 <head>
+    <title>HTML5 XHR Level 2 and FileSystem API</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="local:///chrome/webworks.js" type="text/javascript"></script>
     <link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min.css" />
@@ -47,40 +48,10 @@
                     blob = bb.getBlob('image/jpeg');
 
                     //save blob data to the shared folder and display it with blackberry.invoke
-                    displayImage(blob);
+                    saveImage(blob);
                 }
             };
             xhr.send();
-        }
-
-        function displayImage(blob) {
-
-            saveImage(blob);
-            
-            blackberry.invoke.invoke({
-                uri: "file://" + blackberry.io.sharedFolder + "/downloads/blackberry.jpg"
-            }, function () { console.log("invocation success") }, function (e) { alert("invocation failure: " + e); });
-        }
-
-        //This function uses the HTML5 File API to write blob data to a file
-        //Official W3 Documentation: http://www.w3.org/TR/file-system-api/
-        function saveImage (blob) {
-            function gotFs(fs) {
-                fs.root.getFile(blackberry.io.sharedFolder + "/downloads/blackberry.jpg", {create: true}, gotFile, errorHandler);
-            }
-
-            function gotFile(fileEntry) {
-                fileEntry.createWriter(gotWriter, errorHandler);
-            }
-
-            function gotWriter(fileWriter) {
-                fileWriter.onerror = function (e) {
-                    alert("Failed to write JPG: " + e.toString());
-                }
-                fileWriter.write(blob);
-            }
-            blackberry.io.sandbox = false;
-            window.webkitRequestFileSystem(PERSISTENT, 10 * 1024, gotFs, errorHandler);
         }
 
         function errorHandler(fileError) {
@@ -112,7 +83,44 @@
 
             alert('Error: ' + msg);
         }
-        
+
+        //This function uses the HTML5 File API to write blob data to a file
+        //Official W3 Documentation: http://www.w3.org/TR/file-system-api/
+        function saveImage (blob) {
+
+            blackberry.io.sandbox = false;
+
+            window.webkitRequestFileSystem(PERSISTENT, 1024*1024,
+                function(fs) {
+
+                    //Initialize the file system and create a new request for file:
+                    fs.root.getFile(blackberry.io.sharedFolder + "/downloads/blackberry.jpg", {create: true},
+                        function(fileEntry) {
+
+                            //Initialize a writer object:
+                            console.log("Writing to " + fileEntry.fullPath);
+                            fileEntry.createWriter( function(fileWriter) {
+                                                            fileWriter.onwriteend  = function (e) { console.log("Write file complete"); }
+                                                            fileWriter.onerror     = function (e) { console.log("Failed to write file: " + e.toString()); }
+
+                                                            fileWriter.write(blob);
+
+                                                            //once the file has been saved to disk, open it through invoke
+                                                            blackberry.invoke.invoke({uri: "file://" + blackberry.io.sharedFolder + "/downloads/blackberry.jpg"},
+                                                                function () { console.log("invocation success") },
+                                                                function (e) { alert("invocation failure: " + e);}
+                                                            );
+
+                                                         }, errorHandler);
+                        },
+
+                        function(err) { console.log("Error in getFile"); errorHandler(err); });
+
+                }, function(err) { console.log("Error in webkitRequestFileSystem"); errorHandler(err); }
+            );
+
+        }
+
         window.addEventListener("load", function () {
             document.addEventListener("webworksready", ready);
         }, false);
