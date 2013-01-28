@@ -44,7 +44,7 @@ canvas#camera{
 	background: #141414;
 	border-radius: 70px 0px 0px 0px;
 	box-shadow: 5px 5px 20px rgba(0,0,0,0.36);
-	z-index:4;
+	z-index:2;
 	right:0px;
 	bottom:0px;
 }
