@@ -1,0 +1,139 @@
+/*
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+html { height: 100% }
+
+body { 
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%; 
+	margin: 0; 
+	padding: 0;
+	background-image: -webkit-gradient(linear,  left top,  left bottom, 
+		color-stop(20%, red), 
+		color-stop(40%, orange),
+		color-stop(60%, yellow),
+		color-stop(70%, green),
+		color-stop(100%, blue));
+}
+
+#headTop, #theHead, #mouthOpen, #mouthClosed, #jesse {
+	position: absolute;
+}
+
+#squint {
+	position: absolute;
+	display: none;
+	top: 260px;
+	left: 125px;
+}
+
+#headTop {
+	top: 260px;
+	left: 164px;
+}
+
+.openHead {
+	-webkit-animation-name: openHead;
+	-webkit-animation-duration:1s;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes openHead {
+	from {
+		-webkit-transform: rotate(0deg);
+		-webkit-transform-origin: 0 90%;
+	}
+	to {
+		-webkit-transform: rotate(-50deg);
+		-webkit-transform-origin: 0 90%;
+	}
+}
+
+
+#jesse {
+	top: 400px;
+	left: 280px;
+}
+
+
+.jesseUp {
+	-webkit-animation-name: jesseUp;
+	-webkit-animation-duration:0.5s;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: ease;
+	-webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes jesseUp {
+	from {
+		top: 400px;
+	}
+	to {
+		top: 206px;
+	}
+}
+
+
+#theHead {
+	top: 391px;
+	left: 125px;
+}
+
+
+#mouthOpen {
+	display: none;
+	top: 758px;
+	left: 140px;
+}
+
+
+#mouthClosed {
+	top: 758px;
+	left: 140px;
+}
+
+
+#hitHead {
+	position: absolute;
+	top: 270px;
+	left: 140px;
+	height: 200px;
+	width: 500px;
+	z-index: 9999;
+}
+
+
+#hitNose {
+	position: absolute;
+	top: 700px;
+	left: 310px;
+	height: 170px;
+	width: 170px;
+	z-index: 9999;
+}
+
+
+#hitMouth {
+	position: absolute;
+	top: 900px;
+	left: 230px;
+	height: 400px;
+	width: 320px;
+	z-index: 9999;
+}
