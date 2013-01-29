@@ -27,7 +27,13 @@
 	<!-- Fail the build on JSLint, JSHint, CSSLint errors -->
 	<property name="lintfail" value="false"/>
 	
-	<!-- Include the Targets  -->
+	<!-- Include the Properties and Targets  -->
+	<!-- 
+	The ${ant.home} variable will only work if running the Ant included in this repository. On Mac, which uses its own Ant, set a direct file path here.
+	
+	The buildProperties.xml file is optional but allows you to separate out certain settings, like passwords.
+	-->
+	<!-- <include file="${ant.home}/../buildProperties.xml" /> -->
 	<include file="${ant.home}/../buildTasks.xml" />
 
 	<!-- Default Build - Change as needed to the sdk and build properties you want:
@@ -37,12 +43,12 @@
 	build.ripple (deploy to your file system for serving up in Ripple)
 
 	Specific builds follow the pattern:
-	build.[java, air, native].[test, prod, beta]
-	- use java for BlackBerry 5 through 7.x smartphones
-	- air for PlayBook 1.x through 2.x
-	- native for BlackBerry 10
+	build.[bbos, tablet, bb10].[test, prod, beta]
+	- use bbos for BlackBerry 5 through 7.x smartphones
+	- tablet for PlayBook 1.x through 2.x
+	- bb10 for BlackBerry 10
 
-	- use test for WebInspector, source output, and debug tokens. Will still sign the app for Java Smartphones.
+	- use test for WebInspector, source output, and debug tokens. Java builds will only run on simulators.
 	- use prod for regular signing with a build id and no debugging.
 	- use beta for regular signing with a build id and WebInspector turned on.
 
@@ -52,22 +58,12 @@
 	build.minify concatenates and minifies the JS and CSS files
 
 	Deployment commands follow the pattern:
-	build.deploy.[native.[device, sim], air, java].[test, prod, beta]
-	- native, air, java as defined above
-	- only for native builds, use device for real devices and sim for VMWare based simulators
+	build.deploy.[bb10.[device, sim], tablet, bbos].[test, prod, beta]
+	- bb10, tablet, bbos as defined above
+	- only for bb10 builds, use device for real devices and sim for VMWare based simulators
 	- test, prod, beta to load the matching build created above
 	-->
-	<target name="build" depends="build.native.beta,build.deploy.native.device.beta"></target>
-
-	<!-- Set the details of the device or simulator for deployment -->
-	<!-- For BB10 device -->
-	<property name="device.native.ip" value="169.254.0.1"/>
-	<property name="device.native.pw" value="" />
-	<!-- For Tablet device -->
-	<property name="device.air.ip" value="169.254.0.5"/>
-	<property name="device.air.pw" value="" />
-	<!-- For BBOS Java device (only password is needed) -->
-	<property name="device.java.pw" value="" />
+	<target name="build" depends="build.bb10.prod,build.deploy.bb10.device.prod"></target>
 
 	<!-- Add additional Targets here -->
 	<target name="example" depends=""></target>
