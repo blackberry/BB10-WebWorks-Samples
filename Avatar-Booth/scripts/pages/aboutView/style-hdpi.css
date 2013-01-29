@@ -13,10 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
-section.moustaches-view{
-	top:auto;
-	text-align:center;
+section.help{
 	background: #262626;
-	margin-top:15px;
+	color:#eee;
+	z-index:2;
+	word-wrap: break-word;
+}
+section.help p,section.help h1,section.help h2{	
+
+	padding:20px;
+	font-size:40px;
+	margin:0;
+}
+section.help h1{
+	
+	font-size: 50px;
+	
 }

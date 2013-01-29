@@ -16,15 +16,10 @@
 
 define([
 	
-	"backbone",
+	"text!./template.html",
+	"link!./style-hdpi.css",
 	
-	//use the text! plugin to load the HTML file and pass it into our view
-	"text!takePhotoView/../template.html",
-	
-	//use the css! plugin to load the css file and apply to our view
-	"link!takePhotoView/../style-hdpi.css",
-	
-	], function(Backbone,template){
+	], function(template){
 		
   	takePhotoView = Backbone.View.extend({
  		
@@ -38,7 +33,7 @@ define([
  		
  		snapshot: false,
  		
- 		className: "view with-action-bar",
+ 		className: "take-photo-view",
  		
 		layoutTemplate: _.template($(template).html()),
 		//this ensures we cache our views, so that they don't re-render when the pages are revisited
@@ -71,8 +66,14 @@ define([
                 window.webkitRequestAnimationFrame(this.streamFeed.bind(this));
             
             //feed the video frame by frame to the canvas
-            var cameraLayerContext = window.cameraLayer.getContext('2d');           
-            cameraLayerContext.drawImage(this.video, 0, -200, 768, 1024);
+            var cameraLayerContext = window.cameraLayer.getContext('2d');     
+            
+            //getting ready for keyboard-series device      
+            if(window.innerHeight > 720)
+                cameraLayerContext.drawImage(this.video, 0, -200, 768, 1024);
+            else
+                cameraLayerContext.drawImage(this.video, -100, -85, 720, 720);
+               
         },
         
 		takePhoto: function(){
@@ -102,11 +103,20 @@ define([
             var cameraLayer = this.el.querySelector("#camera");
             var moustacheLayer = this.el.querySelector("#moustaches");
             
+           
             //set up dimensions
-            cameraLayer.width = 768;
-            cameraLayer.height = 702;
-            moustacheLayer.width = 768;
-            moustacheLayer.height = 702;
+            if(window.innerHeight > 720){
+                cameraLayer.width = 768,
+                cameraLayer.height = 702,
+                moustacheLayer.width = 768,
+                moustacheLayer.height = 702;
+            }
+            else{                
+               cameraLayer.width = 550,
+               cameraLayer.height = 550,
+               moustacheLayer.width = 550,
+               moustacheLayer.height = 550; 
+            }
             
             //define canveses as global variables, this way we can access them from any other module
             window.cameraLayer = cameraLayer;

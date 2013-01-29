@@ -14,17 +14,18 @@ The same code will work across other WebKit browser such as Chrome and Safari, w
 	
 **Dependencies**
 
-This project is built on top of [AMD-Stack](http://www.github.com/anzorb/AMD-Stack), which is [licensed](https://github.com/anzorb/AMD-Stack/blob/master/LICENSE.txt) under the Apache License.
+
 
 **Libraries**
 
-1. [jquery-1.7.1.js](http://code.jquery.com/jquery-1.7.1.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
-2. [backbone.min.js] (http://backbonejs.org) is [licensed] (http://github.com/documentcloud/backbone/blob/master/LICENSE) under the MIT license.
-3. [backstack.min.js] (https://github.com/pwalczyszyn/backstack) is [licensed] (https://github.com/pwalczyszyn/backstack/blob/master/LICENSE) under the Apache license.
-4. [require.min.js] (http://requirejs.org) is [dual licensed] (https://github.com/jrburke/requirejs/blob/master/LICENSE) under the MIT and new BSD licenses.
-5. [lodash.js] (https://github.com/bestiejs/lodash) is [licensed] (https://github.com/bestiejs/lodash/blob/master/LICENSE.txt) under the MIT license
-6. [link.min.js] (https://github.com/unscriptable/curl/blob/master/src/curl/plugin/link.js) is [licensed] (https://github.com/unscriptable/curl/blob/master/LICENSE.txt) under the MIT license.
-7. [text.min.js] (http://github.com/jrburke/requirejs) is [dual licensed] (https://github.com/jrburke/requirejs/blob/master/LICENSE) under the MIT and new BSD licenses.
+1. [BB10-ui-stack] (https://github.com/anzorb/BB10-UI-Stack) is [licensed](https://github.com/anzorb/BB10-UI-Stack/blob/master/LICENSE.txt) under the BSD license.
+2. [jquery-1.7.1.js](http://code.jquery.com/jquery-1.7.1.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
+3. [backbone.min.js] (http://backbonejs.org) is [licensed] (http://github.com/documentcloud/backbone/blob/master/LICENSE) under the MIT license.
+4. [backstack.min.js] (https://github.com/pwalczyszyn/backstack) is [licensed] (https://github.com/pwalczyszyn/backstack/blob/master/LICENSE) under the Apache license.
+5. [require.min.js] (http://requirejs.org) is [dual licensed] (https://github.com/jrburke/requirejs/blob/master/LICENSE) under the MIT and new BSD licenses.
+6. [lodash.js] (https://github.com/bestiejs/lodash) is [licensed] (https://github.com/bestiejs/lodash/blob/master/LICENSE.txt) under the MIT license
+7. [link.min.js] (https://github.com/unscriptable/curl/blob/master/src/curl/plugin/link.js) is [licensed] (https://github.com/unscriptable/curl/blob/master/LICENSE.txt) under the MIT license.
+8. [text.min.js] (http://github.com/jrburke/requirejs) is [dual licensed] (https://github.com/jrburke/requirejs/blob/master/LICENSE) under the MIT and new BSD licenses.
 
 ** Artwork ***
 

@@ -14,10 +14,29 @@
 * limitations under the License.
 */
 
-<script type="text/template">
-			
-			<img width="300" src="images/moustache.png"/>
-			<img width="300" src="images/moustache2.png"/>
-			<img width="300" src="images/moustache3.png"/>
+define([
+	
+    "text!./template.html",
+    "link!./style-hdpi.css",
+	
+	], function(template){
+		
+  	aboutView = Backbone.View.extend({
+ 		
+ 		tagName:  "section",
+ 		
+ 		className: "help",
+		
+		layoutTemplate: _.template($(template).html()),
+ 		
+ 		destructionPolicy: "never",
 
-</script>
+		render: function(){
+			//append rendered template.html to this view
+			this.$el.append(this.layoutTemplate);
+			return this;	
+		}
+	
+	});
+
+});

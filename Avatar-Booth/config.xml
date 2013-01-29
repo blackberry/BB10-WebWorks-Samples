@@ -26,7 +26,10 @@ limitations under the License.
 	<description>Avatar Booth</description>
 	<rim:permissions>	
 		    	<rim:permit>use_camera</rim:permit>
-	</rim:permissions>	
+	</rim:permissions>
+	<feature id="blackberry.app">
+    	<param name="orientation" value="portrait" />
+	</feature>
 	<access uri="*" subdomains="true"></access>
 	<content src="app.html"></content>
 	

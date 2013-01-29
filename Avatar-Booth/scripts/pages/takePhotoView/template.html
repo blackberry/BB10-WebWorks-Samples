@@ -14,33 +14,23 @@
 * limitations under the License.
 */
 
-section.effects-view{
-	top:auto;
-	text-align:center;
-	background: #262626;
-}
 
-.effects-grid{
-	margin:auto;
-	overflow:hidden;
-	width:100%;
-	margin:auto;
-}
-.effect{
-	width:190px;
-	height:190px;
-	background:#282828;
-	float:left;
-	border:1px solid #222;
-}
-.effect.on {
-	background: #0098f0;
-	color: #eee;
-}
+<script type="text/template">
+			
+			<div id="logo">
+				<h1>Avatar Booth</h1>
+			</div>
+			<video id="video"></video>
+			
+			<div id="display">
+				<canvas id="camera"></canvas>
+			 	<canvas id="moustaches"></canvas>
 
-.name {
-	line-height:190px;
-	font-size:34px;
-	color:#eee;
-	
-}
+				<section id="controls">
+					<div id="snap"></div>
+					<div id="cancel"></div>
+				</section>
+
+			</div>
+
+</script>

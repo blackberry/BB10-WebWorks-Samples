@@ -16,22 +16,16 @@
 
 define([
 	
-	"backbone",
-	
-	//use the text! plugin to load the HTML file and pass it into our view
-	"text!moustachesView/../template.html",
-	
-	//use the css! plugin to load the css file and apply to our view
-	"link!moustachesView/../style-hdpi.css",
+    "text!./template.html",
+    "link!./style-hdpi.css",
 		
-	
-	], function(Backbone,template){
+	], function(template){
 		
   	moustachesView = Backbone.View.extend({
  	
  		tagName:  "section",
  	
- 		className: "view with-action-bar half-view moustaches-view",
+ 		className: "moustaches-view",
 	
 		layoutTemplate: _.template($(template).html()),
 		
@@ -39,17 +33,21 @@ define([
  		destructionPolicy: "never",
         
         events : {
-          'click img' : 'addMoustache'
+          'click .moustache' : 'addMoustache'
         },
 		
 		render: function(){
 			//append rendered template.html to this view
 			this.$el.append(this.layoutTemplate);
+			this.height = window.innerHeight;
+			
 	       	return this;	
 		},
 		
 		addMoustache: function(e){
-		    var moustache = $(e.currentTarget).attr("src");
+		    //console.log(e);
+		    var moustache = $(e.currentTarget).css('background-image');
+		    moustache = moustache.substr(4, moustache.length-5);
 		    var moustacheLayerContext = window.moustacheLayer.getContext('2d');
 		    //create a new moustache image
 		    var img = new Image();
@@ -57,7 +55,10 @@ define([
 		    //clear the canvas
 		    moustacheLayerContext.clearRect(0 , 0 ,window.moustacheLayer.width , window.moustacheLayer.height);
             //apply the moustache
-            moustacheLayerContext.drawImage(img, 150, 300, 500, 250);
+            if(this.height > 720)            
+                moustacheLayerContext.drawImage(img, 120, 300, 500, 250);
+            else
+                moustacheLayerContext.drawImage(img, 70, 280, 400, 150);
 		}
 
 	});

@@ -15,34 +15,17 @@
 */
 
 require.config({
-    //By default load any module IDs from js/lib
     baseUrl: 'scripts',
     paths: {
-	  	
 		//libraries
-	    jquery: 'lib/jquery/jquery.min',
-	    lodash: 'lib/lodash/lodash.min',
-
-	    backbone: 'lib/backbone/backbone.min',
-	    
-	    //Require.js plugins
-	    text: 'lib/require/plugins/text.min',
-		link: 'lib/require/plugins/link',
-		
-		//UI View Stack
-		backstack: 'lib/backstack/backstack',
-		
-		/* modules */	
-		takePhotoView: 'modules/takePhotoView/main',
-		effectsView: 'modules/effectsView/main',
-        moustachesView: 'modules/moustachesView/main',
-        aboutView: 'modules/aboutView/main',
-        
-        actionBar: 'modules/actionBar/actionBar-min',
-	
+	    jquery: 'lib/jquery.min',
+	    lodash: 'lib/lodash.min',
+	    backbone: 'lib/backbone.min',
+        text: 'lib/text.min',
+        link: 'lib/link',        
+        UIStack: 'lib/UIStack-min',
   	}
  });
- 
  
 require( [ 'backbone', 'controller' ], function(Backbone){
 			
