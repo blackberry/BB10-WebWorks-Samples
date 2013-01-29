@@ -1,0 +1,75 @@
+<!--
+ Copyright 2012 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hammer.js Sample</title>
+      
+        <!-- set viewport -->
+        <script>
+          var meta = document.createElement("meta");
+          meta.setAttribute('name','viewport');
+          meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
+          document.getElementsByTagName('head')[0].appendChild(meta);
+        </script>
+   
+        <!-- css -->
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+
+        <!-- framework -->
+        <script src="local:///chrome/webworks.js" type="text/javascript"></script>
+        
+        <!-- libraries -->
+        <script src="js/lib/jquery-1.8.1.min.js" type="text/javascript"></script>
+        <script src="js/lib/hammer.js" type="text/javascript"></script>
+        
+        <!-- sample code -->
+        <script src="js/app.js"></script>
+    </head>
+    <body> 
+      <div id="hitHead"></div>
+      <div id="hitNose"></div>
+      <div id="hitMouth"></div>
+      <div id="squint">
+        <img src="images/squint.png"/>
+      </div>
+      
+      <div id="headContainer">
+        <div id="jesse">
+          <img src="images/jesse.png"/>
+        </div>
+        <div id="headTop">
+          <img src="images/head_top.png"/>
+        </div>
+        <div id="theHead">
+          <img src="images/head.png"/>
+        </div>
+        <div id="mouthClosed">
+          <img src="images/mouth_closed.png"/>
+        </div>
+
+        <div id="mouthOpen">
+          <img src="images/mouth_open.png"/>
+        </div>
+      </div>
+
+      <!-- initialization -->
+      <script type="text/javascript">
+        document.addEventListener("webworksready", initApp);
+      </script>
+
+    </body>
+</html>
