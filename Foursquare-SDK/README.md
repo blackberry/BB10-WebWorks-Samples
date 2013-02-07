@@ -76,7 +76,7 @@ function(data) {
 
 ```
 
-### Place Picker
+## Place Picker Card
 
 Searching for venues is also really easy.  Again, we simply invoke the Place Picker card.
 		
