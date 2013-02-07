@@ -41,7 +41,7 @@ contentSwipe.onswipe = function(ev) {
 		// do something
 	}
 };
-
+```
 ## How to Build
 
 1. Clone the repo to your local machine
