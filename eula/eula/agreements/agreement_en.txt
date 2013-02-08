@@ -1,0 +1,4 @@
+LICENSE AGREEMENT
+This is the primary text of the agreement. The bulk of the agreement will go here including the terms and conditions of use. This section can be as long as you like as the framework will place this content into a scrollable area. This text, along with the next line of text, will be combined in the main body of the license agreement. It is up to you to determine which sort of agreement you want displayed. Now we are just adding more text for the sake of taking up more space.
+This is the secondary text of the agreement. It will be combined with the above text into the main body of the agreement. Here you can make notes of things like "If you want to see the full agreement online, it can be obtained here..." and then provide a link to a URL. Or something. It's up to you.
+I Agree	I Do Not Agree
