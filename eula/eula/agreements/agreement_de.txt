@@ -1,0 +1,4 @@
+LIZENZVEREINBARUNG
+Dies ist die primäre Text der Vereinbarung. Der Großteil der Vereinbarung wird hier gehen auch die Bedingungen und Konditionen der Nutzung. Dieser Abschnitt kann so lang sein, wie Sie möchten, wie das Framework diese Inhalte in einem rollbaren Bereich platzieren. Dieser Text zusammen mit der nächsten Zeile des Textes wird in dem Hauptkörper des Lizenzvertrages kombiniert werden. Es liegt an Ihnen zu bestimmen, welche Art von Vereinbarung, die Sie angezeigt haben möchten. Jetzt sind wir einfach nur mit mehr Text aus Gründen der Aufnahme mehr Platz.
+Dies ist der zweite Text der Vereinbarung. Es wird mit dem obigen Text in den Hauptkörper der Vereinbarung kombiniert werden. Hier können Sie sich Notizen machen von Dingen wie "Wenn du die volle Zustimmung online sehen möchten, kann es hier heruntergeladen werden ..." und geben Sie dann einen Link zu einer URL. Oder so etwas. Es ist bis zu Ihnen.
+Ich stimme zu	Ich stimme nicht zu
