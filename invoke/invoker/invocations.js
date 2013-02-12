@@ -23,6 +23,14 @@ function onError(error) {
     document.getElementById("log").innerHTML += "<p>Invocation error: " + error + "</p>";
 }
 
+function invokeLinkedIn() {
+    blackberry.invoke.invoke({
+        target: "com.linkedin.urihandler",
+        action: "bb.action.VIEW",
+        uri: "linkedin:contact:http://ca.linkedin.com/pub/chad-tetreault/20/49/985"
+    }, onSuccess, onError);
+}
+
 function invokeTwitter() {
     blackberry.invoke.invoke({
         target: "Twitter",
