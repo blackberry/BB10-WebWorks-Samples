@@ -25,7 +25,7 @@ Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim
 
 ## Screenshots 
 
-![Screenshot](https://raw.github.com/ctetreault/BB10-WebWorks-Samples/master/Foursquare-SDK/screenshot.png)
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Foursquare-Cards/screenshot.png)
 
 ## Initial Foursquare Setup
 
