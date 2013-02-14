@@ -51,7 +51,6 @@ White-list the foursquare.com domain.
 
 Add the feature elements.
 ```
-<feature id="blackberry.ui.toast" />
 <feature id="blackberry.invoke" />
 ```
 
