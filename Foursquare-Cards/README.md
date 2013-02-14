@@ -27,7 +27,11 @@ Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim
 
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Foursquare-Cards/screenshot.png)
 
-## Initial Foursquare Setup
+## Foursquare Setup
+
+IMPORTANT: To use this method of authentication you must **set the Callback URL of your app to http://localhost** at [developer.foursquare.com](http://developer.foursquare.com)
+
+## App Setup
 
 Open app.js and add your app's ClientID to the foursqaureOptions object.
 
