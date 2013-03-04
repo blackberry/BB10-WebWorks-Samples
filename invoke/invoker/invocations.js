@@ -49,6 +49,14 @@ function invokeFacebook() {
     }, onSuccess, onError);
 }
 
+function invokeFacebookPage() {
+    blackberry.invoke.invoke({
+        target: "com.rim.bb.app.facebook",
+        action: "bb.action.OPEN",
+        metadata: JSON.stringify({object_type : 'page' , object_id : '328506290597521'}) 
+    }, onSuccess, onError);
+}
+
 function invokeBrowser() {
     blackberry.invoke.invoke({
         target: "sys.browser",
