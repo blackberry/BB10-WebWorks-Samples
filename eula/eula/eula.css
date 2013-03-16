@@ -1,0 +1,130 @@
+@charset 'UTF-8';
+
+/*
+- Copyright (c) 2012 Research In Motion Limited.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+*/
+
+#eula {
+	display: none;
+	background-color: #222222;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Slate Pro", Slate, "Myriad Pro", "BBAlpha Sans", Helvetica;
+	color: #EEEEEE;
+	-webkit-user-select: none;
+}
+
+#eula > .header {
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	height: 100px;
+
+}
+
+.header > .content {
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 32px;
+	text-align: center;
+	font-size: 32px;
+	color: #EEEEEE;
+}
+
+#eula > .eulabox {
+	background-color: #333333;
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	top: 100px;
+	bottom: 160px;
+	padding: 24px;
+	text-align: center;
+	font-size: 32px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.eulabox > .content {
+	text-align: left;
+	font-size: 36px;
+	color: #00A8DF;
+}
+
+.eulabox :nth-child(2) {
+	padding: 24px 0px 0px 0px;
+}
+
+#eula  > .accept {
+	position: fixed;
+	left: 0px;
+	right: 50%;
+	bottom: 0px;
+	height: 160px;
+}
+
+.accept > .content.image {
+	position: fixed;
+	left: 0px;
+	right: 50%;
+	bottom: 60px;
+	text-align:	center;
+	font-size: 36px;
+}
+
+.accept > .content.text {
+	position: fixed;
+	left: 0px;
+	right: 50%;
+	bottom: 24px;
+	text-align: center;
+	font-size: 36px;
+	color: #11FF11;
+}
+
+#eula  > .deny {
+	position: fixed;
+	left: 50%;
+	right: 0px;
+	bottom: 0px;
+	height: 160px;
+}
+
+.deny > .content.image {
+	position: fixed;
+	left: 50%;
+	right: 0px;
+	bottom: 60px;
+	text-align: center;
+	font-size: 36px;
+}
+
+.deny > .content.text {
+	position: fixed;
+	left: 50%;
+	right: 0px;
+	bottom: 24px;
+	text-align: center;
+	font-size: 36px;
+	color: #FF1111;
+}

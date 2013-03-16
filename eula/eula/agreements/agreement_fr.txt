@@ -1,0 +1,4 @@
+CONTRAT DE LICENCE
+Ceci est le texte principal de l'accord. La majeure partie de l'accord ira ici, y compris les termes et conditions d'utilisation. Cette section peut être aussi longue que vous le souhaitez tant que cadre placera ce contenu dans une zone de défilement. Ce texte, ainsi que la ligne de texte suivante, seront combinés dans le corps principal de l'accord de licence. C'est à vous de déterminer quel type d'accord que vous souhaitez afficher. Maintenant, nous sommes en train d'ajouter plus de texte pour le plaisir de prendre plus de place.
+Ceci est le texte de l'accord secondaire. Il sera combiné avec le texte ci-dessus dans le corps principal de l'accord. Ici vous pouvez prendre des notes sur des choses comme: «Si vous voulez voir la ligne d'un accord, il peut être obtenu ici ..." puis de fournir un lien vers une URL. Ou quelque chose. C'est à vous.
+J'accepte	Je n'accepte pas
