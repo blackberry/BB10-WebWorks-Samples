@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<widget xmlns=" http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0" id="PullDownToRefresh">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0" id="PullDownToRefresh">
   <name>Pull Down to Refresh</name>
   <content src="index.html"/>
   <author>WebWorks</author>
