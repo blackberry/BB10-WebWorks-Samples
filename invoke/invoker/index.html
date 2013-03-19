@@ -14,7 +14,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 -->
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,10 +24,22 @@
     <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
     <script type="text/javascript">
         function ready () {
-            document.getElementById("linkedIn").onclick = invokeLinkedIn;
-            document.getElementById("twitter").onclick = invokeTwitter;
             document.getElementById("facebook").onclick = invokeFacebook;
             document.getElementById("facebookPage").onclick = invokeFacebookPage;
+            document.getElementById("twitter").onclick = invokeTwitter;
+            document.getElementById("twitterProfile").onclick = invokeTwitterProfile;
+            document.getElementById("twitterSearch").onclick = invokeTwitterSearch;
+            document.getElementById("nfc").onclick = invokeNFC;
+            document.getElementById("clock").onclick = invokeClock;
+            document.getElementById("clockAlarm").onclick = invokeClockAlarm;
+            document.getElementById("clockWorld").onclick = invokeClockWorld;
+            document.getElementById("clockStop").onclick = invokeClockStop;
+            document.getElementById("bbWorld").onclick = invokeBBWorld;
+            document.getElementById("bbWorldSearch").onclick = invokeBBWorldSearch;
+            document.getElementById("bbWorldMyWorld").onclick = invokeBBWorldMyWorld;
+            document.getElementById("bbWorldMusic").onclick = invokeBBWorldMusic;
+            document.getElementById("email").onclick = invokeEmail;
+            document.getElementById("linkedIn").onclick = invokeLinkedIn;
             document.getElementById("browser").onclick = invokeBrowser;
             document.getElementById("browserUri").onclick = invokeBrowserUri;
             document.getElementById("help").onclick = invokeHelp;
@@ -38,13 +49,20 @@
             document.getElementById("adobeReader").onclick = invokeAdobeReader;
             document.getElementById("adobeReaderPdf").onclick = invokeAdobeReaderPdf;
             document.getElementById("userApp").onclick = invokeApp;
-            document.getElementById("pictures").onclick = saveFileInvoke;
         }
         //register ready event after window has loaded
         window.addEventListener("load", function (e) {
             document.addEventListener("webworksready", ready)
         }, false);
     </script>
+
+    <style>
+        .sub {
+            padding-left: 25px !important;
+            color: #666;
+        }
+    </style>
+
 </head>
 <body>
     <div data-role="page">
@@ -53,10 +71,22 @@
     </div>
     <div data-role="content">
       <ul data-role="listview">
-        <li id="linkedIn">Invoke LinkedIn</li>
-        <li id="twitter">Invoke Twitter</li>
         <li id="facebook">Invoke Facebook</li>
         <li id="facebookPage">Invoke Facebook Page</li>
+        <li id="twitter">Invoke Twitter</li>
+        <li class="sub" id="twitterProfile">- Profile</li>
+        <li class="sub" id="twitterSearch">- Search</li>
+        <li id="nfc">NFC</li>
+        <li id="email">Email Composer</li>
+        <li id="clock">Clock</li>
+        <li class="sub" id="clockAlarm">- Alarm</li>        
+        <li class="sub" id="clockWorld">- World</li>
+        <li class="sub" id="clockStop">- Stop Watch</li>
+        <li id="bbWorld">BlackBerry World</li>
+        <li class="sub" id="bbWorldSearch">- Search</li>        
+        <li class="sub" id="bbWorldMyWorld">- My World</li>
+        <li class="sub" id="bbWorldMusic">- Music</li>
+        <li id="linkedIn">Invoke LinkedIn</li>
         <li id="browser">Invoke Browser</li>
         <li id="browserUri">Open a hyperlink in Browser</li>
         <li id="help">Invoke Help</li>
@@ -66,7 +96,6 @@
         <li id="adobeReader">Invoke Adobe Reader</li>
         <li id="adobeReaderPdf">Open a PDF file in Adobe Reader</li>
         <li id="userApp">Invoke Apps</li>
-        <li id="pictures">Open a JPG</li>
       </ul>
       <div id="log"></div>
       <p>

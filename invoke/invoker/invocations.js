@@ -14,21 +14,12 @@
 * limitations under the License.
 */
 
-
 function onSuccess() {
     document.getElementById("log").innerHTML += "<p>Invocation sucessful</p>";
 }
 
 function onError(error) {
     document.getElementById("log").innerHTML += "<p>Invocation error: " + error + "</p>";
-}
-
-function invokeLinkedIn() {
-    blackberry.invoke.invoke({
-        target: "com.linkedin.urihandler",
-        action: "bb.action.VIEW",
-        uri: "linkedin:contact:http://ca.linkedin.com/pub/chad-tetreault/20/49/985"
-    }, onSuccess, onError);
 }
 
 function invokeTwitter() {
@@ -40,8 +31,24 @@ function invokeTwitter() {
     }, onSuccess, onError);
 }
 
-function invokeFacebook() {
+function invokeTwitterProfile() {
     blackberry.invoke.invoke({
+        target: "com.twitter.urihandler",
+        action: "bb.action.VIEW",
+        uri: "twitter:connect:blackberrydev"
+    }, onSuccess, onError);
+}
+
+function invokeTwitterSearch() {
+    blackberry.invoke.invoke({
+        target: "com.twitter.urihandler",
+        action: "bb.action.VIEW",
+        uri: "twitter:search:#bb10believe"
+    }, onSuccess, onError);
+}
+
+function invokeFacebook() {
+        blackberry.invoke.invoke({
         target: "Facebook",
         action: "bb.action.SHARE",
         type: "text/plain",
@@ -54,6 +61,107 @@ function invokeFacebookPage() {
         target: "com.rim.bb.app.facebook",
         action: "bb.action.OPEN",
         metadata: JSON.stringify({object_type : 'page' , object_id : '328506290597521'}) 
+    }, onSuccess, onError);
+}
+
+function invokeClock() {
+    blackberry.invoke.invoke({
+        target: "bb.clock.launcher",
+        action: "bb.action.VIEW",
+        type: "text/plain",
+    }, onSuccess, onError);
+}
+
+function invokeClockAlarm() {
+    blackberry.invoke.invoke({
+        target: "bb.clock.launcher",
+        action: "bb.action.VIEW",
+        type: "text/plain",
+        data: "alarmClockPane"
+    }, onSuccess, onError);
+}
+
+function invokeClockWorld() {
+    blackberry.invoke.invoke({
+        target: "bb.clock.launcher",
+        action: "bb.action.VIEW",
+        type: "text/plain",
+        data: "worldClockTab"
+    }, onSuccess, onError);
+}
+
+function invokeClockStop() {
+    blackberry.invoke.invoke({
+        target: "bb.clock.launcher",
+        action: "bb.action.VIEW",
+        type: "text/plain",
+        data: "stopwatchTab"
+    }, onSuccess, onError);
+}
+
+function invokeBBWorld() {
+    blackberry.invoke.invoke({
+        target: "sys.appworld",
+        action: "bb.action.OPEN",
+        uri: "appworld://"
+    }, onSuccess, onError);
+}
+
+function invokeBBWorldSearch() {
+    blackberry.invoke.invoke({
+        target: "sys.appworld",
+        action: "bb.action.OPEN",
+        uri: "appworld://search/s=cats"
+    }, onSuccess, onError);
+}
+
+function invokeBBWorldMyWorld() {
+    blackberry.invoke.invoke({
+        target: "sys.appworld",
+        action: "bb.action.OPEN",
+        uri: "appworld://myworld"
+    }, onSuccess, onError);
+}
+
+function invokeBBWorldMusic() {
+    blackberry.invoke.invoke({
+        target: "sys.appworld",
+        action: "bb.action.OPEN",
+        uri: "appworld://music"
+    }, onSuccess, onError);
+}
+
+
+function invokeNFC() {
+    blackberry.invoke.invoke({
+        target: "sys.NFCViewer",
+        action: "bb.action.SHARE",
+        uri: "http://chadtatro.com"
+    }, onSuccess, onError);
+}
+
+function invokeEmail() {
+    blackberry.invoke.card.invokeEmailComposer({
+        subject: "Email subject",
+        body: "Email body",
+        to: ["a@a.ca", "b@b.com"],
+        cc: ["c@c.ca, d@d.com"],
+        attachment: ["path-to-file.jpg"]
+    }, 
+    function(success) {
+    }, 
+    function (cancel) {
+    },
+    function (error) {
+    } 
+    );
+}
+
+function invokeLinkedIn() {
+    blackberry.invoke.invoke({
+        target: "com.linkedin.urihandler",
+        action: "bb.action.VIEW",
+        uri: "linkedin:contact:http://ca.linkedin.com/pub/chad-tetreault/20/49/985"
     }, onSuccess, onError);
 }
 
@@ -117,63 +225,4 @@ function invokeApp() {
         type: "text/plain",
         data: "Hello, I invoked you"
     }, onSuccess, onError);
-}
-
-function saveFileInvoke () {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/cliffs.jpg', false);
-    xhr.responseType = 'blob';
-
-    xhr.onload = function(e) {
-        blackberry.io.sandbox = false;
-        window.webkitRequestFileSystem(PERSISTENT, 1024 * 1024, function(fs) {
-            fs.root.getFile(blackberry.io.sharedFolder + '/downloads/cliffs.jpg', {create: true}, function(fileEntry) {
-                fileEntry.createWriter(function(writer) {
-
-                writer.onerror = function(e) { alert(e) };
-
-                var blob = new Blob([xhr.response], {type: 'image/jpeg'});
-
-                writer.write(blob);
-
-                }, errorHandler);
-            }, errorHandler);
-        }, errorHandler);
-    }
-
-    xhr.send();
-
-    blackberry.invoke.invoke({
-        uri: "file:///accounts/1000/shared/downloads/cliffs.jpg",
-    }, onSuccess, onError);
-}
-
-function errorHandler(fileError) {
-    var msg = '';
-
-    switch (fileError.code) {
-        case FileError.QUOTA_EXCEEDED_ERR:
-            msg = 'QUOTA_EXCEEDED_ERR';
-            break;
-        case FileError.NOT_FOUND_ERR:
-            msg = 'NOT_FOUND_ERR';
-            break;
-        case FileError.SECURITY_ERR:
-            msg = 'SECURITY_ERR';
-            break;
-        case FileError.INVALID_MODIFICATION_ERR:
-            msg = 'INVALID_MODIFICATION_ERR';
-            break;
-        case FileError.INVALID_STATE_ERR:
-            msg = 'INVALID_STATE_ERR';
-            break;
-        case FileError.NO_MODIFICATION_ALLOWED_ERR:
-            msg = 'NO_MODIFICATION_ALLOWED_ERR';
-            break;
-        default:
-            msg = 'File Error';
-          break;
-    };
-
-    alert('Error: ' + msg);
 }
