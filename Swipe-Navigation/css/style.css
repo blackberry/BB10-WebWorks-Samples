@@ -23,12 +23,12 @@ body {
 }
 
 #content {
-	position: fixed;
+	position: absolute;
 	height: 100%;
 	width: 100%;
 }
 
 #content p {
-	padding-left: 38%;
-	font-size: 10em;
+	text-align: center;
+	font-size: 6em;
 }
