@@ -293,7 +293,12 @@ sample.pushcapture.constructor.prototype.insertPush = function(content, type, ex
             // application has not been brought to the foreground
             if (!sample.pushcapture.hasBeenInForeground) {
                 setTimeout(function() {
-                    blackberry.app.exit();
+                    // Check again that the application has not been 
+                    // brought to the foreground in the second before
+                    // we exit
+                    if (!sample.pushcapture.hasBeenInForeground) {
+                        blackberry.app.exit();
+                    }
                 }, 1000);
             }
         });

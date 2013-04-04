@@ -29,7 +29,7 @@ Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim
 
 As of WebWorks SDK 1.0.4.7 we now take advantage of the window.open support.  OAuth samples **no longer need to rely on a server-side component** to redirect the webview back to your application.  This provides a nice flowing user experience.
 
-## Initial Twitter Setup
+## Initial Facebook Setup
 
 1. Create an application on Facebook (http://developers.facebook.com/) 
 2. Under "App Domains" enter a domain where you'll be redirecting the user after they authenticate
