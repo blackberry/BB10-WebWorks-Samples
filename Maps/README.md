@@ -65,7 +65,7 @@ Don't forget to access the devices location information via HTML5 Geolocation, t
 
 ```
 <rim:permissions>
-   <rim:permit>read_geolocation</rim:permit>
+	<rim:permit>access_location_services</rim:permit>
 </rim:permissions>
 ```
 
