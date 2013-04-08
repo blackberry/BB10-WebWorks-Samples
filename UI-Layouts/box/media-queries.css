@@ -1,0 +1,43 @@
+/*
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/* in landscape, make the footer smaller, to allow for more content */
+@media all and (orientation:landscape) and (width:1280px){
+
+    header,footer{
+		height:90px;
+	}
+}
+
+
+/* detect BlackBerry Q10 and make header and footer shorter for more screen estate  */
+@media all and (width:720px) and (height: 720px)
+{
+    header,
+    footer{
+            height: 90px;
+    }     
+}
+
+/* hide header and footer when available height is too short*/ 
+@media 
+all and (max-height:870px) and (max-width: 768px), /* portrait 1280x720 and 1280x768 */
+all and (max-height:450px) and (width: 1280px) /* landscape */
+{
+    header,footer{
+		display:none;
+	}
+}

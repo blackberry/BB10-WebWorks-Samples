@@ -1,0 +1,79 @@
+<!--
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />	
+    <!-- inject meta viewport tag to force a 1:1 device pixel to CSS pixel ratio -->
+    <script>
+			var meta = document.createElement("meta");
+			meta.setAttribute('name','viewport');
+			meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
+			document.getElementsByTagName('head')[0].appendChild(meta);
+	</script>
+	<link rel="stylesheet" href="../common/style.css"/>
+	<link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+  	<!-- container #App -->
+  	<div class="container">
+  		<!-- header -->
+  		<header>  			
+  			<h1>Header</h1>
+  			<!-- search-bar -->
+  			<section id="search-bar">
+  				<input type="text" id="search-query" placeholder="Search"/>
+  				<input type="button" id="search-btn" value="Search"/>
+  			</section>
+		</header>
+		<!-- scrollable content -->
+  		<section class="content">  			
+  			<ul>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  				<li>list item</li>
+  			</ul>
+  		</section>
+  		<!-- footer -->
+  		<footer>
+  			<h1>Footer</h1>
+		</footer>
+  	</div>
+  </body>
+</html>
