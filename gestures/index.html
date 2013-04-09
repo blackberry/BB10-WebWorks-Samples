@@ -38,6 +38,12 @@
         
         <!-- sample code -->
         <script src="js/app.js"></script>
+
+         <!-- initialization -->
+        <script type="text/javascript">
+          document.addEventListener("webworksready", initApp);
+        </script>
+
     </head>
     <body> 
       <div id="hitHead"></div>
@@ -57,6 +63,7 @@
         <div id="theHead">
           <img src="images/head.png"/>
         </div>
+
         <div id="mouthClosed">
           <img src="images/mouth_closed.png"/>
         </div>
@@ -64,12 +71,9 @@
         <div id="mouthOpen">
           <img src="images/mouth_open.png"/>
         </div>
+
       </div>
 
-      <!-- initialization -->
-      <script type="text/javascript">
-        document.addEventListener("webworksready", initApp);
-      </script>
 
     </body>
 </html>
