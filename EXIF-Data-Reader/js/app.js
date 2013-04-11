@@ -88,6 +88,7 @@ function prepareImage (filepath) {
 		image.onload = function () {
 			// we're setting the image to the size of the screen for this demo, you could grab the images width/height
 			// EXIF values and scale accordingly as well
+
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 
@@ -96,34 +97,39 @@ function prepareImage (filepath) {
 
 			// read the 'orientation' value of our image
 			var imageOrientation = $(el).exif('Orientation');
-
+			console.log(imageOrientation);
 
 			//img is sideways (orientation 6 is 'right side up', how the camera stores the photo on Z10/Q10)
 			if (imageOrientation == 6) {
 				alert('EXIF.orientation: ' + imageOrientation[0] + '\nPhoto is sideways. Rotate it!');
-				rotateImage();
-			}  else {
+				rotateImage(imageOrientation);
+			}  else if (imageOrientation == 8) {
 				alert('EXIF.orientation: ' + imageOrientation[0] + '\nPhoto is not sideways');
+				rotateImage(imageOrientation);
 			}
 
 			// get the base64 encoded image data from the redrawn canvas and set it as the originalImage's source
 			var resizedImage = canvas.toDataURL('image/jpeg', 1);
 			el.src = resizedImage;
 			el.style.display = 'block';
-		}
+		};
 	}, 0);
 }
 
 
 // rotate the image
-function rotateImage() {
+function rotateImage(orientation) {
 	var canvas = jQuery('#canvas').get(0);
 	var ctx = canvas.getContext('2d');
 	var h = window.innerHeight;
 	var w = window.innerWidth;
 
 	// rotate 90 degrees clockwise
-	ctx.rotate(90 * Math.PI / 180);
-
-	ctx.drawImage(canvas, 0, -w, h, w);
+	if (orientation == 6) {
+		ctx.rotate(90 * Math.PI / 180);
+		ctx.drawImage(canvas, 0, -w, h, w);
+	}  else if (orientation == 8) {
+		ctx.rotate(-90 * Math.PI / 180);
+		ctx.drawImage(canvas, -h, 0, h, w);
+	}
 }
