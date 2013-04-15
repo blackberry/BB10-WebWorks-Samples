@@ -19,12 +19,12 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Flotr2.js](https://github.com/HumbleSoftware/Flotr2), available under the [MIT License]()
 * [Subway Icons by Pixle](http://subway.pixle.pl/rim/) Licensed under [CC-BY3](http://creativecommons.org/licenses/by/3.0/)
 
-** Screenshots 
+**Screenshots**
 
-![Screenshot](screenshots/IMG_00000004.png)
-![Screenshot](screenshots/IMG_00000003.png)
-![Screenshot](screenshots/IMG_00000002.png)
-![Screenshot](screenshots/IMG_00000001.png)
+![Screenshot](screenshots/IMG_00000004.png) &nbsp;
+![Screenshot](screenshots/IMG_00000003.png) &nbsp;
+![Screenshot](screenshots/IMG_00000002.png) &nbsp;
+![Screenshot](screenshots/IMG_00000001.png) &nbsp;
 ![Screenshot](screenshots/Q10-1.png)
 
 **Known Issues**
