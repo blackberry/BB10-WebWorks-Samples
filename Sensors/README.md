@@ -15,7 +15,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Dependencies**
 
-* [bbUI.js](https://github.com/blackberry/bbUI.js) version 0.9.5, available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
+* [bbUI.js](https://github.com/blackberry/bbUI.js) version 0.9.6, available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 * [Flotr2.js](https://github.com/HumbleSoftware/Flotr2), available under the [MIT License]()
 * [Subway Icons by Pixle](http://subway.pixle.pl/rim/) Licensed under [CC-BY3](http://creativecommons.org/licenses/by/3.0/)
 
@@ -25,6 +25,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000003.png)
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000002.png)
 ![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/IMG_00000001.png)
+![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Sensors/screenshots/Q10-1.png)
 
 **Known Issues**
 
@@ -34,6 +35,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Tested On**
 * BlackBerry 10 Dev Alpha B 10.0.9.1103
+* BlackBerry Z10 10.1.0.1471
+* BlackBerry Q10 10.1.0.1471
+
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
