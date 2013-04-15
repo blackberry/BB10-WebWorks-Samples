@@ -36,7 +36,7 @@
 			onscreenready: function(element, id) {
 				// Choose the sensor based on ID of the link selected, and start listening
 				var sensor = bbsensors[id];
-				if (sensor) {
+				if (sensor && sensor.name) {
 					bbsensors.listen(sensor);
 				} else {
 					bbsensors.listen('');

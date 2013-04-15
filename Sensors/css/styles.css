@@ -3,11 +3,12 @@
 	height: 1110px;
 	margin-top: 10px;
 }
-#menu {
+/*#menu {
 	background-color: #5B5;
-}
-#sensorScreen, #optionScreen {
+}*/
+#sensorScreen, #options, #menu {
 	background-color: #262626;
+	color: #fff;
 }
 .flotr-titles {
 	color: #00A8DF;
