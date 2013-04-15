@@ -21,11 +21,11 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 ** Screenshots 
 
-![Screenshot](IMG_00000004.png)
-![Screenshot](IMG_00000003.png)
-![Screenshot](IMG_00000002.png)
-![Screenshot](IMG_00000001.png)
-![Screenshot](Q10-1.png)
+![Screenshot](screenshots/IMG_00000004.png)
+![Screenshot](screenshots/IMG_00000003.png)
+![Screenshot](screenshots/IMG_00000002.png)
+![Screenshot](screenshots/IMG_00000001.png)
+![Screenshot](screenshots/Q10-1.png)
 
 **Known Issues**
 
