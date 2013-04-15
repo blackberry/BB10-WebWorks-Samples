@@ -3,13 +3,18 @@
 	height: 1110px;
 	margin-top: 10px;
 }
-/*#menu {
-	background-color: #5B5;
-}*/
+
+@media all and (device-aspect-ratio: 1/1) {
+	#graph {
+		height: 580px;
+	}
+}
+
 #sensorScreen, #options, #menu {
 	background-color: #262626;
 	color: #fff;
 }
+
 .flotr-titles {
 	color: #00A8DF;
 }
