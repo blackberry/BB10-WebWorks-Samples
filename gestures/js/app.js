@@ -31,6 +31,8 @@ function initApp() {
 		hold_timeout: 10
 	});
 
+	console.log(mouth);
+
 	// drag
 	head.ondragstart = function(ev) {
 		$('#headTop').addClass('openHead');
@@ -74,5 +76,7 @@ function toast(msg) {
 	var options = {
 		timeout: 5000
 	};
-	toastId = blackberry.ui.toast.show(msg, options);
+	try {
+		toastId = blackberry.ui.toast.show(msg, options);
+	} catch(e) {}
 }

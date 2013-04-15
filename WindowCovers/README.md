@@ -45,11 +45,11 @@ blackberry.ui.cover.setContent(blackberry.ui.cover.TYPE_IMAGE, {
 
 **Set the Cover Label**
 ```
-blackberry.ui.cover.labels.push({
+blackberry.ui.cover.labels = [{
 	label: "This is my label",
 	size: 10,
 	wrap: true
-});
+}];
 ```
 
 **Update the Cover**

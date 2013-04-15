@@ -17,7 +17,7 @@
 html { height: 100% }
 
 body { 
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	height: 100%; 
@@ -31,20 +31,8 @@ body {
 		color-stop(100%, blue));
 }
 
-#headTop, #theHead, #mouthOpen, #mouthClosed, #jesse {
+#headTop, #theHead, #mouthOpen, #mouthClosed, #jesse, #squint, #hitHead, #hitNose, #hitMouth {
 	position: absolute;
-}
-
-#squint {
-	position: absolute;
-	display: none;
-	top: 260px;
-	left: 125px;
-}
-
-#headTop {
-	top: 260px;
-	left: 164px;
 }
 
 .openHead {
@@ -66,74 +54,217 @@ body {
 }
 
 
-#jesse {
-	top: 400px;
-	left: 280px;
+/* ================================================================ */
+/* 								Q10 								*/
+/* ================================================================ */
+
+@media screen and (max-width: 720px) and (max-height: 720px){
+
+
+	#squint {
+		display: none;
+		top: 136px;
+		left: 222px;
+	}
+
+	#squint img {
+		width: 300px;
+	}
+
+	#headTop {
+		top: 136px;
+		left: 242px;
+	}
+
+	#headTop img {
+		width: 256px;
+	}
+
+	#jesse {
+		/*display: none;*/
+		top: 230px;
+		left: 315px;
+	}
+
+	#jesse img {
+		width: 160px;
+	}
+
+	.jesseUp {
+		-webkit-animation-name: jesseUp;
+		-webkit-animation-duration:0.5s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
+	}
+
+	@-webkit-keyframes jesseUp {
+		from {
+			top: 230px;
+		}
+		to {
+			top: 113px;
+		}
+	}
+
+	#theHead {
+		top: 210px;
+		left: 220px;
+	}
+
+	#theHead img {
+		width: 300px;
+	}
+
+
+	#mouthOpen {
+		display: none;
+		top: 418px;
+		left: 230px;
+	}
+
+	#mouthOpen img {
+		width: 276px;
+	}
+
+	#mouthClosed {
+		top: 418px;
+		left: 228px;
+	}
+
+	#mouthClosed img {
+		width: 282px;
+	}
+
+	#hitHead {
+		top: 130px;
+		left: 230px;
+		height: 150px;
+		width: 280px;
+		z-index: 9999;
+	}
+
+
+	#hitNose {
+		top: 370px;
+		left: 320px;
+		height: 110px;
+		width: 100px;
+		z-index: 9999;
+	}
+
+
+	#hitMouth {
+		top: 515px;
+		left: 275px;
+		height: 200px;
+		width: 180px;
+		z-index: 9999;
+	}
 }
 
 
-.jesseUp {
-	-webkit-animation-name: jesseUp;
-	-webkit-animation-duration:0.5s;
-	-webkit-animation-iteration-count: 1;
-	-webkit-animation-timing-function: ease;
-	-webkit-animation-fill-mode: forwards;
-}
 
-@-webkit-keyframes jesseUp {
-	from {
+/* ================================================================ */
+/* 								Z10 								*/
+/* ================================================================ */
+@media screen and (min-height: 721px){
+	#squint {
+		display: none;
+		top: 260px;
+		left: 125px;
+	}
+
+	#headTop {
+		top: 260px;
+		left: 164px;
+	}
+
+	.openHead {
+		-webkit-animation-name: openHead;
+		-webkit-animation-duration:1s;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
+	}
+
+	@-webkit-keyframes openHead {
+		from {
+			-webkit-transform: rotate(0deg);
+			-webkit-transform-origin: 0 90%;
+		}
+		to {
+			-webkit-transform: rotate(-50deg);
+			-webkit-transform-origin: 0 90%;
+		}
+	}
+
+
+	#jesse {
 		top: 400px;
+		left: 280px;
 	}
-	to {
-		top: 206px;
+
+
+	.jesseUp {
+		-webkit-animation-name: jesseUp;
+		-webkit-animation-duration:0.5s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-timing-function: ease;
+		-webkit-animation-fill-mode: forwards;
 	}
-}
+
+	@-webkit-keyframes jesseUp {
+		from {
+			top: 400px;
+		}
+		to {
+			top: 206px;
+		}
+	}
 
 
-#theHead {
-	top: 391px;
-	left: 125px;
-}
+	#theHead {
+		top: 391px;
+		left: 125px;
+	}
 
 
-#mouthOpen {
-	display: none;
-	top: 758px;
-	left: 140px;
-}
+	#mouthOpen {
+		display: none;
+		top: 758px;
+		left: 140px;
+	}
 
 
-#mouthClosed {
-	top: 758px;
-	left: 140px;
-}
+	#mouthClosed {
+		top: 758px;
+		left: 140px;
+	}
 
 
-#hitHead {
-	position: absolute;
-	top: 270px;
-	left: 140px;
-	height: 200px;
-	width: 500px;
-	z-index: 9999;
-}
+	#hitHead {
+		top: 270px;
+		left: 140px;
+		height: 200px;
+		width: 500px;
+		z-index: 9999;
+	}
 
 
-#hitNose {
-	position: absolute;
-	top: 700px;
-	left: 310px;
-	height: 170px;
-	width: 170px;
-	z-index: 9999;
-}
+	#hitNose {
+		top: 700px;
+		left: 310px;
+		height: 170px;
+		width: 170px;
+		z-index: 9999;
+	}
 
 
-#hitMouth {
-	position: absolute;
-	top: 900px;
-	left: 230px;
-	height: 400px;
-	width: 320px;
-	z-index: 9999;
+	#hitMouth {
+		top: 900px;
+		left: 230px;
+		height: 400px;
+		width: 320px;
+		z-index: 9999;
+	}
 }

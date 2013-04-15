@@ -25,5 +25,9 @@ canvas, #originalImage {
 }
 
 canvas {
+	/*display: none;*/
+}
+
+#originalImage {
 	display: none;
 }
