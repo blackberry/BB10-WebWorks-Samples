@@ -40,17 +40,16 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 To build the Push Capture sample application:
 
 1. When you're ready to try out the Push Capture sample app on your BlackBerry 10 device (the simulator and Ripple are not yet supported), make sure you first download the **[BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk)**.
-2. Click on the **Downloads** tab above.
-3. Select **Download as zip** (Windows) or **Download as tar.gz** (Mac) and save the downloaded file to your local machine.
-4. Open the downloaded ZIP file and extract the **pushCapture** subfolder to your local machine. e.g. **C:\Documents and Settings\User\WebWorks\pushCapture** (Windows) or **~/WebWorks/pushCapture** (Mac).
-5. If you are using the high-level APIs of the Push Service SDK (which offers subscription support) to implement your Push Initiator, then you should have an externally accessible Push Initiator URL.  Update the value of the uri attribute of the access tag in **pushCapture/config.xml** to point to the domain name of this URL. 
-6. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target IDs are unique to your application (signing requires that they cannot match the invoke target IDs used by someone else who is also attempting to sign the Push Capture sample app):
+2. Clone the **BB10-WebWorks-Samples** repo.
+3. Navigate to the **pushCapture** subfolder.
+4. If you are using the high-level APIs of the Push Service SDK (which offers subscription support) to implement your Push Initiator, then you should have an externally accessible Push Initiator URL.  Update the value of the uri attribute of the access tag in **pushCapture/config.xml** to point to the domain name of this URL. 
+5. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target IDs are unique to your application (signing requires that they cannot match the invoke target IDs used by someone else who is also attempting to sign the Push Capture sample app):
    1. Change the "sample.pushcapture.invoke.push" value in **pushCapture/config.xml** to something unique of your choosing.
    2. Change the **invokeTargetIdPush** variable in **pushCapture/Scripts/common.js** to have this same value.
    3. Change the "sample.pushcapture.invoke.open" value in **pushCapture/config.xml** to something unique of your choosing.
    4. Change the **invokeTargetIdOpen** variable in **pushCapture/Scripts/common.js** to have this same value. 
-7. Create a ZIP file from your local **pushCapture** folder with **config.xml** and the HTML files at the **root level** of your ZIP (the root level should not be a folder).  See **[Creating a WebWorks archive file](https://developer.blackberry.com/html5/documentation/ww_developing/creating_an_archive_file_1873325_11.html)** for more details. 
-8. Follow the instructions from **[Package your BlackBerry 10 app with the BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/documentation/ww_developing/package_your_bb10_app_with_ww_sdk_2008473_11.html)** to get the app running on your BlackBerry 10 device.
+6. Create a ZIP file from your local **pushCapture** folder with **config.xml** and the HTML files at the **root level** of your ZIP (the root level should not be a folder).  See **[Creating a WebWorks archive file](https://developer.blackberry.com/html5/documentation/ww_developing/creating_an_archive_file_1873325_11.html)** for more details. 
+7. Follow the instructions from **[Package your BlackBerry 10 app with the BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/documentation/ww_developing/package_your_bb10_app_with_ww_sdk_2008473_11.html)** to get the app running on your BlackBerry 10 device.
 
 
 ## How to send a push
