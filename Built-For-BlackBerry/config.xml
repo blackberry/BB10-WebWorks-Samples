@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright 2013 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");  you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software  distributed under the License is distributed on an "AS IS" BASIS,  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and  limitations under the License.
+-->
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="1.0.0"
+        id="bfb2">
+    <name>BFB Sample</name>
+    <content src="local:///index.html" />
+    <author rim:copyright="2012"
+            href="http://twitter.com/chadtatro"
+            email = "@chadtatro">RIM Canada</author>
+    <description>This is a starting point of what a Built For BlackBerry could be like.</description>
+    <access uri="*" subdomains="true" />
+
+    <icon src="icon.png"/>
+    <rim:splash src="splash-1280x768.png"/>
+    <rim:splash src="splash-720x720.png"/>    
+    
+    <feature id="blackberry.app">
+      <param name="orientation" value="portrait" />
+    </feature>
+
+    <feature id="blackberry.bbm.platform" />
+    <feature id="blackberry.invoke" />
+    <feature id="blackberry.invoke.card" />
+    <feature id="blackberry.ui.cover" />
+    <feature id="blackberry.ui.dialog" />
+    <feature id="blackberry.ui.toast" />
+
+    <rim:permissions>
+        <rim:permit>bbm_connect</rim:permit> 
+        <rim:permit>access_shared</rim:permit> 
+    </rim:permissions>
+</widget>
