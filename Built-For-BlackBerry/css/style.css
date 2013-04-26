@@ -37,5 +37,8 @@ body, html {
 /* ================================================================ */
 
 @media (-blackberry-display-technology: -blackberry-display-oled) {
-	/* add OLED screen specific styling here */
+	/* add OLED screen specific styling here 
+	 For more details on how this should be used please read:
+	 http://devblog.blackberry.com/2013/03/blackberry-10-oled-control-coloring-update/
+	*/
 }
