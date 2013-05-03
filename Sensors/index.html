@@ -28,7 +28,7 @@
 		// This is a hack for Ripple calling webworksready multiple times
 		if (rippleLoaded) return;
 		rippleLoaded = true;
-		
+
 		bb.init({actionBarDark: true,
 			controlsDark: true,
 			listsDark: true,
@@ -66,6 +66,16 @@
 		bb.pushScreen('menu.html', 'menu');
 	}, false);
 
+			// Fire the webworksready event for PlayBook and BBOS
+			window.addEventListener('load',function() {
+					if (navigator.userAgent.indexOf('BB10') < 0) {
+						var evt = document.createEvent('Events');
+						evt.initEvent('webworksready', true, true);
+						document.dispatchEvent(evt);
+					}
+				});
+
+
 	// The bbsensors object will hold all our sensor settings and methods for the application.
 	var bbsensors = {
 		// This object is passed to the Sensor API just before listening starts
@@ -88,7 +98,7 @@
 				bbsensors.pieOptions.title = sensor.title;
 				bbsensors.clear();
 				blackberry.sensors.setOptions(bbsensors.currentSensor.name, bbsensors.options);
-				blackberry.event.addEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);	
+				blackberry.event.addEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);
 			}
 		},
 		// Acceleration in xyz axes in m/s/s
@@ -265,7 +275,7 @@
 		// Push the data values into the cache for the Line Graph
 		// Uses each bbsensors sensor definition to determine what values to capture
 		pushValue: function (data) {
-			var dataValue;	
+			var dataValue;
 			for (point in bbsensors.currentSensor.dataPoints) {
 				label = bbsensors.currentSensor.dataPoints[point];
 				if (bbsensors.currentSensor == bbsensors.devicerotationmatrix) {
