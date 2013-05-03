@@ -15,7 +15,7 @@
 -->
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:rim="http://www.blackberry.com/ns/widgets"
-        version="1.0.0.0" id="LocalizationExample">
+        version="1.0.0.1" id="LocalizationExample">
     <content src="index.html"/>
 
     <name>Localization Example</name>
