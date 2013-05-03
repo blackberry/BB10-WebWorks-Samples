@@ -49,8 +49,6 @@ var app = (function() {
     }
 
     function startApp() {
-        bb.pushScreen('main.html', 'main');
-
         blackberry.event.addEventListener("languagechanged", displayLanguage);
         blackberry.event.addEventListener("regionchanged", displayLanguage);
     }
