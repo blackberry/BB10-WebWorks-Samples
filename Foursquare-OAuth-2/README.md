@@ -6,50 +6,55 @@ Foursquare OAuth Sample is the name of a proof-of-concept WebWorks application t
 
 The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
-
 **Applies To**
 
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
 
 **Author(s)** 
 
-* Chad Tetreault (http://www.twitter.com/chadtatro)
+* [Chad Tetreault](http://www.twitter.com/chadtatro)
 
 **Dependencies**
 
-1. [jquery-1.7.2.js](http://code.jquery.com/jquery-1.7.2.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
+1. [bbUI.js](https://github.com/blackberry/bbUI.js) is [licensed](https://github.com/blackberry/bbUI.js/blob/master/LICENSE) under the Apache 2.0 license.
+
+2. [jquery-1.7.2.js](http://code.jquery.com/jquery-1.7.2.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
-## Initial Foursquare Setup
-1. Create an application on Foursquare (https://developer.foursquare.com/) 
-2. Under “Callback URL” enter “local:///index.html”
-3. When your app is created, copy down your Client ID, and Client Secret
+**Icons**<br/>
+Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim) are [licensed](http://creativecommons.org/licenses/by/3.0/) under the CC-BY-3.0 license.  This is a subset of the Subway icons available at http://subway.pixle.pl/
 
-## WebWorks App Setup
-1. Open js/oauth.js from the project folder.
-2. Edit clientId and clientSecret to reflect the keys given to you from Foursquare.
+## What's new?
+
+As of WebWorks SDK 1.0.4.7 we now take advantage of the window.open support.  OAuth samples **no longer need to rely on a server-side component** to redirect the webview back to your application.  This provides a nice flowing user experience.
+
+## Initial Foursquare Setup
+
+Open app.js and edit the following object
 
 ```
 // foursquare setup
 foursquareOptions = {
-   clientId: '<client id goes here>',
-   clientSecret: '<client secret goes here>',
-   callbackUrl: 'local:///index.html'
+   clientId: '',
+   clientSecret: '',
+   redirectUri: ''
 };
 ```
-
 ## Config.xml 
 As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
 
+**Note: While we need to disable web security in order to read the location of our childWindow object, it's recommended that you don't do this in your apps unless absolutely necessary.**
+
 ```
 <access uri="*" subdomains="true" />
-<access uri="http://foursquare.com" subdomains="true" />    
-<access uri="https://foursquare.com" subdomains="true" />    
-```
 
+<feature id="blackberry.app" >
+   <param name="websecurity" value="disable" />
+</feature>
+```
 ## Security Considerations
-Your Client Secret key, is intended to stay SECRET.  For demonstration purposes we coded the Client ID and Client Secret right in the JavaScript source.  This is not best practice, and is not recommended.  You don’t want anybody to get access to your keys.
+Your Client Secret key, is intended to stay SECRET.  For demonstration purposes we coded the Client ID and Client Secret right in the JavaScript source.  This is not best practice, and is not recommended.  You donâ€™t want anybody to get access to your keys.
 
 One way to securely pass your Client Secret to your application is to host it on a server, then use SSL and do a POST to obtain your key. It can then be used to obtain an Access Token from the service (in this case, Foursquare).
 
@@ -60,7 +65,9 @@ This sample app shows how to connect your application with a few different Fours
 ### User grants app permission and Foursquare returns an OAuth access token
 
 ```
-window.location.replace('https://foursquare.com/oauth2/authenticate?client_id=' + foursquareOptions.clientId + '&response_type=token&display=touch&redirect_uri=' + foursquareOptions.callbackUrl);
+// open the authorzation url
+var url = 'https://foursquare.com/oauth2/authenticate?client_id=' + foursquareOptions.clientId + '&response_type=token&display=touch&redirect_uri=' + foursquareOptions.redirectUri;
+childWindow = window.open(url, '_blank');
 ```
 ### Search for near-by venues
 		
@@ -120,9 +127,8 @@ Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of 
 
 ## Bug Reporting and Feature Requests
 
-If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample and send a message (via github messages) to the Sample Author(s) to let them know that you have filed an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues).
+If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample.
 
 ## Disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-

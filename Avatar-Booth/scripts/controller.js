@@ -15,79 +15,49 @@
 */
 
 define([
-		//lib dependencies
-		'backbone',
-		'backstack',
-
-		//user modules/views
-		'takePhotoView',
-		'effectsView',
-		'moustachesView',
-		'aboutView',
-		'actionBar'
-	
-	], function(Backbone, BackStack){
+	   'config',
+	   'UIStack',
+       'pages/takePhotoView/main',
+       'pages/effectsView/main',
+       'pages/moustachesView/main',
+       'pages/aboutView/main',
+	], function(){
 		
 	Controller = Backbone.Router.extend({
 	    
         app: $("#App"),
         
         routes: {
-        	"" : "moustaches",
+            
         	"effects" : "effects",
         	"moustaches" : "moustaches",
         	"about" : "about"
         },
         
         initialize: function(){            
-            //create UI stack and set up default effects
-            this.tabView = new BackStack.StackNavigator(
-                                { 
-                                       el: this.app,
-                                       pushTransition: new BackStack.NoEffect(), 
-                                       popTransition: new BackStack.NoEffect() 
-                                });
+            //create a new instance of BB10-UI-Stack
+        	this.tabView = new UIStack({ router: this, app: this.app, config: config});  
 
-  
-            //for information on how to use the actionBar package check out the readme file in modules/actionBar folder
-        	this.actionBar = new actionBar({ router: this});
-            this.app.append(this.actionBar.el);
-            this.actionBar.tabs.add([
-                         { 
-                             title: "Moustaches",
-                             icon: "images/icons/moustaches.png",
-                             url: "moustaches"
-                         },
-                         { 
-                             title: "Effects",
-                             icon: "images/icons/effects.png",
-                             url: "effects"
-                         },
-                         { 
-                             title: "Info",
-                             icon: "images/icons/info.png",
-                             url: "about"
-                         }
-                     ]);        
             //append main view to app
             this.takePhotoView = new takePhotoView();
-            this.app.prepend(this.takePhotoView.render().el);
+            this.tabView.$el.find('#views > section').prepend(this.takePhotoView.render().el);
             //cache other views
             this.effectsView = new effectsView();
             this.moustachesView = new moustachesView();
             this.aboutView = new aboutView();
+            window.location = "#moustaches";
         },
 		
-		effects: function(){		    
-            this.tabView.pushView(this.effectsView);   
+		effects: function(){	    
+            this.tabView.showTab(this.effectsView);   
 		},
 		
         moustaches: function(){            
-            this.tabView.pushView(this.moustachesView);    
+            this.tabView.showTab(this.moustachesView);    
         },
         
         about: function(){            
-            this.tabView.pushView(this.aboutView);
+            this.tabView.showTab(this.aboutView);
         }
         
 	});

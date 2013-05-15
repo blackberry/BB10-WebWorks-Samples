@@ -55,7 +55,8 @@ sample.pushcapture.constructor.prototype.openHighlightedPush = function() {
             [ sample.pushcapture.selectedPushSeqnum ], 
             function(tx, results) {
 	            if (results.rows.length == 0) {
-	                alert("Error: Content for the selected push could not be found.");
+	                var toastMessage = "Error: Content for the selected push could not be found.";
+	                blackberry.ui.toast.show(toastMessage);
 	            } else {
 	                if (results.rows.item(0).type == "image") {
 	        		    var imageTag = "<img src='data:image/png;base64," + results.rows.item(0).content + "' />";
@@ -78,7 +79,8 @@ sample.pushcapture.constructor.prototype.openHighlightedPush = function() {
 	            }
             },
             function(tx, e) {
-                alert("Error: Content for the selected push could not be found.");
+                var toastMessage = "Error: Content for the selected push could not be found.";
+                blackberry.ui.toast.show(toastMessage);
             }
         );
     });	
@@ -293,10 +295,8 @@ sample.pushcapture.constructor.prototype.updateAllUnopenedPushes = function(tx, 
         }
 
         // Indicate that processing is currently being done
-        var progressDiv = document.createElement("div");
-        progressDiv.id = "progressinfo";
-        progressDiv.innerHTML = "Processing...";
-        document.getElementById("push-screen").appendChild(progressDiv);
+        document.getElementById("progressinfo").style.display = "block";
+        document.getElementById("progressinfo").innerHTML = "Processing...";
 
         // Remove the push list from local storage since the
     	// push list is going to be updated
@@ -339,12 +339,8 @@ sample.pushcapture.constructor.prototype.deleteAll = function() {
 sample.pushcapture.constructor.prototype.deleteAllCallback = function(selection) {
 	if (selection.return == "Yes") {
         // Start by clearing the screen
-        if (document.getElementById("progressinfo") != null) {
-        	document.getElementById("push-screen").removeChild(document.getElementById("progressinfo"));
-        }
-        if (document.getElementById("no-results") != null) {
-        	document.getElementById("push-screen").removeChild(document.getElementById("no-results"));
-        }
+	    document.getElementById("no-results").style.display = "none";
+	    
         var pushTable = document.getElementById("push-table");
         if (pushTable.hasChildNodes()) {
             while (pushTable.childNodes.length >= 1) {
@@ -353,10 +349,8 @@ sample.pushcapture.constructor.prototype.deleteAllCallback = function(selection)
         }
 
         // Indicate that processing is currently being done
-        var progressDiv = document.createElement("div");
-        progressDiv.id = "progressinfo";
-        progressDiv.innerHTML = "Processing...";
-        document.getElementById("push-screen").appendChild(progressDiv);
+        document.getElementById("progressinfo").style.display = "block";
+        document.getElementById("progressinfo").innerHTML = "Processing...";
 
         // Remove the push list from local storage since
     	// the push list is going to be deleted
@@ -406,7 +400,7 @@ sample.pushcapture.constructor.prototype.dropPushTable = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.successDeleteAllPushes = function() {
-	document.getElementById("push-screen").removeChild(document.getElementById("progressinfo"));
+    document.getElementById("progressinfo").style.display = "none";
 	
     // No push should be selected anymore
     sample.pushcapture.selectedPushSeqnum = null;
@@ -432,12 +426,9 @@ sample.pushcapture.constructor.prototype.loadPushes = function(element) {
 	}
 	
     // Clear the screen
-    if (rootElem.getElementById("progressinfo") != null) {
-    	rootElem.getElementById("push-screen").removeChild(rootElem.getElementById("progressinfo"));
-    }
-    if (rootElem.getElementById("no-results") != null) {
-    	rootElem.getElementById("push-screen").removeChild(rootElem.getElementById("no-results"));
-    }
+	rootElem.getElementById("progressinfo").style.display = "none";
+	rootElem.getElementById("no-results").style.display = "none";
+	
     var pushTable = rootElem.getElementById("push-table");
     if (pushTable.hasChildNodes()) {
         while (pushTable.childNodes.length >= 1) {
@@ -469,7 +460,8 @@ sample.pushcapture.constructor.prototype.loadPushes = function(element) {
                    });
             });
         } catch (e) {
-            alert(sample.pushcapture.databaseError);
+            document.getElementById("errordiv").style.display = "block";
+            document.getElementById("errormsg").innerHTML = sample.pushcapture.databaseError;
         }
     }
 };
@@ -491,10 +483,7 @@ sample.pushcapture.constructor.prototype.displayNoResults = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.displayNoResultsUsingElement = function(element) {
-    var noPushesDiv = document.createElement("div");
-    noPushesDiv.id = "no-results";
-    noPushesDiv.innerHTML = "<p>" + sample.pushcapture.noPushesMessage + "</p>";   
-    element.getElementById("push-screen").appendChild(noPushesDiv);
+    element.getElementById("no-results").style.display = "block";
 };
 
 /**
@@ -605,7 +594,9 @@ sample.pushcapture.constructor.prototype.displayPushes = function(element, tx, r
     // Highlight the last selected push (if there was one)
     if (sample.pushcapture.selectedPushSeqnum != null) {  
     	sample.pushcapture.highlightSelectedPush(element);
-        element.getElementById(sample.pushcapture.selectedPushSeqnum).scrollIntoView(true);
+
+        var selectedPush = element.getElementById(sample.pushcapture.selectedPushSeqnum);
+        element.getElementById("push-screen").scrollToElement(selectedPush);
     }
 };
 

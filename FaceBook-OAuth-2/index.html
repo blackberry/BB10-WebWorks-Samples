@@ -13,53 +13,50 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Facebook OAuth</title>
-
-        <script>
-            var meta = document.createElement("meta");
-            meta.setAttribute('name','viewport');
-            meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
-            document.getElementsByTagName('head')[0].appendChild(meta);
-        </script>   
+        <title>Facebook OAuth Sample</title>
  
         <!-- css -->
-        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/bbui.css" type="text/css" media="screen" />
 
         <!-- framework -->
         <script src="local:///chrome/webworks.js" type="text/javascript"></script>
-
-        <!-- libraries -->
-        <script src="js/lib/jquery-1.7.2.min.js" type="text/javascript"></script>
         
+        <!-- libraries -->
+        <script src="js/lib/bbui.js" type="text/javascript"></script>
+        <script src="js/lib/jquery-1.8.1.min.js" type="text/javascript"></script>
+
         <!-- sample code -->
-        <script src="js/oauth.js"></script>
+        <script src="js/app.js"></script>
 
-        <script>
-            document.addEventListener("webworksready", initApp);
+        <!-- initialization -->
+        <script type="text/javascript">
+            document.addEventListener("webworksready", initApp());
+
+            bb.init({
+                    actionBarDark: true,
+                    controlsDark: true,
+                    listsDark: false,
+
+                    // Fires "before" styling is applied and "before" the screen is inserted in the DOM
+                    onscreenready: function(element, id) {
+                                   },
+
+                    // Fires "after" styling is applied and "after" the screen is inserted in the DOM
+                    ondomready: function(element, id) {
+                                    if (id === 'start') {
+                                        setClickHandlers();
+                                    }
+
+                                    if (id === 'connected') {
+                                        toast('Hello ' + userName + '!');
+                                    }
+                                }
+                    });
         </script>
-
     </head>
-    
-    <body>
-        <div id="header">
-            <p id="message"></p>
-        </div>
-
-        <div id="content">
-            <h1>Latest news</h1>
-        </div>
-
-        <div id="buttons">
-            <div id="afterAuth">
-                <input id="inputBox" type="text" onfocus="$(this).val('');" value="enter your status..."/>
-                <button id="buttonPost" onclick="postToService()">Post</button>
-                <button id="buttonWall" onclick="getFeed()">Feed</button>
-            </div>
-            <button id="buttonSetup" onclick="getAuthorization()">Click to begin!</button>
-        </div>
+    <body> 
     </body>
 </html>

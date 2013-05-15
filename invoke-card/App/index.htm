@@ -5,7 +5,7 @@
 		<link rel="stylesheet" href="BlackBerry-JQM-all.min.css" />
 		<script src="BlackBerry-JQM-all.min.js"></script>
 
-		<script type="text/javascript" src="webworks-1.0.0.7.js"></script>
+		<script type="text/javascript" src="local:///chrome/webworks.js"></script>
         <script>
             function onInvokeSuccess() {
                 console.log("Invocation successful!");
@@ -92,6 +92,15 @@
                       }
                   );
               }
+              function invokeAdobeReaderPdf() {
+                //invoke adobe Reader as a card 
+                blackberry.invoke.invoke({
+                target: "com.rim.bb.app.adobeReader.viewer",
+                action: "bb.action.VIEW",
+                type: "application/pdf",
+                uri: "file:///accounts/1000/shared/documents/Getting Started with Adobe Reader.pdf"
+                }, onInvokeSuccess, onInvokeError);
+              }
         </script>
 	</head>
 	<body>
@@ -106,6 +115,7 @@
 					<li><a href="#" onclick="invokePictureViewer()">Invoke Picture viewer</a></li>
 					<li><a href="#" onclick="invokeCamera()">Invoke Camera</a></li>
 					<li><a href="#" onclick="invokeFilePicker()">Invoke File Picker</a></li>
+					<li><a href="#" onclick="invokeAdobeReaderPdf()">Invoke Adobe Reader</a></li>
 				</ul>
 			</div>
 		</div><!--page-->

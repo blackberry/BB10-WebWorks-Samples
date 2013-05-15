@@ -30,6 +30,23 @@
 sample.pushcapture.constructor.prototype.initRegister = function(element) {
     if (sample.pushcapture.usesdkaspi) {
         // The Push Service SDK is being used
+
+        // The user might have previously been on the register tab
+        // with the sample.pushcapture.usesdkaspi set to false.
+        // In that case, the username and password text boxes
+        // would have been removed. We will have to add them back in.
+        if (element.getElementById("reguserid") == null) {
+            element.getElementById("reguseridtd").innerHTML = "<input type='text' id='reguserid' autocomplete='off' maxlength='42' placeholder='Username' />";
+            element.getElementById("regpwdtd").innerHTML = "<input type='password' id='regpwd' maxlength='42' placeholder='Password' />";
+
+            // Apply the bbUI styling to the text boxes
+            var registerTextInputs = new Array();
+            registerTextInputs[0] = element.getElementById("reguserid");
+            registerTextInputs[1] = element.getElementById("regpwd");
+
+            bb.textInput.apply(registerTextInputs);
+        }
+
         // Display the username and password fields
         element.getElementById("reguserid").value = sample.pushcapture.userid;
         element.getElementById("regpwd").value = sample.pushcapture.passwd;
@@ -50,23 +67,19 @@ sample.pushcapture.constructor.prototype.initRegister = function(element) {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.register = function() {
+    document.getElementById("progressinfo").style.display = "none";
     document.getElementById("errordiv").style.display = "none";
 
     var wasValidationSuccessful = sample.pushcapture.validateRegisterFields();
 
     if (wasValidationSuccessful) {
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("reguserid").disabled = true;
-            document.getElementById("regpwd").disabled = true;
+            document.getElementById("reguserid").disable();
+            document.getElementById("regpwd").disable();
         }
 
-        var opInProgressDiv = document.createElement("div");
-        opInProgressDiv.id = "op-in-progress";
-        opInProgressDiv.className = "full-size-dark";
-        document.body.appendChild(opInProgressDiv);
+        sample.pushcapture.operationInProgress("full-size-dark");
 
-        document.getElementById("activityindicator").style.display = "block";
-        document.getElementById("progressinfo").style.display = "block";
         document.getElementById("progressinfo").innerHTML = "Creating push channel...";
 
         if (sample.pushcapture.pushService) {
@@ -75,15 +88,14 @@ sample.pushcapture.constructor.prototype.register = function() {
             // This error should not occur since a PushService object should have been created
             // before trying to do a create channel
             // We'll display an error if, by chance, this does happen
-            document.body.removeChild(document.getElementById("op-in-progress"));
-            document.getElementById("activityindicator").style.display = "none";
-            document.getElementById("progressinfo").style.display = "none";
-            if (sample.pushcapture.usesdkaspi) {
-                document.getElementById("reguserid").disabled = false;
-                document.getElementById("regpwd").disabled = false;
-            }
-            document.getElementById("errordiv").style.display = "block";
+            sample.pushcapture.restoreScreenAfterOperation();
 
+            if (sample.pushcapture.usesdkaspi) {
+                document.getElementById("reguserid").enable();
+                document.getElementById("regpwd").enable();
+            }
+
+            document.getElementById("errordiv").style.display = "block";
             document.getElementById("errormsg").innerHTML = "Error: Could not create push "
                     + "channel as no PushService object was found.";
         }
@@ -140,13 +152,13 @@ sample.pushcapture.constructor.prototype.createChannelCallback = function(result
             sample.pushcapture.successfulRegistration();
         }
     } else {
-        document.body.removeChild(document.getElementById("op-in-progress"));
-        document.getElementById("activityindicator").style.display = "none";
-        document.getElementById("progressinfo").style.display = "none";
+        sample.pushcapture.restoreScreenAfterOperation();
+
         if (sample.pushcapture.usesdkaspi) {
-            document.getElementById("reguserid").disabled = false;
-            document.getElementById("regpwd").disabled = false;
+            document.getElementById("reguserid").enable();
+            document.getElementById("regpwd").enable();
         }
+
         document.getElementById("errordiv").style.display = "block";
 
         if (result == blackberry.push.PushService.INTERNAL_ERROR) {
@@ -278,13 +290,10 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
             // Successful subscribe to the Push Initiator, now store the registration
             sample.pushcapture.storeRegistration();
         } else {
-            // Hide the progress info because there was an error
-            document.body.removeChild(document.getElementById("op-in-progress"));
-            document.getElementById("activityindicator").style.display = "none";
-            document.getElementById("progressinfo").style.display = "none";
+            sample.pushcapture.restoreScreenAfterOperation();
 
-            document.getElementById("reguserid").disabled = false;
-            document.getElementById("regpwd").disabled = false;
+            document.getElementById("reguserid").enable();
+            document.getElementById("regpwd").enable();
 
             document.getElementById("errordiv").style.display = "block";
 
@@ -332,14 +341,11 @@ sample.pushcapture.constructor.prototype.pushInitiatorSubscribeHandler = functio
             }
         }
     } else {
-        // Hide the progress info because there was an error
-        document.body.removeChild(document.getElementById("op-in-progress"));
-        document.getElementById("activityindicator").style.display = "none";
-        document.getElementById("progressinfo").style.display = "none";
+        sample.pushcapture.restoreScreenAfterOperation();
 
-        // Enabled the fields again because there was an error
-        document.getElementById("reguserid").disabled = false;
-        document.getElementById("regpwd").disabled = false;
+        // Enable the fields again because there was an error
+        document.getElementById("reguserid").enable();
+        document.getElementById("regpwd").enable();
 
         document.getElementById("errordiv").style.display = "block";
         document.getElementById("errormsg").innerHTML = "Error: Subscribe to the Push Initiator failed with HTTP response code: "
@@ -400,13 +406,14 @@ sample.pushcapture.constructor.prototype.successRegistrationCreation = function(
  */
 sample.pushcapture.constructor.prototype.successfulRegistration = function() {
     // Indicate that the registration was successful
-    document.body.removeChild(document.getElementById("op-in-progress"));
-    document.getElementById("activityindicator").style.display = "none";
+    sample.pushcapture.restoreScreenAfterOperation();
+
+    document.getElementById("progressinfo").style.display = "block";
     document.getElementById("progressinfo").innerHTML = "Successfully registered.";
 
-    // Show the fields again because the registration is done
+    // Enable the fields again because the registration is done
     if (sample.pushcapture.usesdkaspi) {
-        document.getElementById("reguserid").disabled = false;
-        document.getElementById("regpwd").disabled = false;
+        document.getElementById("reguserid").enable();
+        document.getElementById("regpwd").enable();
     }
 };

@@ -35,11 +35,11 @@
     <access uri="http://virtualearth.net" subdomains="true" />
     <access uri="http://bing.net" subdomains="true" />
 
-    <feature id="blackberry.app.orientation">
+    <feature id="blackberry.app">
         <param name="mode" value="portrait" />
     </feature>
 
     <rim:permissions>  
-        <rim:permit>read_geolocation</rim:permit>
+        <rim:permit>access_location_services</rim:permit>
     </rim:permissions>
 </widget>

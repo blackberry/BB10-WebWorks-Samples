@@ -1,0 +1,39 @@
+<!--
+ Copyright 2013 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");  you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software  distributed under the License is distributed on an "AS IS" BASIS,  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and  limitations under the License.
+-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<div style="background-color: #181818;" data-bb-type="screen" data-bb-effect="slide-left"  data-bb-scroll-effect="off">
+
+<div data-bb-type="menu">
+	<div data-bb-type="menu-item" data-bb-img="images/icons/info.png" data-bb-pin="left">Info</div>
+    <div data-bb-type="menu-item" data-bb-img="images/icons/settings.png" data-bb-pin="right">Settings</div>
+</div>
+
+<div data-bb-type="action-bar">
+	<!-- tabs -->
+	<div onclick="toast(this.id);" id="tab1" data-bb-selected="true" data-bb-type="action" data-bb-overflow="true" data-bb-style="tab" data-bb-img="images/icons/tab1.png">Tab 1</div>
+
+	<!-- tab overflow menu -->
+	<div onclick="toast(this.id);" id="tab2" data-bb-type="action" data-bb-style="tab" data-bb-overflow="true" data-bb-img="images/icons/tab2.png">Overflow 1</div>
+	<div onclick="toast(this.id);" id="tab3" data-bb-type="action" data-bb-style="tab" data-bb-overflow="true" data-bb-img="images/icons/tab3.png">Overflow 2</div>
+
+	<!-- buttons -->
+	<div onclick="bbm.updateMessage();" id="btnBBM" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/bbm.png">BBM</div>
+	<div onclick="invokeFilePicker();" id="btnShare" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/share.png">Share</div>
+
+	<!-- button overflow menun -->
+	<div onclick="toast(this.id);" id="btnA" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/button1.png">Overflow A</div>
+	<div onclick="toast(this.id);" id="btnB" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/button2.png">Overflow B</div>
+	<div onclick="bbm.inviteToDownload();" id="btnB" data-bb-type="action" data-bb-style="button" data-bb-overflow="true" data-bb-img="images/icons/bbm.png">Invite To Download</div>
+</div>
+
+</div>

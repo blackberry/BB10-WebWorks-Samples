@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2012 Research In Motion Limited.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="1.0.0.1" id="LocalizationExample">
+    <content src="index.html"/>
+
+    <name>Localization Example</name>
+    <name xml:lang="ca_ES">exemple de localització</name>
+    <name xml:lang="fr_FR">Exemple de localisation</name>
+    <name xml:lang="de_DE">Localization Probe</name>
+    <name xml:lang="es_ES">Localización de muestra</name>
+    <name xml:lang="it_IT">Esempio di localizzazione</name>
+    <name xml:lang="id_ID">lokalisasi Contoh</name>
+	<name xml:lang="ja_JP">ローカライズの例</name>
+	<name xml:lang="ko_KR">현지화의 예</name>
+	<name xml:lang="pl_PL">Przykład lokalizacji</name>
+	<name xml:lang="ru_RU">Локализация пример</name>
+	<name xml:lang="ar_EG">مثال التعريب</name>
+	<name xml:lang="zh_CN">本土化样本</name>
+
+    <author>Research In Motion Ltd.</author>
+
+    <description>A simple localization sample</description>
+    <description xml:lang="fr_FR">Un échantillon simple localisation</description>
+    <description xml:lang="de_DE">Eine einfache Lokalisierung Probe</description>
+    <description xml:lang="es_ES">Una muestra simple localización</description>
+    <description xml:lang="it_IT">Un campione di localizzazione semplice</description>
+    <description xml:lang="zh_CN">一个简单的本土化样本</description>
+
+    <icon src="icon.png"/>
+    <feature id="blackberry.event" required="true" version="1.0.0.0"/>
+    <feature id="blackberry.system" required="true" version="1.0.0.0"/>
+    <access uri="*"/>
+    <license href="http://www.apache.org/licenses/LICENSE-2.0">My License</license>
+</widget>

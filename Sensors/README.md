@@ -15,9 +15,17 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Dependencies**
 
-* [bbUI.js](https://github.com/blackberry/bbUI.js) version 0.9.5, available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
-* [Fotr2.js](https://github.com/Flotr2/Flotr2.js), available under the [MIT License]()
+* [bbUI.js](https://github.com/blackberry/bbUI.js) version 0.9.6, available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
+* [Flotr2.js](https://github.com/HumbleSoftware/Flotr2), available under the [MIT License]()
 * [Subway Icons by Pixle](http://subway.pixle.pl/rim/) Licensed under [CC-BY3](http://creativecommons.org/licenses/by/3.0/)
+
+**Screenshots**
+
+![Screenshot](screenshots/IMG_00000004.png) &nbsp;
+![Screenshot](screenshots/IMG_00000003.png) &nbsp;
+![Screenshot](screenshots/IMG_00000002.png) &nbsp;
+![Screenshot](screenshots/IMG_00000001.png) &nbsp;
+![Screenshot](screenshots/Q10-1.png)
 
 **Known Issues**
 
@@ -27,6 +35,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Tested On**
 * BlackBerry 10 Dev Alpha B 10.0.9.1103
+* BlackBerry Z10 10.1.0.1471
+* BlackBerry Q10 10.1.0.1471
+
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
@@ -50,7 +61,7 @@ Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of 
 
 ## Bug Reporting and Feature Requests
 
-If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample and send a message (via github messages) to the Sample Author(s) to let them know that you have filed an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues).
+If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample.
 
 
 ## Disclaimer

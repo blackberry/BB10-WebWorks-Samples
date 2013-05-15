@@ -30,19 +30,3 @@ p{
 	margin:0;
 	padding:0;
 }
-
-.view {
-	color:#eee;
-	position:absolute;
-	top:0px;
-	bottom:0;
-	left:0;
-	right:0;
-	overflow-y:scroll;
-	-webkit-overflow-scrolling: touch;
-	-webkit-transition: all 150ms linear;
-}
-
-.with-action-bar{
-	bottom:130px;
-}

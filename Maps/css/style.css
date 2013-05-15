@@ -14,10 +14,19 @@
 * limitations under the License.
 */
 
-html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
+ /* Q10 */
+@media screen and (max-width: 720px) and (max-height: 720px){
+#map_canvas { 
+	height: 610px;
+	width: 720px;
+ }    
+}
 
+
+/* Z10 */
+@media screen and (min-height: 721px){
 #map_canvas { 
 	height: 1140px;
 	width: 768px;
  }    
+}

@@ -3,17 +3,13 @@ This example also shows how to expose your app as a card.
 
 # Using this example
 ### Build the App
-1. Copy the webworks.js file from the WebWorks SDK into this project.
-2. In the App/index.html file please change the webworks.js script tag to match the exact version.
-3. Zip the contents of the App folder such that the config.xml is in the root.
-4. Use the WebWorks packager to package a bar and deploy it to the simulator or BB10 device.
+1. Zip the contents of the App folder such that the config.xml is in the root.
+2. Use the WebWorks packager to package a bar and deploy it to the simulator or BB10 device.
 
 ### Build the card
 
-1. Copy the webworks.js file from the WebWorks SDK into this project.
-2. In the Card/index.html file please change the webworks.js script tag to match the exact version.
-3. Zip the contents of the Card folder such that the config.xml is in the root.
-4. Use the WebWorks packager to package a bar and deploy it to the simulator or BB10 device.
+1. Zip the contents of the Card folder such that the config.xml is in the root.
+2. Use the WebWorks packager to package a bar and deploy it to the simulator or BB10 device.
 
 ### Deploy both the apps to the device or simulator.
 ### Open the App and click on Invoke Bound Card to invoke the custom card with an image that is bundled in this app.

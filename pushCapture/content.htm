@@ -14,14 +14,36 @@
  * limitations under the License.
 -->
 <div data-bb-type="screen" data-bb-effect="fade" data-bb-scroll-effect="on">	
-	<script id="pushlistJS" src="Scripts/pushlist.js"></script>
-	
-	<div id="content-title" data-bb-type="title" data-bb-caption="Push"></div>
-		
-	<div id="content">
-	</div>  
-	
-	<div data-bb-type="action-bar" data-bb-tab-style="highlight">
-	    <div data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/homeicon.png" onclick="bb.popScreen()">Home</div>
-	</div>
+    <script id="pushlistJS" src="Scripts/pushlist.js"></script>
+    
+    <style type="text/css">	
+        div.hidden {
+            display: none;
+        }
+    
+        div.error {
+            width: 90%;
+            word-wrap: break-word;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            padding: 0.5em;
+            border: 6px solid red;
+            background: #fcc;
+        }    
+    </style>
+        
+    <div id="content-title" data-bb-type="title" data-bb-caption="Push"></div>
+    
+    <div class="hidden" id="errordiv">
+        <br/>	
+        <div class="error" id="errormsg"></div>
+    </div>	
+        
+    <div id="content">
+    </div>  
+    
+    <div data-bb-type="action-bar" data-bb-tab-style="highlight">
+        <div data-bb-type="action" data-bb-style="tab" data-bb-img="Images/actionbar/homeicon.png" onclick="bb.popScreen()">Home</div>
+    </div>
 </div>

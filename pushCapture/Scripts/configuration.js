@@ -27,8 +27,8 @@
  */
 sample.pushcapture.constructor.prototype.publicPPG = function() {
     // Show both the PPG URL and App ID fields
-    document.getElementById("ppgurl").style.display = "";
-    document.getElementById("appid").style.display = "";
+    document.getElementById("ppgurl").show();
+    document.getElementById("appid").show();
 };
 
 /**
@@ -39,13 +39,13 @@ sample.pushcapture.constructor.prototype.publicPPG = function() {
  */
 sample.pushcapture.constructor.prototype.enterprisePPG = function() {
     // Hide the PPG URL field
-    document.getElementById("ppgurl").style.display = "none";
+    document.getElementById("ppgurl").hide();
 
     // Show the App ID field only if the Push Service SDK will be used
     if (document.getElementById("usesdkaspi").checked) {
-        document.getElementById("appid").style.display = "";
+        document.getElementById("appid").show();
     } else {
-        document.getElementById("appid").style.display = "none";
+        document.getElementById("appid").hide();
     }
 };
 
@@ -58,15 +58,15 @@ sample.pushcapture.constructor.prototype.enterprisePPG = function() {
  */
 sample.pushcapture.constructor.prototype.useSDKAsPushInitiator = function() {
     if (document.getElementById("usesdkaspi").checked) {
-        document.getElementById("piurl").style.display = "";
-        document.getElementById("appid").style.display = "";
+        document.getElementById("piurl").show();
+        document.getElementById("appid").show();
     } else {
-        document.getElementById("piurl").style.display = "none";
+        document.getElementById("piurl").hide();
 
         if (document.getElementById("publicradio").checked) {
-            document.getElementById("appid").style.display = "";
+            document.getElementById("appid").show();
         } else {
-            document.getElementById("appid").style.display = "none";
+            document.getElementById("appid").hide();
         }
     }
 };
@@ -85,17 +85,16 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
                     tx, results) {
                 sample.pushcapture.displayConfig(element, tx, results);
 
-                if (element.getElementById("appid") != null && element.getElementById("appid").style.display == "") {
-                    element.getElementById("appid").focus();
-                } else if (element.getElementById("ppgurl").style.display == "") {
+                if (element.getElementById("ppgurl").container.style.display == "") {
                     element.getElementById("ppgurl").focus();
-                } else if (element.getElementById("piurl").style.display == "") {
+                } else if (element.getElementById("piurl").container.style.display == "") {
                     element.getElementById("piurl").focus();
                 }
             });
         });
     } catch (e) {
-        alert(sample.pushcapture.databaseError);
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = sample.pushcapture.databaseError;
     }
 };
 
@@ -112,7 +111,7 @@ sample.pushcapture.constructor.prototype.initConfiguration = function(element) {
  */
 sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, results) {
     element.getElementById("appid").value = results.rows.item(0).appid;
-    element.getElementById("appid").disabled = true;
+    element.getElementById("appid").disable();
     sample.pushcapture.appid = results.rows.item(0).appid;
     element.getElementById("piurl").value = results.rows.item(0).piurl;
     element.getElementById("ppgurl").value = results.rows.item(0).ppgurl;
@@ -120,11 +119,11 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
     if (results.rows.item(0).usingpublicppg == 1) {
         sample.pushcapture.usingpublicppg = true;
         element.getElementById("publicradio").setChecked();
-        element.getElementById("ppgurl").style.display = "";
+        element.getElementById("ppgurl").show();
     } else {
         sample.pushcapture.usingpublicppg = false;
         element.getElementById("enterpriseradio").setChecked();
-        element.getElementById("ppgurl").style.display = "none";
+        element.getElementById("ppgurl").hide();
     }
     bb.radio.disableGroup("ppgtype");
 
@@ -136,14 +135,14 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
 
     if (results.rows.item(0).usesdkaspi == 1) {
         element.getElementById("usesdkaspi").setChecked(true);
-        element.getElementById("piurl").style.display = "";
+        element.getElementById("piurl").show();
     } else {
         element.getElementById("usesdkaspi").setChecked(false);
-        element.getElementById("piurl").style.display = "none";
+        element.getElementById("piurl").hide();
         // If using an enterprise PPG and not subscribing with the SDK, the app id
         // field is not shown because the APIs will just use the default app id
         if (!sample.pushcapture.usingpublicppg) {
-            element.getElementById("appid").style.display = "none";
+            element.getElementById("appid").hide();
         }
     }
 
@@ -158,6 +157,9 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.configure = function() {
+    document.getElementById("progressinfo").style.display = "none";
+    document.getElementById("errordiv").style.display = "none";
+
     var wasValidationSuccessful = sample.pushcapture.validateConfigFields();
 
     if (wasValidationSuccessful) {
@@ -193,33 +195,40 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
     var ppgurl = document.getElementById("ppgurl").value.trim();
 
     if ((usingpublicppg || usesdkaspi) && appid == "") {
-        alert("Error: Please specify an Application ID.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify an Application ID.";
         return false;
     }
 
     if (usingpublicppg && ppgurl == "") {
-        alert("Error: Please specify a PPG URL.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify a PPG URL.";
         return false;
     }
     if (usingpublicppg && !ppgurl.startsWith("http://")) {
-        alert("Error: The PPG URL must start with http://.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: The PPG URL must start with http://.";
         return false;
     }
     if (usingpublicppg && ppgurl.endsWith("/")) {
-        alert("Error: The PPG URL should not end with a /. One will be automatically added.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: The PPG URL should not end with a /. One will be automatically added.";
         return false;
     }
 
     if (usesdkaspi && piurl == "") {
-        alert("Error: Please specify a Push Initiator URL.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: Please specify a Push Initiator URL.";
         return false;
     }
     if (usesdkaspi && !piurl.startsWith("http://") && !piurl.startsWith("https://")) {
-        alert("Error: The Push Initiator URL must start with http:// or https://.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: The Push Initiator URL must start with http:// or https://.";
         return false;
     }
     if (usesdkaspi && piurl.endsWith("/")) {
-        alert("Error: The Push Initiator URL should not end with a /. One will be automatically added.");
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: The Push Initiator URL should not end with a /. One will be automatically added.";
         return false;
     }
 
@@ -240,13 +249,8 @@ sample.pushcapture.constructor.prototype.validateConfigFields = function() {
  * @memberOf sample.pushcapture
  */
 sample.pushcapture.constructor.prototype.storeConfiguration = function() {
-    var opInProgressDiv = document.createElement("div");
-    opInProgressDiv.id = "op-in-progress";
-    opInProgressDiv.className = "full-size";
-    document.body.appendChild(opInProgressDiv);
+    sample.pushcapture.operationInProgress("full-size");
 
-    document.getElementById("activityindicator").style.display = "block";
-    document.getElementById("progressinfo").style.display = "block";
     document.getElementById("progressinfo").innerHTML = "Saving...";
 
     sample.pushcapture.db.transaction(function(tx) {
@@ -283,7 +287,10 @@ sample.pushcapture.constructor.prototype.insertOrUpdateConfiguration = function(
     } else if (results.rows.item(0).count == 1) {
         sample.pushcapture.updateConfiguration();
     } else {
-        alert("Error: There should be only one entry stored for configuration.");
+        sample.pushcapture.restoreScreenAfterOperation();
+
+        document.getElementById("errordiv").style.display = "block";
+        document.getElementById("errormsg").innerHTML = "Error: There should be only one entry stored for configuration.";
     }
 };
 
@@ -326,8 +333,9 @@ sample.pushcapture.constructor.prototype.updateConfiguration = function() {
  */
 sample.pushcapture.constructor.prototype.successfulConfiguration = function() {
     // Indicate that the saving of the configuration was successful
-    document.body.removeChild(document.getElementById("op-in-progress"));
-    document.getElementById("activityindicator").style.display = "none";
+    sample.pushcapture.restoreScreenAfterOperation();
+
+    document.getElementById("progressinfo").style.display = "block";
     document.getElementById("progressinfo").innerHTML = "<p>Successfully saved. Please register now.</p>";
 
     // Once the configuration has been successfully saved once,
@@ -338,5 +346,5 @@ sample.pushcapture.constructor.prototype.successfulConfiguration = function() {
     bb.radio.disableGroup("ppgtype");
 
     document.getElementById("appid").value = sample.pushcapture.appid;
-    document.getElementById("appid").disabled = true;
+    document.getElementById("appid").disable();
 };

@@ -11,7 +11,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Author(s)**
 
-* Chad Tetreault (http://www.twitter.com/chadtatro)
+* [Chad Tetreault](http://www.twitter.com/chadtatro)
 
 **Dependencies**
 
@@ -65,7 +65,7 @@ Don't forget to access the devices location information via HTML5 Geolocation, t
 
 ```
 <rim:permissions>
-   <rim:permit>read_geolocation</rim:permit>
+	<rim:permit>access_location_services</rim:permit>
 </rim:permissions>
 ```
 
@@ -96,7 +96,7 @@ Please see the [README](https://github.com/blackberry/BB10-WebWorks-Samples) of 
 
 ## Bug Reporting and Feature Requests
 
-If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample and send a message (via github messages) to the Sample Author(s) to let them know that you have filed an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues).
+If you find a bug in a Sample, or have an enhancement request, simply file an [Issue](https://github.com/blackberry/BB10-WebWorks-Samples/issues) for the Sample.
 
 ## Disclaimer
 

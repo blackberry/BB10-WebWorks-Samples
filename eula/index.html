@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<!--
+- Copyright (c) 2012 Research In Motion Limited.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-->
+
+<html>
+	<head>
+		<title>EULA Example</title>
+		<link type="text/css" rel="stylesheet" href="./eula/eula.css" />
+	</head>
+	<body>
+		Hello World!
+		<script type="text/javascript" src="local:///chrome/webworks.js"></script>
+		<script type="text/javascript" src="./eula/eula.js"></script>
+		<script type="text/javascript">
+			/*global initEULA, refreshEULA */
+
+			window.addEventListener('DOMContentLoaded', function () {
+				document.addEventListener('webworksready', function () {
+					/**
+					 * initEULA: Must be called before calling the show function.
+					 * OPTIONAL: Provide a callback function for when the EULA is accepted. This can be used to hold off performing
+					 *			 various actions until the user has actually agreed to the EULA.
+					 */
+					initEULA(function () {
+						console.log('EULA accepted.');
+					});
+
+					/**
+					 * show:	 Called to display the EULA.
+					 * OPTIONAL: If the developer provides a true flag, the EULA will always be shown on startup. If the developer
+					 *			 provides a false flag, or no flag at all, the EULA will only be shown once, until it is accepted.
+					 *           Once accepted, a value is set in LocalStorage to keep track of whether it's been accepted for future
+					 *			 reference. If a callback function is provided in initEULA, it will also be invoked upon acceptance.
+					 */
+					document.querySelector('#eula').show(true);
+
+					/*****************************************************************************************************************/
+					/** This code is purely for demonstration purposes. Tapping on the EULA will cycle through available languages. **/
+					/*****************************************************************************************************************/
+					/**/ var langs = ['ar', 'de', 'fr', 'is', 'lo', 'ru', 'sk', 'en'],
+					/**/     index = 0;																							   /**/
+					/**/																										   /**/
+					/**/ document.querySelector('#eula > .eulabox').addEventListener('click', function () {						   /**/
+					/**/     refreshEULA(langs[index]);																			   /**/
+					/**/     index = (index + 1) % langs.length;																   /**/
+					/**/ }, false);																								   /**/
+					/*****************************************************************************************************************/
+				}, false);
+			}, false);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,68 @@
+/*
+* Copyright 2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+section.effects-view{
+	background:transparent;
+	text-align:center;
+}
+
+.effects-grid{
+	background: #262626;
+	width:100%;
+	top:775px;
+	bottom:0px;
+	position:absolute;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	-webkit-overflow-scrolling:touch;
+}
+.effect{
+	width:190px;
+	height:190px;
+	background:#282828;
+	float:left;
+	border:1px solid #222;
+}
+.effect.on {
+	background: #0098f0;
+	color: #eee;
+}
+
+.effect .name {
+	line-height:190px;
+	font-size:34px;
+	color:#eee;
+	
+}
+
+@media 
+screen and (device-height:720px) {
+	
+	.effects-grid{
+		right:0px;
+		width:165px;
+		top:80px;
+		bottom:0px;
+	}
+	.effect{
+		width:165px;
+		height:165px;
+	}
+	.name {
+		line-height:165px;	
+	}
+
+}

@@ -18,9 +18,9 @@
 <head>
 	<title>Sensors</title>
 	<script type="text/javascript" src="local:///chrome/webworks.js"></script>
-	<link rel="stylesheet" type="text/css" href="bbUI/bbui-0.9.5.css">
+	<link rel="stylesheet" type="text/css" href="bbUI/bbui-min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<script type="text/javascript" src="bbUI/bbui-0.9.5.js"></script>
+	<script type="text/javascript" src="bbUI/bbui-min.js"></script>
 	<script type="text/javascript" src="Flotr2/flotr2.min.js"></script>
 	<script type="text/javascript">
 	var rippleLoaded = false;
@@ -28,7 +28,7 @@
 		// This is a hack for Ripple calling webworksready multiple times
 		if (rippleLoaded) return;
 		rippleLoaded = true;
-		
+
 		bb.init({actionBarDark: true,
 			controlsDark: true,
 			listsDark: true,
@@ -36,7 +36,7 @@
 			onscreenready: function(element, id) {
 				// Choose the sensor based on ID of the link selected, and start listening
 				var sensor = bbsensors[id];
-				if (sensor) {
+				if (sensor && sensor.name) {
 					bbsensors.listen(sensor);
 				} else {
 					bbsensors.listen('');
@@ -66,11 +66,21 @@
 		bb.pushScreen('menu.html', 'menu');
 	}, false);
 
+			// Fire the webworksready event for PlayBook and BBOS
+			window.addEventListener('load',function() {
+					if (navigator.userAgent.indexOf('BB10') < 0) {
+						var evt = document.createEvent('Events');
+						evt.initEvent('webworksready', true, true);
+						document.dispatchEvent(evt);
+					}
+				});
+
+
 	// The bbsensors object will hold all our sensor settings and methods for the application.
 	var bbsensors = {
 		// This object is passed to the Sensor API just before listening starts
 		options: {
-			delay: 1000,
+			delay: 20000,
 			background: false,
 			batching: true,
 			queue: false,
@@ -88,7 +98,7 @@
 				bbsensors.pieOptions.title = sensor.title;
 				bbsensors.clear();
 				blackberry.sensors.setOptions(bbsensors.currentSensor.name, bbsensors.options);
-				blackberry.event.addEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);	
+				blackberry.event.addEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);
 			}
 		},
 		// Acceleration in xyz axes in m/s/s
@@ -265,7 +275,7 @@
 		// Push the data values into the cache for the Line Graph
 		// Uses each bbsensors sensor definition to determine what values to capture
 		pushValue: function (data) {
-			var dataValue;	
+			var dataValue;
 			for (point in bbsensors.currentSensor.dataPoints) {
 				label = bbsensors.currentSensor.dataPoints[point];
 				if (bbsensors.currentSensor == bbsensors.devicerotationmatrix) {
