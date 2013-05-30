@@ -23,10 +23,10 @@ Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim
 
 **To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
-<!-- ## Screenshots 
+## Screenshots 
 
-![Screenshot](https://raw.github.com/ctetreault/BB10-WebWorks-Samples/master/WindowCovers/screenshot.png)
- -->
+![Screenshot](https://raw.github.com/ctetreault/BB10-WebWorks-Samples/master/Localytics/screenshot.png)
+
 
 ## How to get started
 
