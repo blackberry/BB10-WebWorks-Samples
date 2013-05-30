@@ -45,7 +45,7 @@ localyticsSession = LocalyticsSession("<insert your key here>", options);
 ```
 
 ***3. Tracking events and usage***</br>
-Localytics has done an amazing job at creating simple, easy to follow instructions for how to get started. Rather than duplicate their efforts I ***strongly**** recommend that you read their [HTML5 Integration Guide](http://www.localytics.com/docs/html5-integration/).
+Localytics has done an amazing job at creating simple, easy to follow instructions for how to get started. Rather than duplicate their efforts I ***strongly*** recommend that you read their [HTML5 Integration Guide](http://www.localytics.com/docs/html5-integration/).
 
 ## How to Build
 
