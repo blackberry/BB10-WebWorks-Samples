@@ -47,30 +47,6 @@ localyticsSession = LocalyticsSession("<insert your key here>", options);
 ***3. Tracking events and usage***</br>
 Localytics has done an amazing job at creating simple, easy to follow instructions for how to get started. Rather than duplicate their efforts I ***strongly**** recommend that you read their [HTML5 Integration Guide](http://www.localytics.com/docs/html5-integration/).
 
-## BlackBerry 10 Caveats
-There is one last thing that needs to be done if you plan on using Localytics in your BlackBerry 10 WebWorks projects. In the js/lib/localytics.js file, you must edit the ***src*** variable within the ***jsonpSend*** function (on line 263) and add ***http://*** in front of the address. The final code should match the following snippet.
-
-```
-var jsonpSend = function(jsonData) {
-  var script = document.createElement("script"),
-    head = document.head || document.getElementsByTagName("head")[0] || document.documentElement,
-   
-    // prepend http:// below to use for BlackBerry 10
-    src = 'http://' + ref.__url__ + "api/v2/applications/" + encodeURIComponent(appKey) + "/uploads?callback=" + CALLBACK_METHOD + "&client_date=" + 
-
-    generateClientTime() + "&data=" + encodeURIComponent(jsonData);
-
-  log("Uploading blob: \n" + jsonData);
-  log("Request length: " + src.length);
-  if (src.length > MAX_UPLOAD_LENGTH) {
-    log("Upload length exceeds maximum supported length.  Deleting data without uploading.");
-    ref._clearStoredUploads();
-    return;
-  }
-```      
-
-
-***
 ## How to Build
 
 1. Clone the repo to your local machine

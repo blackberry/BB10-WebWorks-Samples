@@ -74,6 +74,11 @@ function eventThree() {
 function postAnalytics() {
 	// if a connection is already open it will re-use it instead of creating a new connection
 	localyticsSession.open();
+
+	/** note: you don't always have to call this upload method as the library will cache all usage,
+	 *  and upload it for you at the start of the next user session. for this sample I wanted it to
+	 *  report a bit quicker, so I'm calling upload().
+	 */
 	localyticsSession.upload();
 }
 
