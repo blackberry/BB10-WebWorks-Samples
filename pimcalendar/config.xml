@@ -29,6 +29,7 @@
 	<feature id="blackberry.app.event" />
 	<feature id="blackberry.pim.calendar" />
 	<feature id="blackberry.system.event" />
+	<feature id="blackberry.ui.contextmenu" />
 
 	<rim:permissions>
 		<rim:permit>access_pimdomain_calendars</rim:permit>
