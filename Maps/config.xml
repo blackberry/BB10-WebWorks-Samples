@@ -13,7 +13,8 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:rim="http://www.blackberry.com/ns/widgets"
         version="1.0.0"
-        id="mapsSample">
+        id="mapsSample"
+        rim:userAgent="Mozilla/5.0 (BB10; Touch) AppleWebKit/537.10+ (KHTML, like Gecko) Version/10.1.0.1720 Mobile Safari/537.10+">
     <name>Maps Sample</name>
     <content src="local:///index.html" />
     <author rim:copyright="2012"
