@@ -15,11 +15,10 @@
 */
 
 var format = require('util').format,
-    express = require('express'),
 	fs = require("fs"),
 	path = require("path"),
-    app = express.createServer();
-
+  	express = require("express"),
+  	app = express();
 
 app.use(express.bodyParser());
 
