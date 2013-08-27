@@ -384,7 +384,7 @@ var bbutils = {
     request = {
       action : 'bb.action.SHARE',
       target_type : ["CARD"],
-      type : "text/plain",
+      mime : "text/plain",
       data : bbm.messageText
     }
 
