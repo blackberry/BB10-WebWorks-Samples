@@ -397,7 +397,7 @@ var bbutils = {
 
     // error
     function(e) {
-      console.log("Invocation error: " + error);
+      console.log("Invocation error: " + e);
     });
   },
 
