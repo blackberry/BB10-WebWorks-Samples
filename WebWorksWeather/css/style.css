@@ -1,0 +1,139 @@
+/*
+ * Copyright 2013 BlackBerry Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+h1 {
+    font-size: 1.25em;
+    font-weight: normal;
+    margin: 0px;
+}
+h2 {
+    font-size:1em;
+    font-weight: normal;
+    color: #ccc;
+    text-shadow: 0px 2px 3px #888;
+    margin: 0px;
+}
+a {
+  color: #00BFFF;
+  text-decoration:none;
+}
+ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 5px;
+}
+ul.indepth {
+  
+    /* border: #ff0000 1px solid;*/
+    width:100%;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-padding-start: 0px;
+}
+ul.indepth > li {
+    /*border: #ff0000 1px solid;*/
+    -webkit-box-flex: 1;
+    list-style-type: none;
+    text-align: center;
+    padding: 5px;
+}
+
+ul.sevendays {
+    width:100%;
+    /* border: #ff0000 1px solid;*/
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-padding-start: 0px;
+}
+ul.sevendays > li {
+    height:100%;
+    /*border: #666 1px solid;*/
+    -webkit-box-flex: 1;
+    list-style-type: none;
+    text-align: center;
+    padding: 5px;
+}
+
+ul{
+  -webkit-margin-before:0px;
+  -webkit-margin-after:0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.vmiddle {
+    vertical-align: middle;
+}
+.hrlylist {
+  display: inline-block;
+  padding-left:5px;
+  padding-right:15px;
+  width: 110px;
+  border-right: 1px solid #fff;
+  text-align:center;
+}
+.sdayshighlowblock{
+  float:left; padding:0px 40px 0px 50px;
+}
+
+.sdaystempblock{
+  font-size:1.25em;
+  text-align:right;
+  float:left;
+}
+.temperature {
+    float:right;
+    font-size:2.5em
+}
+.weatherdesc {
+    border-bottom: 1px solid #555;
+    padding:20px 0px 10px 0px;
+}
+.weathertitle {
+    color: #333;
+    text-shadow: 0px 2px 3px #888;
+}
+.sdaysdiv {
+  padding: 25px 0px 0px 0px;
+  margin: 25px 0px 0px 0px;
+  /*border-bottom: 1px dotted #333;*/
+  border-top: 3px dotted #ddd;
+}
+/* ================================================================ */
+
+/*                Z10                 */
+
+/* ================================================================ */
+ @media screen and (min-device-height: 721px) {
+    /*add z10 specific stylings here*/
+}
+/* ================================================================ */
+
+/*                Q10                 */
+
+/* ================================================================ */
+ @media screen and (max-device-width: 720px) and (max-device-height: 720px) {
+    /*add q10 specific stylings here*/
+
+   body {
+     font-size:.9em;
+   }
+ 
+}

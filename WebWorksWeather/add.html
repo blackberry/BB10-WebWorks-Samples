@@ -1,0 +1,43 @@
+<!--
+ Copyright 2013 BlackBerry Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");  you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software  distributed under the License is distributed on an "AS IS" BASIS,  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and  limitations under the License.
+-->
+
+<div data-bb-type="screen" data-bb-effect="slide-left">
+  <div data-bb-type="title" data-bb-caption="Add"></div>
+  <div data-bb-type="round-panel" id="citySearchContainer">
+    <div data-bb-type="panel-header">
+      Add A City
+    </div>
+    <input type="search" id="citySearchBox" placeholder="Enter a city" onkeypress="if (event.keyCode == 13) addCity.search() " autofocus="">
+    <div data-bb-type="button" data-bb-style="stretch" onclick="addCity.search()">
+      Search
+    </div>
+  </div>
+
+  <div data-bb-type="activity-indicator" id="cityIndicator" data-bb-size="medium" style="margin:0 auto; display:none"></div>
+  <div data-bb-type="round-panel" id="cityResults" style="display: none">
+    <div data-bb-type="panel-header">
+      Tap to add
+    </div>
+
+    <div data-bb-type="image-list" data-bb-images="none" id="cityResultsList"></div>
+  </div>
+
+  <div data-bb-type="action-bar">
+    <div onclick="addCity.resetSearch();" id="resetSearchButton" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/search.png">
+      Search Again
+    </div>
+    <div onclick="showScreen.main();" id="doneCityAdd" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/close.png">
+      Close
+    </div>
+
+  </div>
+</div>

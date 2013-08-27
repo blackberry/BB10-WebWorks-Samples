@@ -1,0 +1,5 @@
+# Project workspace files
+*.project
+
+# My API key file
+key.txt
