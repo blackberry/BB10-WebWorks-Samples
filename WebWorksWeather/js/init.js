@@ -384,7 +384,7 @@ var bbutils = {
     request = {
       action : 'bb.action.SHARE',
       target_type : ["CARD"],
-      type : "text/plain",
+      mime : "text/plain",
       data : bbm.messageText
     }
 
@@ -397,7 +397,7 @@ var bbutils = {
 
     // error
     function(e) {
-      console.log("Invocation error: " + error);
+      console.log("Invocation error: " + e);
     });
   },
 
