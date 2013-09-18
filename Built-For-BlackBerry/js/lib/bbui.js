@@ -1,7 +1,7735 @@
-/*! bbUI VERSION: 0.9.6.126 | github.com/blackberry/bbUI.js/blob/master/LICENSE !*/bb={scroller:null,screens:[],dropdownScrollers:[],windowListeners:[],documentListeners:[],transparentPixel:"data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==",imageList:null,activityIndicator:null,fileInput:null,button:null,scrollPanel:null,bbmBubble:null,dropdown:null,textInput:null,roundPanel:null,grid:null,pillButtons:null,labelControlContainers:null,slider:null,radio:null,progress:null,checkbox:null,toggle:null,init:function(e){if(e)for(var t in e)bb.options[t]=e[t];window.blackberry&&blackberry.system&&blackberry.system.event&&blackberry.system.event.onHardwareKey&&(bb.options.onbackkey?blackberry.system.event.onHardwareKey(blackberry.system.event.KEY_BACK,bb.options.onbackkey):blackberry.system.event.onHardwareKey(blackberry.system.event.KEY_BACK,bb.popScreen)),bb.device.isRipple=navigator.userAgent.indexOf("Ripple")>=0||window.tinyHippos,bb.device.isPlayBook=navigator.userAgent.indexOf("PlayBook")>=0||1024==window.innerWidth&&600==window.innerHeight||600==window.innerWidth&&1024==window.innerHeight,bb.device.isBB10=bb.device.isPlayBook&&bb.options.bb10ForPlayBook?!0:navigator.userAgent.indexOf("BB10")>=0,bb.device.isBB7=navigator.userAgent.indexOf("7.0.0")>=0||navigator.userAgent.indexOf("7.1.0")>=0,bb.device.isBB6=navigator.userAgent.indexOf("6.0.0")>=0,bb.device.isBB5=navigator.userAgent.indexOf("5.0.0")>=0,bb.device.is1024x600=bb.device.isPlayBook,bb.device.is1280x768=1280==window.innerWidth&&768==window.innerHeight||768==window.innerWidth&&1280==window.innerHeight,bb.device.is720x720=720==window.innerWidth&&720==window.innerHeight,bb.device.is1280x720=1280==window.innerWidth&&720==window.innerHeight||720==window.innerWidth&&1280==window.innerHeight,bb.device.isHiRes=bb.device.isRipple?window.innerHeight>480||window.innerWidth>480:screen.width>480||screen.height>480;var t,i=document.head.querySelectorAll("meta[name=viewport]");for(t=0;i.length>t;t++)try{document.head.removeChild(i[t])}catch(n){}var o=document.createElement("meta");o.setAttribute("name","viewport"),bb.device.isBB10&&!bb.device.is1024x600?o.setAttribute("content","initial-scale="+1/window.devicePixelRatio+",user-scalable=no"):o.setAttribute("content","initial-scale=1.0,width=device-width,user-scalable=no,target-densitydpi=device-dpi"),document.head.appendChild(o);var r=parseInt(bb.cutHex(bb.options.highlightColor).substring(0,2),16),s=parseInt(bb.cutHex(bb.options.highlightColor).substring(2,4),16),l=parseInt(bb.cutHex(bb.options.highlightColor).substring(4,6),16);if(bb.options.shades={R:r,G:s,B:l,darkHighlight:"rgb("+(r-120)+", "+(s-120)+", "+(l-120)+")",mediumHighlight:"rgb("+(r-60)+", "+(s-60)+", "+(l-60)+")",darkOutline:"rgb("+(r-32)+", "+(s-32)+", "+(l-32)+")",darkDarkHighlight:"rgb("+(r-140)+", "+(s-140)+", "+(l-140)+")"},document.styleSheets&&document.styleSheets.length)try{document.styleSheets[0].insertRule(".bb10Highlight {background-color:"+bb.options.highlightColor+";background-image:none;}",0),document.styleSheets[0].insertRule(".bbProgressHighlight {background-color:#92B43B;background-image:none;}",0),document.styleSheets[0].insertRule(".bb10-button-highlight {color:White;background-image: -webkit-gradient(linear, center top, center bottom, from("+bb.options.shades.darkHighlight+"), to("+bb.options.highlightColor+"));border-color:#53514F;}",0),document.styleSheets[0].insertRule(".pb-button-light-highlight {color:"+bb.options.shades.darkHighlight+";background-image: -webkit-gradient(linear, center top, center bottom, from("+bb.options.highlightColor+"), to("+bb.options.shades.darkHighlight+"));}",0),document.styleSheets[0].insertRule(".pb-button-dark-highlight {color:"+bb.options.highlightColor+";background-image: -webkit-gradient(linear, center top, center bottom, from("+bb.options.highlightColor+"), to("+bb.options.shades.darkHighlight+"));}",0),document.styleSheets[0].insertRule(".bb10Accent {background-color:"+bb.options.shades.darkHighlight+";}",0),document.styleSheets[0].insertRule(".bb10-title-colored {color:white;text-shadow: 0px 2px black;background-image: -webkit-gradient(linear, center top, center bottom, from("+bb.options.highlightColor+"), to("+bb.options.shades.darkHighlight+"));}",0),document.styleSheets[0].insertRule(".bb10-title-button-container-colored {color:white;text-shadow: 0px 2px black;border-color: "+bb.options.shades.darkDarkHighlight+";background-color: "+bb.options.shades.darkHighlight+";}",0),document.styleSheets[0].insertRule(".bb10-title-button-colored {border-color: "+bb.options.shades.darkDarkHighlight+";background-image: -webkit-gradient(linear, center top, center bottom, from("+bb.options.highlightColor+"), to("+bb.options.shades.mediumHighlight+"));}",0),document.styleSheets[0].insertRule(".bb10-title-button-colored-highlight {border-color: "+bb.options.shades.darkDarkHighlight+";background-color: "+bb.options.shades.darkHighlight+";}",0)}catch(n){console.log(n.message)}bb.screen.controlColor=bb.options.controlsDark?"dark":"light",bb.screen.listColor=bb.options.listsDark?"dark":"light",bb.device.isBB10?(bb.imageList=_bb10_imageList,bb.activityIndicator=_bb10_activityIndicator,bb.fileInput=_bb10_fileInput,bb.button=_bb10_button,bb.scrollPanel=_bb_PlayBook_10_scrollPanel,bb.bbmBubble=_bb_bbmBubble,bb.dropdown=_bb10_dropdown,bb.textInput=_bb10_textInput,bb.roundPanel=_bb10_roundPanel,bb.grid=_bb10_grid,bb.pillButtons=_bb10_pillButtons,bb.labelControlContainers=_bb10_labelControlContainers,bb.slider=_bb10_slider,bb.radio=_bb10_radio,bb.progress=_bb_progress,bb.checkbox=_bb10_checkbox,bb.toggle=_bb10_toggle,bb.contextMenu=bb.device.isPlayBook||bb.device.isRipple?_PlayBook_contextMenu:_bb10_contextMenu,bb.actionOverflow=_PlayBook_contextMenu):bb.device.isBB5?(bb.imageList=_bb_5_6_7_imageList,bb.button=_bb5_button,bb.bbmBubble=_bb_bbmBubble,bb.roundPanel=_bb_5_6_7_roundPanel,bb.pillButtons=_bb5_pillButtons,bb.labelControlContainers=_bb5_labelControlContainers,bb.progress=_bb_progress):bb.device.isPlayBook?(bb.imageList=_bbPlayBook_imageList,bb.button=_bbPlayBook_button,bb.bbmBubble=_bb_bbmBubble,bb.dropdown=_bb_6_7_PlayBook_dropdown,bb.textInput=_bbPlayBook_textInput,bb.pillButtons=_bb_6_7_PlayBook_pillButtons,bb.labelControlContainers=_bb_6_7_PlayBook_labelControlContainers,bb.progress=_bb_progress,bb.scrollPanel=_bb_PlayBook_10_scrollPanel,bb.roundPanel=_bbPlayBook_roundPanel,bb.activityIndicator=_bbPlayBook_activityIndicator):(bb.imageList=_bb_5_6_7_imageList,bb.button=_bb_6_7_button,bb.bbmBubble=_bb_bbmBubble,bb.dropdown=_bb_6_7_PlayBook_dropdown,bb.textInput=_bb_6_7_textInput,bb.pillButtons=_bb_6_7_PlayBook_pillButtons,bb.labelControlContainers=_bb_6_7_PlayBook_labelControlContainers,bb.progress=_bb_progress,bb.roundPanel=_bb_5_6_7_roundPanel),!bb.device.isBB10||bb.device.isPlayBook||bb.device.isRipple||bb.device.is720x720||(blackberry.event.addEventListener("keyboardOpening",function(){bb.screen.currentScreen.actionBar&&bb.screen.currentScreen.actionBar.hide()}),blackberry.event.addEventListener("keyboardOpened",function(){bb.screen.currentScreen.actionBar&&bb.screen.focusedInput&&(bb.screen.focusedInput.container?bb.screen.focusedInput.container.scrollIntoView(!1):bb.screen.focusedInput.scrollIntoView(!1))}),blackberry.event.addEventListener("keyboardClosed",function(){bb.screen.currentScreen.actionBar&&bb.screen.currentScreen.actionBar.show()})),!bb.device.isBB10||bb.device.isPlayBook||bb.device.isRipple||blackberry.ui&&blackberry.ui.contextmenu&&(blackberry.ui.contextmenu.enabled=!0,blackberry.bbui&&blackberry.bbui.initContext({highlightColor:bb.options.highlightColor}))},doLoad:function(e){var t=e||document.body;bb.screen.apply(t.querySelectorAll("[data-bb-type=screen]")),bb.style(t),bb.screen.reAdjustHeight()},style:function(e){bb.scrollPanel&&bb.scrollPanel.apply(e.querySelectorAll("[data-bb-type=scroll-panel]")),bb.textInput&&bb.textInput.apply(e.querySelectorAll("input[type=text], [type=password], [type=tel], [type=url], [type=email], [type=number], [type=date], [type=time], [type=datetime], [type=month], [type=datetime-local], [type=color], [type=search]")),bb.dropdown&&bb.dropdown.apply(e.querySelectorAll("select")),bb.roundPanel&&bb.roundPanel.apply(e.querySelectorAll("[data-bb-type=round-panel]")),bb.imageList&&bb.imageList.apply(e.querySelectorAll("[data-bb-type=image-list]")),bb.grid&&bb.grid.apply(e.querySelectorAll("[data-bb-type=grid-layout]")),bb.bbmBubble&&bb.bbmBubble.apply(e.querySelectorAll("[data-bb-type=bbm-bubble]")),bb.pillButtons&&bb.pillButtons.apply(e.querySelectorAll("[data-bb-type=pill-buttons]")),bb.labelControlContainers&&bb.labelControlContainers.apply(e.querySelectorAll("[data-bb-type=label-control-container]")),bb.button&&bb.button.apply(e.querySelectorAll("[data-bb-type=button]")),bb.fileInput&&bb.fileInput.apply(e.querySelectorAll("input[type=file]")),bb.slider&&bb.slider.apply(e.querySelectorAll("input[type=range]")),bb.progress&&bb.progress.apply(e.querySelectorAll("progress")),bb.radio&&bb.radio.apply(e.querySelectorAll("input[type=radio]")),bb.activityIndicator&&bb.activityIndicator.apply(e.querySelectorAll("[data-bb-type=activity-indicator]")),bb.checkbox&&bb.checkbox.apply(e.querySelectorAll("input[type=checkbox]")),bb.toggle&&bb.toggle.apply(e.querySelectorAll("[data-bb-type=toggle]"))},getCurScreen:function(){return document.querySelector("[data-bb-type=screen]")},device:{isHiRes:!1,isBB5:!1,isBB6:!1,isBB7:!1,isBB10:!1,isPlayBook:!1,isRipple:!1,is1024x600:!1,is1280x768:!1,is720x720:!1,is1280x720:!1},options:{onbackkey:null,onscreenready:null,ondomready:null,controlsDark:!1,coloredTitleBar:!1,listsDark:!1,highlightColor:"#00A8DF",bb10ForPlayBook:!1},loadScreen:function(url,id,popping,guid,params,screenRecord){var xhr=new XMLHttpRequest,container=document.createElement("div"),_reduce=function(e,t,i){var n=i;return Array.prototype.forEach.apply(e,[function(e){n=t(n,e)}]),n},whereScript=function(e,t){return"SCRIPT"===t.nodeName&&e.push(t),_reduce(t.childNodes,whereScript,e)},i,scripts=[],newScriptTags=[];xhr.open("GET",url,!1),xhr.send(),container.setAttribute("id",guid),container.innerHTML=xhr.responseText,scripts=_reduce(container.childNodes,whereScript,[]),container.scriptIds=[],screenRecord&&(screenRecord.scripts=[]),scripts.forEach(function(script){var scriptTag=document.createElement("script"),type=script.getAttribute("type");if(!type||"text/javascript"==type.toLowerCase()){if(script.text)return eval(script.text),void 0;var scriptGuid=bb.guidGenerator();screenRecord?screenRecord.scripts.push({id:scriptGuid,onunload:script.getAttribute("onunload")}):container.scriptIds.push({id:scriptGuid,onunload:script.getAttribute("onunload")}),scriptTag.setAttribute("type","text/javascript"),scriptTag.setAttribute("src",script.getAttribute("src")),scriptTag.setAttribute("id",scriptGuid),newScriptTags.push(scriptTag),script.parentNode.removeChild(script)}}),container.getElementById=function(e,t){var i=null;if(t||(t=this),t.getAttribute("id")==e)return t;for(var n=0;t.childNodes.length>n;n++){var o=t.childNodes[n];if(1==o.nodeType&&(i=this.getElementById(e,o)))break}return i},bb.screen.scriptCounter=0,bb.screen.totalScripts=newScriptTags.length;for(var i=0;newScriptTags.length>i;i++)document.body.appendChild(newScriptTags[i]),newScriptTags[i].onload=function(){bb.screen.scriptCounter++,bb.screen.scriptCounter==bb.screen.totalScripts&&bb.initContainer(container,id,popping,params)};return 0===bb.screen.totalScripts&&setTimeout(function(){bb.initContainer(container,id,popping,params)},0),container},initContainer:function(e,t,i,n){bb.options.onscreenready&&bb.options.onscreenready(e,t,n),bb.doLoad(e),document.body.appendChild(e);var o,r,s,l=e.querySelectorAll("[data-bb-type=screen]"),a=null;if(l.length>0){if(l=l[0],i){var b,d=bb.screens[bb.screens.length-1].container;o=d.querySelectorAll("[data-bb-type=screen]")[0],b=o.hasAttribute("data-bb-effect")?o.getAttribute("data-bb-effect"):void 0,b&&(l.style["z-index"]="-100","fade"==b.toLowerCase()?o.setAttribute("data-bb-effect","fade-out"):"slide-left"==b.toLowerCase()?o.setAttribute("data-bb-effect","slide-out-right"):"slide-right"==b.toLowerCase()?o.setAttribute("data-bb-effect","slide-out-left"):"slide-up"==b.toLowerCase()?o.setAttribute("data-bb-effect","slide-out-down"):"slide-down"==b.toLowerCase()&&o.setAttribute("data-bb-effect","slide-out-up"))}else o=l;if(o.popping=i,o.hasAttribute("data-bb-effect")&&!bb.device.isBB5&&!bb.device.isBB6&&(r=o.getAttribute("data-bb-effect"))){if(r=r.toLowerCase(),"fade"==r)a=bb.screen.fadeIn;else if("fade-out"==r)a=bb.screen.fadeOut;else if(!bb.device.isBB7)switch(r){case"slide-left":a=bb.screen.slideLeft;break;case"slide-out-left":a=bb.screen.slideOutLeft;break;case"slide-right":a=bb.screen.slideRight;break;case"slide-out-right":a=bb.screen.slideOutRight;break;case"slide-up":a=bb.screen.slideUp;break;case"slide-out-up":a=bb.screen.slideOutUp;break;case"slide-down":a=bb.screen.slideDown;break;case"slide-out-down":a=bb.screen.slideOutDown}o.style.display="inline",a&&(s=document.createElement("div"),o.overlay=s,s.setAttribute("class","bb-transition-overlay"),document.body.appendChild(s),bb.screen.animating=!0,o.doEndAnimation=function(){var t=this.style;bb.screen.animating=!1,document.body.removeChild(this.overlay),this.overlay=null,bb.screens.length>1?this.popping?(this.style.display="none",this.parentNode.parentNode.removeChild(this.parentNode),bb.screens.pop(),l.style["z-index"]="",bb.screens[bb.screens.length-1].container=e):(bb.removePreviousScreenFromDom(),t.left="",t.right="",t.top="",t.bottom="",t.width="",t.height="",t["-webkit-animation-name"]="",t["-webkit-animation-duration"]="",t["-webkit-animation-timing-function"]="",t["-webkit-transform"]=""):1>=bb.screens.length&&(t.left="",t.right="",t.top="",t.bottom="",t.width="",t.height="",t["-webkit-animation-name"]="",t["-webkit-animation-duration"]="",t["-webkit-animation-timing-function"]="",t["-webkit-transform"]=""),this.removeEventListener("webkitAnimationEnd",this.doEndAnimation),bb.createScreenScroller(l)},o.doEndAnimation=o.doEndAnimation.bind(o),o.addEventListener("webkitAnimationEnd",o.doEndAnimation),a.call(this,o))}}if(bb.options.ondomready?(bb.domready.container=e,bb.domready.id=t,bb.domready.params=n,setTimeout(bb.domready.fire,1)):setTimeout(bb.domready.fireEventsOnly,1),!a){if(i){if(i){l.style["z-index"]="";var c=bb.screens[bb.screens.length-1].container;c.parentNode.removeChild(c),bb.screens.pop(),bb.screens[bb.screens.length-1].container=e}}else(bb.device.isBB5||bb.device.isBB6||bb.device.isBB7)&&bb.screens.length>0?bb.removePreviousScreenFromDom():bb.screens.length>1&&bb.removePreviousScreenFromDom();bb.createScreenScroller(l)}},domready:{container:null,id:null,params:null,fire:function(){if(bb.screen.animating)return setTimeout(bb.domready.fire,250),void 0;var e=document.createEvent("Events");e.initEvent("bbuidomready",!0,!0),document.dispatchEvent(e),e=document.createEvent("Events"),e.initEvent("bbuilistready",!0,!0),document.dispatchEvent(e),bb.options.ondomready(bb.domready.container,bb.domready.id,bb.domready.params),bb.domready.container=null,bb.domready.id=null,bb.domready.params=null,e=document.createEvent("Events"),e.initEvent("bbuidomprocessed",!0,!0),document.dispatchEvent(e)},fireEventsOnly:function(){if(bb.screen.animating)return setTimeout(bb.domready.fireEventsOnly,250),void 0;var e=document.createEvent("Events");e.initEvent("bbuidomready",!0,!0),document.dispatchEvent(e),e=document.createEvent("Events"),e.initEvent("bbuilistready",!0,!0),document.dispatchEvent(e),e=document.createEvent("Events"),e.initEvent("bbuidomprocessed",!0,!0),document.dispatchEvent(e)}},createScreenScroller:function(e){var t=e.bbUIscrollWrapper;if(t)if(bb.device.isPlayBook){var i={hideScrollbar:!0,fadeScrollbar:!0,onBeforeScrollStart:function(e){var t=e.target;if(!t.parentNode||"bb-bb10-dropdown-items"!=t.parentNode.getAttribute("class")){for(;1!=t.nodeType;)t=t.parentNode;if("SELECT"!=t.tagName&&"INPUT"!=t.tagName&&"TEXTAREA"!=t.tagName&&"AUDIO"!=t.tagName&&"VIDEO"!=t.tagName){e.preventDefault();var i=document.activeElement;i&&("SELECT"==i.tagName||"INPUT"==i.tagName||"TEXTAREA"==i.tagName||"AUDIO"==i.tagName||"VIDEO"==i.tagName)&&i.blur()}}},onScrollEnd:function(){evt=document.createEvent("Events"),evt.initEvent("bbuiscrolling",!0,!0),document.dispatchEvent(evt)},onScrollMove:function(t){e.onscroll&&e.onscroll(t),evt=document.createEvent("Events"),evt.initEvent("bbuiscrolling",!0,!0),document.dispatchEvent(evt)}};bb.scroller=new iScroll(t,i)}else bb.device.isBB10&&(bb.scroller=null,t.style["-webkit-overflow-scrolling"]="-blackberry-touch",t.onscroll=function(t){e.onscroll&&e.onscroll(t)})},clearScrollers:function(){for(var e,t=bb.dropdownScrollers-1;t>-1;t--)e=bb.dropdownScrollers[t],e.destroy(),e=null,bb.dropdownScrollers.pop()},removeTopMostScreenFromDom:function(){var e=bb.screens.length,t=document.getElementById(bb.screens[e-1].guid);document.body.removeChild(t)},removePreviousScreenFromDom:function(){var e,t,i=bb.screens.length;1!=i&&(t=i>1?2:1,e=document.getElementById(bb.screens[i-t].guid),e&&document.body.removeChild(e))},pushScreen:function(e,t,i){bb.removeLoadedScripts(),bb.menuBar.clearMenu();var n,o=bb.screens.length;o>0&&(bb.screen.overlay=null,bb.screen.tabOverlay=null,bb.clearScrollers(),bb.screen.contextMenu&&(bb.screen.contextMenu=null),(bb.device.isBB5||bb.device.isBB6||bb.device.isBB7)&&(n=document.getElementById(bb.screens[o-1].guid),n.style.display="none",window.scroll(0,0)));var r=bb.guidGenerator(),s=bb.loadScreen(e,t,!1,r,i);bb.screens.push({id:t,url:e,scripts:s.scriptIds,container:s,guid:r,params:i})},popScreen:function(){var e,t,i=bb.screens.length;if(i>1){for(bb.removeLoadedScripts(),bb.clearScrollers(),bb.menuBar.clearMenu(),bb.screen.overlay=null,bb.screen.tabOverlay=null,e=0;bb.windowListeners.length>e;e++)t=bb.windowListeners[e],window.removeEventListener(t.name,t.eventHandler,!1);for(bb.windowListners=[],e=0;bb.documentListeners.length>e;e++)t=bb.documentListeners[e],document.removeEventListener(t.name,t.eventHandler,!1);bb.documentListeners=[];var n=bb.screens[i-2];bb.loadScreen(n.url,n.id,!0,n.guid,n.params,n),(bb.device.isBB5||bb.device.isBB6||bb.device.isBB7)&&window.scroll(0,0)}else blackberry&&blackberry.app.exit()},removeLoadedScripts:function(){var numItems=bb.screens.length;if(numItems>0)for(var currentStackItem=bb.screens[numItems-1],current=document.getElementById(currentStackItem.guid),i=0;currentStackItem.scripts.length>i;i++){var bbScript=currentStackItem.scripts[i],scriptTag=document.getElementById(bbScript.id);bbScript.onunload&&eval(bbScript.onunload),scriptTag&&document.body.removeChild(scriptTag)}},innerHeight:function(){return bb.device.isPlayBook?window.orientation?0==window.orientation||180==window.orientation?600:-90==window.orientation||90==window.orientation?1024:void 0:window.innerHeight:window.innerHeight},innerWidth:function(){return bb.device.isPlayBook?window.orientation?0==window.orientation||180==window.orientation?1024:-90==window.orientation||90==window.orientation?600:void 0:window.innerWidth:window.innerWidth},getOrientation:function(){if(bb.device.is720x720)return"portrait";if(bb.device.isPlayBook){if(!window.orientation)return window.innerWidth>window.innerHeight?"landscape":"portrait";if(0==window.orientation||180==window.orientation)return"landscape";if(-90==window.orientation||90==window.orientation)return"portrait"}else{if(void 0==window.orientation)return window.innerWidth>window.innerHeight?"landscape":"portrait";if(0==window.orientation||180==window.orientation)return"portrait";if(-90==window.orientation||90==window.orientation)return"landscape"}},cutHex:function(e){return"#"==e.charAt(0)?e.substring(1,7):e},guidGenerator:function(){var e=function(){return(0|65536*(1+Math.random())).toString(16).substring(1)};return e()+e()+e()+e()+e()+e()+e()+e()},refresh:function(){bb.scroller&&bb.scroller.refresh()},isScrolledIntoView:function(e){var t=0,i=e;if(i.offsetParent)do t+=i.offsetTop,i.scrollTop&&(t-=i.scrollTop),bb.device.isPlayBook&&(i.scroller?t+=i.scroller.y:i.bbUIscrollWrapper&&(t+=bb.scroller.y));while(i=i.offsetParent);return bb.innerHeight()>t}},Function.prototype.bind=function(e){var t=this;return function(){return t.apply(e,arguments)}},bb.actionBar={apply:function(e,t){var i,n,o,r,s,l,a,b=e.querySelectorAll("[data-bb-type=action]"),d=[],c=[],h=[],u=[],p=e,m="1280x768-1280x720",g=bb.getOrientation();for(bb.device.is1024x600?m="1024x600":bb.device.is1280x768||bb.device.is1280x720?m="1280x768-1280x720":bb.device.is720x720&&(m="720x720"),e.res=m,e.isVisible=!0,e.setAttribute("class","bb-bb10-action-bar-"+m+" bb-bb10-action-bar-"+g+"-"+m+" bb-bb10-action-bar-dark"),e.mainBarTabs=h,e.mainBarButtons=d,e.overflowButtons=c,e.overflowTabs=u,a=0;b.length>a;a++)i=b[a],i.hasAttribute("data-bb-style")&&(r=i.getAttribute("data-bb-style").toLowerCase(),"button"==r?i.hasAttribute("data-bb-overflow")&&"true"==i.getAttribute("data-bb-overflow").toLowerCase()?c.push(i):d.push(i):i.hasAttribute("data-bb-overflow")&&"true"==i.getAttribute("data-bb-overflow").toLowerCase()?u.push(i):h.push(i));if(e.hasAttribute("data-bb-back-caption")&&0==e.querySelectorAll("[data-bb-style=tab]").length){var v,y,f,w;s=document.createElement("div"),s.setAttribute("class","bb-bb10-action-bar-back-button-"+m+" bb-bb10-action-bar-back-button-"+m+"-dark bb-bb10-action-bar-back-button-"+g+"-"+m),s.onclick=function(){window.setTimeout(bb.popScreen,0)},e.backBtn=s,v=document.createElement("div"),v.setAttribute("class","bb-bb10-action-bar-back-chevron-"+m+"-dark"),s.appendChild(v),y=document.createElement("div"),y.setAttribute("class","bb-bb10-action-bar-back-text-"+m+" bb-bb10-action-bar-back-text-"+g+"-"+m),y.innerHTML=e.getAttribute("data-bb-back-caption"),s.backCaption=y,s.appendChild(y),w=document.createElement("div"),w.setAttribute("class","bb-bb10-action-bar-back-button-highlight"),w.style.position="absolute",w.style.width=bb.device.is1024x600?"4px":"8px",w.style["background-color"]="transparent",s.updateHighlightDimensions=function(e){bb.device.is1024x600?(w.style.height="portrait"==e?"57px":"57px",w.style.top="8px"):bb.device.is1280x768||bb.device.is1280x720?(w.style.height="portrait"==e?"110px":"70px",w.style.top="15px"):bb.device.is720x720?(w.style.height="78px",w.style.top="15px"):(w.style.height="portrait"==e?"110px":"110px",w.style.top="15px")},s.updateHighlightDimensions=s.updateHighlightDimensions.bind(s),s.backHighlight=w,s.updateHighlightDimensions(g),s.appendChild(w),s.ontouchstart=function(){this.backHighlight.style["background-color"]=bb.options.highlightColor},s.ontouchend=function(){this.backHighlight.style["background-color"]="transparent"},f=document.createElement("div"),f.setAttribute("class","bb-bb10-action-bar-back-slash-"+m+"-dark bb-bb10-action-bar-back-slash-"+g+"-"+m),s.backslash=f;var E=document.createElement("table"),x=document.createElement("tr"),k=document.createElement("td");for(e.appendChild(E),E.appendChild(x),E.setAttribute("class","bb-bb10-action-bar-table"),k.style.width=bb.device.is1024x600?bb.actionBar.getBackBtnWidth(s)-16+"px":bb.actionBar.getBackBtnWidth(s)-33+"px",x.appendChild(k),s.innerChevron=k,k.appendChild(s),k=document.createElement("td"),k.style.width=bb.device.is1024x600?"16px":"33px",f.style["background-color"]=bb.options.shades.darkOutline,x.appendChild(k),k.appendChild(f),k=document.createElement("td"),k.style.width="100%",x.appendChild(k),p=k,a=0;b.length>a;a++)i=b[a],k.appendChild(i)}if(u.length>0&&(e.tabOverflowMenu=bb.tabOverflow.create(t),e.tabOverflowMenu.actionBar=e,i=document.createElement("div"),i.actionBar=e,i.tabOverflowMenu=e.tabOverflowMenu,i.setAttribute("data-bb-type","action"),i.setAttribute("data-bb-style","tab"),i.setAttribute("data-bb-img","overflow"),i.onclick=function(){this.tabOverflowMenu.show()},e.tabOverflowBtn=i,p.insertBefore(i,p.firstChild)),c.length>0&&(e.menu=bb.actionOverflow.create(t),e.appendChild(e.menu),i=document.createElement("div"),i.menu=e.menu,i.menu.actionBar=e,i.setAttribute("data-bb-type","action"),i.setAttribute("data-bb-style","button"),i.setAttribute("data-bb-img","overflow"),i.onclick=function(){this.menu.show()},e.actionOverflowBtn=i,p.appendChild(i)),e.getUsableWidth=function(){return bb.innerWidth()-bb.actionBar.getBackBtnWidth(this.backBtn)-bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn)-bb.actionBar.getTabOverflowBtnWidth(this.tabOverflowBtn)},e.getUsableWidth=e.getUsableWidth.bind(e),e.switchOrientationCSS=function(e){if(e){var t=bb.getOrientation();e="portrait"==t?e.replace("landscape","portrait"):e.replace("portrait","landscape")}return e},e.switchOrientationCSS=e.switchOrientationCSS.bind(e),e.reLayoutActionBar=function(){var e,t,i,n,o="button",r=0,s=5,l=0,a=0,b=0,d=bb.getOrientation();for(this.actionOverflowBtn&&s--,this.backBtn&&s--,this.tabOverflowBtn&&s--,e=0;this.mainBarTabs.length>e&&l!=s;e++)i=this.mainBarTabs[e],1==i.visible&&l++;for(e=0;this.mainBarButtons.length>e&&l!=s;e++)t=this.mainBarButtons[e],1==t.visible&&l++;for(l=0==l?1:l,r=Math.floor(this.getUsableWidth()/l),n=this.getAttribute("class"),n=this.switchOrientationCSS(n),this.setAttribute("class",n),this.isVisible&&(bb.screen.currentScreen.outerScrollArea.style.bottom=bb.screen.getActionBarHeight()+"px",bb.scroller&&bb.scroller.refresh()),this.backBtn&&(n=this.backBtn.getAttribute("class"),n=this.switchOrientationCSS(n),this.backBtn.setAttribute("class",n),this.backBtn.updateHighlightDimensions(d),n=this.backBtn.backCaption.getAttribute("class"),n=this.switchOrientationCSS(n),this.backBtn.backCaption.setAttribute("class",n),n=this.backBtn.backslash.getAttribute("class"),n=this.switchOrientationCSS(n),this.backBtn.backslash.setAttribute("class",n),this.backBtn.innerChevron.style.width=bb.device.is1024x600?bb.actionBar.getBackBtnWidth(this.backBtn)-16+"px":bb.actionBar.getBackBtnWidth(this.backBtn)-33+"px"),l=0,b=r-2,e=0;this.mainBarTabs.length>e;e++)i=this.mainBarTabs[e],s>l&&1==i.visible?(a+=b,i.style.width=b+"px",i.normal=this.switchOrientationCSS(i.normal),i.highlight=this.switchOrientationCSS(i.highlight),n=i.getAttribute("class"),n=this.switchOrientationCSS(n),i.setAttribute("class",n),n=i.display.getAttribute("class"),n=this.switchOrientationCSS(n),i.display.setAttribute("class",n),o="tab",l++):(i.style.display="none",i.visible=!1);for(b=r-1,e=0;this.mainBarButtons.length>e;e++)t=this.mainBarButtons[e],s>l&&1==t.visible?(a+=b,t.style.width=b+"px",t.highlight.style.width=.6*r+"px",t.highlight.style["margin-left"]=.2*r+"px",t.normal="tab"==o?"bb-bb10-action-bar-action-"+t.res+" bb-bb10-action-bar-action-"+d+"-"+t.res+" bb-bb10-action-bar-button-dark bb-bb10-action-bar-button-tab-left-"+t.res+"-dark":"bb-bb10-action-bar-action-"+t.res+" bb-bb10-action-bar-action-"+d+"-"+t.res+" bb-bb10-action-bar-button-dark",t.setAttribute("class",t.normal),t.normal=this.switchOrientationCSS(t.normal),n=t.getAttribute("class"),n=this.switchOrientationCSS(n),t.setAttribute("class",n),o="button",l++):(t.style.display="none",t.visible=!1);this.actionOverflowBtn&&(this.actionOverflowBtn.normal="tab"==o?"bb-bb10-action-bar-action-"+this.actionOverflowBtn.res+" bb-bb10-action-bar-action-"+d+"-"+this.actionOverflowBtn.res+" bb-bb10-action-bar-button-dark bb-bb10-action-bar-button-tab-left-"+this.actionOverflowBtn.res+"-dark":"bb-bb10-action-bar-action-"+this.actionOverflowBtn.res+" bb-bb10-action-bar-action-"+d+"-"+this.actionOverflowBtn.res+" bb-bb10-action-bar-button-dark",this.actionOverflowBtn.style.width=bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn)-1+"px",this.actionOverflowBtn.highlight.style.width=.6*bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn)+"px",this.actionOverflowBtn.highlight.style["margin-left"]=.2*bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn)+"px",this.actionOverflowBtn.style.float="right",this.actionOverflowBtn.setAttribute("class",this.actionOverflowBtn.normal),this.actionOverflowBtn.normal=this.switchOrientationCSS(this.actionOverflowBtn.normal),n=this.actionOverflowBtn.getAttribute("class"),n=this.switchOrientationCSS(n),this.actionOverflowBtn.setAttribute("class",n),n=this.actionOverflowBtn.icon.getAttribute("class"),n=this.switchOrientationCSS(n),this.actionOverflowBtn.icon.setAttribute("class",n)),this.tabOverflowBtn&&(this.tabOverflowBtn.style.width=bb.actionBar.getTabOverflowBtnWidth(this.tabOverflowBtn)-1+"px",this.tabOverflowBtn.normal=this.switchOrientationCSS(this.tabOverflowBtn.normal),this.tabOverflowBtn.highlight=this.switchOrientationCSS(this.tabOverflowBtn.highlight),n=this.tabOverflowBtn.getAttribute("class"),n=this.switchOrientationCSS(n),this.tabOverflowBtn.setAttribute("class",n),n=this.tabOverflowBtn.tabHighlight.getAttribute("class"),n=this.switchOrientationCSS(n),this.tabOverflowBtn.tabHighlight.setAttribute("class",n),n=this.tabOverflowBtn.display.getAttribute("class"),n=this.switchOrientationCSS(n),this.tabOverflowBtn.display.setAttribute("class",n),this.tabOverflowBtn.icon.normal=this.switchOrientationCSS(this.tabOverflowBtn.icon.normal),n=this.tabOverflowBtn.icon.getAttribute("class"),n=this.switchOrientationCSS(n),this.tabOverflowBtn.icon.setAttribute("class",n))},e.reLayoutActionBar=e.reLayoutActionBar.bind(e),window.addEventListener("orientationchange",e.reLayoutActionBar,!1),bb.windowListeners.push({name:"orientationchange",eventHandler:e.reLayoutActionBar}),e.setBackCaption=function(e){this.setAttribute("data-bb-back-caption",e),y.innerHTML=e},e.setBackCaption=e.setBackCaption.bind(e),e.setSelectedTab=function(e){"tab"==e.getAttribute("data-bb-style")&&(bb.actionBar.highlightAction(e),e.onclick&&e.onclick())},e.setSelectedTab=e.setSelectedTab.bind(e),e.hide=function(){this.isVisible&&(this.style.display="none",bb.screen.currentScreen.outerScrollArea.style.bottom="0px",this.isVisible=!1,bb.scroller&&bb.scroller.refresh())},e.hide=e.hide.bind(e),e.show=function(){this.isVisible||(this.style.display="",bb.screen.currentScreen.outerScrollArea.style.bottom=bb.screen.getActionBarHeight()+"px",this.isVisible=!0,bb.scroller&&bb.scroller.refresh())},e.show=e.show.bind(e),u.length>0){var C;for(a=0;h.length>a;a++)i=h[a],"overflow"!=i.getAttribute("data-bb-img")&&(C=i.cloneNode(!0),C.visibleTab=i,C.res=m,C.actionBar=e,e.tabOverflowMenu.add(C));for(a=0;u.length>a;a++)i=u[a],i.res=m,i.actionBar=e,e.tabOverflowMenu.add(i)}for(a=0;c.length>a;a++)i=c[a],i.res=m,e.menu.add(i);var A;for(a=0;h.length>a;a++)A=h[a],A.res=m,n=A.innerHTML,A.actionBar=e,A.visible=!0,A.innerHTML="",A.normal="bb-bb10-action-bar-action-"+m+" bb-bb10-action-bar-action-"+g+"-"+m+" bb-bb10-action-bar-tab-dark bb-bb10-action-bar-tab-normal-dark",A.highlight=A.normal+" bb-bb10-action-bar-tab-selected-dark",A.setAttribute("class",A.normal),A.visible=!0,A.hasAttribute("data-bb-visible")&&"false"==A.getAttribute("data-bb-visible").toLowerCase()&&(A.visible=!1),l=document.createElement("img"),l.setAttribute("class","bb-bb10-action-bar-icon-"+m),l.setAttribute("src",A.getAttribute("data-bb-img")),A.icon=l,A.appendChild(l),o=document.createElement("div"),o.setAttribute("class","bb-bb10-action-bar-action-display-"+m+" bb-bb10-action-bar-action-display-"+g+"-"+m),o.innerHTML=n,A.display=o,A.appendChild(o),A.hasAttribute("data-bb-selected")&&"true"==A.getAttribute("data-bb-selected").toLowerCase()&&bb.actionBar.highlightAction(A),A.addEventListener("click",function(){bb.actionBar.highlightAction(this)},!1),A.setCaption=function(e){if(this.display.innerHTML=e,this.actionBar.tabOverflowMenu){var t,i,n=this.actionBar.tabOverflowMenu.actions;for(t=0;n.length>t;t++)i=n[t],i.visibleTab==this&&i.setCaption(e)}},A.setCaption=A.setCaption.bind(A),A.getCaption=function(){return this.display.innerHTML},A.getCaption=A.getCaption.bind(A),A.setImage=function(e){if(this.icon.setAttribute("src",e),this.actionBar.tabOverflowMenu){var t,i,n=this.actionBar.tabOverflowMenu.actions;for(t=0;n.length>t;t++)i=n[t],i.visibleTab==this&&i.setImage(e)}},A.setImage=A.setImage.bind(A),A.getImage=function(){return this.icon.getAttribute("src")
-},A.getImage=A.getImage.bind(A),A.hide=bb.actionBar.actionHide,A.hide=A.hide.bind(A),A.show=bb.actionBar.actionShow,A.show=A.show.bind(A);var B;e.tabOverflowBtn&&(B=e.tabOverflowBtn,B.res=m,n=B.innerHTML,B.actionBar=e,B.visible=!0,B.innerHTML="",B.normal="bb-bb10-action-bar-action-"+m+" bb-bb10-action-bar-action-"+g+"-"+m+" bb-bb10-action-bar-tab-dark bb-bb10-action-bar-tab-normal-dark",B.highlight=B.normal+" bb-bb10-action-bar-tab-selected-dark",B.setAttribute("class",B.normal),l=document.createElement("img"),l.setAttribute("class","bb-bb10-action-bar-icon-"+m),l.setAttribute("src",bb.transparentPixel),l.normal="bb-bb10-action-bar-icon-"+m+" bb-bb10-action-bar-tab-overflow-"+m+"-dark bb-bb10-action-bar-tab-overflow-"+g+"-"+m,l.highlight="bb-bb10-action-bar-icon-"+m,l.setAttribute("class",l.normal),B.appendChild(l),o=document.createElement("div"),o.setAttribute("class","bb-bb10-action-bar-action-display-"+m+" bb-bb10-action-bar-action-display-"+g+"-"+m),o.innerHTML=n,B.display=o,B.appendChild(o),B.icon=l,o.innerHTML="&nbsp;",B.display=o,B.tabHighlight=document.createElement("div"),B.tabHighlight.setAttribute("class","bb-bb10-action-bar-tab-overflow-"+m+"-dark bb-bb10-action-bar-tab-overflow-highlight-"+m+" bb-bb10-action-bar-tab-overflow-highlight-"+g+"-"+m),B.appendChild(B.tabHighlight),B.style.width=bb.actionBar.getTabOverflowBtnWidth(B)-1+"px",B.reset=function(){this.icon.setAttribute("src",bb.transparentPixel),this.icon.setAttribute("class",this.icon.normal),this.tabHighlight.style.display="none",this.display.innerHTML="&nbsp;"},B.reset=B.reset.bind(B));var S;for(a=0;d.length>a;a++)S=d[a],S.res=m,S.actionBar=e,n=S.innerHTML,l=document.createElement("img"),l.setAttribute("src",S.getAttribute("data-bb-img")),l.setAttribute("class","bb-bb10-action-bar-icon-"+m),S.normal="bb-bb10-action-bar-action-"+m+" bb-bb10-action-bar-action-"+g+"-"+m+" bb-bb10-action-bar-button-dark",S.visible=!0,S.hasAttribute("data-bb-visible")&&"false"==S.getAttribute("data-bb-visible").toLowerCase()&&(S.visible=!1),S.icon=l,S.innerHTML="",S.setAttribute("class",S.normal),S.appendChild(l),o=document.createElement("div"),o.setAttribute("class","bb-bb10-action-bar-action-display-"+m),o.innerHTML=n,S.display=o,S.appendChild(o),S.highlight=document.createElement("div"),S.highlight.setAttribute("class","bb-bb10-action-bar-action-highlight"),S.highlight.style.height=bb.device.is1024x600?"4px":"8px",S.highlight.style["background-color"]="transparent",S.appendChild(S.highlight),S.setCaption=function(e){this.display.innerHTML=e},S.setCaption=S.setCaption.bind(S),S.getCaption=function(){return this.display.innerHTML},S.getCaption=S.getCaption.bind(S),S.setImage=function(e){this.icon.setAttribute("src",e)},S.setImage=S.setImage.bind(S),S.getImage=function(){return this.icon.getAttribute("src")},S.getImage=S.getImage.bind(S),S.hide=bb.actionBar.actionHide,S.hide=S.hide.bind(S),S.show=bb.actionBar.actionShow,S.show=S.show.bind(S),S.ontouchstart=function(){this.highlight.style["background-color"]=bb.options.highlightColor},S.ontouchend=function(){this.highlight.style["background-color"]="transparent"};if(e.actionOverflowBtn){actionOverflow=e.actionOverflowBtn,actionOverflow.res=m,actionOverflow.actionBar=e,actionOverflow.visible=!0,n=actionOverflow.innerHTML,l=document.createElement("img"),l.setAttribute("src",bb.transparentPixel),l.setAttribute("class","bb-bb10-action-bar-icon-"+m+" bb-bb10-action-bar-overflow-button-"+m+"-dark bb-bb10-action-bar-overflow-button-"+g+"-"+m),actionOverflow.icon=l,actionOverflow.normal="bb-bb10-action-bar-action-"+m+" bb-bb10-action-bar-action-"+g+"-"+m+" bb-bb10-action-bar-button-dark",actionOverflow.innerHTML="",actionOverflow.setAttribute("class",actionOverflow.normal),actionOverflow.appendChild(l);var o=document.createElement("div");o.setAttribute("class","bb-bb10-action-bar-action-display-"+m),o.innerHTML=n,actionOverflow.display=o,actionOverflow.appendChild(o),actionOverflow.highlight=document.createElement("div"),actionOverflow.highlight.setAttribute("class","bb-bb10-action-bar-action-highlight"),actionOverflow.highlight.style.height=bb.device.is1024x600?"4px":"8px",actionOverflow.highlight.style["background-color"]="transparent",actionOverflow.appendChild(actionOverflow.highlight),actionOverflow.ontouchstart=function(){this.highlight.style["background-color"]=bb.options.highlightColor},actionOverflow.ontouchend=function(){this.highlight.style["background-color"]="transparent"}}e.menu&&e.menu.centerMenuItems(),e.tabOverflowMenu&&(e.tabOverflowMenu.centerMenuItems(),e.tabOverflowMenu.initSelected()),e.reLayoutActionBar()},actionShow:function(){this.visible||(this.style.display="",this.visible=!0,this.actionBar.reLayoutActionBar())},actionHide:function(){this.visible&&(this.style.display="none",this.visible=!1,this.actionBar.reLayoutActionBar())},getTabOverflowBtnWidth:function(e){return e?bb.device.is1024x600?"portrait"==bb.getOrientation()?77:123:bb.device.is1280x768||bb.device.is1280x720?"portrait"==bb.getOrientation()?154:256:bb.device.is720x720?144:"portrait"==bb.getOrientation()?154:256:0},getActionOverflowBtnWidth:function(e){return e?bb.device.is1024x600?"portrait"==bb.getOrientation()?77:123:bb.device.is1280x768||bb.device.is1280x720?"portrait"==bb.getOrientation()?154:256:bb.device.is720x720?144:"portrait"==bb.getOrientation()?154:256:0},getBackBtnWidth:function(e){return e?bb.device.is1024x600?"portrait"==bb.getOrientation()?93:150:bb.device.is1280x768||bb.device.is1280x720?"portrait"==bb.getOrientation()?187:300:bb.device.is720x720?174:"portrait"==bb.getOrientation()?187:300:0},highlightAction:function(e,t){var i,n,o=e.actionBar.mainBarTabs;for(i=0;o.length>i;i++)n=o[i],n!=e&&bb.actionBar.unhighlightAction(n);if(e.actionBar.tabOverflowMenu){for(o=e.actionBar.tabOverflowMenu.actions,i=0;o.length>i;i++)n=o[i],n!=t&&bb.actionBar.unhighlightAction(n);e.actionBar.tabOverflowBtn.style["border-top-color"]="",e.actionBar.tabOverflowBtn.setAttribute("class",e.actionBar.tabOverflowBtn.normal)}if(e.style["border-top-color"]=bb.options.highlightColor,e.setAttribute("class",e.highlight),t&&t.setAttribute("class",t.normal+" bb10Highlight"),e.actionBar.tabOverflowMenu&&!t)if(e.actionBar.tabOverflowBtn&&e==e.actionBar.tabOverflowBtn)t.setAttribute("class",t.normal+" bb10Highlight");else for(o=e.actionBar.tabOverflowMenu.actions,i=0;o.length>i;i++)n=o[i],n.visibleTab==e&&n.setAttribute("class",n.normal+" bb10Highlight");e.actionBar.tabOverflowBtn&&e.actionBar.tabOverflowBtn.reset&&e.actionBar.tabOverflowBtn.reset()},unhighlightAction:function(e){var t;if(e.style["border-top-color"]="",e.setAttribute("class",e.normal),e.actionBar&&e.actionBar.tabOverflowMenu)for(tabs=e.actionBar.tabOverflowMenu.actions,i=0;tabs.length>i;i++)t=tabs[i],t.setAttribute("class",t.normal)}},_bb_bbmBubble={apply:function(e){for(var t=0;e.length>t;t++)bb.bbmBubble.style(e[t])},style:function(e){if(e.hasAttribute("data-bb-style")){var t,i=e.getAttribute("data-bb-style").toLowerCase();"left"==i?e.setAttribute("class","bb-bbm-bubble-left"):e.setAttribute("class","bb-bbm-bubble-right");var n=e.querySelectorAll("[data-bb-type=item]");for(t=0;t>n.length;t++)e.removeChild(n[t]);var o=document.createElement("div");o.setAttribute("class","top-left image"),e.appendChild(o),o=document.createElement("div"),o.setAttribute("class","top-right image"),e.appendChild(o),o=document.createElement("div"),o.setAttribute("class","inside"),e.appendChild(o);var r=document.createElement("div");for(r.setAttribute("class","nogap"),o.appendChild(r),o=document.createElement("div"),o.setAttribute("class","bottom-left image"),e.appendChild(o),o=document.createElement("div"),o.setAttribute("class","bottom-right image"),e.appendChild(o),t=0;n.length>t;t++){var s=n[t],l=s.innerHTML;s.innerHTML='<img src="'+s.getAttribute("data-bb-img")+'" />\n'+'<div class="details">'+l+"</div>\n",r.appendChild(s)}}return e.getStyle=function(){return this.getAttribute("data-bb-style")},e.getStyle=e.getStyle.bind(e),e.setStyle=function(e){"left"==e?(this.setAttribute("data-bb-style",e),this.setAttribute("class","bb-bbm-bubble-left")):"right"==e&&(this.setAttribute("data-bb-style",e),this.setAttribute("class","bb-bbm-bubble-right")),bb.refresh()},e.setStyle=e.setStyle.bind(e),e.show=function(){this.style.display="block",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.parentNode.removeChild(this),bb.refresh()},e.remove=e.remove.bind(e),e}},function(){var e=Math,t=function(e){return e>>0},i=/webkit/i.test(navigator.appVersion)?"webkit":/firefox/i.test(navigator.userAgent)?"Moz":/trident/i.test(navigator.userAgent)?"ms":"opera"in window?"O":"",n=/android/gi.test(navigator.appVersion),o=/iphone|ipad/gi.test(navigator.appVersion),r=/playbook/gi.test(navigator.appVersion),s=/hp-tablet/gi.test(navigator.appVersion),l="WebKitCSSMatrix"in window&&"m11"in new WebKitCSSMatrix,a="ontouchstart"in window&&!s,b=i+"Transform"in document.documentElement.style,d=o||r,c=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(e){return setTimeout(e,1)}}(),h=function(){return window.cancelRequestAnimationFrame||window.webkitCancelAnimationFrame||window.webkitCancelRequestAnimationFrame||window.mozCancelRequestAnimationFrame||window.oCancelRequestAnimationFrame||window.msCancelRequestAnimationFrame||clearTimeout}(),u="onorientationchange"in window?"orientationchange":"resize",p=a?"touchstart":"mousedown",m=a?"touchmove":"mousemove",g=a?"touchend":"mouseup",v=a?"touchcancel":"mouseup",y="Moz"==i?"DOMMouseScroll":"mousewheel",f="translate"+(l?"3d(":"("),w=l?",0)":")",E=function(e,t){var r,s=this,c=document;s.wrapper="object"==typeof e?e:c.getElementById(e),s.wrapper.style.overflow="hidden",s.scroller=s.wrapper.children[0],s.options={hScroll:!0,vScroll:!0,x:0,y:0,bounce:!0,bounceLock:!1,momentum:!0,lockDirection:!0,useTransform:!0,useTransition:!1,topOffset:0,checkDOMChanges:!1,hScrollbar:!0,vScrollbar:!0,fixedScrollbar:n,hideScrollbar:o,fadeScrollbar:o&&l,scrollbarClass:"",zoom:!1,zoomMin:1,zoomMax:4,doubleTapZoom:2,wheelAction:"scroll",snap:!1,snapThreshold:1,onRefresh:null,onBeforeScrollStart:function(e){e.preventDefault()},onScrollStart:null,onBeforeScrollMove:null,onScrollMove:null,onBeforeScrollEnd:null,onScrollEnd:null,onTouchEnd:null,onDestroy:null,onZoomStart:null,onZoom:null,onZoomEnd:null};for(r in t)s.options[r]=t[r];s.x=s.options.x,s.y=s.options.y,s.options.useTransform=b?s.options.useTransform:!1,s.options.hScrollbar=s.options.hScroll&&s.options.hScrollbar,s.options.vScrollbar=s.options.vScroll&&s.options.vScrollbar,s.options.zoom=s.options.useTransform&&s.options.zoom,s.options.useTransition=d&&s.options.useTransition,s.options.zoom&&n&&(f="translate(",w=")"),s.scroller.style[i+"TransitionProperty"]=s.options.useTransform?"-"+i.toLowerCase()+"-transform":"top left",s.scroller.style[i+"TransitionDuration"]="0",s.scroller.style[i+"TransformOrigin"]="0 0",s.options.useTransition&&(s.scroller.style[i+"TransitionTimingFunction"]="cubic-bezier(0.33,0.66,0.66,1)"),s.options.useTransform?s.scroller.style[i+"Transform"]=f+s.x+"px,"+s.y+"px"+w:s.scroller.style.cssText+=";position:absolute;top:"+s.y+"px;left:"+s.x+"px",s.options.useTransition&&(s.options.fixedScrollbar=!0),s.refresh(),s._bind(u,window),s._bind(p),a||(s._bind("mouseout",s.wrapper),"none"!=s.options.wheelAction&&s._bind(y)),s.options.checkDOMChanges&&(s.checkDOMTime=setInterval(function(){s._checkDOMChanges()},500))};E.prototype={enabled:!0,x:0,y:0,steps:[],scale:1,currPageX:0,currPageY:0,pagesX:[],pagesY:[],aniTime:null,wheelZoomCount:0,handleEvent:function(e){var t=this;switch(e.type){case p:if(!a&&0!==e.button)return;t._start(e);break;case m:t._move(e);break;case g:case v:t._end(e);break;case u:t._resize();break;case y:t._wheel(e);break;case"mouseout":t._mouseout(e);break;case"webkitTransitionEnd":t._transitionEnd(e)}},_checkDOMChanges:function(){this.moved||this.zoomed||this.animating||this.scrollerW==this.scroller.offsetWidth*this.scale&&this.scrollerH==this.scroller.offsetHeight*this.scale||this.refresh()},_scrollbar:function(n){var o,r=this,s=document;return r[n+"Scrollbar"]?(r[n+"ScrollbarWrapper"]||(o=s.createElement("div"),r.options.scrollbarClass?o.className=r.options.scrollbarClass+n.toUpperCase():o.style.cssText="position:absolute;z-index:100;"+("h"==n?"height:7px;bottom:1px;left:2px;right:"+(r.vScrollbar?"7":"2")+"px":"width:7px;bottom:"+(r.hScrollbar?"7":"2")+"px;top:2px;right:1px"),o.style.cssText+=";pointer-events:none;-"+i+"-transition-property:opacity;-"+i+"-transition-duration:"+(r.options.fadeScrollbar?"350ms":"0")+";overflow:hidden;opacity:"+(r.options.hideScrollbar?"0":"1"),r.wrapper.appendChild(o),r[n+"ScrollbarWrapper"]=o,o=s.createElement("div"),r.options.scrollbarClass||(o.style.cssText="position:absolute;z-index:100;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.9);-"+i+"-background-clip:padding-box;-"+i+"-box-sizing:border-box;"+("h"==n?"height:100%":"width:100%")+";-"+i+"-border-radius:3px;border-radius:3px"),o.style.cssText+=";pointer-events:none;-"+i+"-transition-property:-"+i+"-transform;-"+i+"-transition-timing-function:cubic-bezier(0.33,0.66,0.66,1);-"+i+"-transition-duration:0;-"+i+"-transform:"+f+"0,0"+w,r.options.useTransition&&(o.style.cssText+=";-"+i+"-transition-timing-function:cubic-bezier(0.33,0.66,0.66,1)"),r[n+"ScrollbarWrapper"].appendChild(o),r[n+"ScrollbarIndicator"]=o),"h"==n?(r.hScrollbarSize=r.hScrollbarWrapper.clientWidth,r.hScrollbarIndicatorSize=e.max(t(r.hScrollbarSize*r.hScrollbarSize/r.scrollerW),8),r.hScrollbarIndicator.style.width=r.hScrollbarIndicatorSize+"px",r.hScrollbarMaxScroll=r.hScrollbarSize-r.hScrollbarIndicatorSize,r.hScrollbarProp=r.hScrollbarMaxScroll/r.maxScrollX):(r.vScrollbarSize=r.vScrollbarWrapper.clientHeight,r.vScrollbarIndicatorSize=e.max(t(r.vScrollbarSize*r.vScrollbarSize/r.scrollerH),8),r.vScrollbarIndicator.style.height=r.vScrollbarIndicatorSize+"px",r.vScrollbarMaxScroll=r.vScrollbarSize-r.vScrollbarIndicatorSize,r.vScrollbarProp=r.vScrollbarMaxScroll/r.maxScrollY),r._scrollbarPos(n,!0),void 0):(r[n+"ScrollbarWrapper"]&&(b&&(r[n+"ScrollbarIndicator"].style[i+"Transform"]=""),r[n+"ScrollbarWrapper"].parentNode.removeChild(r[n+"ScrollbarWrapper"]),r[n+"ScrollbarWrapper"]=null,r[n+"ScrollbarIndicator"]=null),void 0)},_resize:function(){var e=this;setTimeout(function(){e.refresh()},n?200:0)},_pos:function(e,n){e=this.hScroll?e:0,n=this.vScroll?n:0,this.options.useTransform?this.scroller.style[i+"Transform"]=f+e+"px,"+n+"px"+w+" scale("+this.scale+")":(e=t(e),n=t(n),this.scroller.style.left=e+"px",this.scroller.style.top=n+"px"),this.x=e,this.y=n,this._scrollbarPos("h"),this._scrollbarPos("v")},_scrollbarPos:function(e,n){var o,r=this,s="h"==e?r.x:r.y;r[e+"Scrollbar"]&&(s=r[e+"ScrollbarProp"]*s,0>s?(r.options.fixedScrollbar||(o=r[e+"ScrollbarIndicatorSize"]+t(3*s),8>o&&(o=8),r[e+"ScrollbarIndicator"].style["h"==e?"width":"height"]=o+"px"),s=0):s>r[e+"ScrollbarMaxScroll"]&&(r.options.fixedScrollbar?s=r[e+"ScrollbarMaxScroll"]:(o=r[e+"ScrollbarIndicatorSize"]-t(3*(s-r[e+"ScrollbarMaxScroll"])),8>o&&(o=8),r[e+"ScrollbarIndicator"].style["h"==e?"width":"height"]=o+"px",s=r[e+"ScrollbarMaxScroll"]+(r[e+"ScrollbarIndicatorSize"]-o))),r[e+"ScrollbarWrapper"].style[i+"TransitionDelay"]="0",r[e+"ScrollbarWrapper"].style.opacity=n&&r.options.hideScrollbar?"0":"1",r[e+"ScrollbarIndicator"].style[i+"Transform"]=f+("h"==e?s+"px,0":"0,"+s+"px")+w)},_start:function(t){var n,o,r,s,l,b=this,d=a?t.touches[0]:t;b.enabled&&(b.options.onBeforeScrollStart&&b.options.onBeforeScrollStart.call(b,t),(b.options.useTransition||b.options.zoom)&&b._transitionTime(0),b.moved=!1,b.animating=!1,b.zoomed=!1,b.distX=0,b.distY=0,b.absDistX=0,b.absDistY=0,b.dirX=0,b.dirY=0,b.options.zoom&&a&&t.touches.length>1&&(s=e.abs(t.touches[0].pageX-t.touches[1].pageX),l=e.abs(t.touches[0].pageY-t.touches[1].pageY),b.touchesDistStart=e.sqrt(s*s+l*l),b.originX=e.abs(t.touches[0].pageX+t.touches[1].pageX-2*b.wrapperOffsetLeft)/2-b.x,b.originY=e.abs(t.touches[0].pageY+t.touches[1].pageY-2*b.wrapperOffsetTop)/2-b.y,b.options.onZoomStart&&b.options.onZoomStart.call(b,t)),b.options.momentum&&(b.options.useTransform?(n=getComputedStyle(b.scroller,null)[i+"Transform"].replace(/[^0-9-.,]/g,"").split(","),o=1*n[4],r=1*n[5]):(o=1*getComputedStyle(b.scroller,null).left.replace(/[^0-9-]/g,""),r=1*getComputedStyle(b.scroller,null).top.replace(/[^0-9-]/g,"")),(o!=b.x||r!=b.y)&&(b.options.useTransition?b._unbind("webkitTransitionEnd"):h(b.aniTime),b.steps=[],b._pos(o,r))),b.absStartX=b.x,b.absStartY=b.y,b.startX=b.x,b.startY=b.y,b.pointX=d.pageX,b.pointY=d.pageY,b.startTime=t.timeStamp||Date.now(),b.options.onScrollStart&&b.options.onScrollStart.call(b,t),b._bind(m),b._bind(g),b._bind(v))},_move:function(t){var n,o,r,s=this,l=a?t.touches[0]:t,b=l.pageX-s.pointX,d=l.pageY-s.pointY,c=s.x+b,h=s.y+d,u=t.timeStamp||Date.now();return s.options.onBeforeScrollMove&&s.options.onBeforeScrollMove.call(s,t),s.options.zoom&&a&&t.touches.length>1?(n=e.abs(t.touches[0].pageX-t.touches[1].pageX),o=e.abs(t.touches[0].pageY-t.touches[1].pageY),s.touchesDist=e.sqrt(n*n+o*o),s.zoomed=!0,r=1/s.touchesDistStart*s.touchesDist*this.scale,s.options.zoomMin>r?r=.5*s.options.zoomMin*Math.pow(2,r/s.options.zoomMin):r>s.options.zoomMax&&(r=2*s.options.zoomMax*Math.pow(.5,s.options.zoomMax/r)),s.lastScale=r/this.scale,c=this.originX-this.originX*s.lastScale+this.x,h=this.originY-this.originY*s.lastScale+this.y,this.scroller.style[i+"Transform"]=f+c+"px,"+h+"px"+w+" scale("+r+")",s.options.onZoom&&s.options.onZoom.call(s,t),void 0):(s.pointX=l.pageX,s.pointY=l.pageY,(c>0||s.maxScrollX>c)&&(c=s.options.bounce?s.x+b/2:c>=0||s.maxScrollX>=0?0:s.maxScrollX),(h>s.minScrollY||s.maxScrollY>h)&&(h=s.options.bounce?s.y+d/2:h>=s.minScrollY||s.maxScrollY>=0?s.minScrollY:s.maxScrollY),s.distX+=b,s.distY+=d,s.absDistX=e.abs(s.distX),s.absDistY=e.abs(s.distY),6>s.absDistX&&6>s.absDistY||(s.options.lockDirection&&(s.absDistX>s.absDistY+5?(h=s.y,d=0):s.absDistY>s.absDistX+5&&(c=s.x,b=0)),s.moved=!0,s._pos(c,h),s.dirX=b>0?-1:0>b?1:0,s.dirY=d>0?-1:0>d?1:0,u-s.startTime>300&&(s.startTime=u,s.startX=s.x,s.startY=s.y),s.options.onScrollMove&&s.options.onScrollMove.call(s,t)),void 0)},_end:function(n){if(!a||0==n.touches.length){var o,r,s,l,b,d,c,h=this,u=a?n.changedTouches[0]:n,p={dist:0,time:0},y={dist:0,time:0},E=(n.timeStamp||Date.now())-h.startTime,x=h.x,k=h.y;if(h._unbind(m),h._unbind(g),h._unbind(v),h.options.onBeforeScrollEnd&&h.options.onBeforeScrollEnd.call(h,n),h.zoomed)return c=h.scale*h.lastScale,c=Math.max(h.options.zoomMin,c),c=Math.min(h.options.zoomMax,c),h.lastScale=c/h.scale,h.scale=c,h.x=h.originX-h.originX*h.lastScale+h.x,h.y=h.originY-h.originY*h.lastScale+h.y,h.scroller.style[i+"TransitionDuration"]="200ms",h.scroller.style[i+"Transform"]=f+h.x+"px,"+h.y+"px"+w+" scale("+h.scale+")",h.zoomed=!1,h.refresh(),h.options.onZoomEnd&&h.options.onZoomEnd.call(h,n),void 0;if(!h.moved)return a&&(h.doubleTapTimer&&h.options.zoom?(clearTimeout(h.doubleTapTimer),h.doubleTapTimer=null,h.options.onZoomStart&&h.options.onZoomStart.call(h,n),h.zoom(h.pointX,h.pointY,1==h.scale?h.options.doubleTapZoom:1),h.options.onZoomEnd&&setTimeout(function(){h.options.onZoomEnd.call(h,n)},200)):h.doubleTapTimer=setTimeout(function(){for(h.doubleTapTimer=null,o=u.target;1!=o.nodeType;)o=o.parentNode;"SELECT"!=o.tagName&&"INPUT"!=o.tagName&&"TEXTAREA"!=o.tagName&&(r=document.createEvent("MouseEvents"),r.initMouseEvent("click",!0,!0,n.view,1,u.screenX,u.screenY,u.clientX,u.clientY,n.ctrlKey,n.altKey,n.shiftKey,n.metaKey,0,null),r._fake=!0,o.dispatchEvent(r))},h.options.zoom?250:0)),h._resetPos(200),h.options.onTouchEnd&&h.options.onTouchEnd.call(h,n),void 0;if(300>E&&h.options.momentum&&(p=x?h._momentum(x-h.startX,E,-h.x,h.scrollerW-h.wrapperW+h.x,h.options.bounce?h.wrapperW:0):p,y=k?h._momentum(k-h.startY,E,-h.y,0>h.maxScrollY?h.scrollerH-h.wrapperH+h.y-h.minScrollY:0,h.options.bounce?h.wrapperH:0):y,x=h.x+p.dist,k=h.y+y.dist,(h.x>0&&x>0||h.x<h.maxScrollX&&h.maxScrollX>x)&&(p={dist:0,time:0}),(h.y>h.minScrollY&&k>h.minScrollY||h.y<h.maxScrollY&&h.maxScrollY>k)&&(y={dist:0,time:0})),p.dist||y.dist)return b=e.max(e.max(p.time,y.time),10),h.options.snap&&(s=x-h.absStartX,l=k-h.absStartY,e.abs(s)<h.options.snapThreshold&&e.abs(l)<h.options.snapThreshold?h.scrollTo(h.absStartX,h.absStartY,200):(d=h._snap(x,k),x=d.x,k=d.y,b=e.max(d.time,b))),h.scrollTo(t(x),t(k),b),h.options.onTouchEnd&&h.options.onTouchEnd.call(h,n),void 0;if(h.options.snap)return s=x-h.absStartX,l=k-h.absStartY,e.abs(s)<h.options.snapThreshold&&e.abs(l)<h.options.snapThreshold?h.scrollTo(h.absStartX,h.absStartY,200):(d=h._snap(h.x,h.y),(d.x!=h.x||d.y!=h.y)&&h.scrollTo(d.x,d.y,d.time)),h.options.onTouchEnd&&h.options.onTouchEnd.call(h,n),void 0;h._resetPos(200),h.options.onTouchEnd&&h.options.onTouchEnd.call(h,n)}},_resetPos:function(e){var t=this,n=t.x>=0?0:t.x<t.maxScrollX?t.maxScrollX:t.x,o=t.y>=t.minScrollY||t.maxScrollY>0?t.minScrollY:t.y<t.maxScrollY?t.maxScrollY:t.y;return n==t.x&&o==t.y?(t.moved&&(t.moved=!1,t.options.onScrollEnd&&t.options.onScrollEnd.call(t)),t.hScrollbar&&t.options.hideScrollbar&&("webkit"==i&&(t.hScrollbarWrapper.style[i+"TransitionDelay"]="300ms"),t.hScrollbarWrapper.style.opacity="0"),t.vScrollbar&&t.options.hideScrollbar&&("webkit"==i&&(t.vScrollbarWrapper.style[i+"TransitionDelay"]="300ms"),t.vScrollbarWrapper.style.opacity="0"),void 0):(t.scrollTo(n,o,e||0),void 0)},_wheel:function(e){var t,i,n,o,r,s=this;if("wheelDeltaX"in e)t=e.wheelDeltaX/12,i=e.wheelDeltaY/12;else if("wheelDelta"in e)t=i=e.wheelDelta/12;else{if(!("detail"in e))return;t=i=3*-e.detail}return"zoom"==s.options.wheelAction?(r=s.scale*Math.pow(2,1/3*(i?i/Math.abs(i):0)),s.options.zoomMin>r&&(r=s.options.zoomMin),r>s.options.zoomMax&&(r=s.options.zoomMax),r!=s.scale&&(!s.wheelZoomCount&&s.options.onZoomStart&&s.options.onZoomStart.call(s,e),s.wheelZoomCount++,s.zoom(e.pageX,e.pageY,r,400),setTimeout(function(){s.wheelZoomCount--,!s.wheelZoomCount&&s.options.onZoomEnd&&s.options.onZoomEnd.call(s,e)},400)),void 0):(n=s.x+t,o=s.y+i,n>0?n=0:s.maxScrollX>n&&(n=s.maxScrollX),o>s.minScrollY?o=s.minScrollY:s.maxScrollY>o&&(o=s.maxScrollY),s.scrollTo(n,o,0),void 0)},_mouseout:function(e){var t=e.relatedTarget;if(!t)return this._end(e),void 0;for(;t=t.parentNode;)if(t==this.wrapper)return;this._end(e)},_transitionEnd:function(e){var t=this;e.target==t.scroller&&(t._unbind("webkitTransitionEnd"),t._startAni())},_startAni:function(){var t,i,n,o=this,r=o.x,s=o.y,l=Date.now();if(!o.animating){if(!o.steps.length)return o._resetPos(400),void 0;if(t=o.steps.shift(),t.x==r&&t.y==s&&(t.time=0),o.animating=!0,o.moved=!0,o.options.useTransition)return o._transitionTime(t.time),o._pos(t.x,t.y),o.animating=!1,t.time?o._bind("webkitTransitionEnd"):o._resetPos(0),void 0;n=function(){var a,b,d=Date.now();return d>=l+t.time?(o._pos(t.x,t.y),o.animating=!1,o.options.onAnimationEnd&&o.options.onAnimationEnd.call(o),o._startAni(),void 0):(d=(d-l)/t.time-1,i=e.sqrt(1-d*d),a=(t.x-r)*i+r,b=(t.y-s)*i+s,o._pos(a,b),o.animating&&(o.aniTime=c(n)),void 0)},n()}},_transitionTime:function(e){e+="ms",this.scroller.style[i+"TransitionDuration"]=e,this.hScrollbar&&(this.hScrollbarIndicator.style[i+"TransitionDuration"]=e),this.vScrollbar&&(this.vScrollbarIndicator.style[i+"TransitionDuration"]=e)},_momentum:function(i,n,o,r,s){var l=6e-4,a=e.abs(i)/n,b=a*a/(2*l),d=0,c=0;return i>0&&b>o?(c=s/(6/(b/a*l)),o+=c,a=a*o/b,b=o):0>i&&b>r&&(c=s/(6/(b/a*l)),r+=c,a=a*r/b,b=r),b*=0>i?-1:1,d=a/l,{dist:b,time:t(d)}},_offset:function(e){for(var t=-e.offsetLeft,i=-e.offsetTop;e=e.offsetParent;)t-=e.offsetLeft,i-=e.offsetTop;return e!=this.wrapper&&(t*=this.scale,i*=this.scale),{left:t,top:i}},_snap:function(i,n){var o,r,s,l,a,b,d=this;for(s=d.pagesX.length-1,o=0,r=d.pagesX.length;r>o;o++)if(i>=d.pagesX[o]){s=o;break}for(s==d.currPageX&&s>0&&0>d.dirX&&s--,i=d.pagesX[s],a=e.abs(i-d.pagesX[d.currPageX]),a=a?500*(e.abs(d.x-i)/a):0,d.currPageX=s,s=d.pagesY.length-1,o=0;s>o;o++)if(n>=d.pagesY[o]){s=o;break}return s==d.currPageY&&s>0&&0>d.dirY&&s--,n=d.pagesY[s],b=e.abs(n-d.pagesY[d.currPageY]),b=b?500*(e.abs(d.y-n)/b):0,d.currPageY=s,l=t(e.max(a,b))||200,{x:i,y:n,time:l}},_bind:function(e,t,i){(t||this.scroller).addEventListener(e,this,!!i)},_unbind:function(e,t,i){(t||this.scroller).removeEventListener(e,this,!!i)},destroy:function(){var e=this;e.scroller.style[i+"Transform"]="",e.hScrollbar=!1,e.vScrollbar=!1,e._scrollbar("h"),e._scrollbar("v"),e._unbind(u,window),e._unbind(p),e._unbind(m),e._unbind(g),e._unbind(v),e.options.hasTouch||(e._unbind("mouseout",e.wrapper),e._unbind(y)),e.options.useTransition&&e._unbind("webkitTransitionEnd"),e.options.checkDOMChanges&&clearInterval(e.checkDOMTime),e.options.onDestroy&&e.options.onDestroy.call(e)},refresh:function(){var e,n,o,r,s=this,l=0,a=0;if(s.scale<s.options.zoomMin&&(s.scale=s.options.zoomMin),s.wrapperW=s.wrapper.clientWidth||1,s.wrapperH=s.wrapper.clientHeight||1,s.minScrollY=-s.options.topOffset||0,s.scrollerW=t(s.scroller.offsetWidth*s.scale),s.scrollerH=t((s.scroller.offsetHeight+s.minScrollY)*s.scale),s.maxScrollX=s.wrapperW-s.scrollerW,s.maxScrollY=s.wrapperH-s.scrollerH+s.minScrollY,s.dirX=0,s.dirY=0,s.options.onRefresh&&s.options.onRefresh.call(s),s.hScroll=s.options.hScroll&&0>s.maxScrollX,s.vScroll=s.options.vScroll&&(!s.options.bounceLock&&!s.hScroll||s.scrollerH>s.wrapperH),s.hScrollbar=s.hScroll&&s.options.hScrollbar,s.vScrollbar=s.vScroll&&s.options.vScrollbar&&s.scrollerH>s.wrapperH,e=s._offset(s.wrapper),s.wrapperOffsetLeft=-e.left,s.wrapperOffsetTop=-e.top,"string"==typeof s.options.snap)for(s.pagesX=[],s.pagesY=[],r=s.scroller.querySelectorAll(s.options.snap),n=0,o=r.length;o>n;n++)l=s._offset(r[n]),l.left+=s.wrapperOffsetLeft,l.top+=s.wrapperOffsetTop,s.pagesX[n]=l.left<s.maxScrollX?s.maxScrollX:l.left*s.scale,s.pagesY[n]=l.top<s.maxScrollY?s.maxScrollY:l.top*s.scale;else if(s.options.snap){for(s.pagesX=[];l>=s.maxScrollX;)s.pagesX[a]=l,l-=s.wrapperW,a++;for(s.maxScrollX%s.wrapperW&&(s.pagesX[s.pagesX.length]=s.maxScrollX-s.pagesX[s.pagesX.length-1]+s.pagesX[s.pagesX.length-1]),l=0,a=0,s.pagesY=[];l>=s.maxScrollY;)s.pagesY[a]=l,l-=s.wrapperH,a++;s.maxScrollY%s.wrapperH&&(s.pagesY[s.pagesY.length]=s.maxScrollY-s.pagesY[s.pagesY.length-1]+s.pagesY[s.pagesY.length-1])}s._scrollbar("h"),s._scrollbar("v"),s.zoomed||(s.scroller.style[i+"TransitionDuration"]="0",s._resetPos(200))},scrollTo:function(e,t,i,n){var o,r,s=this,l=e;for(s.stop(),l.length||(l=[{x:e,y:t,time:i,relative:n}]),o=0,r=l.length;r>o;o++)l[o].relative&&(l[o].x=s.x-l[o].x,l[o].y=s.y-l[o].y),s.steps.push({x:l[o].x,y:l[o].y,time:l[o].time||0});s._startAni()},scrollToElement:function(t,i){var n,o=this;t=t.nodeType?t:o.scroller.querySelector(t),t&&(n=o._offset(t),n.left+=o.wrapperOffsetLeft,n.top+=o.wrapperOffsetTop,n.left=n.left>0?0:n.left<o.maxScrollX?o.maxScrollX:n.left,n.top=n.top>o.minScrollY?o.minScrollY:n.top<o.maxScrollY?o.maxScrollY:n.top,i=void 0===i?e.max(2*e.abs(n.left),2*e.abs(n.top)):i,o.scrollTo(n.left,n.top,i))},scrollToPage:function(e,t,i){var n,o,r=this;i=void 0===i?400:i,r.options.onScrollStart&&r.options.onScrollStart.call(r),r.options.snap?(e="next"==e?r.currPageX+1:"prev"==e?r.currPageX-1:e,t="next"==t?r.currPageY+1:"prev"==t?r.currPageY-1:t,e=0>e?0:e>r.pagesX.length-1?r.pagesX.length-1:e,t=0>t?0:t>r.pagesY.length-1?r.pagesY.length-1:t,r.currPageX=e,r.currPageY=t,n=r.pagesX[e],o=r.pagesY[t]):(n=-r.wrapperW*e,o=-r.wrapperH*t,r.maxScrollX>n&&(n=r.maxScrollX),r.maxScrollY>o&&(o=r.maxScrollY)),r.scrollTo(n,o,i)},disable:function(){this.stop(),this._resetPos(0),this.enabled=!1,this._unbind(m),this._unbind(g),this._unbind(v)},enable:function(){this.enabled=!0},stop:function(){this.options.useTransition?this._unbind("webkitTransitionEnd"):h(this.aniTime),this.steps=[],this.moved=!1,this.animating=!1},zoom:function(e,t,n,o){var r=this,s=n/r.scale;r.options.useTransform&&(r.zoomed=!0,o=void 0===o?200:o,e=e-r.wrapperOffsetLeft-r.x,t=t-r.wrapperOffsetTop-r.y,r.x=e-e*s+r.x,r.y=t-t*s+r.y,r.scale=n,r.refresh(),r.x=r.x>0?0:r.x<r.maxScrollX?r.maxScrollX:r.x,r.y=r.y>r.minScrollY?r.minScrollY:r.y<r.maxScrollY?r.maxScrollY:r.y,r.scroller.style[i+"TransitionDuration"]=o+"ms",r.scroller.style[i+"Transform"]=f+r.x+"px,"+r.y+"px"+w+" scale("+n+")",r.zoomed=!1)},isReady:function(){return!this.moved&&!this.zoomed&&!this.animating}},"undefined"!=typeof exports?exports.iScroll=E:window.iScroll=E}(),bb.menuBar={height:100,menuOpen:!1,menu:!1,apply:function(e,t){bb.device.isPlayBook||bb.device.isBB10?(bb.menuBar.createSwipeMenu(e,t),e.parentNode.removeChild(e),window.blackberry&&(bb.device.isPlayBook&&blackberry.app.event?blackberry.app.event.onSwipeDown(bb.menuBar.showMenuBar):bb.device.isBB10&&blackberry.app&&blackberry.event.addEventListener("swipedown",bb.menuBar.showMenuBar))):window.blackberry&&blackberry.ui.menu?(bb.menuBar.createBlackberryMenu(e),e.parentNode.removeChild(e)):console.log("Unable to create Blackberry/onSwipeDown menu.")},createBlackberryMenu:function(e){var t,i,n,o;t=e.getElementsByTagName("div");for(var r=0;t.length>r;r++)o=t[r],"menu-item"===o.getAttribute("data-bb-type")?(n=o.innerHTML,n?(i=new blackberry.ui.menu.MenuItem(!1,r,n,o.onclick),blackberry.ui.menu.addMenuItem(i),o.hasAttribute("data-bb-selected")&&"true"===o.getAttribute("data-bb-selected")&&blackberry.ui.menu.setDefaultMenuItem(i)):console.log("can't add menu item without data-bb-caption")):"menu-separator"===o.getAttribute("data-bb-type")?(i=new blackberry.ui.menu.MenuItem(!0,r),blackberry.ui.menu.addMenuItem(i)):console.log("invalid menu item type")},createSwipeMenu:function(e,t){if(bb.device.isBB10){var i,n,o,r,s,l,a,b,d,c=document.createElement("div"),h="1280x768-1280x720",u=[];if(bb.device.is1024x600?(h="1024x600",bb.menuBar.height=100):bb.device.is1280x768||bb.device.is1280x720?(h="1280x768-1280x720",bb.menuBar.height=140):bb.device.is720x720&&(h="720x720",bb.menuBar.height=110),c.setAttribute("class","bb-bb10-menu-bar-"+h+" bb-bb10-menu-bar-dark"),p=e.querySelectorAll("[data-bb-type=menu-item]"),p.length>0)for(i=0;p.length>i;i++)o=p[i],n=o.hasAttribute("data-bb-type")?o.getAttribute("data-bb-type").toLowerCase():void 0,"menu-item"==n?(l=o.innerHTML,s=o.getAttribute("data-bb-img"),l&&s&&5>u.length?(d=document.createElement("div"),u.push(d),d.setAttribute("class","bb-bb10-menu-bar-item-"+h),o.innerHTML="",r=document.createElement("img"),r.setAttribute("src",s),d.appendChild(r),a=document.createElement("div"),a.setAttribute("class","bb-bb10-menu-bar-item-caption-"+h),a.innerHTML=l,d.appendChild(a),d.onclick=o.onclick,c.appendChild(d)):u.length>=5?console.log("too many menu items."):console.log("missing menu item caption or image.")):console.log("invalid menu item type for bb10");if(u.length>0)for(b=Math.floor(100/u.length),i=0;u.length>i;i++)o=u[i],i==u.length-1?(o.style.width=b-1+"%",o.style.float="right"):o.style.width=b+"%";else c.style.display="none",bb.menuBar.menu=null;c.style["-webkit-transform"]="translate(0,0)",c.addEventListener("click",bb.menuBar.onMenuBarClicked,!1),document.body.appendChild(c),bb.menuBar.menu=c}else{var p,m,g,o,r,v,a,y,f=document.createElement("div");if(f.setAttribute("class","pb-menu-bar"),p=e.getElementsByTagName("div"),p.length>0)for(m=document.createElement("ul"),f.appendChild(m),g=0;p.length>g;g++)o=p[g],"menu-item"===o.getAttribute("data-bb-type")?(v=o.innerHTML,iconPath=o.getAttribute("data-bb-img"),v&&iconPath&&(y=document.createElement("li"),o.innerHTML="",r=new Image,r.src=iconPath,y.appendChild(r),a=document.createElement("div"),a.setAttribute("class","pb-menu-bar-caption"),a.innerText=v,y.appendChild(a),y.onclick=o.onclick,m.appendChild(y))):"menu-separator"===o.getAttribute("data-bb-type")?(m=document.createElement("ul"),f.appendChild(m)):console.log("invalid menu item type");f.style["-webkit-transform"]="translate(0,0)",f.addEventListener("click",bb.menuBar.onMenuBarClicked,!1),document.body.appendChild(f),bb.menuBar.menu=f
-}bb.screen.overlay||(bb.screen.overlay=document.createElement("div"),bb.screen.overlay.setAttribute("class","bb-bb10-context-menu-overlay")),t.appendChild(bb.screen.overlay),bb.menuBar.menu.overlay=bb.screen.overlay},showMenuBar:function(){bb.menuBar.menuOpen||(bb.menuBar.menu.overlay.style.display="inline",bb.device.isPlayBook?blackberry.app.event.onSwipeDown(bb.menuBar.hideMenuBar):bb.device.isBB10&&(blackberry.event.removeEventListener("swipedown",bb.menuBar.showMenuBar),blackberry.event.addEventListener("swipedown",bb.menuBar.hideMenuBar)),bb.menuBar.menu.style["-webkit-transition"]="all 0.5s ease-in-out",bb.menuBar.menu.style["-webkit-transform"]="translate(0, "+(bb.menuBar.height+3)+"px)",bb.menuBar.menuOpen=!0,bb.menuBar.menu.overlay.addEventListener("touchstart",bb.menuBar.overlayTouchHandler,!1))},hideMenuBar:function(){bb.menuBar.menuOpen&&(bb.menuBar.menu.overlay.style.display="none",bb.device.isPlayBook?blackberry.app.event.onSwipeDown(bb.menuBar.showMenuBar):bb.device.isBB10&&(blackberry.event.removeEventListener("swipedown",bb.menuBar.hideMenuBar),blackberry.event.addEventListener("swipedown",bb.menuBar.showMenuBar)),bb.menuBar.menu.style["-webkit-transition"]="all 0.5s ease-in-out",bb.menuBar.menu.style["-webkit-transform"]="translate(0, -"+(bb.menuBar.height+3)+"px)",bb.menuBar.menuOpen=!1,bb.menuBar.menu.overlay.removeEventListener("touchstart",bb.menuBar.overlayTouchHandler,!1))},overlayTouchHandler:function(e){e.preventDefault(),e.stopPropagation(),bb.menuBar.hideMenuBar()},onMenuBarClicked:function(){bb.menuBar.hideMenuBar()},clearMenu:function(){window.blackberry&&(bb.menuBar.menu&&(bb.device.isPlayBook||bb.device.isBB10)?(bb.device.isPlayBook&&blackberry.app.event?blackberry.app.event.onSwipeDown(""):bb.device.isBB10&&blackberry.app&&(blackberry.event.removeEventListener("swipedown",bb.menuBar.showMenuBar),blackberry.event.removeEventListener("swipedown",bb.menuBar.hideMenuBar)),bb.menuBar.menu.parentNode.removeChild(bb.menuBar.menu),bb.menuBar.menu=!1,bb.menuBar.menuOpen=!1):blackberry.ui&&blackberry.ui.menu&&blackberry.ui.menu.clearMenuItems())}},_bb_progress={NORMAL:0,PAUSED:1,ERROR:2,apply:function(e){for(var t=0;e.length>t;t++)bb.progress.style(e[t],!0)},style:function(e,t){var i,n,o;return bb.device.isBB10?(i=bb.screen.controlColor,n=bb.options.highlightColor,o=bb.options.shades.darkHighlight):(i="light",n=bb.device.isPlayBook?bb.options.highlightColor:"#92B43B",o="#8FB03B"),outerElement=document.createElement("div"),outerElement.progress=e,outerElement.state=bb.progress.NORMAL,e.parentNode&&e.parentNode.insertBefore(outerElement,e),e.style.display="none",outerElement.appendChild(e),outerElement.maxValue=e.hasAttribute("max")?parseInt(e.getAttribute("max")):0,outerElement.value=e.hasAttribute("value")?parseInt(e.getAttribute("value")):0,outerElement.className="bb-progress",outerElement.outer=document.createElement("div"),outerElement.outer.setAttribute("class","outer bb-progress-outer-"+i+" bb-progress-outer-idle-background-"+i),outerElement.appendChild(outerElement.outer),outerElement.fill=document.createElement("div"),outerElement.fill.normal=bb.device.isBB10?"bb-progress-fill bb10Highlight":"bb-progress-fill bbProgressHighlight",outerElement.fill.setAttribute("class",outerElement.fill.normal),outerElement.outer.appendChild(outerElement.fill),outerElement.inner=document.createElement("div"),outerElement.inner.className="inner",outerElement.outer.appendChild(outerElement.inner),e.outerElement=outerElement,e.setValue=function(e){var t,r=0;e&&0>e||e&&e>parseInt(this.outerElement.maxValue)||(e?(this.outerElement.value=e,this.value=e):0==e?(this.outerElement.value=0,this.value=0):e=parseInt(this.outerElement.value),e==this.outerElement.maxValue?(this.outerElement.fill.style.background="-webkit-gradient(linear, center top, center bottom, from("+o+"), to("+n+"))",r=1):0==e?this.outerElement.outer.setAttribute("class","outer bb-progress-outer-"+i+" bb-progress-outer-idle-background-"+i):(this.outerElement.state==bb.progress.PAUSED?this.outerElement.fill.style.background="-webkit-gradient(linear, center top, center bottom, from(#EDC842), to(#BA991E))":this.outerElement.state==bb.progress.ERROR?this.outerElement.fill.style.background="-webkit-gradient(linear, center top, center bottom, from( #E04242), to(#D91111))":(this.outerElement.outer.setAttribute("class","outer bb-progress-outer-"+i),this.outerElement.fill.setAttribute("class",this.outerElement.fill.normal),this.outerElement.fill.style.background=""),r=this.outerElement.value/parseInt(this.outerElement.maxValue)),t=Math.floor(parseInt(window.getComputedStyle(this.outerElement.outer).width)*r),this.outerElement.fill.style.width=t+"px")},e.setValue=e.setValue.bind(e),e.setState=function(e){this.outerElement.state=e,this.setValue()},e.setState=e.setState.bind(e),e.show=function(){this.outerElement.style.display="block",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.outerElement.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.outerElement.parentNode.removeChild(this.outerElement),bb.refresh()},e.remove=e.remove.bind(e),e.setMax=function(e){!e||0>e||e==this.max||(this.max=e,this.outerElement.maxValue=e)},e.setMax=e.setMax.bind(e),t?(e.onbbuidomready=function(){this.setValue(),document.removeEventListener("bbuidomready",this.onbbuidomready,!1)},e.onbbuidomready=e.onbbuidomready.bind(e),document.addEventListener("bbuidomready",e.onbbuidomready,!1)):window.setTimeout(e.setValue,0),outerElement.doOrientationChange=function(){window.setTimeout(this.progress.setValue,0)},outerElement.doOrientationChange=outerElement.doOrientationChange.bind(outerElement),window.addEventListener("resize",outerElement.doOrientationChange,!1),bb.windowListeners.push({name:"resize",eventHandler:outerElement.doOrientationChange}),outerElement}},bb.screen={scriptCounter:0,totalScripts:0,controlColor:"light",listColor:"light",overlay:null,tabOverlay:null,contextMenu:null,currentScreen:null,focusedInput:null,animating:!1,apply:function(e){var t,i;bb.screen.contextMenu=null,bb.device.isBB10&&bb.device.isPlayBook?t="bb-bb10-1024x600-screen":bb.device.isBB10&&(bb.device.is1280x768||bb.device.is1280x720)?t="bb-bb10-1280x768-1280x720-screen":bb.device.isBB10&&bb.device.is720x720?t="bb-bb10-720x720-screen":bb.device.isHiRes&&(t="bb-hires-screen");for(var n=0;e.length>n;n++){i=e[n],bb.screen.currentScreen=i,i.setAttribute("class",t);var o=i.querySelectorAll("[data-bb-type=menu]");if(o.length>0&&(o=o[0],bb.menuBar.apply(o,i)),bb.device.isBB10){var r,s,l,a=i.querySelectorAll("[data-bb-type=title]"),b=i.querySelectorAll("[data-bb-type=action-bar]"),d=i.querySelectorAll("[data-bb-type=context-menu]"),c=[],h=null,u=bb.screen.getActionBarHeight(),p=bb.screen.getTitleBarHeight();for(a.length>0?(a=a[0],i.titleBar=a):a=null,b.length>0?(b=b[0],i.actionBar=b):b=null,r=document.createElement("div"),i.appendChild(r),i.hasAttribute("data-bb-scroll-effect")&&"off"==i.getAttribute("data-bb-scroll-effect").toLowerCase()||(i.bbUIscrollWrapper=r),s=document.createElement("div"),r.appendChild(s),l=0;i.childNodes.length-1>l;l++)h=i.childNodes[l],h!=b&&h!=o&&h!=a&&c.push(h);for(l=0;c.length>l;l++)s.appendChild(c[l]);if(i.actionBarHeight=u,i.titleBarHeight=p,i.outerScrollArea=r,r.addEventListener("scroll",function(){evt=document.createEvent("Events"),evt.initEvent("bbuiscrolling",!0,!0),document.dispatchEvent(evt)},!1),i.getAttribute("data-bb-indicator")){var m=document.createElement("div"),g=document.createElement("div");r.scrollArea=s,r.overlay=m,m.style.position="absolute",m.style.bottom="0px",m.style.top="0px",m.style.left="0px",m.style.right="0px",m.touchstart=function(e){e.preventDefault(),e.stopPropagation()},m.touchend=function(e){e.preventDefault(),e.stopPropagation()},m.click=function(e){e.preventDefault(),e.stopPropagation()},r.appendChild(m),s.style.display="none",g.setAttribute("data-bb-type","activity-indicator"),g.setAttribute("data-bb-size","large"),g.style.margin=bb.device.is720x720?"30% auto 0px auto":"landscape"==bb.getOrientation().toLowerCase()?"20% auto 0px auto":"60% auto 0px auto",m.appendChild(g),r.bbuidomprocessed=function(){this.scrollArea.style.display="",this.removeChild(this.overlay),document.removeEventListener("bbuidomprocessed",this.bbuidomprocessed,!1),bb.device.isPlayBook&&bb.scroller&&bb.scroller.refresh()},r.bbuidomprocessed=r.bbuidomprocessed.bind(r),document.addEventListener("bbuidomprocessed",r.bbuidomprocessed,!1)}a&&b?(r.style.overflow="auto",r.style.position="absolute",r.style.bottom=u+"px",r.style.top=p+"px",r.style.left="0px",r.style.right="0px"):a?(r.style.overflow="auto",r.style.position="absolute",r.style.bottom="0px",r.style.top=p+"px",r.style.left="0px",r.style.right="0px"):b?(r.style.overflow="auto",r.style.position="absolute",r.style.bottom=u+"px",r.style.top="0px",r.style.left="0px",r.style.right="0px"):(r.setAttribute("style","overflow:auto;bottom:0px;position:absolute;top:0px;left:0px;right:0px;"),r.style.overflow="auto",r.style.position="absolute",r.style.bottom="0px",r.style.top="0px",r.style.left="0px",r.style.right="0px"),a&&bb.titleBar.apply(a),b&&bb.actionBar.apply(b,i),d.length>0?bb.screen.processContext(d[0],i):d=null}else if(bb.device.isPlayBook){var r,s,l,a=i.querySelectorAll("[data-bb-type=title]"),c=[],h=null,b=i.querySelectorAll("[data-bb-type=action-bar]"),d=i.querySelectorAll("[data-bb-type=context-menu]");for(l=0;b.length>l;l++)b[l].style.display="none";for(l=0;d.length>l;l++)d[l].style.display="none";for(a=a.length>0?a[0]:null,r=document.createElement("div"),i.appendChild(r),i.hasAttribute("data-bb-scroll-effect")&&"off"==i.getAttribute("data-bb-scroll-effect").toLowerCase()||(i.bbUIscrollWrapper=r),s=document.createElement("div"),r.appendChild(s),l=0;i.childNodes.length-1>l;l++)h=i.childNodes[l],h!=a&&c.push(h);for(l=0;c.length>l;l++)s.appendChild(c[l]);a?(r.style.overflow="auto",r.style.bottom="0px",r.style.position="absolute",r.style.top="55px",r.style.left="0px",r.style.right="0px",bb.titleBar.apply(a)):(r.setAttribute("style","overflow:auto;bottom:0px;position:absolute;top:0px;left:0px;right:0px;"),r.style.overflow="auto",r.style.bottom="0px",r.style.position="absolute",r.style.top="0px",r.style.left="0px",r.style.right="0px")}else{var a=i.querySelectorAll("[data-bb-type=title]"),b=i.querySelectorAll("[data-bb-type=action-bar]"),d=i.querySelectorAll("[data-bb-type=context-menu]");for(l=0;b.length>l;l++)b[l].style.display="none";for(l=0;d.length>l;l++)d[l].style.display="none";a.length>0&&(a=a[0],bb.titleBar.apply(a))}i.refresh=function(){bb.scroller&&bb.scroller.refresh()},i.refresh=i.refresh.bind(i),i.scrollTo=function(e,t){bb.scroller?bb.scroller.scrollTo(e,t):bb.device.isBB10&&(this.bbUIscrollWrapper.scrollTop=e)},i.scrollTo=i.scrollTo.bind(i),i.scrollToElement=function(e){if(bb.scroller)bb.scroller.scrollToElement(e);else if(bb.device.isBB10){if(!e)return;var t=0,i=e;if(i.offsetParent)do t+=i.offsetTop;while(i=i.offsetParent);bb.screen.currentScreen.titleBar&&(t-=bb.screen.currentScreen.titleBarHeight),bb.screen.currentScreen.actionBar&&(t-=bb.screen.getActionBarHeight()),this.scrollTo(t)}},i.scrollToElement=i.scrollToElement.bind(i)}},processContext:function(e,t){bb.device.isPlayBook||bb.device.isRipple||blackberry.ui&&blackberry.ui.contextmenu&&(blackberry.ui.contextmenu.enabled=!0),t.appendChild(e),e.menu=bb.contextMenu.create(t),e.appendChild(e.menu),bb.screen.contextMenu=e.menu;var i,n=e.querySelectorAll("[data-bb-type=action]");for(i=0;n.length>i;i++)e.menu.add(n[i]);e.menu.centerMenuItems()},fadeIn:function(e){var t=.3,i="ease-out",n=e.style;n["-webkit-animation-name"]="bbUI-fade-in",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},fadeOut:function(e){var t=.3,i="ease-out",n=e.style;n["-webkit-animation-name"]="bbUI-fade-out",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideLeft:function(e){var t=.3,i="ease-out",n=e.style;n.width=bb.innerWidth()+"px",n["-webkit-animation-name"]="bbUI-slide-left",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideOutLeft:function(e){var t=.3,i="ease-out",n=e.style;n.width=bb.innerWidth()+"px",n["-webkit-animation-name"]="bbUI-slide-out-left",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideRight:function(e){var t=.3,i="ease-out",n=e.style;n.width=bb.innerWidth()+"px",n["-webkit-animation-name"]="bbUI-slide-right",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideOutRight:function(e){var t=.3,i="ease-out",n=e.style;n.width=bb.innerWidth()+"px",n["-webkit-animation-name"]="bbUI-slide-out-right",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideUp:function(e){var t=.3,i="ease-out",n=e.style;n.height=bb.innerHeight()+"px",n["-webkit-animation-name"]="bbUI-slide-up",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideOutUp:function(e){var t=.3,i="ease-out",n=e.style;n.height=bb.innerHeight()+"px",n["-webkit-animation-name"]="bbUI-slide-out-up",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideDown:function(e){var t=.3,i="ease-out",n=e.style;n.height=bb.innerHeight()+"px",n["-webkit-animation-name"]="bbUI-slide-down",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},slideOutDown:function(e){var t=.3,i="ease-out",n=e.style;n.height=bb.innerHeight()+"px",n["-webkit-animation-name"]="bbUI-slide-out-down",n["-webkit-animation-duration"]=t+"s",n["-webkit-animation-timing-function"]=i,n["-webkit-transform"]="translate3d(0,0,0)",n["-webkit-backface-visibility"]="hidden"},reAdjustHeight:function(){bb.device.isBB5?document.body.style.height=screen.height-27+"px":bb.device.isBB6?document.body.style.height=screen.height-17+"px":bb.device.isBB7&&0>navigator.appVersion.indexOf("Ripple")&&(document.body.style.height=screen.height+"px")},getActionBarHeight:function(){return bb.device.is1024x600?"portrait"==bb.getOrientation().toLowerCase()?73:73:bb.device.is1280x768||bb.device.is1280x720?"portrait"==bb.getOrientation().toLowerCase()?139:99:bb.device.is720x720?109:"portrait"==bb.getOrientation().toLowerCase()?139:99},getTitleBarHeight:function(){return bb.device.is1024x600?65:bb.device.is1280x768||bb.device.is1280x720?111:bb.device.is720x720?95:111}},bb.tabOverflow={create:function(e){var t,i=document.createElement("div");return i.screen=e,i.itemClicked=!1,i.visible=!1,i.actions=[],i.tabOverflowState={display:void 0,img:void 0,style:void 0,caption:void 0},i.res=bb.device.is1024x600?"1024x600":bb.device.is1280x768||bb.device.is1280x720?"1280x768-1280x720":"1280x768-1280x720",i.setAttribute("class","bb-bb10-tab-overflow-menu bb-bb10-tab-overflow-menu-dark"),e.parentNode.appendChild(i),i.style["z-index"]="-100",i.style.display="none",i.style.width=i.width+"px",bb.screen.tabOverlay||(t=document.createElement("div"),t.menu=i,bb.screen.tabOverlay=t,t.setAttribute("class","bb-bb10-tab-overflow-menu-overlay "),e.appendChild(t),t.ontouchstart=function(e){e.preventDefault(),e.stopPropagation(),this.menu.hide()}),i.overlay=bb.screen.tabOverlay,i.doEndTransition=function(){this.visible?this.style["z-index"]="":(this.style.display="none",this.style.width="0px",this.screen.removeEventListener("webkitTransitionEnd",i.doEndTransition),this.screen.style["-webkit-transition"]="",this.screen.style["-webkit-transform"]="",this.screen.style["-webkit-backface-visibility"]="")},i.doEndTransition=i.doEndTransition.bind(i),i.show=function(){this.itemClicked=!1,this.visible=!0;var e=this.actionBar.tabOverflowBtn;this.tabOverflowState.display=e.tabHighlight.style.display,this.tabOverflowState.img=e.icon.src,this.tabOverflowState.caption=e.display.innerHTML,this.tabOverflowState.style=e.icon.getAttribute("class"),this.screen.addEventListener("webkitTransitionEnd",i.doEndTransition),this.setDimensions(),e.reset()},i.show=i.show.bind(i),i.setDimensions=function(){this.style.display="",this.style.width=bb.tabOverflow.getWidth()+"px",this.screen.parentNode.style.position="absolute",this.screen.parentNode.style.left="0px",this.screen.parentNode.style.top="0px",this.screen.parentNode.style.bottom="0px",this.screen.parentNode.style.right="0px",this.screen.parentNode.style.width="100%",this.screen.parentNode.style.overflow="hidden",this.overlay.style.display="block",this.screen.style["-webkit-transition"]="0.2s ease-out",this.screen.style["-webkit-transform"]="translate3d("+bb.tabOverflow.getWidth()+"px,0px,0px)",this.screen.style["-webkit-backface-visibility"]="hidden"},i.setDimensions=i.setDimensions.bind(i),i.hide=function(){if(this.visible=!1,this.style["z-index"]="-100",this.screen.style["-webkit-transform"]="translate3d(0px,0px,0px)",this.overlay.style.display="none",!this.itemClicked){var e=this.actionBar.tabOverflowBtn;e.icon.setAttribute("src",this.tabOverflowState.img),e.icon.setAttribute("class",this.tabOverflowState.style),e.tabHighlight.style.display=this.tabOverflowState.display,e.display.innerHTML=this.tabOverflowState.caption}},i.hide=i.hide.bind(i),i.onclick=function(){this.hide()},i.centerMenuItems=function(){var e,t=bb.innerHeight(),i=111;bb.device.is1024x600?i=53:(bb.device.is1280x768||bb.device.is1280x720)&&(i=111),e=t-Math.floor(t/2)-Math.floor(this.actions.length*i/2)-i,0>e&&(e=0),this.actions[0].style["margin-top"]=e+"px"},i.centerMenuItems=i.centerMenuItems.bind(i),i.initSelected=function(){var e,t;for(e=0;this.actions.length>e;e++)if(t=this.actions[e],t.initialSelected){t.setOverflowTab(!0);break}},i.initSelected=i.initSelected.bind(i),i.orientationChanged=function(){this.centerMenuItems(),this.visible&&this.setDimensions()},i.orientationChanged=i.orientationChanged.bind(i),window.addEventListener("orientationchange",i.orientationChanged,!1),bb.windowListeners.push({name:"orientationchange",eventHandler:i.orientationChanged}),i.add=function(e){var t,i,n,o,r=e.innerHTML,s=e.getAttribute("data-bb-accent-text"),l=document.createElement("div"),a="bb-bb10-tab-overflow-menu-item-inner-"+this.res,b=document.createElement("img");t="bb-bb10-tab-overflow-menu-item-"+this.res+" bb-bb10-tab-overflow-menu-item-"+this.res+"-dark",this.appendChild(e),e.hasAttribute("data-bb-visible")&&"false"==e.getAttribute("data-bb-visible").toLowerCase()?(e.visible=!1,e.style.display="none"):(e.visible=!0,this.actions.push(e)),1==this.actions.length&&(t=t+" bb-bb10-tab-overflow-menu-item-first-"+this.res+"-dark"),e.normal=t,e.accentText=null,e.menu=this,e.caption=r,e.setAttribute("class",e.normal),e.innerHTML="",e.visibleTab||(e.visibleTab=e.actionBar.tabOverflowBtn),i=document.createElement("table"),n=document.createElement("tr"),i.appendChild(n),e.appendChild(i),o=document.createElement("td"),b.setAttribute("src",e.getAttribute("data-bb-img")),b.setAttribute("class","bb-bb10-tab-overflow-menu-item-image-"+this.res),e.img=b,o.appendChild(b),n.appendChild(o),o=document.createElement("td"),l.innerHTML=r,e.display=l,o.appendChild(l),s?(e.accentText=document.createElement("div"),e.accentText.innerHTML=s,e.accentText.setAttribute("class","tab-accent-text"),o.appendChild(e.accentText),a=a+" bb-bb10-tab-overflow-menu-item-double-"+this.res):a=a+" bb-bb10-tab-overflow-menu-item-single-"+this.res,l.setAttribute("class",a),n.appendChild(o),e.setOverflowTab=function(e){var t=this.actionBar.tabOverflowBtn;e&&bb.actionBar.highlightAction(this.visibleTab,this),this.visibleTab==t&&(t.icon.setAttribute("src",this.img.src),t.icon.setAttribute("class",t.icon.highlight),t.tabHighlight.style.display="block",t.display.innerHTML=this.caption)},e.setOverflowTab=e.setOverflowTab.bind(e),e.initialSelected=e.hasAttribute("data-bb-selected")&&"true"==e.getAttribute("data-bb-selected").toLowerCase(),e.oldClick=e.onclick,e.onclick=function(){var e=this.actionBar.tabOverflowBtn;this.menu.itemClicked=!0,bb.actionBar.highlightAction(this.visibleTab,this),this.visibleTab==e&&this.setOverflowTab(!1),this.oldClick&&this.oldClick()},e.setCaption=function(e){this.display.innerHTML=e},e.setCaption=e.setCaption.bind(e),e.setImage=function(e){this.img.setAttribute("src",e)},e.setImage=e.setImage.bind(e),e.show=function(){this.visible||(this.visible=!0,this.menu.actions.push(this),this.style.display="",this.menu.centerMenuItems())},e.show=e.show.bind(e),e.hide=function(){if(this.visible){this.visible=!1;var e=this.menu.actions.indexOf(this);this.menu.actions.splice(e,1),this.style.display="none",this.menu.centerMenuItems()}},e.hide=e.hide.bind(e)},i.add=i.add.bind(i),i},getWidth:function(){return bb.device.is1024x600?"portrait"==bb.getOrientation()?bb.innerWidth()-77:400:bb.device.is1280x768||bb.device.is1280x720?"portrait"==bb.getOrientation()?bb.innerWidth()-154:700:"portrait"==bb.getOrientation()?bb.innerWidth()-154:700}},bb.titleBar={apply:function(titleBar){if(bb.device.isBB10){var res="1280x768-1280x720",orientation=bb.getOrientation(),button,caption,titleBarClass,details,topTitleArea=document.createElement("div"),img,accentText;bb.device.is1024x600?res="1024x600":bb.device.is1280x768||bb.device.is1280x720?res="1280x768-1280x720":bb.device.is720x720&&(res="720x720"),titleBar.topTitleArea=topTitleArea,titleBar.appendChild(topTitleArea),titleBarClass=bb.options.coloredTitleBar?"bb-bb10-title-bar-"+res+" bb-bb10-title-bar-"+orientation+"-"+res+" bb10-title-colored":"bb-bb10-title-bar-"+res+" bb-bb10-title-bar-"+orientation+"-"+res+" bb-bb10-title-bar-"+bb.screen.controlColor,topTitleArea.setAttribute("class",titleBarClass),caption=document.createElement("div"),titleBar.caption=caption,caption.setAttribute("class","bb-bb10-title-bar-caption-"+res+" bb-bb10-title-bar-caption-"+orientation+"-"+res),caption.innerHTML=titleBar.getAttribute("data-bb-caption"),topTitleArea.appendChild(caption),titleBar.hasAttribute("data-bb-back-caption")&&(button=document.createElement("div"),button.innerHTML=titleBar.getAttribute("data-bb-back-caption"),topTitleArea.appendChild(button),titleBar.backButton=button,button.onclick=bb.popScreen,bb.titleBar.styleBB10Button(button),button.style.left="0px"),titleBar.hasAttribute("data-bb-action-caption")&&(button=document.createElement("div"),button.innerHTML=titleBar.getAttribute("data-bb-action-caption"),titleBar.hasAttribute("onactionclick")?(button.titleBar=titleBar,button.onactionclick=titleBar.getAttribute("onactionclick"),titleBar.onactionclick=function(){eval(this.actionButton.onactionclick)},button.onclick=function(){this.titleBar.onactionclick&&this.titleBar.onactionclick()}):titleBar.onactionclick&&(button.onclick=titleBar.onactionclick),bb.titleBar.styleBB10Button(button),button.style.right="0px",topTitleArea.appendChild(button),titleBar.actionButton=button),(titleBar.actionButton||titleBar.backButton)&&(titleBar.evenButtonWidths=function(){var e,t=this.backButton?parseInt(window.getComputedStyle(this.backButton).width):0,i=this.actionButton?parseInt(window.getComputedStyle(this.actionButton).width):0;this.actionButton&&this.backButton?(e=t>i?t:i,this.backButton.style.width=e+"px",this.actionButton.style.width=e+"px",this.caption.style["margin-left"]=e+24+"px",this.caption.style["margin-right"]=e+24+"px"):this.actionButton?(this.caption.style["margin-left"]="0px",this.caption.style["margin-right"]=i+24+"px"):this.backButton&&(this.caption.style["margin-right"]="0px",this.caption.style["margin-left"]=t+24+"px")},titleBar.evenButtonWidths=titleBar.evenButtonWidths.bind(titleBar),window.setTimeout(titleBar.evenButtonWidths,0)),titleBar.actionButton||titleBar.backButton||!titleBar.hasAttribute("data-bb-img")&&!titleBar.hasAttribute("data-bb-accent-text")||(caption.setAttribute("class","bb-bb10-title-bar-caption-left-"+res),details=document.createElement("div"),titleBar.details=details,topTitleArea.appendChild(details),details.appendChild(caption),titleBar.hasAttribute("data-bb-img")&&(img=document.createElement("img"),titleBar.img=img,topTitleArea.insertBefore(img,details),details.setAttribute("class","bb-bb10-title-bar-caption-details-img-"+res),img.style.opacity="0",img.style["-webkit-transition"]="opacity 0.5s linear",img.style["-webkit-backface-visibility"]="hidden",img.style["-webkit-perspective"]=1e3,img.style["-webkit-transform"]="translate3d(0,0,0)",titleBar.onbbuidomready=function(){this.img.onload=function(){this.style.opacity="1.0"},this.img.src=this.getAttribute("data-bb-img"),document.removeEventListener("bbuidomready",this.onbbuidomready,!1)},titleBar.onbbuidomready=titleBar.onbbuidomready.bind(titleBar),document.addEventListener("bbuidomready",titleBar.onbbuidomready,!1)),titleBar.hasAttribute("data-bb-accent-text")&&(caption.style["line-height"]=bb.device.is1024x600?"40px":bb.device.is1280x768||bb.device.is1280x720?"70px":bb.device.is720x720?"55px":"70px",accentText=document.createElement("div"),accentText.setAttribute("class","bb-bb10-title-bar-accent-text-"+res),bb.options.coloredTitleBar&&(accentText.style.color="silver"),titleBar.accentText=accentText,accentText.innerHTML=titleBar.getAttribute("data-bb-accent-text"),details.appendChild(accentText))),titleBar.setCaption=function(e){this.caption.innerHTML=e},titleBar.setCaption=titleBar.setCaption.bind(titleBar),titleBar.getCaption=function(){return this.caption.innerHTML},titleBar.getCaption=titleBar.getCaption.bind(titleBar),titleBar.setBackCaption=function(e){this.backButton.firstChild.innerHTML=e,this.actionButton&&(this.backButton.style.width="",this.evenButtonWidths())},titleBar.setBackCaption=titleBar.setBackCaption.bind(titleBar),titleBar.getBackCaption=function(){return this.backButton.firstChild.innerHTML},titleBar.getBackCaption=titleBar.getBackCaption.bind(titleBar),titleBar.setActionCaption=function(e){this.actionButton.firstChild.innerHTML=e,this.backButton&&(this.actionButton.style.width="",this.evenButtonWidths())},titleBar.setActionCaption=titleBar.setActionCaption.bind(titleBar),titleBar.getActionCaption=function(){return this.actionButton.firstChild.innerHTML},titleBar.getActionCaption=titleBar.getActionCaption.bind(titleBar),titleBar.getAccentText=function(){return this.accentText.innerHTML},titleBar.getAccentText=titleBar.getAccentText.bind(titleBar)}else if(bb.device.isPlayBook){if(titleBar.setAttribute("class","pb-title-bar"),titleBar.innerHTML=titleBar.getAttribute("data-bb-caption"),titleBar.hasAttribute("data-bb-back-caption")){var button=document.createElement("div"),buttonInner=document.createElement("div");button.setAttribute("class","pb-title-bar-back"),button.onclick=bb.popScreen,buttonInner.setAttribute("class","pb-title-bar-back-inner"),buttonInner.innerHTML=titleBar.getAttribute("data-bb-back-caption"),button.appendChild(buttonInner),titleBar.appendChild(button)}}else titleBar.setCaption=function(e){return e?(this.setAttribute("data-bb-caption",e),this.innerHTML=e,void 0):(e=this.getAttribute("data-bb-caption"),this.innerHTML=e,void 0)},titleBar.setCaption=titleBar.setCaption.bind(titleBar),titleBar.getCaption=function(){return this.innerHTML},titleBar.getCaption=titleBar.getCaption.bind(titleBar),titleBar.hasAttribute("data-bb-caption")&&(bb.device.isHiRes?titleBar.setAttribute("class","bb-hires-screen-title"):titleBar.setAttribute("class","bb-lowres-screen-title"),titleBar.innerHTML=titleBar.getAttribute("data-bb-caption"))},styleBB10Button:function(e){var t,i,n,o="1280x768-1280x720",r=document.createElement("div");bb.device.is1024x600?o="1024x600":bb.device.is1280x768||bb.device.is1280x720?o="1280x768-1280x720":bb.device.is720x720&&(o="720x720"),bb.options.coloredTitleBar?(t="bb-bb10-titlebar-button bb-bb10-titlebar-button-"+o+" bb10-title-button-colored",i="bb-bb10-titlebar-button bb-bb10-titlebar-button-"+o+" bb10-title-button-colored-highlight",n="bb-bb10-titlebar-button-container-"+o+" bb10-title-button-container-colored"):(t="bb-bb10-titlebar-button bb-bb10-titlebar-button-"+o+" bb-bb10-titlebar-button-"+bb.screen.controlColor,i="bb-bb10-titlebar-button bb-bb10-titlebar-button-"+o+" bb-bb10-titlebar-button-highlight-"+bb.screen.controlColor,n="bb-bb10-titlebar-button-container-"+o+" bb-bb10-titlebar-button-container-"+bb.screen.controlColor),e.enabled=!0,r.innerHTML=e.innerHTML,e.innerHTML="",e.appendChild(r),r.setAttribute("class",t),e.setAttribute("class",n),e.outerNormal=n,e.innerElement=r,r.normal=t,r.highlight=i,e.ontouchstart=function(){this.innerElement.setAttribute("class",this.innerElement.highlight)},e.ontouchend=function(){this.innerElement.setAttribute("class",this.innerElement.normal)},e.trappedClick=e.onclick,e.onclick=void 0,null!==e.trappedClick&&e.addEventListener("click",function(){this.enabled&&this.trappedClick()},!1)}},_bb10_activityIndicator={apply:function(e){var t,i,n,o,r,s,l,a=bb.screen.controlColor,b="1280x768-1280x720";if(bb.device.is1024x600?b="1024x600":bb.device.is1280x768||bb.device.is1280x720?b="1280x768-1280x720":bb.device.is720x720&&(b="720x720"),e.length>0){var d,c,h=document.createElement("canvas");h.setAttribute("height","184px"),h.setAttribute("width","184px"),d=h.getContext("2d"),d.beginPath(),d.moveTo(92,154),d.arcTo(154,154,154,92,62),d.arcTo(154,30,92,30,62),d.arcTo(81,30,81,20,10),d.arcTo(81,10,91,10,10),d.arcTo(173,10,173,92,82),d.arcTo(173,173,92,173,82),d.arcTo(81,173,81,164,10),d.arcTo(81,154,92,154,10),d.closePath(),d.strokeStyle="transparent",d.stroke();var c=d.createLinearGradient(0,50,0,154);c.addColorStop(0,"transparent"),c.addColorStop(1,bb.options.highlightColor),d.fillStyle=c,d.fill(),l=h.toDataURL()}for(t=0;e.length>t;t++)i=e[t],r=i.hasAttribute("data-bb-size")?i.getAttribute("data-bb-size").toLowerCase():"medium","large"==r?s=bb.device.is1024x600?"93px":bb.device.is1280x768||bb.device.is1280x720?"184px":bb.device.is720x720?"170px":"184px":"small"==r?s=bb.device.is1024x600?"21px":bb.device.is1280x768||bb.device.is1280x720?"41px":"41px":(r="medium",s=bb.device.is1024x600?"46px":bb.device.is1280x768||bb.device.is1280x720?"93px":bb.device.is720x720?"88px":"93px"),i.style.width=s,o=document.createElement("div"),o.setAttribute("class","bb-bb10-activity-margin-"+b+" bb-bb10-activity-"+r+"-"+b+" bb-activity-"+a),i.appendChild(o),n=document.createElement("div"),n.setAttribute("class","bb-bb10-activity-"+r+"-"+b),n.style["background-image"]='url("'+l+'")',o.appendChild(n),n.style["-webkit-animation-name"]="activity-rotate",n.style["-webkit-animation-duration"]="0.8s",n.style["-webkit-animation-iteration-count"]="infinite",n.style["-webkit-animation-timing-function"]="linear",i.show=function(){this.style.display="",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}},_bb10_button={apply:function(e){for(var t=0;e.length>t;t++)bb.button.style(e[t])},style:function(e){var t="1280x768-1280x720";bb.device.is1024x600?t="1024x600":bb.device.is1280x768||bb.device.is1280x720?t="1280x768-1280x720":bb.device.is720x720&&(t="720x720");var i,n,o,r,s=document.createElement("div"),l=document.createElement("div");if(disabled=e.hasAttribute("data-bb-disabled"),normal="bb-bb10-button bb-bb10-button-"+t,highlight="bb-bb10-button bb-bb10-button-"+t+" bb10-button-highlight",outerNormal="bb-bb10-button-container-"+t+" bb-bb10-button-container-"+bb.screen.controlColor,outerNormalWithoutImageOnly=outerNormal,e.isImageOnly=!1,e.enabled=!disabled,o=e.innerHTML,s.innerHTML=o,e.innerHTML="",e.stretched=!1,e.captionElement=s,e.appendChild(l),e.innerElement=l,e.hasAttribute("data-bb-style")){var a=e.getAttribute("data-bb-style");
-"stretch"==a&&(outerNormal+=" bb-bb10-button-stretch",e.stretched=!0)}return n=e.hasAttribute("data-bb-img")?e.getAttribute("data-bb-img"):void 0,n&&(o&&0!=o.length?(s.setAttribute("class","bb-bb10-button-caption-with-image-"+t),r=document.createElement("div"),e.imgElement=r,r.setAttribute("class","bb-bb10-button-image-"+t),r.style["background-image"]='url("'+n+'")',l.appendChild(r)):(outerNormal=outerNormal+" bb-bb10-button-container-image-only-"+t,s.style["background-image"]='url("'+n+'")',e.style["line-height"]="0px",s.setAttribute("class","bb-bb10-button-caption-with-image-only-"+t),e.isImageOnly=!0)),l.appendChild(s),i=normal+" bb-bb10-button-disabled-"+bb.screen.controlColor,normal=normal+" bb-bb10-button-"+bb.screen.controlColor,disabled?(e.removeAttribute("data-bb-disabled"),l.setAttribute("class",i)):l.setAttribute("class",normal),e.setAttribute("class",outerNormal),e.outerNormal=outerNormal,e.outerNormalWithoutImageOnly=outerNormalWithoutImageOnly,e.innerElement=l,l.normal=normal,l.highlight=highlight,l.disabledStyle=i,disabled||(e.ontouchstart=function(){this.innerElement.setAttribute("class",this.innerElement.highlight)},e.ontouchend=function(){this.innerElement.setAttribute("class",this.innerElement.normal)}),e.trappedClick=e.onclick,e.onclick=void 0,null!==e.trappedClick&&e.addEventListener("click",function(){this.enabled&&this.trappedClick()},!1),e.setCaption=function(e){if(this.isImageOnly&&e.length>0){this.captionElement.setAttribute("class","bb-bb10-button-caption-with-image-"+t);var i=document.createElement("div");this.imgElement=i,i.setAttribute("class","bb-bb10-button-image-"+t),i.style["background-image"]=this.captionElement.style["background-image"],this.innerElement.removeChild(this.captionElement),this.innerElement.appendChild(i),this.innerElement.appendChild(this.captionElement),this.setAttribute("class",this.outerNormalWithoutImageOnly),this.captionElement.style["background-image"]="",this.isImageOnly=!1}else 0==e.length&&this.imgElement&&(this.captionElement.setAttribute("class","bb-bb10-button-caption-with-image-only-"+t),this.setAttribute("class",this.outerNormalWithoutImageOnly+" bb-bb10-button-container-image-only-"+t),this.captionElement.style["background-image"]=this.imgElement.style["background-image"],this.isImageOnly=!0,this.innerElement.removeChild(this.imgElement),this.imgElement=null);this.captionElement.innerHTML=e},e.getCaption=function(){return this.captionElement.innerHTML},e.getCaption=e.getCaption.bind(e),e.setImage=function(e){if(this.isImageOnly)this.captionElement.style["background-image"]='url("'+e+'")';else if(this.imgElement&&e.length>0)this.imgElement.style["background-image"]='url("'+e+'")';else if(e.length>0){this.captionElement.setAttribute("class","bb-bb10-button-caption-with-image-"+t);var i=document.createElement("div");this.imgElement=i,i.setAttribute("class","bb-bb10-button-image-"+t),i.style["background-image"]='url("'+e+'")',this.innerElement.removeChild(this.captionElement),this.innerElement.appendChild(i),this.innerElement.appendChild(this.captionElement)}else this.imgElement&&0==e.length&&(this.innerElement.removeChild(this.imgElement),this.imgElement=null,this.captionElement.setAttribute("class",""))},e.getImage=function(){return this.isImageOnly?this.captionElement.style["background-image"].slice(4,-1):this.imgElement?this.imgElement.style["background-image"].slice(4,-1):""},e.getImage=e.getImage.bind(e),e.enable=function(){this.enabled||(this.innerElement.setAttribute("class",this.innerElement.normal),this.ontouchstart=function(){this.innerElement.setAttribute("class",this.innerElement.highlight)},this.ontouchend=function(){this.innerElement.setAttribute("class",this.innerElement.normal)},this.enabled=!0)},e.enable=e.enable.bind(e),e.disable=function(){this.enabled&&(this.innerElement.setAttribute("class",this.innerElement.disabledStyle),this.ontouchstart=null,this.ontouchend=null,this.enabled=!1)},e.disable=e.disable.bind(e),e.show=function(){this.style.display=this.stretched?"block":"inline-block",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.parentNode.removeChild(this),bb.refresh()},e.remove=e.remove.bind(e),e}},_bb10_checkbox={apply:function(e){for(var t=0;e.length>t;t++)bb.checkbox.style(e[t])},style:function(e){var t,i,n,o,r="1280x768-1280x720",s=bb.screen.controlColor;return bb.device.is1024x600?r="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(r="1280x768-1280x720"),t=document.createElement("div"),t.setAttribute("class","bb-bb10-checkbox-target-"+r),e.parentNode&&e.parentNode.insertBefore(t,e),e.style.display="none",t.appendChild(e),t.input=e,e.touchTarget=t,i=document.createElement("div"),i.setAttribute("class","bb-bb10-checkbox-outer-"+r+" bb-bb10-checkbox-outer-"+s),t.appendChild(i),n=document.createElement("div"),n.normal="bb-bb10-checkbox-inner-"+r+" bb-bb10-checkbox-inner-"+s,n.setAttribute("class",n.normal),i.appendChild(n),o=document.createElement("div"),o.hiddenClass="bb-bb10-checkbox-check-hidden-"+r+" bb-bb10-checkbox-check-image",o.displayClass="bb-bb10-checkbox-check-display-"+r+" bb-bb10-checkbox-check-image",o.setAttribute("class",o.hiddenClass),o.style["-webkit-transition-property"]="all",o.style["-webkit-transition-duration"]="0.1s",n.appendChild(o),t.checkElement=o,t.innerElement=n,t.highlight="-webkit-linear-gradient(top,  rgb("+(bb.options.shades.R+32)+", "+(bb.options.shades.G+32)+", "+(bb.options.shades.B+32)+") 0%, rgb("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+") 100%)",t.touchHighlight="-webkit-linear-gradient(top,  rgba("+(bb.options.shades.R-64)+", "+(bb.options.shades.G-64)+", "+(bb.options.shades.B-64)+",0.25) 0%, rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+",0.25) 100%)",t.ontouchstart=function(){this.input.checked||this.input.disabled||(this.innerElement.style.background=this.touchHighlight)},t.ontouchend=function(){this.input.checked||this.input.disabled||(this.innerElement.style.background="")},t.onclick=function(){if(!this.input.disabled){var e=document.createEvent("HTMLEvents");e.initEvent("change",!1,!0),this.input.checked=!this.input.checked,this.drawChecked(),this.input.dispatchEvent(e)}},t.drawChecked=function(){this.input.checked?(this.checkElement.setAttribute("class",this.checkElement.displayClass),this.innerElement.style["background-image"]=t.highlight):(this.checkElement.setAttribute("class",this.checkElement.hiddenClass),this.innerElement.style["background-image"]=""),this.input.disabled?(this.innerElement.parentNode.setAttribute("class","bb-bb10-checkbox-outer-"+r+" bb-bb10-checkbox-outer-disabled-"+s),this.innerElement.setAttribute("class","bb-bb10-checkbox-inner-"+r+" bb-bb10-checkbox-inner-disabled-"+s),this.innerElement.style.background="#c0c0c0"):(this.innerElement.parentNode.setAttribute("class","bb-bb10-checkbox-outer-"+r+" bb-bb10-checkbox-outer-"+s),this.innerElement.setAttribute("class","bb-bb10-checkbox-inner-"+r+" bb-bb10-checkbox-inner-"+s))},t.drawChecked=t.drawChecked.bind(t),e.setChecked=function(e){e!=this.checked&&(this.checked=e,this.touchTarget.drawChecked())},e.setChecked=e.setChecked.bind(e),e.getChecked=function(){return this.checked},e.getChecked=e.getChecked.bind(e),e.enable=function(){this.removeAttribute("disabled"),this.enabled=!0,this.touchTarget.drawChecked()},e.enable=e.enable.bind(e),e.disable=function(){this.enabled=!1,this.setAttribute("disabled","disabled"),this.touchTarget.drawChecked()},e.disable=e.disable.bind(e),e.show=function(){this.touchTarget.style.display="block",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.touchTarget.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.touchTarget.parentNode.removeChild(this.touchTarget),bb.refresh()},e.remove=e.remove.bind(e),t.drawChecked(),t}},_bb10_contextMenu={actionIds:[],create:function(){var e=document.createElement("div");return e.style.display="none",e.actions=[],e.pinnedAction=void 0,e.oncontextmenu=function(e){this.centerMenuItems();for(var t,i=e.srcElement,n=!1,o="";i;){if(i.hasAttribute&&(o=i.hasAttribute("data-bb-type")?i.getAttribute("data-bb-type").toLowerCase():void 0,"item"==o)){n=!0;break}i=i.parentNode}n&&(i.drawSelected(),t=i.getAttribute("data-webworks-context"),t=JSON.parse(t),this.selected={title:t.header,description:t.subheader,selected:i})},e.oncontextmenu=e.oncontextmenu.bind(e),window.addEventListener("contextmenu",e.oncontextmenu),bb.windowListeners.push({name:"contextmenu",eventHandler:e.oncontextmenu}),e.oncontextmenuclosed=function(){this.selected&&this.selected.selected&&this.selected.selected.drawUnselected()},e.oncontextmenuclosed=e.oncontextmenuclosed.bind(e),document.addEventListener("bbui.contextClosed",e.oncontextmenuclosed),bb.documentListeners.push({name:"bbui.contextClosed",eventHandler:e.oncontextmenuclosed}),e.add=function(e){this.actions.push(e),this.appendChild(e);var t={actionId:bb.guidGenerator(),label:e.innerHTML,icon:e.getAttribute("data-bb-img")};bb.contextMenu.actionIds.push(t.actionId),e.menuItem=t,e.menu=this,e.visible=e.hasAttribute("data-bb-visible")?"false"!=e.getAttribute("data-bb-visible").toLowerCase():!0,this.pinnedAction||e.hasAttribute("data-bb-pin")&&"true"==e.getAttribute("data-bb-pin").toLowerCase()&&(this.pinnedAction=e),e.doclick=function(t){var i,n=document.querySelectorAll("[data-bb-context-menu-id="+t+"]");n.length>0&&(n=n[0],i=n.getAttribute("data-webworks-context"),i=JSON.parse(i),this.menu.selected={title:i.header,description:i.subheader,selected:n},e.onclick&&e.onclick())},e.doclick=e.doclick.bind(e),e.show=function(){this.visible||(this.visible=!0,this.removeAttribute("data-bb-visible"))},e.show=e.show.bind(e),e.hide=function(){this.visible&&(this.visible=!1,this.setAttribute("data-bb-visible","false"))},e.hide=e.hide.bind(e)},e.add=e.add.bind(e),e.centerMenuItems=function(){var e,t,i=[blackberry.ui.contextmenu.CONTEXT_ALL],n={includeContextItems:[blackberry.ui.contextmenu.CONTEXT_ALL],includePlatformItems:!1,includeMenuServiceItems:!1};for(this.pinnedAction&&(n.pinnedItemId=this.pinnedAction.menuItem.actionId),this.clearWWcontextMenu(),blackberry.ui.contextmenu.defineCustomContext("bbui-context",n),e=this.actions.length-1;e>=0;e--)t=this.actions[e],t.visible&&blackberry.ui.contextmenu.addItem(i,t.menuItem,t.doclick)},e.centerMenuItems=e.centerMenuItems.bind(e),e.clearWWcontextMenu=function(){var e,t=[blackberry.ui.contextmenu.CONTEXT_ALL];for(e=0;bb.contextMenu.actionIds.length>e;e++)blackberry.ui.contextmenu.removeItem(t,bb.contextMenu.actionIds[e])},e.centerMenuItems=e.centerMenuItems.bind(e),e.show=function(){},e.show=e.show.bind(e),e.peek=function(){},e.peek=e.peek.bind(e),e}},_bb10_dropdown={apply:function(e){for(i=0;e.length>i;i++)bb.dropdown.style(e[i])},style:function(e){var t="1280x768-1280x720";bb.device.is1024x600?t="1024x600":bb.device.is1280x768||bb.device.is1280x720?t="1280x768-1280x720":bb.device.is720x720&&(t="720x720");var i,n,o,r,s,l,a,b,d,c=!e.hasAttribute("disabled"),h="bb-bb10-dropdown bb-bb10-dropdown-"+t+" bb-bb10-dropdown-"+bb.screen.controlColor+" bb-bb10-dropdown-"+t,u="bb-bb10-dropdown bb-bb10-dropdown-"+t+" bb-bb10-dropdown-highlight-"+bb.screen.controlColor+" bb10Highlight bb-bb10-dropdown-"+t,p="bb-bb10-dropdown-container-"+t+" bb-bb10-dropdown-container-"+bb.screen.controlColor+" bb-bb10-dropdown-container-"+t,m="bb-bb10-dropdown-container-inner-"+t+" bb-bb10-dropdown-container-inner-"+bb.screen.controlColor,g="bb-bb10-dropdown-inner-"+t+" bb-bb10-dropdown-inner-"+bb.screen.controlColor;if(e.style.display="none",e.enabled=c,l=document.createElement("div"),l.select=e,l.items=[],l.setAttribute("data-bb-type","dropdown"),e.dropdown=l,e.parentNode&&e.parentNode.insertBefore(l,e),l.appendChild(e),r=document.createElement("div"),r.setAttribute("class",m),l.appendChild(r),e.hasAttribute("data-bb-style")){var v=e.getAttribute("data-bb-style");"stretch"==v&&(h+=" bb-bb10-dropdown-stretch",u+=" bb-bb10-dropdown-stretch")}s=document.createElement("div"),e.enabled?s.setAttribute("class",h):s.setAttribute("class",h+" bb-bb10-dropdown-disabled-"+bb.screen.controlColor),r.appendChild(s),o=document.createElement("div"),o.setAttribute("class",g),s.appendChild(o),a=document.createElement("div"),l.labelElement=a,a.setAttribute("class","bb-bb10-dropdown-label-"+t),e.hasAttribute("data-bb-label")&&(a.innerHTML=e.getAttribute("data-bb-label")),o.appendChild(a),i=document.createElement("div"),i.setAttribute("class","bb-bb10-dropdown-arrow-"+t+"-"+bb.screen.controlColor),o.appendChild(i),l.img=i,b=document.createElement("div"),l.captionElement=b,b.setAttribute("class","bb-bb10-dropdown-caption-"+t),o.appendChild(b);var y=document.createElement("div");y.style.position="relative",y.style["margin-top"]="10px",y.style.overflow="hidden",r.appendChild(y);var f=document.createElement("div");return y.appendChild(f),d=document.createElement("div"),l.itemsElement=d,d.setAttribute("class","bb-bb10-dropdown-items"),f.appendChild(d),l.refreshOptions=function(){var o,r,s,l,a,d,c=e.getElementsByTagName("option"),h="";for(this.itemsElement.innerHTML="",this.items=[],this.options=c,n=0;c.length>n;n++)o=c[n],r=document.createElement("div"),this.items.push(r),r.selectedStyle="bb-bb10-dropdown-item-"+t+" bb-bb10-dropdown-item-"+bb.screen.controlColor+" bb-bb10-dropdown-item-selected-"+bb.screen.controlColor,r.normalStyle="bb-bb10-dropdown-item-"+t+" bb-bb10-dropdown-item-"+bb.screen.controlColor,r.index=n,r.select=this.select,r.dropdown=this,r.dropdown.selected||(r.dropdown.selected=r),a=document.createElement("div"),a.setAttribute("class","primary-text"),a.innerHTML=o.innerHTML,s=document.createElement("div"),s.setAttribute("class","text-container"),s.appendChild(a),l=document.createElement("span"),l.setAttribute("class","text-align"),r.appendChild(l),r.appendChild(s),this.itemsElement.appendChild(r),o.hasAttribute("data-bb-accent-text")&&(d=document.createElement("div"),d.setAttribute("class","accent-text"),d.innerHTML=o.getAttribute("data-bb-accent-text"),r.accentText=d,s.appendChild(d)),i=document.createElement("div"),i.setAttribute("class","bb-bb10-dropdown-selected-image-"+t+"-"+bb.screen.controlColor),r.img=i,r.appendChild(i),o.hasAttribute("selected")||o.selected?(h=o.innerHTML,r.setAttribute("class",r.selectedStyle),i.style.visibility="visible",r.dropdown.selected=r):r.setAttribute("class",r.normalStyle),r.ontouchstart=function(){this.style["background-color"]=bb.options.highlightColor,this.style.color="white",this.accentText&&(this.accentText.style.color="white")},r.ontouchend=function(){this.style["background-color"]="transparent",this.style.color="",this.accentText&&(this.accentText.style.color="")},r.onclick=function(){this.select.setSelectedItem(this.index)};""==h&&c.length>0&&(h=c[0].innerHTML),""!=h&&(b.innerHTML=h)},l.refreshOptions=l.refreshOptions.bind(l),l.refreshOptions(),l.setAttribute("class",p),l.buttonOuter=s,l.isRefreshed=!1,l.caption=b,s.dropdown=l,l.open=!1,s.normal=h,s.highlight=u,l.scroller=new iScroll(y,{vScrollbar:!1,onBeforeScrollStart:function(e){bb.scroller&&bb.scroller.disable(),e.preventDefault()},onBeforeScrollEnd:function(){bb.scroller&&bb.scroller.enable()}}),bb.dropdownScrollers.push(l.scroller),l.scrollArea=y,s.dotouchstart=function(){this.setAttribute("class",this.highlight)},s.dotouchend=function(){this.setAttribute("class",this.normal)},s.doclick=function(){this.dropdown.open?this.dropdown.internalHide():this.dropdown.internalShow()},e.enabled&&(s.ontouchstart=s.dotouchstart,s.ontouchend=s.dotouchend,s.onclick=s.doclick),l.internalShow=function(){var e;this.open=!0,this.numItems=bb.device.is720x720&&this.options.length>4?3:this.options.length>5?5:this.options.length,bb.device.is1024x600?(e=43*this.numItems,this.style.height=45+e+"px"):bb.device.is1280x768||bb.device.is1280x720?(e=99*this.numItems,this.style.height=95+e+"px"):bb.device.is720x720?(e=85*this.numItems,this.style.height=77+e+"px"):(e=99*this.numItems,this.style.height=95+e+"px"),this.scrollArea.style.height=e-10+"px",this.isRefreshed||(this.scroller.refresh(),this.isRefreshed=!0),this.scroller.scrollToElement(this.selected,0),this.caption.style.opacity="0.0",this.caption.style["-webkit-transition"]="opacity 0.5s linear",this.caption.style["-webkit-backface-visibility"]="hidden",this.caption.style["-webkit-perspective"]=1e3,this.caption.style["-webkit-transform"]="translate3d(0,0,0)",this.img.style.opacity="1.0",this.img.style["-webkit-transition"]="all 0.5s ease-in-out",this.img.style["-webkit-transform"]="rotate(-360deg)",bb.scroller&&bb.scroller.refresh(),this.scrollIntoView(!1)},l.internalShow=l.internalShow.bind(l),l.internalHide=function(){this.open=!1,this.style.height="59px",this.style.height=bb.device.is1024x600?"43px":bb.device.is1280x768||bb.device.is1280x720?"95px":bb.device.is720x720?"77px":"95px",this.caption.style.opacity="1.0",this.caption.style["-webkit-transition"]="opacity 0.5s linear",this.caption.style["-webkit-backface-visibility"]="hidden",this.caption.style["-webkit-perspective"]=1e3,this.img.style.opacity="0.0",this.img.style["-webkit-transition"]="all 0.5s ease-in-out",this.img.style["-webkit-transform"]="rotate(0deg)",bb.scroller&&bb.scroller.refresh()},l.internalHide=l.internalHide.bind(l),e.setSelectedItem=function(e){if(this.selectedIndex!=e){var t=this.dropdown.items[e];if(!t)return;this.dropdown.selected&&(this.dropdown.selected.setAttribute("class",t.normalStyle),this.dropdown.selected.img.style.visibility="hidden"),t.setAttribute("class",t.selectedStyle),t.img.style.visibility="visible",this.dropdown.selected=t,this.selectedIndex=e,this.dropdown.caption.innerHTML=this.options[e].text,this.dropdown.internalHide(),window.setTimeout(this.fireEvent,0)}},e.setSelectedItem=e.setSelectedItem.bind(e),e.setSelectedText=function(e){for(var t=0;this.options.length>t;t++)if(this.options[t].text==e)return this.setSelectedItem(t),void 0},e.setSelectedText=e.setSelectedText.bind(e),e.fireEvent=function(){var e=document.createEvent("HTMLEvents");e.initEvent("change",!1,!0),this.dispatchEvent(e)},e.fireEvent=e.fireEvent.bind(e),e.enable=function(){this.enabled||(this.dropdown.buttonOuter.ontouchstart=this.dropdown.buttonOuter.dotouchstart,this.dropdown.buttonOuter.ontouchend=this.dropdown.buttonOuter.dotouchend,this.dropdown.buttonOuter.onclick=this.dropdown.buttonOuter.doclick,this.dropdown.buttonOuter.setAttribute("class",h),this.removeAttribute("disabled"),this.enabled=!0)},e.enable=e.enable.bind(e),e.disable=function(){e.enabled&&(this.dropdown.internalHide(),this.dropdown.buttonOuter.ontouchstart=null,this.dropdown.buttonOuter.ontouchend=null,this.dropdown.buttonOuter.onclick=null,this.dropdown.buttonOuter.setAttribute("class",h+" bb-bb10-dropdown-disabled-"+bb.screen.controlColor),this.enabled=!1,this.setAttribute("disabled","disabled"))},e.disable=e.disable.bind(e),e.show=function(){this.dropdown.style.display="block",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.dropdown.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.dropdown.parentNode.removeChild(this.dropdown),bb.refresh()},e.remove=e.remove.bind(e),e.refresh=function(){this.dropdown.internalHide(),this.dropdown.isRefreshed=!1,this.dropdown.refreshOptions()},e.refresh=e.refresh.bind(e),e.setCaption=function(e){this.dropdown.labelElement.innerHTML=e,this.setAttribute("data-bb-label",e)},e.setCaption=e.setCaption.bind(e),e.getCaption=function(){return this.dropdown.labelElement.innerHTML},e.getCaption=e.getCaption.bind(e),l}},_bb10_fileInput={apply:function(e){var t,i,n,o="1280x768-1280x720";for(bb.device.is1024x600?o="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(o="1280x768-1280x720"),t=0;e.length>t;t++)i=e[t],i.setAttribute("class","bb-bb10-file-button-"+o),n=document.createElement("div"),n.setAttribute("data-bb-type","button"),n.innerHTML=i.hasAttribute("data-bb-caption")?i.getAttribute("data-bb-caption"):"Choose File",n.origCaption=n.innerHTML,bb.button.apply([n]),n.input=i,i.parentNode.insertBefore(n,i),n.appendChild(i),n.handleChange=function(){this.input.value?this.setCaption(this.input.value.replace(/^.*[\\\/]/,"")):this.setCaption(this.origCaption)},n.handleChange=n.handleChange.bind(n),i.addEventListener("change",n.handleChange,!1)}},_bb10_grid={apply:function(e){var t,i="1280x768-1280x720",n=!1;bb.device.is1024x600?i="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(i="1280x768-1280x720");for(var o=0;e.length>o;o++){var r,s,l,a,b,d,c=e[o];for(c.setAttribute("class","bb-bb10-grid-"+i),c.isSquare=c.hasAttribute("data-bb-style")&&"square"==c.getAttribute("data-bb-style").toLowerCase(),n=c.hasAttribute("data-bb-header-style")?"solid"==c.getAttribute("data-bb-header-style").toLowerCase():!1,t=c.hasAttribute("data-bb-header-justify")?c.getAttribute("data-bb-header-justify").toLowerCase():"center",c.hasAttribute("data-bb-context")&&"true"==c.getAttribute("data-bb-context").toLowerCase()&&(d=bb.screen.contextMenu),s=c.querySelectorAll("[data-bb-type=group], [data-bb-type=row]"),r=0;s.length>r;r++)if(b=s[r],b.hasAttribute("data-bb-type"))if(l=b.getAttribute("data-bb-type").toLowerCase(),"group"==l&&b.hasAttribute("data-bb-title"))a=document.createElement("div"),a.normal="bb-bb10-grid-header-"+i,a.innerHTML="<p>"+b.getAttribute("data-bb-title")+"</p>",n?(a.normal=a.normal+" bb10Accent",a.style.color="white",a.style["border-bottom-color"]="transparent"):(a.normal=a.normal+" bb-bb10-grid-header-normal-"+bb.screen.listColor,a.style["border-bottom-color"]=bb.options.shades.darkOutline),a.normal="left"==t?a.normal+" bb-bb10-grid-header-left-"+i:"right"==t?a.normal+" bb-bb10-grid-header-right-"+i:a.normal+" bb-bb10-grid-header-center",a.setAttribute("class",a.normal),b.firstChild?b.insertBefore(a,b.firstChild):b.appendChild(a);else if("row"==l){var h,u,p,m,g,v,y,f,w,y,E,x,k,C=0,A=-1,B=b.querySelectorAll("[data-bb-type=item]");if(g=B.length,0==g)continue;for(b.hasAttribute("data-bb-columns")&&(A=b.getAttribute("data-bb-columns")),u=document.createElement("table"),u.style.width="100%",b.appendChild(u),p=document.createElement("tr"),u.appendChild(p),A>0?B.length>A&&!bb.device.isPlayBook?(b.style["overflow-y"]="hidden",b.style["overflow-x"]="scroll",x=window.innerWidth/(parseInt(A)+.5)):x=window.innerWidth/A-6:x=window.innerWidth/g-6,h=0;g>h;h++)v=B[h],bb.device.isPlayBook&&A>0&&h>A-1?v.style.display="none":(y=v.innerHTML,a=v.getAttribute("data-bb-title"),k=y||a,v.innerHTML="",m=document.createElement("td"),p.appendChild(m),m.appendChild(v),C++,E=c.isSquare?x:Math.ceil(.5625*x),v.style.width=x+"px",v.style.height=E+"px",f=document.createElement("img"),f.style.height=E+"px",f.style.width=x+"px",f.style.opacity="0",f.style["-webkit-transition"]="opacity 0.5s linear",f.style["-webkit-transform"]="translate3d(0,0,0)",f.itemNode=v,v.image=f,v.appendChild(f),v.onbbuidomready=function(){bb.isScrolledIntoView(this)?(this.image.onload=function(){this.style.opacity="1.0"},this.image.src=this.getAttribute("data-bb-img")):(document.addEventListener("bbuiscrolling",this.onbbuiscrolling,!1),this.listener={name:"bbuiscrolling",eventHandler:this.onbbuiscrolling},bb.documentListeners.push(this.listener)),document.removeEventListener("bbuidomready",this.onbbuidomready,!1)},v.onbbuidomready=v.onbbuidomready.bind(v),document.addEventListener("bbuidomready",v.onbbuidomready,!1),v.onbbuiscrolling=function(){if(bb.isScrolledIntoView(this)){this.image.onload=function(){this.style.opacity="1.0"},this.image.src=this.getAttribute("data-bb-img"),document.removeEventListener("bbuiscrolling",this.onbbuiscrolling,!1);var e=bb.documentListeners.indexOf(this.listener);e>=0&&bb.documentListeners.splice(e,1)}},v.onbbuiscrolling=v.onbbuiscrolling.bind(v),k?(w=document.createElement("div"),a&&y?(w.setAttribute("class","bb-bb10-grid-item-overlay-"+i+" bb-bb10-grid-item-overlay-two-rows-"+i),w.innerHTML='<div><p class="title title-two-rows">'+a+"<br/>"+y+"</p></div>"):a?(w.setAttribute("class","bb-bb10-grid-item-overlay-"+i+" bb-bb10-grid-item-overlay-one-row-"+i),w.innerHTML='<div><p class="title title-one-row">'+a+"</p></div>"):y&&(w.setAttribute("class","bb-bb10-grid-item-overlay-"+i+" bb-bb10-grid-item-overlay-one-row-"+i),w.innerHTML='<div><p class="title title-one-row">'+y+"</p></div>"),v.appendChild(w)):w=null,v.overlay=w,v.title=a,v.description=y,v.fingerDown=!1,v.contextShown=!1,v.contextMenu=d,v.contextMenu&&(v.guid="bbui"+bb.guidGenerator(),v.setAttribute("data-bb-context-menu-id",v.guid),v.setAttribute("data-webworks-context",'{"id":"'+v.guid+'","type":"bbui-context","header":"'+v.title+'","subheader":"'+v.description+'"}')),v.ontouchstart=function(){if(this.overlay&&(this.overlay.style.opacity="1.0",this.overlay.style["background-color"]=bb.options.highlightColor),v.fingerDown=!0,v.contextShown=!1,v.contextMenu&&(bb.device.isPlayBook||bb.device.isRipple)){window.setTimeout(this.touchTimer,667);var e=bb.getCurScreen();v.touchstartx=e.bbUIscrollWrapper.scrollTop}},v.ontouchend=function(){this.overlay&&(this.overlay.style.opacity="",this.overlay.style["background-color"]=""),v.fingerDown=!1,v.contextShown&&(event.preventDefault(),event.stopPropagation())},v.touchTimer=function(){if(bb.device.isPlayBook||bb.device.isRipple){var e=bb.getCurScreen(),t=e.bbUIscrollWrapper.scrollTop;v.fingerDown&&50>Math.abs(v.touchstartx-t)&&(v.contextShown=!0,v.contextMenu.peek({title:this.title,description:this.description,selected:this}))}},v.touchTimer=v.touchTimer.bind(v),v.drawSelected=function(){this.overlay&&(this.overlay.style.opacity="1.0",this.overlay.style["background-color"]=bb.options.highlightColor)},v.drawSelected=v.drawSelected.bind(v),v.drawUnselected=function(){this.overlay&&(this.overlay.style.opacity="",this.overlay.style["background-color"]="")},v.drawUnselected=v.drawUnselected.bind(v));if(A>0&&A>C){var S=A-C;for(b.extraColumns=[],h=0;S>h;h++)m=document.createElement("td"),p.appendChild(m),m.style.width=x+"px",b.extraColumns.push(m)}}c.orientationChanged=function(){var e,t,i,n,o,r,s,l,a=this.querySelectorAll("[data-bb-type=row]");for(e=0;a.length>e;e++){var b=-1;for(n=a[e],i=n.querySelectorAll("[data-bb-type=item]"),o=i.length,n.hasAttribute("data-bb-columns")&&(b=n.getAttribute("data-bb-columns")),s=b>0?i.length>b&&!bb.device.isPlayBook?window.innerWidth/(parseInt(b)+.5):window.innerWidth/b-6:window.innerWidth/o-6,t=0;o>t;t++)r=i[t],l=c.isSquare?s:Math.ceil(.5625*s),r.image.style.height=l+"px",r.image.style.width=s+"px",r.image.style["-webkit-transition-property"]="all",r.image.style["-webkit-transition-duration"]="0.2s",r.image.style["-webkit-transition-timing-function"]="linear",r.image.style["-webkit-transform"]="translate3d(0,0,0)",r.style.width=s+"px",r.style.height=l+"px",r.style["-webkit-transition-property"]="all",r.style["-webkit-transition-duration"]="0.2s",r.style["-webkit-transition-timing-function"]="linear",r.style["-webkit-transform"]="translate3d(0,0,0)";if(n.extraColumns)for(t=0;n.extraColumns.length>t;t++)n.extraColumns[t].style.width=s+"px"}},c.orientationChanged=c.orientationChanged.bind(c),window.addEventListener("resize",c.orientationChanged,!1),bb.windowListeners.push({name:"resize",eventHandler:c.orientationChanged}),c.show=function(){this.style.display="block",bb.refresh()},c.show=c.show.bind(c),c.hide=function(){this.style.display="none",bb.refresh()},c.hide=c.hide.bind(c),c.remove=function(){this.parentNode.removeChild(this),bb.refresh()},c.remove=c.remove.bind(c)}}},_bb10_imageList={apply:function(elements){var res="1280x768-1280x720",i,j,outerElement,items;for(bb.device.is1024x600?res="1024x600":bb.device.is1280x768||bb.device.is1280x720?res="1280x768-1280x720":bb.device.is720x720&&(res="720x720"),i=0;elements.length>i;i++){outerElement=elements[i],outerElement.items=[],outerElement.setAttribute("class","bb-bb10-image-list"),outerElement.hideImages=outerElement.hasAttribute("data-bb-images")?"none"==outerElement.getAttribute("data-bb-images").toLowerCase():!1,outerElement.hideImages||(outerElement.imageEffect=outerElement.hasAttribute("data-bb-image-effect")?outerElement.getAttribute("data-bb-image-effect").toLowerCase():void 0,outerElement.imagePlaceholder=outerElement.hasAttribute("data-bb-image-placeholder")?outerElement.getAttribute("data-bb-image-placeholder"):void 0),outerElement.listStyle=outerElement.hasAttribute("data-bb-style")?outerElement.getAttribute("data-bb-style").toLowerCase():"default",outerElement.solidHeader=outerElement.hasAttribute("data-bb-header-style")?"solid"==outerElement.getAttribute("data-bb-header-style").toLowerCase():!1,outerElement.headerJustify=outerElement.hasAttribute("data-bb-header-justify")?outerElement.getAttribute("data-bb-header-justify").toLowerCase():"center",outerElement.hasAttribute("data-bb-context")&&"true"==outerElement.getAttribute("data-bb-context").toLowerCase()&&(outerElement.contextMenu=bb.screen.contextMenu),outerElement.styleItem=function(innerChildNode){if(innerChildNode.hasAttribute("data-bb-type")){var type=innerChildNode.getAttribute("data-bb-type").toLowerCase(),description=innerChildNode.innerHTML,title,overlay,accentText,img,details,detailsClass,descriptionDiv,btn,btnBorder,highlight,normal,btnInner;"header"==type?(normal="bb-bb10-image-list-header bb-bb10-image-list-header-"+res,this.solidHeader?(normal+=" bb10Accent",innerChildNode.style.color="white",innerChildNode.style["border-bottom-color"]="transparent"):(normal=normal+" bb-bb10-image-list-header-normal-"+bb.screen.listColor,innerChildNode.style["border-bottom-color"]=bb.options.shades.darkOutline),"left"==this.headerJustify?normal=normal+" bb-bb10-image-list-header-left-"+res:"right"==this.headerJustify?normal=normal+" bb-bb10-image-list-header-right-"+res:normal+=" bb-bb10-image-list-header-center",innerChildNode.normal=normal,innerChildNode.innerHTML="<p>"+description+"</p>",innerChildNode.setAttribute("class",normal)):"item"==type&&(normal="bb-bb10-image-list-item bb-bb10-image-list-item-"+bb.screen.listColor+" bb-bb10-image-list-item-"+res,highlight=normal+" bb-bb10-image-list-item-hover bb10Highlight",innerChildNode.normal=normal,innerChildNode.highlight=highlight,innerChildNode.setAttribute("class",normal),innerChildNode.innerHTML="",this.hideImages||(img=document.createElement("img"),img.outerElement=this,innerChildNode.img=img,this.imagePlaceholder?(img.placeholder=this.imagePlaceholder,img.path=innerChildNode.hasAttribute("data-bb-img")?innerChildNode.getAttribute("data-bb-img"):this.imagePlaceholder):img.path=innerChildNode.getAttribute("data-bb-img"),innerChildNode.appendChild(img),this.imageEffect?(img.style.opacity="0",img.style["-webkit-transition"]="opacity 0.5s linear",innerChildNode.imageList=this,innerChildNode.bbuilistready=function(){this.img.onload=function(){this.style.opacity="1.0"},this.img.src=this.img.path,this.imageList.imagePlaceholder&&(this.img.onerror=function(){this.src!=this.placeholder&&(this.src=this.placeholder)}),document.removeEventListener("bbuilistready",this.bbuilistready,!1)},innerChildNode.bbuilistready=innerChildNode.bbuilistready.bind(innerChildNode),document.addEventListener("bbuilistready",innerChildNode.bbuilistready,!1)):(img.src=img.path,this.imagePlaceholder&&(img.onerror=function(){this.src!=this.placeholder&&(this.src=this.placeholder,this.outerElement.imageEffect&&this.show())}))),details=document.createElement("div"),details.innerChildNode=innerChildNode,innerChildNode.details=details,innerChildNode.appendChild(details),detailsClass="bb-bb10-image-list-item-details-"+res,this.hideImages&&(detailsClass=detailsClass+" bb-bb10-image-list-item-noimage-"+res),title=document.createElement("div"),title.setAttribute("class","title"),title.innerHTML=innerChildNode.getAttribute("data-bb-title"),details.title=title,0==title.innerHTML.length&&(title.innerHTML="&nbsp;"),details.appendChild(title),descriptionDiv=document.createElement("div"),descriptionDiv.setAttribute("class","description bb-bb10-image-list-description-"+bb.screen.listColor),details.description=descriptionDiv,details.appendChild(descriptionDiv),overlay=document.createElement("div"),overlay.setAttribute("class","bb-bb10-image-list-item-overlay-"+res),innerChildNode.appendChild(overlay),"arrowlist"==this.listStyle||"arrowbuttons"==this.listStyle||"addbuttons"==this.listStyle||"removebuttons"==this.listStyle?(btn=document.createElement("div"),innerChildNode.appendChild(btn),innerChildNode.btn=btn,btn.outerElement=this,btn.innerChildNode=innerChildNode,innerChildNode.onbtnclick?btn.onbtnclick=innerChildNode.onbtnclick:innerChildNode.hasAttribute("onbtnclick")&&(innerChildNode.onbtnclick=innerChildNode.getAttribute("onbtnclick"),btn.onbtnclick=function(){eval(this.innerChildNode.onbtnclick)
-}),detailsClass+=" details-button-margin",btn.setAttribute("class","button"),btnBorder=document.createElement("div"),btnBorder.normal="bb-bb10-image-list-item-button-border-"+res+" bb-bb10-image-list-item-button-"+bb.screen.listColor,btnBorder.setAttribute("class",btnBorder.normal),btn.btnBorder=btnBorder,btn.appendChild(btnBorder),btnInner=document.createElement("div"),btnInner.normal="bb-bb10-image-list-item-button-inner-"+res,btnInner.highlight=btnInner.normal,btn.btnInner=btnInner,btnBorder.appendChild(btnInner),"arrowlist"!==this.listStyle?("arrowbuttons"==this.listStyle?(btnInner.normal=btnInner.normal+" bb-image-list-item-chevron-"+bb.screen.listColor,btnInner.highlight=btnInner.highlight+" bb-image-list-item-chevron-dark"):"addbuttons"==this.listStyle?(btnInner.normal=btnInner.normal+" bb-image-list-item-add-"+bb.screen.listColor,btnInner.highlight=btnInner.highlight+" bb-image-list-item-add-dark"):"removebuttons"==this.listStyle&&(btnInner.normal=btnInner.normal+" bb-image-list-item-remove-"+bb.screen.listColor,btnInner.highlight=btnInner.highlight+" bb-image-list-item-remove-dark"),btn.ontouchstart=function(){this.onbtnclick&&(this.btnInner.setAttribute("class",this.btnInner.highlight),this.btnBorder.style.background="-webkit-gradient(linear, center top, center bottom, from(rgb("+(bb.options.shades.R+32)+","+(bb.options.shades.G+32)+","+(bb.options.shades.B+32)+")), to("+bb.options.highlightColor+"))")},btn.ontouchend=function(){this.onbtnclick&&(this.btnBorder.style.background="",this.btnInner.setAttribute("class",this.btnInner.normal))},btn.onclick=function(e){e.stopPropagation(),this.onbtnclick&&(this.outerElement.selected=this.innerChildNode,this.onbtnclick())}):(btnInner.normal=btnInner.normal+" bb-image-list-item-chevron-"+bb.screen.listColor,btnBorder.style.background="transparent",btnBorder.style["border-color"]="transparent"),btnInner.setAttribute("class",btnInner.normal)):innerChildNode.hasAttribute("data-bb-accent-text")&&(accentText=document.createElement("div"),accentText.setAttribute("class","accent-text bb-bb10-image-list-accent-text-"+bb.screen.listColor),accentText.innerHTML=innerChildNode.getAttribute("data-bb-accent-text"),details.appendChild(accentText),details.accentText=accentText),0==description.length&&(description="&nbsp;",descriptionDiv.style.visibilty="hidden",bb.device.is1024x600?(title.style["margin-top"]="16px",overlay.style["margin-top"]="-72px"):bb.device.is1280x768||bb.device.is1280x720?(title.style["margin-top"]="-7px",overlay.style["margin-top"]="-121px"):bb.device.is720x720?(title.style["margin-top"]="-14px",overlay.style["margin-top"]="-108px"):(title.style["margin-top"]="-7px",overlay.style["margin-top"]="-121px"),accentText&&(accentText.style["margin-top"]=bb.device.is1024x600?"-52px":bb.device.is1280x768||bb.device.is1280x720?"-82px":bb.device.is720x720?"-82px":"-82px")),descriptionDiv.innerHTML=description,details.setAttribute("class",detailsClass),innerChildNode.fingerDown=!1,innerChildNode.contextShown=!1,innerChildNode.overlay=overlay,innerChildNode.contextMenu=this.contextMenu,innerChildNode.description=description,innerChildNode.title=title.innerHTML,innerChildNode.ontouchstart=function(){if(bb.device.isPlayBook){if(!innerChildNode.trappedClick&&!this.contextMenu)return;if(innerChildNode.fingerDown=!0,innerChildNode.contextShown=!1,innerChildNode.contextMenu){window.setTimeout(this.touchTimer,667);var e=bb.getCurScreen();innerChildNode.touchstartx=e.bbUIscrollWrapper.scrollTop}}},innerChildNode.ontouchend=function(e){if(bb.device.isPlayBook){if(!innerChildNode.trappedClick&&!this.contextMenu)return;this.overlay.style["border-color"]="transparent",innerChildNode.fingerDown=!1,innerChildNode.contextShown&&(e.preventDefault(),e.stopPropagation())}},innerChildNode.touchTimer=function(){if(bb.device.isPlayBook){var e=bb.getCurScreen(),t=e.bbUIscrollWrapper.scrollTop;innerChildNode.fingerDown&&50>Math.abs(innerChildNode.touchstartx-t)&&(innerChildNode.contextShown=!0,this.drawSelected(),innerChildNode.contextMenu.hideEvents.push(this.finishHighlight),innerChildNode.contextMenu.peek({title:this.title,description:this.description,selected:this}))}},innerChildNode.touchTimer=innerChildNode.touchTimer.bind(innerChildNode),innerChildNode.drawSelected=function(){this.setAttribute("class",this.highlight),this.overlay.style["border-color"]=bb.options.shades.darkOutline},innerChildNode.drawSelected=innerChildNode.drawSelected.bind(innerChildNode),innerChildNode.drawUnselected=function(){this.setAttribute("class",this.normal),this.overlay.style["border-color"]="transparent"},innerChildNode.drawUnselected=innerChildNode.drawUnselected.bind(innerChildNode),this.contextMenu&&(innerChildNode.guid="bbui"+bb.guidGenerator(),innerChildNode.setAttribute("data-bb-context-menu-id",innerChildNode.guid),innerChildNode.setAttribute("data-webworks-context",'{"id":"'+innerChildNode.guid+'","type":"bbui-context","header":"'+innerChildNode.title+'","subheader":"'+innerChildNode.description+'"}')),innerChildNode.trappedClick=innerChildNode.onclick,innerChildNode.onclick=void 0,innerChildNode.outerElement=this,innerChildNode.addEventListener("click",function(){innerChildNode.trappedClick&&(this.outerElement.selected=this,this.trappedClick&&setTimeout(this.trappedClick,0))},!1),innerChildNode.finishHighlight=function(){bb.screen.animating?setTimeout(this.finishHighlight,250):this.setAttribute("class",this.normal)},innerChildNode.finishHighlight=innerChildNode.finishHighlight.bind(innerChildNode),innerChildNode.remove=function(){this.style.height="0px",this.style.opacity="0.0",this.style["-webkit-transition-property"]="all",this.style["-webkit-transition-duration"]="0.1s",this.style["-webkit-transition-timing-function"]="linear",this.style["-webkit-transform"]="translate3d(0,0,0)",bb.scroller&&bb.scroller.refresh(),window.setTimeout(this.details.performRemove,100)},innerChildNode.remove=innerChildNode.remove.bind(innerChildNode),details.performRemove=function(){var e=this.innerChildNode.parentNode,t=e.items.indexOf(this.innerChildNode);e.removeChild(this.innerChildNode),e.items.splice(t,1)},details.performRemove=details.performRemove.bind(details),innerChildNode.getTitle=function(){return this.title},innerChildNode.getTitle=innerChildNode.getTitle.bind(innerChildNode),innerChildNode.getDescription=function(){return this.details.description.innerHTML},innerChildNode.getDescription=innerChildNode.getDescription.bind(innerChildNode),innerChildNode.getAccentText=function(){return this.details.accentText?this.details.accentText.innerHTML:void 0},innerChildNode.getAccentText=innerChildNode.getAccentText.bind(innerChildNode),innerChildNode.getImage=function(){return this.img?this.img.getAttribute("src"):void 0},innerChildNode.getImage=innerChildNode.getImage.bind(innerChildNode))}},outerElement.styleItem=outerElement.styleItem.bind(outerElement),outerElement.appendItem=function(e){this.styleItem(e),this.appendChild(e),this.items.push(e);var t=document.createEvent("Events");t.initEvent("bbuilistready",!0,!0),document.dispatchEvent(t),bb.scroller&&bb.scroller.refresh()},outerElement.appendItem=outerElement.appendItem.bind(outerElement),outerElement.refresh=function(e){if(e&&e.length&&!(0>=e.length)){var t,i,n=document.createElement("div");for(this.items=[],t=0;e.length>t;t++)i=e[t],this.styleItem(i),this.items.push(i),n.appendChild(i);this.innerHTML="",this.appendChild(n);var o=document.createEvent("Events");o.initEvent("bbuilistready",!0,!0),document.dispatchEvent(o)}},outerElement.refresh=outerElement.refresh.bind(outerElement),outerElement.insertItemBefore=function(e,t){this.styleItem(e),this.insertBefore(e,t),this.items.splice(this.items.indexOf(t),0,e);var i=document.createEvent("Events");i.initEvent("bbuilistready",!0,!0),document.dispatchEvent(i),bb.scroller&&bb.scroller.refresh()},outerElement.insertItemBefore=outerElement.insertItemBefore.bind(outerElement),outerElement.getItems=function(){var e,t=[];for(e=0;this.items.length>e;e++)t.push(this.items[e]);return t},outerElement.getItems=outerElement.getItems.bind(outerElement),outerElement.clear=function(){this.items=[],outerElement.innerHTML="",bb.scroller&&bb.scroller.refresh()},outerElement.clear=outerElement.clear.bind(outerElement),outerElement.show=function(){this.style.display="block",bb.refresh()},outerElement.show=outerElement.show.bind(outerElement),outerElement.hide=function(){this.style.display="none",bb.refresh()},outerElement.hide=outerElement.hide.bind(outerElement),outerElement.remove=function(){this.parentNode.removeChild(this),bb.refresh()},outerElement.remove=outerElement.remove.bind(outerElement),items=outerElement.querySelectorAll("[data-bb-type=item], [data-bb-type=header]");var item;for(j=0;items.length>j;j++)item=items[j],outerElement.styleItem(item),outerElement.items.push(item)}}},_bb10_labelControlContainers={apply:function(e){var t,i,n,o,r,s,l,a,b,d,c,h="1280x768-1280x720";for(bb.device.is1024x600?h="1024x600":bb.device.is1280x768||bb.device.is1280x720?h="1280x768-1280x720":bb.device.is720x720&&(h="720x720"),t=0;e.length>t;t++){if(i=e[t],n=i.querySelectorAll("[data-bb-type=row]"),n.length>0)for(o=document.createElement("table"),o.setAttribute("class","bb-bb10-label-control-rows"),i.insertBefore(o,n[0]),r=0;n.length>r;r++)s=n[r],l=document.createElement("tr"),l.setAttribute("class","bb-bb10-label-control-label-row-"+h),o.appendChild(l),a=document.createElement("td"),l.appendChild(a),b=s.querySelectorAll("[data-bb-type=label]")[0],b.setAttribute("class","bb-bb10-label-control-label-"+h),s.removeChild(b),a.appendChild(b),l=document.createElement("tr"),o.appendChild(l),d=document.createElement("td"),l.appendChild(d),c=s.querySelectorAll("[data-bb-type=button],[data-bb-type=input],[data-bb-type=dropdown],textarea,input[type=file]")[0],c&&(s.removeChild(c),d.appendChild(c)),i.removeChild(s);i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}}},_bb10_pillButtons={apply:function(e){var t,i;for(t=0;e.length>t;t++)i=e[t],bb.pillButtons.style(i,!0)},style:function(e,t){var i="1280x768-1280x720";bb.device.is1024x600?i="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(i="1280x768-1280x720");var n,o,r,s,l,a,b,d="bb-bb10-pill-buttons-container-"+i+" bb-bb10-pill-buttons-container-"+bb.screen.controlColor,c="bb-bb10-pill-button-"+i,h=e.querySelectorAll("[data-bb-type=pill-button]"),u=Math.floor(100/h.length),p=10;for(e.sidePadding=p,e.setAttribute("class","bb-bb10-pill-buttons-"+i),n=document.createElement("div"),e.appendChild(n),n.setAttribute("class",d),e.selectedColor="dark"==bb.screen.controlColor?"#909090":"#555555",pill=document.createElement("div"),pillInner=document.createElement("div"),pill.appendChild(pillInner),pill.setAttribute("class",c+" bb-bb10-pill-button-selected-"+i+"-"+bb.screen.controlColor+" bb-bb10-pill-buttons-pill"),pillInner.setAttribute("class","bb-bb10-pill-button-inner-"+i+" bb-bb10-pill-button-inner-selected-"+i+"-"+bb.screen.controlColor),pill.style.opacity="0",e.pill=pill,n.appendChild(pill),e.style["padding-left"]=p+"px",e.style["padding-right"]=p+"px",s=document.createElement("table"),e.table=s,l=document.createElement("tr"),s.tr=l,s.appendChild(l),s.setAttribute("class","bb-bb10-pill-buttons-table"),s.style.opacity="0",n.appendChild(s),e.styleButton=function(t){return t.isSelected=!1,o=document.createElement("div"),o.innerHTML=t.innerHTML,t.innerHTML="",t.appendChild(o),t.border=o,t.outerElement=e,"true"==t.getAttribute("data-bb-selected")&&(t.isSelected=!0,e.selected=t,t.style.color=e.selectedColor),t.setAttribute("class",c),o.setAttribute("class","bb-bb10-pill-button-inner-"+i),t.style["z-index"]=4,t.style.width="100%",t.dotouchstart=function(){if(!this.isSelected){var e=this.outerElement.selected;e.style.color="","light"==bb.screen.controlColor&&(this.outerElement.pill.style["background-color"]="#DDDDDD"),this.outerElement.setPillLeft(this)}},t.dotouchstart=t.dotouchstart.bind(t),t.dotouchend=function(){if(!this.isSelected){var e=this.outerElement.selected;e.isSelected=!1,this.isSelected=!0,this.outerElement.selected=this,this.style.color=this.outerElement.selectedColor,"light"==bb.screen.controlColor&&(this.outerElement.pill.style["background-color"]="");var t=document.createEvent("MouseEvents");t.initMouseEvent("click",!0,!0),t.doClick=!0,this.dispatchEvent(t)}},t.dotouchend=t.dotouchend.bind(t),bb.device.isRipple?(t.onmousedown=t.dotouchstart,t.onmouseup=t.dotouchend):(t.ontouchstart=t.dotouchstart,t.ontouchend=t.dotouchend),t.addEventListener("click",function(e){e.stopPropagation()},!0),t},e.styleButton=e.styleButton.bind(e),b=0;h.length>b;b++)r=h[b],r=e.styleButton(r),a=document.createElement("td"),l.appendChild(a),a.appendChild(r),a.style.width=u+"%";return e.recalculateSize=function(){var e,t=this.table.querySelectorAll("td"),i=parseInt(window.getComputedStyle(this).width)-this.sidePadding,n=Math.floor((i-4*t.length)/t.length)+"px";for(e=0;t.length>e;e++)t[e].style.width=n;this.table.style.width=i+"px",this.pill.style.width=n},e.recalculateSize=e.recalculateSize.bind(e),e.setPillLeft=function(e){if(!e&&(e=this.selected,!e)){var t=this.table.querySelectorAll("[data-bb-type=pill-button]");t.length>0&&(e=t[0],this.selected=e)}e&&(this.pill.style["-webkit-transform"]="translate3d("+e.parentNode.offsetLeft+"px,0px,0px)")},e.setPillLeft=e.setPillLeft.bind(e),e.initialize=function(){this.recalculateSize(),this.setPillLeft(),this.table.style.opacity="1",this.table.style["-webkit-transition"]="opacity 0.1s linear",this.pill.style.opacity="1"},e.initialize=e.initialize.bind(e),t?(e.onbbuidomready=function(){this.initialize(),document.removeEventListener("bbuidomprocessed",this.onbbuidomready,!1)},e.onbbuidomready=e.onbbuidomready.bind(e),document.addEventListener("bbuidomprocessed",e.onbbuidomready,!1)):window.setTimeout(e.initialize,0),e.doOrientationChange=function(){this.recalculateSize(),this.setPillLeft()},e.doOrientationChange=e.doOrientationChange.bind(e),window.addEventListener("resize",e.doOrientationChange,!1),bb.windowListeners.push({name:"resize",eventHandler:e.doOrientationChange}),e.show=function(){this.style.display="block",this.recalculateSize(),this.setPillLeft(),bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.parentNode.removeChild(this),bb.refresh()},e.remove=e.remove.bind(e),e.clear=function(){var e,t=this.table.querySelectorAll("td");for(e=0;t.length>e;e++)this.table.tr.removeChild(t[e]);this.pill.style.opacity="0"},e.clear=e.clear.bind(e),e.appendButton=function(t){t=e.styleButton(t);var i=document.createElement("td");this.table.tr.appendChild(i),i.appendChild(t),this.initialize()},e.appendButton=e.appendButton.bind(e),e.getButtons=function(){for(var e=this.parentNode.querySelectorAll("[data-bb-type=pill-button]"),t=Array(),i=0;e.length>i;i++)t[i]=e[i].firstChild.innerHTML;return t},e.getButtons=e.getButtons.bind(e),e}},_bb10_radio={apply:function(e){for(var t=0;e.length>t;t++)bb.radio.style(e[t])},style:function(e){var e,t,i,n="1280x768-1280x720",o=bb.screen.controlColor,r=e;return bb.device.is1024x600?n="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(n="1280x768-1280x720"),e=document.createElement("div"),e.setAttribute("class","bb-bb10-radio-container-"+n+"-"+o),e.input=r,r.outerElement=e,r.res=n,r.style.display="none",r.radio=e,r.parentNode&&r.parentNode.insertBefore(e,r),e.appendChild(r),t=document.createElement("div"),t.setAttribute("class","bb-bb10-radio-dot-"+n),t.highlight="-webkit-linear-gradient(top,  rgb("+(bb.options.shades.R+32)+", "+(bb.options.shades.G+32)+", "+(bb.options.shades.B+32)+") 0%, rgb("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+") 100%)",t.touchHighlight="-webkit-linear-gradient(top,  rgba("+(bb.options.shades.R-64)+", "+(bb.options.shades.G-64)+", "+(bb.options.shades.B-64)+",0.25) 0%, rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+",0.25) 100%)",r.checked&&(t.style.background=t.highlight),e.dotDiv=t,e.appendChild(t),i=document.createElement("div"),i.setAttribute("class","bb-bb10-radio-dot-center-"+n),r.checked||bb.radio.resetDot(i),t.appendChild(i),t.centerDotDiv=i,t.slideOutUp=function(){bb.device.is1024x600?(this.style.height="0px",this.style.width="10px",this.style.top="9px",this.style.left="15px"):(this.style.height="0px",this.style.width="20px",this.style.top="18px",this.style.left="30px"),bb.radio.resetDot(this.centerDotDiv),this.style["-webkit-transition-property"]="all",this.style["-webkit-transition-duration"]="0.1s",this.style["-webkit-transition-timing-function"]="linear",this.style["-webkit-backface-visibility"]="hidden",this.style["-webkit-perspective"]=1e3,this.style["-webkit-transform"]="translate3d(0,0,0)"},t.slideOutUp=t.slideOutUp.bind(t),t.slideOutDown=function(){bb.device.is1024x600?(this.style.height="0px",this.style.width="10px",this.style.top="30px",this.style.left="15px"):(this.style.height="0px",this.style.width="20px",this.style.top="60px",this.style.left="30px"),bb.radio.resetDot(this.centerDotDiv),this.style["-webkit-transition-property"]="all",this.style["-webkit-transition-duration"]="0.1s",this.style["-webkit-transition-timing-function"]="linear",this.style["-webkit-backface-visibility"]="hidden",this.style["-webkit-perspective"]=1e3,this.style["-webkit-transform"]="translate3d(0,0,0)"},t.slideOutDown=t.slideOutDown.bind(t),t.slideIn=function(){bb.device.is1024x600?(this.style.height="20px",this.style.width="20px",this.style.top="10px",this.style.left="9px",this.centerDotDiv.style.height="10px",this.centerDotDiv.style.width="10px",this.centerDotDiv.style.top="5px",this.centerDotDiv.style.left="5px"):(this.style.height="40px",this.style.width="40px",this.style.top="19px",this.style.left="19px",this.centerDotDiv.style.height="18px",this.centerDotDiv.style.width="18px",this.centerDotDiv.style.top="11px",this.centerDotDiv.style.left="11px"),this.style["-webkit-transition-property"]="all",this.style["-webkit-transition-duration"]="0.1s",this.style["-webkit-transition-timing-function"]="ease-in",this.style["-webkit-backface-visibility"]="hidden",this.style["-webkit-perspective"]=1e3,this.style["-webkit-transform"]="translate3d(0,0,0)",this.centerDotDiv.style["-webkit-transition-delay"]="0.1s",this.centerDotDiv.style["-webkit-transition-property"]="all",this.centerDotDiv.style["-webkit-transition-duration"]="0.1s",this.centerDotDiv.style["-webkit-transition-timing-function"]="ease-in",this.centerDotDiv.style["-webkit-perspective"]=1e3,this.centerDotDiv.style["-webkit-transform"]="translate3d(0,0,0)"},t.slideIn=t.slideIn.bind(t),e.selectedRadio=void 0,e.slideFromTop=!0,e.ontouchstart=function(){this.input.checked||(this.slideFromTop=!0,this.selectedRadio=this.getCurrentlyChecked(),this.selectedRadio&&this.getTop(this.selectedRadio.radio)>=this.getTop(this)&&(this.slideFromTop=!1),this.dotDiv.style["-webkit-transition"]="none",bb.device.is1024x600?(this.dotDiv.style.height="20px",this.dotDiv.style.width="20px",this.dotDiv.style.top="10px",this.dotDiv.style.left="9px"):(this.dotDiv.style.height="40px",this.dotDiv.style.width="40px",this.dotDiv.style.top="19px",this.dotDiv.style.left="19px"),bb.radio.resetDot(this.dotDiv.centerDotDiv),this.dotDiv.style.background=this.dotDiv.touchHighlight)},e.ontouchend=function(){this.input.checked||(this.dotDiv.style["-webkit-transition"]="none",bb.device.is1024x600?(this.dotDiv.style.height="0px",this.dotDiv.style.width="9px",this.dotDiv.style.left="16px"):(this.dotDiv.style.height="0px",this.dotDiv.style.width="18px",this.dotDiv.style.left="32px"),this.dotDiv.style.top=this.slideFromTop?bb.device.is1024x600?"9px":"18px":bb.device.is1024x600?"30px":"60px",window.setTimeout(this.doclick,0))},e.doclick=function(){if(!this.input.checked&&!this.input.disabled){var e=document.createEvent("HTMLEvents");e.initEvent("change",!1,!0),this.dotDiv.style.background=this.dotDiv.highlight,this.dotDiv.slideIn(),this.selectedRadio&&(this.selectedRadio.removeAttribute("checked"),this.selectedRadio.dispatchEvent(e),this.slideFromTop?this.selectedRadio.radio.dotDiv.slideOutDown():this.selectedRadio.radio.dotDiv.slideOutUp()),this.input.setAttribute("checked","true"),this.input.dispatchEvent(e)}},e.doclick=e.doclick.bind(e),e.getCurrentlyChecked=function(){var e=document.querySelectorAll("input[type=radio][name="+this.input.name+"][checked=true]");return e.length>0?e[0]:void 0},e.getCurrentlyChecked=e.getCurrentlyChecked.bind(e),e.getTop=function(e){for(var t=0;e;)t+=e.offsetTop,e=e.offsetParent;return t},r.setChecked=function(){this.checked||(this.slideFromTop=!0,this.outerElement.selectedRadio=this.outerElement.getCurrentlyChecked(),this.outerElement.selectedRadio&&this.outerElement.getTop(this.outerElement.selectedRadio.radio)>=this.outerElement.getTop(this.outerElement)&&(this.outerElement.slideFromTop=!1),this.outerElement.dotDiv.style["-webkit-transition"]="none",bb.device.is1024x600?(this.outerElement.dotDiv.style.height="0px",this.outerElement.dotDiv.style.width="9px",this.outerElement.dotDiv.style.left="16px"):(this.outerElement.dotDiv.style.height="0px",this.outerElement.dotDiv.style.width="18px",this.outerElement.dotDiv.style.left="32px"),this.outerElement.dotDiv.style.top=this.outerElement.slideFromTop?bb.device.is1024x600?"9px":"18px":bb.device.is1024x600?"30px":"60px",window.setTimeout(this.outerElement.doclick,0))},r.setChecked=r.setChecked.bind(r),r.getChecked=function(){return this.checked},r.setChecked=r.setChecked.bind(r),r.enable=function(){this.disabled&&(this.disabled=!1,this.outerElement.dotDiv.setAttribute("class","bb-bb10-radio-dot-"+this.res))},r.enable=r.enable.bind(r),r.disable=function(){this.disabled||(this.disabled=!0,this.outerElement.dotDiv.setAttribute("class","bb-bb10-radio-dot-"+this.res+"-disabled"))},r.disable=r.disable.bind(r),r.isEnabled=function(){return!this.disabled},r.isEnabled=r.isEnabled.bind(r),r.show=function(){this.outerElement.style.display="block",bb.refresh()},r.show=r.show.bind(r),r.hide=function(){this.outerElement.style.display="none",bb.refresh()},r.hide=r.hide.bind(r),r.remove=function(){this.outerElement.parentNode.removeChild(this.outerElement),bb.refresh()},r.remove=r.remove.bind(r),e},resetDot:function(e){e.style["-webkit-transition"]="none",bb.device.is1024x600?(e.style.height="0px",e.style.width="0px",e.style.top="10px",e.style.left="9px"):(e.style.height="0px",e.style.width="0px",e.style.top="20px",e.style.left="20px")},enableGroup:function(e){var t=document.getElementsByName(e);for(i=0;t.length>i;i++)"radio"===t[i].type&&t[i].enable()},disableGroup:function(e){var t=document.getElementsByName(e);for(i=0;t.length>i;i++)"radio"===t[i].type&&t[i].disable()}},_bb10_roundPanel={apply:function(e){if(bb.device.isBB10){var t,i,n,o,r,s="1280x768-1280x720",l=bb.screen.listColor;for(bb.device.is1024x600?s="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(s="1280x768-1280x720"),t=0;e.length>t;t++){for(n=e[t],n.setAttribute("class","bb-bb10-round-panel-"+s),o=n.querySelectorAll("[data-bb-type=panel-header]"),i=0;o.length>i;i++)r=o[i],r.setAttribute("class","bb-bb10-panel-header-"+s+" bb-bb10-panel-header-"+s+"-"+l),r.style["border-bottom-color"]=bb.options.shades.darkOutline;n.show=function(){this.style.display="block",bb.refresh()},n.show=n.show.bind(n),n.hide=function(){this.style.display="none",bb.refresh()},n.hide=n.hide.bind(n),n.remove=function(){this.parentNode.removeChild(this),bb.refresh()},n.remove=n.remove.bind(n)}}else for(var t=0;e.length>t;t++){var n=e[t];n.setAttribute("class","bb-playbook-round-panel");for(var o=n.querySelectorAll("[data-bb-type=panel-header]"),i=0;o.length>i;i++)bb.device.isHiRes?o[i].setAttribute("class","bb-hires-panel-header"):o[i].setAttribute("class","bb-lowres-panel-header");n.show=function(){this.style.display="block",bb.refresh()},n.show=n.show.bind(n),n.hide=function(){this.style.display="none",bb.refresh()},n.hide=n.hide.bind(n),n.remove=function(){this.parentNode.removeChild(this),bb.refresh()},n.remove=n.remove.bind(n)}}},_bb10_slider={apply:function(e){var t,i,n,o=bb.screen.controlColor,n="1280x768-1280x720";for(bb.device.is1024x600?n="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(n="1280x768-1280x720"),t=0;e.length>t;t++)i=e[t],outerElement=document.createElement("div"),outerElement.range=i,i.parentNode.insertBefore(outerElement,i),i.style.display="none",outerElement.appendChild(i),outerElement.minValue=i.hasAttribute("min")?parseInt(i.getAttribute("min")):0,outerElement.maxValue=i.hasAttribute("max")?parseInt(i.getAttribute("max")):0,outerElement.value=i.hasAttribute("value")?parseInt(i.getAttribute("value")):0,outerElement.step=i.hasAttribute("step")?parseInt(i.getAttribute("step")):0,outerElement.isActivated=!1,outerElement.initialXPos=0,outerElement.currentXPos=0,outerElement.transientXPos=0,outerElement.className="bb-bb10-slider-"+n,outerElement.outer=document.createElement("div"),outerElement.outer.setAttribute("class","outer bb-bb10-slider-outer-"+o),outerElement.appendChild(outerElement.outer),outerElement.fill=document.createElement("div"),outerElement.fill.className="fill",outerElement.fill.active="-webkit-linear-gradient(top, rgb("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+") 0%, rgb("+(bb.options.shades.R+16)+", "+(bb.options.shades.G+16)+", "+(bb.options.shades.B+16)+") 100%)",outerElement.fill.dormant="-webkit-linear-gradient(top, "+bb.options.highlightColor+" 0%, "+bb.options.shades.darkHighlight+" 100%)",outerElement.fill.style.background=outerElement.fill.dormant,outerElement.outer.appendChild(outerElement.fill),outerElement.inner=document.createElement("div"),outerElement.inner.className="inner",outerElement.inner.outerElement=outerElement,outerElement.outer.appendChild(outerElement.inner),outerElement.halo=document.createElement("div"),outerElement.halo.className="halo",outerElement.halo.style.background="-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 43, from(rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+", 0.15)), color-stop(0.8, rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+", 0.15)), to(rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+", 0.7)))",outerElement.inner.appendChild(outerElement.halo),outerElement.indicator=document.createElement("div"),outerElement.indicator.setAttribute("class","indicator bb-bb10-slider-indicator-"+o),outerElement.inner.appendChild(outerElement.indicator),i.outerElement=outerElement,i.setValue=function(e){var t,i=0;e&&(parseInt(this.outerElement.minValue)>e||e>parseInt(this.outerElement.maxValue))||(e&&(this.outerElement.value=e,this.value=e,t=document.createEvent("HTMLEvents"),t.initEvent("change",!1,!0),this.dispatchEvent(t)),i=this.outerElement.value==this.outerElement.maxValue?1:this.outerElement.value/(parseInt(this.outerElement.maxValue)+parseInt(this.outerElement.minValue)),this.outerElement.currentXPos=Math.floor(parseInt(window.getComputedStyle(this.outerElement.outer).width)*i),this.outerElement.fill.style.width=this.outerElement.currentXPos+"px",this.outerElement.inner.style["-webkit-transform"]="translate3d("+this.outerElement.currentXPos+"px,0px,0px)")},i.setValue=i.setValue.bind(i),window.setTimeout(i.setValue,0),outerElement.inner.animateBegin=function(e){this.outerElement.isActivated===!1&&(this.outerElement.isActivated=!0,this.outerElement.initialXPos=e.touches[0].pageX,this.outerElement.halo.style["-webkit-transform"]="scale(1)",this.outerElement.halo.style["-webkit-animation-name"]="explode",this.outerElement.indicator.setAttribute("class","indicator bb-bb10-slider-indicator-"+o+" indicator-hover-"+o),this.outerElement.indicator.style.background="-webkit-linear-gradient(top, rgb("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+") 0%, rgb("+(bb.options.shades.R+16)+", "+(bb.options.shades.G+16)+", "+(bb.options.shades.B+16)+") 100%)",this.outerElement.fill.style.background=this.outerElement.fill.active)},outerElement.inner.animateBegin=outerElement.inner.animateBegin.bind(outerElement.inner),outerElement.inner.addEventListener("touchstart",outerElement.inner.animateBegin,!1),outerElement.inner.animateEnd=function(){this.outerElement.isActivated===!0&&(this.outerElement.isActivated=!1,this.outerElement.currentXPos=this.outerElement.transientXPos,this.outerElement.value=parseInt(this.outerElement.range.value),this.outerElement.halo.style["-webkit-transform"]="scale(0)",this.outerElement.halo.style["-webkit-animation-name"]="implode",this.outerElement.indicator.setAttribute("class","indicator bb-bb10-slider-indicator-"+o),this.outerElement.indicator.style.background="",this.outerElement.fill.style.background=this.outerElement.fill.dormant)},outerElement.inner.animateEnd=outerElement.inner.animateEnd.bind(outerElement.inner),outerElement.inner.addEventListener("touchend",outerElement.inner.animateEnd,!1),outerElement.moveSlider=function(e){this.isActivated===!0&&(e.stopPropagation(),e.preventDefault(),this.transientXPos=this.currentXPos+e.touches[0].pageX-this.initialXPos,this.transientXPos=Math.max(0,Math.min(this.transientXPos,parseInt(window.getComputedStyle(this.outer).width))),this.notifyUpdated(),this.fill.style.width=this.transientXPos+"px",this.inner.style["-webkit-transform"]="translate3d("+this.transientXPos+"px,0px,0px)")},outerElement.moveSlider=outerElement.moveSlider.bind(outerElement),outerElement.notifyUpdated=function(){var e=this.transientXPos/parseInt(window.getComputedStyle(this.outer).width),t=Math.ceil((parseInt(this.minValue)+parseInt(this.maxValue))*e);if(Math.abs(t-parseInt(this.range.value))>this.step){this.range.value=t;var i=document.createEvent("HTMLEvents");i.initEvent("change",!1,!0),this.range.dispatchEvent(i)}},outerElement.notifyUpdated=outerElement.notifyUpdated.bind(outerElement),outerElement.doOrientationChange=function(){window.setTimeout(outerElement.range.setValue,0)},outerElement.doOrientationChange=outerElement.doOrientationChange.bind(outerElement),document.addEventListener("touchmove",outerElement.moveSlider,!1),bb.documentListeners.push({name:"touchmove",eventHandler:outerElement.moveSlider}),document.addEventListener("touchend",outerElement.inner.animateEnd,!1),bb.documentListeners.push({name:"touchend",eventHandler:outerElement.inner.animateEnd}),window.addEventListener("resize",outerElement.doOrientationChange,!1),bb.windowListeners.push({name:"resize",eventHandler:outerElement.doOrientationChange})}},_bb10_textInput={apply:function(e){for(var t=0;e.length>t;t++)bb.textInput.style(e[t])},style:function(e){var t="1280x768-1280x720",i="",n=document.createElement("div");if(bb.device.is1024x600?t="1024x600":bb.device.is1280x768||bb.device.is1280x720?t="1280x768-1280x720":bb.device.is720x720&&(t="720x720"),e.hasAttribute("class")&&(i=e.getAttribute("class")),e.parentNode&&e.parentNode.insertBefore(n,e),n.appendChild(e),n.input=e,n.setAttribute("data-bb-type","input"),n.normal="bb-bb10-input-container bb-bb10-input-container-"+t,e.normal=i+" bb-bb10-input bb-bb10-input-"+t,e.focused=i+" bb-bb10-input bb-bb10-input-focused-"+t,e.disabled?e.setAttribute("class",e.normal+" bb-bb10-input-disabled"):e.setAttribute("class",e.normal),e.isFocused=!1,e.clickCount=0,e.container=n,e.clearBtn="none"!=e.getAttribute("data-bb-clear"),e.hasClearBtn=!1,e.type){var o=e.type.toLowerCase();("date"==o||"time"==o||"datetime"==o||"month"==o||"datetime-local"==o||"color"==o||"search"==o)&&(e.clearBtn=!1)}return e.disabled?n.setAttribute("class",n.normal+" bb-bb10-input-container-disabled"):n.setAttribute("class",n.normal),e.doFocus=function(){0==this.readOnly&&(this.container.setAttribute("class",this.container.normal+" bb-bb10-input-cancel-button bb-bb10-input-container-focused-"+t),this.clearBtn&&this.value?(this.setAttribute("class",this.focused),this.hasClearBtn=!0):(this.setAttribute("class",this.normal),this.hasClearBtn=!1),this.container.style["border-color"]=bb.options.highlightColor,this.isFocused=!0,this.clickCount=0,bb.screen.focusedInput=this)
-},e.doFocus=e.doFocus.bind(e),e.addEventListener("focus",e.doFocus,!1),e.doBlur=function(){this.container.setAttribute("class",this.container.normal),this.clearBtn&&this.setAttribute("class",this.normal),this.container.style["border-color"]="",this.isFocused=!1,bb.screen.focusedInput=null},e.doBlur=e.doBlur.bind(e),e.addEventListener("blur",e.doBlur,!1),e.updateClearButton=function(){this.clearBtn&&(0==this.value.length&&this.hasClearBtn||this.value.length>0&&!this.hasClearBtn)&&e.doFocus()},e.updateClearButton=e.updateClearButton.bind(e),e.addEventListener("input",e.updateClearButton,!1),e.clearBtn&&(e.container.ontouchstart=function(t){t.target==this&&(t.preventDefault(),t.stopPropagation(),this.input.value="",e.doFocus())}),e.show=function(){this.container.style.display=""},e.show=e.show.bind(e),e.hide=function(){this.container.style.display="none"},e.hide=e.hide.bind(e),e.remove=function(){this.container.parentNode&&this.container.parentNode.removeChild(this.container)},e.remove=e.remove.bind(e),e.enable=function(){this.disabled&&(this.disabled=!1,this.container.setAttribute("class",this.container.normal),this.setAttribute("class",this.normal))},e.enable=e.enable.bind(e),e.disable=function(){this.disabled||(this.disabled=!0,this.container.setAttribute("class",this.container.normal+" bb-bb10-input-container-disabled"),this.setAttribute("class",this.normal+" bb-bb10-input-disabled"))},e.disable=e.disable.bind(e),n}},_bb10_toggle={apply:function(e){for(var t=0;e.length>t;t++)bb.toggle.style(e[t],!0)},style:function(outerElement,offdom){var res="1280x768-1280x720",table,tr,td,color=bb.screen.controlColor;return bb.device.is1024x600?res="1024x600":(bb.device.is1280x768||bb.device.is1280x720)&&(res="1280x768-1280x720"),outerElement.checked=!1,outerElement.enabled=!0,outerElement.buffer=bb.device.is1024x600?35:70,outerElement.isActivated=!1,outerElement.initialXPos=0,outerElement.currentXPos=0,outerElement.transientXPos=0,outerElement.movedWithSlider=!1,outerElement.startValue=!1,outerElement.hasAttribute("data-bb-disabled")&&(outerElement.enabled=!("true"==outerElement.getAttribute("data-bb-disabled").toLowerCase())),outerElement.className="bb-bb10-toggle-"+res,outerElement.outer=document.createElement("div"),outerElement.normal=outerElement.enabled?"outer bb-bb10-toggle-outer-"+color+" bb-bb10-toggle-outer-enabled-"+color:"outer bb-bb10-toggle-outer-"+color+" bb-bb10-toggle-outer-disabled",outerElement.outer.setAttribute("class",outerElement.normal),outerElement.appendChild(outerElement.outer),outerElement.fill=document.createElement("div"),outerElement.fill.className="fill",outerElement.fill.style.background=outerElement.fill.dormant,outerElement.outer.appendChild(outerElement.fill),outerElement.inner=document.createElement("div"),outerElement.inner.className="inner",outerElement.inner.outerElement=outerElement,outerElement.fill.appendChild(outerElement.inner),table=document.createElement("table"),table.className="table",tr=document.createElement("tr"),table.appendChild(tr),outerElement.inner.appendChild(table),td=document.createElement("td"),td.className="left",tr.appendChild(td),outerElement.yes=document.createElement("div"),outerElement.yes.className="yes",outerElement.yes.innerHTML=outerElement.getAttribute("data-bb-on"),td.appendChild(outerElement.yes),td=document.createElement("td"),td.className="center",tr.appendChild(td),td=document.createElement("td"),td.className="right",tr.appendChild(td),outerElement.no=document.createElement("div"),outerElement.no.className="no",outerElement.no.innerHTML=outerElement.getAttribute("data-bb-off"),td.appendChild(outerElement.no),outerElement.container=document.createElement("div"),outerElement.container.className="indicator-container",outerElement.appendChild(outerElement.container),outerElement.halo=document.createElement("div"),outerElement.halo.className="halo",outerElement.halo.style.background="-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 43, from(rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+", 0.15)), color-stop(0.8, rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+", 0.15)), to(rgba("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+", 0.7)))",outerElement.container.appendChild(outerElement.halo),outerElement.indicator=document.createElement("div"),outerElement.indicator.normal=outerElement.enabled?"indicator bb-bb10-toggle-indicator-enabled-"+color:"indicator bb-bb10-toggle-indicator-disabled-"+color,outerElement.indicator.setAttribute("class",outerElement.indicator.normal),outerElement.container.appendChild(outerElement.indicator),outerElement.hasAttribute("onchange")&&(outerElement.onchangeEval=outerElement.getAttribute("onchange"),outerElement.onchange=function(){eval(this.onchangeEval)}),outerElement.inner.animateBegin=function(e){this.outerElement.enabled&&this.outerElement.isActivated===!1&&(this.outerElement.startValue=this.outerElement.checked,this.outerElement.movedWithSlider=!1,this.outerElement.isActivated=!0,this.outerElement.initialXPos=e.touches[0].pageX,this.outerElement.halo.style["-webkit-transform"]="scale(1)",this.outerElement.halo.style["-webkit-animation-name"]="explode",this.outerElement.indicator.setAttribute("class","indicator bb-bb10-toggle-indicator-enabled-"+color+" indicator-hover-"+color),this.outerElement.indicator.style.background="-webkit-linear-gradient(top, rgb("+bb.options.shades.R+", "+bb.options.shades.G+", "+bb.options.shades.B+") 0%, rgb("+(bb.options.shades.R+16)+", "+(bb.options.shades.G+16)+", "+(bb.options.shades.B+16)+") 100%)")},outerElement.inner.animateBegin=outerElement.inner.animateBegin.bind(outerElement.inner),outerElement.inner.addEventListener("touchstart",outerElement.inner.animateBegin,!1),outerElement.container.addEventListener("touchstart",outerElement.inner.animateBegin,!1),outerElement.inner.animateEnd=function(){this.outerElement.enabled&&this.outerElement.isActivated===!0&&(this.outerElement.isActivated=!1,this.outerElement.currentXPos=this.outerElement.transientXPos,this.outerElement.halo.style["-webkit-transform"]="scale(0)",this.outerElement.halo.style["-webkit-animation-name"]="implode",this.outerElement.indicator.setAttribute("class","indicator bb-bb10-toggle-indicator-enabled-"+color),this.outerElement.indicator.style.background="",this.outerElement.positionButton(),this.outerElement.movedWithSlider&&this.outerElement.startValue!=this.outerElement.checked&&this.outerElement.onchange&&this.outerElement.onchange())},outerElement.inner.animateEnd=outerElement.inner.animateEnd.bind(outerElement.inner),outerElement.addEventListener("touchend",outerElement.inner.animateEnd,!1),outerElement.moveToggle=function(e){if(this.enabled&&this.isActivated===!0){this.movedWithSlider=!0,e.stopPropagation(),e.preventDefault();var t,i=parseInt(window.getComputedStyle(this.fill).width)-this.buffer;this.transientXPos=this.currentXPos+e.touches[0].pageX-this.initialXPos,this.transientXPos=Math.max(0,Math.min(this.transientXPos,i)),this.inner.style["-webkit-transform"]="translate3d("+this.transientXPos+"px,0px,0px)",this.container.style["-webkit-transform"]="translate3d("+this.transientXPos+"px,0px,0px)",t=this.transientXPos/i,this.checked=t>.5}},outerElement.moveToggle=outerElement.moveToggle.bind(outerElement),outerElement.doClick=function(){this.enabled&&(this.movedWithSlider||this.setChecked(!this.checked))},outerElement.doClick=outerElement.doClick.bind(outerElement),outerElement.addEventListener("click",outerElement.doClick,!1),outerElement.positionButton=function(){var e=this.checked?parseInt(window.getComputedStyle(this.fill).width)-this.buffer:0;this.inner.style["-webkit-transform"]="translate3d("+e+"px,0px,0px)",this.inner.style["-webkit-transition-duration"]="0.1s",this.inner.style["-webkit-transition-timing-function"]="linear",this.inner.addEventListener("webkitTransitionEnd",function(){this.style["-webkit-transition"]=""}),this.container.style["-webkit-transform"]="translate3d("+e+"px,0px,0px)",this.container.style["-webkit-transition-duration"]="0.1s",this.container.style["-webkit-transition-timing-function"]="linear",this.container.addEventListener("webkitTransitionEnd",function(){this.style["-webkit-transition"]=""}),this.indicator.style["background-image"]=this.checked&&this.enabled?"-webkit-linear-gradient(top, "+bb.options.highlightColor+" 0%, "+bb.options.shades.darkHighlight+" 100%)":"",this.currentXPos=e},outerElement.positionButton=outerElement.positionButton.bind(outerElement),outerElement.setChecked=function(e){e!=this.checked&&(this.checked=e,this.onchange&&this.onchange()),this.positionButton()},outerElement.setChecked=outerElement.setChecked.bind(outerElement),outerElement.getChecked=function(){return this.checked},outerElement.getChecked=outerElement.getChecked.bind(outerElement),outerElement.show=function(){this.style.display="block",bb.refresh()},outerElement.show=outerElement.show.bind(outerElement),outerElement.hide=function(){this.style.display="none",bb.refresh()},outerElement.hide=outerElement.hide.bind(outerElement),outerElement.remove=function(){this.parentNode.removeChild(this),bb.refresh()},outerElement.remove=outerElement.remove.bind(outerElement),outerElement.setOnCaption=function(e){this.yes.innerHTML=e},outerElement.setOnCaption=outerElement.setOnCaption.bind(outerElement),outerElement.setOffCaption=function(e){this.no.innerHTML=e},outerElement.setOffCaption=outerElement.setOffCaption.bind(outerElement),outerElement.getOnCaption=function(){return this.yes.innerHTML},outerElement.getOnCaption=outerElement.getOnCaption.bind(outerElement),outerElement.getOffCaption=function(){return this.no.innerHTML},outerElement.getOffCaption=outerElement.getOffCaption.bind(outerElement),outerElement.enable=function(){this.enabled||(this.enabled=!0,this.indicator.normal="indicator bb-bb10-toggle-indicator-enabled-"+color,this.indicator.setAttribute("class",this.indicator.normal),this.normal="outer bb-bb10-toggle-outer-"+color+" bb-bb10-toggle-outer-enabled-"+color,this.outer.setAttribute("class",this.normal),this.positionButton())},outerElement.enable=outerElement.enable.bind(outerElement),outerElement.disable=function(){this.enabled&&(this.enabled=!1,this.indicator.normal="indicator bb-bb10-toggle-indicator-disabled-"+color,this.indicator.setAttribute("class",this.indicator.normal),this.normal="outer bb-bb10-toggle-outer-"+color+" bb-bb10-toggle-outer-disabled",this.outer.setAttribute("class",this.normal),this.positionButton())},outerElement.disable=outerElement.disable.bind(outerElement),outerElement.checked=outerElement.hasAttribute("data-bb-checked")?"true"==outerElement.getAttribute("data-bb-checked").toLowerCase():!1,offdom?(outerElement.onbbuidomready=function(){this.positionButton(),document.removeEventListener("bbuidomready",this.onbbuidomready,!1)},outerElement.onbbuidomready=outerElement.onbbuidomready.bind(outerElement),document.addEventListener("bbuidomready",outerElement.onbbuidomready,!1)):setTimeout(outerElement.positionButton,0),document.addEventListener("touchmove",outerElement.moveToggle,!1),bb.documentListeners.push({name:"touchmove",eventHandler:outerElement.moveToggle}),document.addEventListener("touchend",outerElement.inner.animateEnd,!1),bb.documentListeners.push({name:"touchend",eventHandler:outerElement.inner.animateEnd}),outerElement}},_bb5_button={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t],n=i.innerHTML,o="bb5-button",r="bb5-button-highlight";i.innerHTML="",i.setAttribute("class","bb-bb5-button");var s=document.createElement("a");s.setAttribute("class",o),s.setAttribute("x-blackberry-focusable","true"),s.setAttribute("onmouseover","this.setAttribute('class','"+r+"')"),s.setAttribute("onmouseout","this.setAttribute('class','"+o+"')"),i.appendChild(s);var l=document.createElement("span");l.innerHTML=n,s.appendChild(l)}}},_bb5_labelControlContainers={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t];i.setAttribute("class","bb-label-control-horizontal-row");for(var n=i.querySelectorAll("[data-bb-type=label]"),o=0;n.length>o;o++){var r=n[o];r.setAttribute("class","bb-label")}i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}}},_bb5_pillButtons={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t];i.setAttribute("class","bb-pill-buttons");for(var n=i.querySelectorAll("[data-bb-type=pill-button]"),o=0;n.length>o;o++){var r=n[o];r.setAttribute("x-blackberry-focusable","true");var s=r.innerHTML;r.innerHTML="<span>"+s+"</span>",0===o?r.setAttribute("class","buttonLeft"):o==n.length-1?r.setAttribute("class","buttonRight"):r.setAttribute("class","buttonMiddle"),r.hasAttribute("data-bb-selected")&&"true"==r.getAttribute("data-bb-selected").toLowerCase()&&bb.pillButtons.selectButton(r),r.onmousedown=function(){bb.pillButtons.selectButton(this);for(var e=this.parentNode.querySelectorAll("[data-bb-type=pill-button]"),t=0;e.length>t;t++){var i=e[t];i!=this&&bb.pillButtons.deSelectButton(i)}}}i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}}},_bbPlayBook_activityIndicator={apply:function(e){var t,i,n,o,r,s,l,a=bb.screen.controlColor;if(e.length>0){var b,d,c=document.createElement("canvas");c.setAttribute("height","184px"),c.setAttribute("width","184px"),b=c.getContext("2d"),b.beginPath(),b.moveTo(92,154),b.arcTo(154,154,154,92,62),b.arcTo(154,30,92,30,62),b.arcTo(81,30,81,20,10),b.arcTo(81,10,91,10,10),b.arcTo(173,10,173,92,82),b.arcTo(173,173,92,173,82),b.arcTo(81,173,81,164,10),b.arcTo(81,154,92,154,10),b.closePath(),b.strokeStyle="transparent",b.stroke();var d=b.createLinearGradient(0,50,0,154);d.addColorStop(0,"transparent"),d.addColorStop(1,bb.options.highlightColor),b.fillStyle=d,b.fill(),l=c.toDataURL()}for(t=0;e.length>t;t++)return i=e[t],r=i.hasAttribute("data-bb-size")?i.getAttribute("data-bb-size").toLowerCase():"medium","large"==r?s="93px":"small"==r?s="21px":(r="medium",s="46px"),i.style.width=s,o=document.createElement("div"),o.setAttribute("class","bb-pb-activity-margin bb-pb-activity-"+r+" bb-activity-"+a),i.appendChild(o),n=document.createElement("div"),n.setAttribute("class","bb-pb-activity-"+r),n.style["background-image"]='url("'+l+'")',o.appendChild(n),n.style["-webkit-animation-name"]="activity-rotate",n.style["-webkit-animation-duration"]="0.8s",n.style["-webkit-animation-iteration-count"]="infinite",n.style["-webkit-animation-timing-function"]="linear",i.show=function(){this.style.display="",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i),i}},_bbPlayBook_button={apply:function(e){for(var t=0;e.length>t;t++)bb.button.style(e[t])},style:function(e){var t,i,n,o,r=document.createElement("div"),s=document.createElement("div");if(disabled=e.hasAttribute("data-bb-disabled"),normal="bb-pb-button",highlight="bb-pb-button-container bb-pb-button-container-"+bb.screen.controlColor+" pb-button-"+bb.screen.controlColor+"-highlight",outerNormal="bb-pb-button-container bb-pb-button-container-"+bb.screen.controlColor+" bb-pb-button-font-"+bb.screen.controlColor,outerNormalWithoutImageOnly=outerNormal,e.isImageOnly=!1,e.enabled=!disabled,n=e.innerHTML,r.innerHTML=n,e.innerHTML="",e.stretched=!1,e.captionElement=r,e.appendChild(s),e.innerElement=s,e.hasAttribute("data-bb-style")){var l=e.getAttribute("data-bb-style");"stretch"==l&&(e.stretched=!0,outerNormal+=" bb-pb-button-stretch",highlight+=" bb-pb-button-stretch")}return i=e.hasAttribute("data-bb-img")?e.getAttribute("data-bb-img"):void 0,i&&(n&&0!=n.length?(r.setAttribute("class","bb-pb-button-caption-with-image"),o=document.createElement("div"),e.imgElement=o,o.setAttribute("class","bb-pb-button-image"),o.style["background-image"]='url("'+i+'")',s.appendChild(o)):(outerNormal+=" bb-pb-button-container-image-only",highlight+=" bb-pb-button-container-image-only",r.style["background-image"]='url("'+i+'")',e.style["line-height"]="0px",r.setAttribute("class","bb-pb-button-caption-with-image-only"),e.isImageOnly=!0)),s.appendChild(r),t=normal+" bb-pb-button-disabled-"+bb.screen.controlColor,normal=normal+" bb-pb-button-"+bb.screen.controlColor,disabled?(e.removeAttribute("data-bb-disabled"),s.setAttribute("class",t)):s.setAttribute("class",normal),e.setAttribute("class",outerNormal),e.outerNormal=outerNormal,e.highlight=highlight,e.outerNormalWithoutImageOnly=outerNormalWithoutImageOnly,e.innerElement=s,s.normal=normal,s.disabledStyle=t,disabled||(e.ontouchstart=function(){this.setAttribute("class",this.highlight)},e.ontouchend=function(){this.setAttribute("class",this.outerNormal),this.style.color=""}),e.trappedClick=e.onclick,e.onclick=void 0,null!==e.trappedClick&&e.addEventListener("click",function(){this.enabled&&this.trappedClick()},!1),e.setCaption=function(e){if(this.isImageOnly&&e.length>0){this.captionElement.setAttribute("class","bb-pb-button-caption-with-image");var t=document.createElement("div");this.imgElement=t,t.setAttribute("class","bb-pb-button-image"),t.style["background-image"]=this.captionElement.style["background-image"],this.innerElement.removeChild(this.captionElement),this.innerElement.appendChild(t),this.innerElement.appendChild(this.captionElement),this.setAttribute("class",this.outerNormalWithoutImageOnly),this.captionElement.style["background-image"]="",this.isImageOnly=!1}else 0==e.length&&this.imgElement&&(this.captionElement.setAttribute("class","bb-pb-button-caption-with-image-only"),this.setAttribute("class",this.outerNormalWithoutImageOnly+" bb-pb-button-container-image-only"),this.captionElement.style["background-image"]=this.imgElement.style["background-image"],this.isImageOnly=!0,this.innerElement.removeChild(this.imgElement),this.imgElement=null);this.captionElement.innerHTML=e},e.getCaption=function(){return this.captionElement.innerHTML},e.getCaption=e.getCaption.bind(e),e.setImage=function(e){if(this.isImageOnly)this.captionElement.style["background-image"]='url("'+e+'")';else if(this.imgElement&&e.length>0)this.imgElement.style["background-image"]='url("'+e+'")';else if(e.length>0){this.captionElement.setAttribute("class","bb-pb-button-caption-with-image");var t=document.createElement("div");this.imgElement=t,t.setAttribute("class","bb-pb-button-image"),t.style["background-image"]='url("'+e+'")',this.innerElement.removeChild(this.captionElement),this.innerElement.appendChild(t),this.innerElement.appendChild(this.captionElement)}else this.imgElement&&0==e.length&&(this.innerElement.removeChild(this.imgElement),this.imgElement=null,this.captionElement.setAttribute("class",""))},e.getImage=function(){return this.isImageOnly?this.captionElement.style["background-image"].slice(4,-1):this.imgElement?this.imgElement.style["background-image"].slice(4,-1):""},e.getImage=e.getImage.bind(e),e.enable=function(){this.enabled||(this.innerElement.setAttribute("class",this.innerElement.normal),this.ontouchstart=function(){this.setAttribute("class",this.highlight)},this.ontouchend=function(){this.setAttribute("class",this.outerNormal)},this.enabled=!0)},e.enable=e.enable.bind(e),e.disable=function(){this.enabled&&(this.innerElement.setAttribute("class",this.innerElement.disabledStyle),this.ontouchstart=null,this.ontouchend=null,this.enabled=!1)},e.disable=e.disable.bind(e),e.show=function(){this.style.display=this.stretched?"block":"inline-block",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.parentNode.removeChild(this),bb.refresh()},e.remove=e.remove.bind(e),e}},_bbPlayBook_imageList={apply:function(e){for(var t,i,n,o,t=0;e.length>t;t++){n=e[t],n.items=[],n.hideImages=n.hasAttribute("data-bb-images")?"none"==n.getAttribute("data-bb-images").toLowerCase():!1,n.hideImages||(n.imagePlaceholder=n.hasAttribute("data-bb-image-placeholder")?n.getAttribute("data-bb-image-placeholder"):void 0),n.headerJustify=n.hasAttribute("data-bb-header-justify")?n.getAttribute("data-bb-header-justify").toLowerCase():"center",n.listStyle=n.hasAttribute("data-bb-style")?n.getAttribute("data-bb-style").toLowerCase():"default",n.headerStyle=n.hasAttribute("data-bb-header-style")?n.getAttribute("data-bb-header-style").toLowerCase():"default",n.setAttribute("class","bb-pb-image-list"),n.styleItem=function(e){var e,t,i,o,r,s,l,a,b,d,c,h,u,p;e.hasAttribute("data-bb-type")&&(t=e.getAttribute("data-bb-type").toLowerCase(),i=e.innerHTML,o="",e.hasAttribute("data-bb-accent-text")&&(o=e.getAttribute("data-bb-accent-text")),"header"==t?(r="bb-pb-image-list-header",s="bb-pb-image-list-header-hover bb10Highlight",r+="solid"==n.headerStyle?" bb-pb-image-list-header-solid bb10Accent":" bb-pb-image-list-header-default","left"==this.headerJustify?(r+=" bb-pb-image-list-header-left",s+=" bb-pb-image-list-header-left"):"right"==this.headerJustify?(r+=" bb-pb-image-list-header-right",s+=" bb-pb-image-list-header-right"):(r=r+" bb-"+res+"-image-list-header-center",s+=" bb-pb-image-list-header-center"),e.normal=r,e.highlight=s,e.innerHTML="<p>"+i+"</p>",e.setAttribute("class",r),e.ontouchstart=function(){this.setAttribute("class",this.highlight)},e.ontouchend=function(){this.setAttribute("class",this.normal)}):"item"==t&&(e.normal="bb-pb-image-list-item",e.highlight="bb-pb-image-list-item bb-pb-image-list-item-hover bb10Highlight",e.innerHTML="",e.setAttribute("class","bb-pb-image-list-item"),e.ontouchstart=function(){this.setAttribute("class",this.highlight)},e.ontouchend=function(){this.setAttribute("class",this.normal)},this.hideImages||(c=document.createElement("img"),e.img=c,this.imagePlaceholder?(c.placeholder=this.imagePlaceholder,c.src=e.hasAttribute("data-bb-img")?e.getAttribute("data-bb-img"):this.imagePlaceholder,c.onerror=function(){this.src!=this.placeholder&&(this.src=this.placeholder)}):c.setAttribute("src",e.getAttribute("data-bb-img")),e.appendChild(c)),l=document.createElement("div"),e.appendChild(l),l.normal=this.hideImages?"bb-pb-image-list-details bb-pb-image-list-noimage":"bb-pb-image-list-details",a=document.createElement("div"),a.innerHTML=e.getAttribute("data-bb-title"),a.className="title",e.titleDiv=a,l.appendChild(a),"arrowlist"==this.listStyle?(l.normal=l.normal+" details-button-margin",h=document.createElement("div"),e.appendChild(h),e.btn=h,h.setAttribute("class","button"),u=document.createElement("div"),u.normal="bb-pb-image-list-item-button-border",u.setAttribute("class",u.normal),h.appendChild(u),p=document.createElement("div"),p.setAttribute("class","bb-pb-image-list-item-button-inner bb-image-list-item-chevron-light"),u.appendChild(p)):(d=document.createElement("div"),d.innerHTML=o,d.className="accent-text",e.accentDiv=d,l.appendChild(d)),l.setAttribute("class",l.normal),b=document.createElement("div"),b.className="description",e.descriptionDiv=b,l.appendChild(b),0==i.length&&(i="&nbsp;",b.style.visibilty="hidden",a.style["margin-top"]="19px",d&&(d.style["margin-top"]="-23px"),"arrowlist"==this.listStyle&&(h.style["margin-top"]="-69px")),b.innerHTML=i,e.remove=function(){var e=this.parentNode,t=e.items.indexOf(this);this.parentNode.removeChild(this),e.items.splice(t,1),bb.scroller&&bb.scroller.refresh()},e.remove=e.remove.bind(e),e.trappedClick=e.onclick,e.onclick=void 0,e.outerElement=this,e.addEventListener("click",function(){this.outerElement.selected=this,this.trappedClick&&this.trappedClick()},!1),e.getTitle=function(){return this.titleDiv.innerHTML},e.getTitle=e.getTitle.bind(e),e.getDescription=function(){return this.descriptionDiv.innerHTML},e.getDescription=e.getDescription.bind(e),e.getAccentText=function(){return this.accentDiv?this.accentDiv.innerHTML:void 0},e.getAccentText=e.getAccentText.bind(e),e.getImage=function(){return this.img?this.img.getAttribute("src"):void 0},e.getImage=e.getImage.bind(e)))},n.styleItem=n.styleItem.bind(n),n.appendItem=function(e){this.styleItem(e),this.appendChild(e),this.items.push(e),bb.scroller&&bb.scroller.refresh()},n.appendItem=n.appendItem.bind(n),n.refresh=function(e){if(e&&e.length&&!(0>=e.length)){var t,i,n=document.createElement("div");for(this.items=[],t=0;e.length>t;t++)i=e[t],this.styleItem(i),this.items.push(i),n.appendChild(i);this.innerHTML="",this.appendChild(n)}},n.refresh=n.refresh.bind(n),n.insertItemBefore=function(e,t){this.styleItem(e),this.insertBefore(e,t),this.items.splice(this.items.indexOf(t),0,e),bb.scroller&&bb.scroller.refresh()},n.insertItemBefore=n.insertItemBefore.bind(n),n.getItems=function(){var e,t=[];for(e=0;this.items.length>e;e++)t.push(this.items[e]);return t},n.getItems=n.getItems.bind(n),n.clear=function(){this.items=[],n.innerHTML="",bb.scroller&&bb.scroller.refresh()},n.clear=n.clear.bind(n),n.show=function(){this.style.display="block",bb.scroller&&bb.scroller.refresh()},n.show=n.show.bind(n),n.hide=function(){this.style.display="none",bb.scroller&&bb.scroller.refresh()},n.hide=n.hide.bind(n),n.remove=function(){this.parentNode.removeChild(this),bb.scroller&&bb.scroller.refresh()},n.remove=n.remove.bind(n),o=n.querySelectorAll("[data-bb-type=item], [data-bb-type=header]");var r;for(i=0;o.length>i;i++)r=o[i],n.styleItem(r),n.items.push(r)}}},_bbPlayBook_roundPanel={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t];i.setAttribute("class","bb-playbook-round-panel");for(var n=i.querySelectorAll("[data-bb-type=panel-header]"),o=0;n.length>o;o++)bb.device.isHiRes?n[o].setAttribute("class","bb-hires-panel-header"):n[o].setAttribute("class","bb-lowres-panel-header");i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}}},_bbPlayBook_textInput={apply:function(e){var t,i,n;for(t=0;e.length>t;t++)i=e[t],n="",i.hasAttribute("class")&&(n=i.getAttribute("class")),i.normal=n+" bb-pb-input",i.focused=n+" bb-pb-input-focused bb-pb-input",i.setAttribute("class",i.normal),i.isFocused=!1,i.clickCount=0,i.addEventListener("focus",function(){0==this.readOnly&&(this.setAttribute("class",this.focused),this.isFocused=!0,this.clickCount=0)},!1),i.addEventListener("blur",function(){this.setAttribute("class",this.normal),this.isFocused=!1,this.removeEventListener("click",i.handleDeleteClick,!1)},!1),i.addEventListener("click",function(e){if(0==this.clickCount)return this.clickCount++,void 0;if(e.target==this&&this.isFocused){var t=!1;e.clientX>this.clientWidth-40&&0==this.readOnly&&(t=!0),t&&(this.value="")}},!1)}},_bb_5_6_7_imageList={apply:function(e){for(var t,i,n,o,t=0;e.length>t;t++){n=e[t],n.items=[],n.hideImages=n.hasAttribute("data-bb-images")?"none"==n.getAttribute("data-bb-images").toLowerCase():!1,n.hideImages||(n.imagePlaceholder=n.hasAttribute("data-bb-image-placeholder")?n.getAttribute("data-bb-image-placeholder"):void 0),n.headerJustify=n.hasAttribute("data-bb-header-justify")?n.getAttribute("data-bb-header-justify").toLowerCase():"center",n.listStyle=n.hasAttribute("data-bb-style")?n.getAttribute("data-bb-style").toLowerCase():"default",bb.device.isHiRes?n.setAttribute("class","bb-hires-image-list"):n.setAttribute("class","bb-lowres-image-list"),n.styleItem=function(e){var e,t,i,n,o,r,s,l,a,b,d,c,h,u,p=bb.device.isHiRes?"hires":"lowres";e.hasAttribute("data-bb-type")&&(t=e.getAttribute("data-bb-type").toLowerCase(),i=e.innerHTML,n="",e.hasAttribute("data-bb-accent-text")&&(n=e.getAttribute("data-bb-accent-text")),"header"==t?(o="bb-"+p+"-image-list-header",r="bb-"+p+"-image-list-header-hover","left"==this.headerJustify?(o=o+" bb-"+p+"-image-list-header-left",r=r+" bb-"+p+"-image-list-header-left"):"right"==this.headerJustify?(o=o+" bb-"+p+"-image-list-header-right",r=r+" bb-"+p+"-image-list-header-right"):(o=o+" bb-"+p+"-image-list-header-center",r=r+" bb-"+p+"-image-list-header-center"),e.normal=o,e.highlight=r,e.innerHTML="<p>"+i+"</p>",e.setAttribute("x-blackberry-focusable","true"),e.setAttribute("class",o),e.setAttribute("onmouseover","this.setAttribute('class',this.highlight)"),e.setAttribute("onmouseout","this.setAttribute('class',this.normal)")):"item"==t&&(e.innerHTML="",e.setAttribute("class","bb-"+p+"-image-list-item"),e.setAttribute("onmouseover","this.setAttribute('class','bb-"+p+"-image-list-item bb-"+p+"-image-list-item-hover')"),e.setAttribute("onmouseout","this.setAttribute('class','bb-"+p+"-image-list-item')"),e.setAttribute("x-blackberry-focusable","true"),this.hideImages||(d=document.createElement("img"),e.img=d,this.imagePlaceholder?(d.placeholder=this.imagePlaceholder,d.src=e.hasAttribute("data-bb-img")?e.getAttribute("data-bb-img"):this.imagePlaceholder,d.onerror=function(){this.src!=this.placeholder&&(this.src=this.placeholder)}):d.setAttribute("src",e.getAttribute("data-bb-img")),e.appendChild(d)),s=document.createElement("div"),e.appendChild(s),s.normal=this.hideImages?"bb-"+p+"-image-list-details bb-"+p+"-image-list-noimage":"bb-"+p+"-image-list-details",l=document.createElement("div"),l.innerHTML=e.getAttribute("data-bb-title"),l.className="title",e.titleDiv=l,s.appendChild(l),"arrowlist"==this.listStyle?(s.normal=s.normal+" details-button-margin",c=document.createElement("div"),e.appendChild(c),e.btn=c,c.setAttribute("class","button"),h=document.createElement("div"),h.normal="bb-"+p+"-image-list-item-button-border",h.setAttribute("class",h.normal),c.appendChild(h),u=document.createElement("div"),u.setAttribute("class","bb-"+p+"-image-list-item-button-inner bb-image-list-item-chevron-light"),h.appendChild(u)):(b=document.createElement("div"),b.innerHTML=n,b.className="accent-text",e.accentDiv=b,s.appendChild(b)),s.setAttribute("class",s.normal),a=document.createElement("div"),a.className="description",e.descriptionDiv=a,s.appendChild(a),0==i.length&&(i="&nbsp;",a.style.visibilty="hidden",l.style["margin-top"]=bb.device.isHiRes?"14px":"18px",b&&(b.style["margin-top"]=bb.device.isHiRes?"-32px":"-25px"),"arrowlist"==this.listStyle&&(c.style["margin-top"]=bb.device.isHiRes?"-73px":"-70px")),a.innerHTML=i,e.remove=function(){var e=this.parentNode,t=e.items.indexOf(this);this.parentNode.removeChild(this),e.items.splice(t,1),bb.scroller&&bb.scroller.refresh()},e.remove=e.remove.bind(e),e.trappedClick=e.onclick,e.onclick=void 0,e.outerElement=this,e.addEventListener("click",function(){this.outerElement.selected=this,this.trappedClick&&this.trappedClick()},!1),e.getTitle=function(){return this.titleDiv.innerHTML},e.getTitle=e.getTitle.bind(e),e.getDescription=function(){return this.descriptionDiv.innerHTML},e.getDescription=e.getDescription.bind(e),e.getAccentText=function(){return this.accentDiv?this.accentDiv.innerHTML:void 0},e.getAccentText=e.getAccentText.bind(e),e.getImage=function(){return this.img?this.img.getAttribute("src"):void 0},e.getImage=e.getImage.bind(e)))},n.styleItem=n.styleItem.bind(n),n.appendItem=function(e){this.styleItem(e),this.appendChild(e),this.items.push(e),bb.scroller&&bb.scroller.refresh()},n.appendItem=n.appendItem.bind(n),n.refresh=function(e){if(e&&e.length&&!(0>=e.length)){var t,i,n=document.createElement("div");for(this.items=[],t=0;e.length>t;t++)i=e[t],this.styleItem(i),this.items.push(i),n.appendChild(i);this.innerHTML="",this.appendChild(n)}},n.refresh=n.refresh.bind(n),n.insertItemBefore=function(e,t){this.styleItem(e),this.insertBefore(e,t),this.items.splice(this.items.indexOf(t),0,e),bb.scroller&&bb.scroller.refresh()},n.insertItemBefore=n.insertItemBefore.bind(n),n.getItems=function(){var e,t=[];for(e=0;this.items.length>e;e++)t.push(this.items[e]);return t},n.getItems=n.getItems.bind(n),n.clear=function(){this.items=[],n.innerHTML="",bb.scroller&&bb.scroller.refresh()
-},n.clear=n.clear.bind(n),n.show=function(){this.style.display="block",bb.scroller&&bb.scroller.refresh()},n.show=n.show.bind(n),n.hide=function(){this.style.display="none",bb.scroller&&bb.scroller.refresh()},n.hide=n.hide.bind(n),n.remove=function(){this.parentNode.removeChild(this),bb.scroller&&bb.scroller.refresh()},n.remove=n.remove.bind(n),o=n.querySelectorAll("[data-bb-type=item], [data-bb-type=header]");var r;for(i=0;o.length>i;i++)r=o[i],n.styleItem(r),n.items.push(r)}}},_bb_5_6_7_roundPanel={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t];if(i.setAttribute("class","bb-round-panel"),i.hasChildNodes()){for(var n=[],o=i.childNodes.length,r=0;o>r;r++)n.push(i.childNodes[r]);for(var r=o-1;r>=0;r--)i.removeChild(i.childNodes[r]);var s=document.createElement("div");s.setAttribute("class","bb-round-panel-top-left bb-round-panel-background "),i.appendChild(s),s=document.createElement("div"),s.setAttribute("class","bb-round-panel-top-right bb-round-panel-background "),i.appendChild(s);var l=document.createElement("div");l.setAttribute("class","bb-round-panel-inside"),i.appendChild(l),s=document.createElement("div"),s.setAttribute("class","bb-round-panel-bottom-left bb-round-panel-background "),i.appendChild(s),s=document.createElement("div"),s.setAttribute("class","bb-round-panel-bottom-right bb-round-panel-background "),i.appendChild(s);for(var r=0;n.length>r;r++)l.appendChild(n[r])}for(var a=i.querySelectorAll("[data-bb-type=panel-header]"),r=0;a.length>r;r++)a[r].setAttribute("class","bb-lowres-panel-header");i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}}},_bb_6_7_button={apply:function(e){for(var t=0;e.length>t;t++)bb.button.style(e[t])},style:function(e){var t=e.hasAttribute("data-bb-disabled"),i="bb-bb7-button",n="bb-bb7-button-highlight";if(e.stretched=!1,e.enabled=!t,t&&(i="bb-bb7-button-disabled",e.removeAttribute("data-bb-disabled")),bb.device.isHiRes?(i+=" bb-bb7-button-hires",n+=" bb-bb7-button-hires"):(i+=" bb-bb7-button-lowres",n+=" bb-bb7-button-lowres"),e.hasAttribute("data-bb-style")){var o=e.getAttribute("data-bb-style");"stretch"==o&&(e.stretched=!0,i+=" button-stretch",n+=" button-stretch")}return e.highlight=n,e.normal=i,e.setAttribute("class",i),t||(e.setAttribute("x-blackberry-focusable","true"),e.onmouseover=function(){this.setAttribute("class",this.highlight)},e.onmouseout=function(){this.setAttribute("class",this.normal)}),e.trappedClick=e.onclick,e.onclick=void 0,null!==e.trappedClick&&e.addEventListener("click",function(){this.enabled&&this.trappedClick()},!1),e.setCaption=function(e){this.innerHTML=e},e.setCaption=e.setCaption.bind(e),e.getCaption=function(){return this.innerHTML},e.getCaption=e.getCaption.bind(e),e.setImage=function(){},e.setImage=e.setImage.bind(e),e.getImage=function(){return""},e.getImage=e.getImage.bind(e),e.enable=function(){this.enabled||(this.setAttribute("class",i),this.setAttribute("x-blackberry-focusable","true"),this.onmouseover=function(){this.setAttribute("class",this.highlight)},this.onmouseout=function(){this.setAttribute("class",this.normal)},this.enabled=!0)},e.enable=e.enable.bind(e),e.disable=function(){if(this.enabled){var e="bb-bb7-button-disabled";if(e+=bb.device.isHiRes?" bb-bb7-button-hires":" bb-bb7-button-lowres",this.hasAttribute("data-bb-style")){var t=this.getAttribute("data-bb-style");"stretch"==t&&(e+=" button-stretch",n+=" button-stretch")}this.setAttribute("class",e),this.removeAttribute("x-blackberry-focusable"),this.onmouseover=null,this.onmouseout=null,this.enabled=!1}},e.disable=e.disable.bind(e),e.show=function(){this.style.display=this.stretched?"block":"inline-block"},e.show=e.show.bind(e),e.hide=function(){this.style.display="none"},e.hide=e.hide.bind(e),e.remove=function(){this.parentNode.removeChild(this),bb.refresh()},e.remove=e.remove.bind(e),e}},_bb_6_7_PlayBook_dropdown={apply:function(e){for(var t=0;e.length>t;t++)bb.dropdown.style(e[t])},style:function(e){var t,i,n=e.getElementsByTagName("option"),o="",r=!e.hasAttribute("disabled");bb.device.isPlayBook?(t="ontouchstart",i="ontouchend"):(t="onmouseover",i="onmouseout"),e.style.display="none",e.stretch=!1,e.enabled=r,n.length>0&&(o=n[0].innerHTML);for(var s=0;n.length>s;s++)if(n[s].hasAttribute("selected")){o=n[s].innerHTML;break}var l=document.createElement("div");l.innerHTML='<div data-bb-type="caption"><span>'+o+"</span></div>",e.dropdown=l;var a="bb-bb7-dropdown",b="bb-bb7-dropdown-highlight";if(bb.device.isHiRes?(a+=" bb-bb7-dropdown-hires",b+=" bb-bb7-dropdown-hires"):(a+=" bb-bb7-dropdown-lowres",b+=" bb-bb7-dropdown-lowres"),e.hasAttribute("data-bb-style")){var d=e.getAttribute("data-bb-style");"stretch"==d&&(e.stretch=!0,a+=" dropdown-stretch",b+=" dropdown-stretch")}return l.setAttribute("data-bb-type","dropdown"),e.enabled?l.setAttribute("class",a):l.setAttribute("class",a+" bb-bb7-dropdown-disabled"),l.setAttribute("x-blackberry-focusable","true"),l.inEvent="this.setAttribute('class','"+b+"')",l.outEvent="this.setAttribute('class','"+a+"')",e.parentNode&&e.parentNode.insertBefore(l,e),l.appendChild(e),l.doclick=function(){var e=this.getElementsByTagName("select")[0];if(bb.device.isPlayBook||bb.device.isRipple){var t=document.createElement("div");t.setAttribute("id","ripple-dropdown-overlay"),t.style.position="absolute",t.style.left="0px",t.style.top=document.body.scrollTop+"px",t.style.width="100%",t.style.height="100%",t.style["z-index"]="1000000",t.onclick=function(){null!==this.parentNode&&this.parentNode.removeChild(this)};var i=document.createElement("div");bb.device.isHiRes?i.setAttribute("class","ripple-dropdown-dialog bb-hires-screen"):i.setAttribute("class","ripple-dropdown-dialog"),t.appendChild(i),i.onclick=function(){this.parentNode.parentNode.removeChild(this.parentNode)};for(var n=0;e.options.length>n;n++){var o=e.options[n],r=document.createElement("div");i.appendChild(r);var s=document.createElement("div");o.selected?(s.setAttribute("class","item selected"),r.setAttribute("class","backgroundHighlight backgroundSelected")):(s.setAttribute("class","item"),r.setAttribute("class","backgroundHighlight")),s.innerHTML="<span>"+o.text+"</span>",s.setAttribute("x-blackberry-focusable","true"),s.setAttribute("data-bb-index",n),s.dropdown=this,s.onclick=function(){var e=this.getAttribute("data-bb-index"),t=this.dropdown.getElementsByTagName("select")[0];t&&t.setSelectedItem(e)},r.appendChild(s)}var l=45*e.options.length+20,a=window.innerHeight-80;l>a&&(l=a,i.style.height=a+"px");var b=window.innerHeight/2-l/2;i.style.top=b+"px",document.body.appendChild(t)}else{for(var d=[],n=0;e.options.length>n;n++)d[n]={label:e.options[n].text,selected:n==e.selectedIndex,enabled:!0,type:"option"};try{blackberry.ui.dialog.selectAsync(!1,d,function(t){t.length>0&&t[0]<e.options.length&&e.setSelectedItem(t[0])})}catch(c){console.log("Exception in selectAsync: "+c)}}},e.enabled&&(l.onclick=l.doclick,l.setAttribute(t,l.inEvent),l.setAttribute(i,l.outEvent)),e.setSelectedItem=function(e){var t=this.dropdown.getElementsByTagName("select")[0];if(t&&t.selectedIndex!=e){t.selectedIndex=e;var i=this.dropdown.querySelectorAll("[data-bb-type=caption]")[0];i&&(i.innerHTML="<span>"+t.options[e].text+"</span>");var n=document.createEvent("HTMLEvents");n.initEvent("change",!1,!0),t.dispatchEvent(n)}},e.setSelectedText=function(e){for(var t=0;this.options.length>t;t++)if(this.options[t].text==e)return this.setSelectedItem(t),void 0},e.setSelectedText=e.setSelectedText.bind(e),e.fireEvent=function(){var e=document.createEvent("HTMLEvents");e.initEvent("change",!1,!0),this.dispatchEvent(e)},e.fireEvent=e.fireEvent.bind(e),e.enable=function(){this.enabled||(this.dropdown.onclick=this.dropdown.doclick,this.dropdown.setAttribute(t,l.inEvent),this.dropdown.setAttribute(i,l.outEvent),this.dropdown.setAttribute("class",a),this.removeAttribute("disabled"),this.enabled=!0)},e.enable=e.enable.bind(e),e.disable=function(){e.enabled&&(this.dropdown.onclick=null,this.dropdown.removeAttribute(t),this.dropdown.removeAttribute(i),this.dropdown.setAttribute("class",a+" bb-bb7-dropdown-disabled"),this.enabled=!1,this.setAttribute("disabled","disabled"))},e.disable=e.disable.bind(e),e.show=function(){this.dropdown.style.display=this.stretch?"block":"table-cell",bb.refresh()},e.show=e.show.bind(e),e.hide=function(){this.dropdown.style.display="none",bb.refresh()},e.hide=e.hide.bind(e),e.remove=function(){this.dropdown.parentNode.removeChild(this.dropdown),bb.refresh()},e.remove=e.remove.bind(e),e.refresh=function(){var e,t=this.getElementsByTagName("option"),i="";t.length>0&&(i=t[0].innerHTML);for(var n=0;t.length>n;n++)if(t[n].hasAttribute("selected")){i=t[n].innerHTML;break}e=this.dropdown.querySelectorAll("[data-bb-type=caption]")[0],e&&(e.innerHTML="<span>"+i+"</span>")},e.refresh=e.refresh.bind(e),e.setCaption=function(){console&&console.log("WARNING: setCaption is not supported on BlackBerry 5/6/7/PlayBook")},e.setCaption=e.setCaption.bind(e),l}},_bb_6_7_PlayBook_labelControlContainers={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t],n=i.querySelectorAll("[data-bb-type=row]");if(n.length>0){var o=document.createElement("table");o.setAttribute("class","bb-bb7-label-control-rows"),i.insertBefore(o,n[0]);for(var r=0;n.length>r;r++){var s=n[r],l=document.createElement("tr");o.appendChild(l);var a=document.createElement("td");l.appendChild(a);var b=s.querySelectorAll("[data-bb-type=label]")[0];s.removeChild(b),a.appendChild(b);var d=document.createElement("td");l.appendChild(d);var c=s.querySelectorAll("[data-bb-type=button],input,[data-bb-type=dropdown],textarea")[0];s.removeChild(c),d.appendChild(c),i.removeChild(s);var h=c.getAttribute("data-bb-type");"button"==h||"dropdown"==h?c.style.float="right":"INPUT"==c.tagName&&(c.style.width="100%")}}i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i)}}},_bb_6_7_PlayBook_pillButtons={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t],n="bb-bb7-pill-buttons",o="";bb.device.isHiRes?(n+=" bb-bb7-pill-buttons-hires",o="bb-bb7-pill-button-hires"):(n+=" bb-bb7-pill-buttons-lowres",o="bb-bb7-pill-button-lowres"),i.setAttribute("class",n);var r,s,l=i.querySelectorAll("[data-bb-type=pill-button]"),a=Math.floor(98/l.length),b=102-a*l.length;bb.device.isPlayBook?(r="ontouchstart",s="ontouchend"):(r="onmouseover",s="onmouseout"),i.style["padding-left"]=b+"%",i.style["padding-right"]=b+"%";for(var d=0;l.length>d;d++){var c=l[d];c.setAttribute("x-blackberry-focusable","true"),0===d?"true"==c.getAttribute("data-bb-selected")?c.setAttribute("class","bb-bb7-pill-button-highlight bb-bb7-pill-button-left "+o):(c.setAttribute("class","bb-bb7-pill-button bb-bb7-pill-button-left "+o),c.setAttribute(r,"this.setAttribute('class','bb-bb7-pill-button-highlight bb-bb7-pill-button-left "+o+"')"),c.setAttribute(s,"this.setAttribute('class','bb-bb7-pill-button bb-bb7-pill-button-left "+o+"')")):d==l.length-1?"true"==c.getAttribute("data-bb-selected")?c.setAttribute("class","bb-bb7-pill-button-highlight bb-bb7-pill-button-right "+o):(c.setAttribute("class","bb-bb7-pill-button bb-bb7-pill-button-right "+o),c.setAttribute(r,"this.setAttribute('class','bb-bb7-pill-button-highlight bb-bb7-pill-button-right "+o+"')"),c.setAttribute(s,"this.setAttribute('class','bb-bb7-pill-button bb-bb7-pill-button-right "+o+"')")):"true"==c.getAttribute("data-bb-selected")?c.setAttribute("class","bb-bb7-pill-button-highlight "+o):(c.setAttribute("class","bb-bb7-pill-button "+o),c.setAttribute(r,"this.setAttribute('class','bb-bb7-pill-button-highlight "+o+"')"),c.setAttribute(s,"this.setAttribute('class','bb-bb7-pill-button "+o+"')")),c.style.width=a+"%",c.addEventListener("click",function(){var e,t,i=this.parentNode.querySelectorAll("[data-bb-type=pill-button]");bb.device.isPlayBook?(e="ontouchstart",t="ontouchend"):(e="onmouseover",t="onmouseout");for(var n=0;i.length>n;n++){var r=i[n];0===n?r==this?(r.setAttribute("class","bb-bb7-pill-button-highlight bb-bb7-pill-button-left "+o),r.onmouseover=null,r.onmouseout=null):(r.setAttribute("class","bb-bb7-pill-button bb-bb7-pill-button-left "+o),r.setAttribute(e,"this.setAttribute('class','bb-bb7-pill-button-highlight bb-bb7-pill-button-left "+o+"')"),r.setAttribute(t,"this.setAttribute('class','bb-bb7-pill-button bb-bb7-pill-button-left "+o+"')")):n==i.length-1?r==this?(r.setAttribute("class","bb-bb7-pill-button-highlight bb-bb7-pill-button-right "+o),r.onmouseover=null,r.onmouseout=null):(r.setAttribute("class","bb-bb7-pill-button bb-bb7-pill-button-right "+o),r.setAttribute(e,"this.setAttribute('class','bb-bb7-pill-button-highlight bb-bb7-pill-button-right "+o+"')"),r.setAttribute(t,"this.setAttribute('class','bb-bb7-pill-button bb-bb7-pill-button-right "+o+"')")):r==this?(r.setAttribute("class","bb-bb7-pill-button-highlight "+o),r.onmouseover=null,r.onmouseout=null):(r.setAttribute("class","bb-bb7-pill-button "+o),r.setAttribute(e,"this.setAttribute('class','bb-bb7-pill-button-highlight "+o+"')"),r.setAttribute(t,"this.setAttribute('class','bb-bb7-pill-button "+o+"')"))}},!1)}i.show=function(){this.style.display="block",bb.refresh()},i.show=i.show.bind(i),i.hide=function(){this.style.display="none",bb.refresh()},i.hide=i.hide.bind(i),i.remove=function(){this.parentNode.removeChild(this),bb.refresh()},i.remove=i.remove.bind(i),i.getButtons=function(){for(var e=this.querySelectorAll("[data-bb-type=pill-button]"),t=Array(),i=0;e.length>i;i++)t[i]=e[i].innerHTML;return t},i.getButtons=i.getButtons.bind(i)}}},_bb_6_7_textInput={apply:function(e){for(var t=0;e.length>t;t++){var i=e[t],n=i.getAttribute("class");n+=" bb-bb7-input",n+=bb.device.isHiRes?" bb-bb7-input-hires":" bb-bb7-input-lowres",i.setAttribute("class",n)}}},_bb_PlayBook_10_scrollPanel={apply:function(e){var t,i,n,o,r;for(t=0;e.length>t;t++){for(n=e[t],r=[],o=document.createElement("div"),n.appendChild(o),i=0;n.childNodes.length-1>i;i++)r.push(n.childNodes[i]);for(i=0;r.length>i;i++)o.appendChild(r[i]);bb.device.isPlayBook?n.scroller=new iScroll(n,{vScrollbar:!0,hideScrollbar:!0,fadeScrollbar:!0,onBeforeScrollStart:function(e){bb.scroller&&bb.scroller.disable(),e.preventDefault()},onBeforeScrollEnd:function(){bb.scroller&&bb.scroller.enable()},onScrollEnd:function(){evt=document.createEvent("Events"),evt.initEvent("bbuiscrolling",!0,!0),document.dispatchEvent(evt)},onScrollMove:function(e){n.onscroll&&n.onscroll(e),evt=document.createEvent("Events"),evt.initEvent("bbuiscrolling",!0,!0),document.dispatchEvent(evt)}}):(n.scroller=null,n.style["-webkit-overflow-scrolling"]="-blackberry-touch",n.addEventListener("scroll",function(){evt=document.createEvent("Events"),evt.initEvent("bbuiscrolling",!0,!0),document.dispatchEvent(evt)},!1)),n.show=function(){this.style.display="block",bb.refresh()},n.show=n.show.bind(n),n.hide=function(){this.style.display="none",bb.refresh()},n.hide=n.hide.bind(n),n.remove=function(){this.parentNode.removeChild(this),bb.refresh()},n.remove=n.remove.bind(n),n.refresh=function(){this.scroller&&this.scroller.refresh()},n.refresh=n.refresh.bind(n),setTimeout(n.refresh,0),n.scrollTo=function(e,t){this.scroller?this.scroller.scrollTo(e,t):this.scrollTop=e},n.scrollTo=n.scrollTo.bind(n),n.scrollToElement=function(e){if(this.scroller)this.scroller.scrollToElement(e);else{if(!e)return;var t=0,i=e;if(i.offsetParent)do t+=i.offsetTop;while(i=i.offsetParent);this.scrollTo(t,0)}},n.scrollToElement=n.scrollToElement.bind(n),n.setAttribute("class","bb-scroll-panel")}}},_PlayBook_contextMenu={create:function(e){var t,i="1280x768-1280x720";bb.device.is1024x600?(i="1024x600",t=100):(bb.device.is1280x768||bb.device.is1280x720)&&(i="1280x768-1280x720",t=300);var n,o=document.createElement("div"),r=document.createElement("div"),s=document.createElement("div");return o.setAttribute("class","bb-bb10-context-menu bb-bb10-context-menu-"+i+"-dark"),o.actions=[],o.hideEvents=[],o.res=i,o.threshold=t,o.visible=!1,o.overlay=document.createElement("div"),o.overlay.threshold=t,o.overlay.setAttribute("class","bb-bb10-context-menu-overlay"),o.overlay.menu=o,e.appendChild(o.overlay),o.overlay.ontouchmove=function(e){if(this.menu.peeking){var t=e.touches[0];this.startPos&&this.startPos-t.pageX>this.threshold&&(this.menu.show(this.menu.selected),this.closeMenu=!1)}},o.overlay.ontouchend=function(){this.closeMenu&&(this.menu.hide(),event.preventDefault())},o.overlay.ontouchstart=function(e){if(this.closeMenu=!0,!this.menu.peeking&&this.menu.visible)e.preventDefault();else if(!this.menu.peeking)return;var t=e.touches[0];this.startPos=t.pageX,e.preventDefault()},n=document.createElement("div"),n.setAttribute("class","bb-bb10-context-menu-item-"+i+" bb-bb10-context-menu-header-dark"),o.header=n,o.appendChild(n),r.setAttribute("class","bb-bb10-context-menu-header-title-"+i+" bb-bb10-context-menu-header-title-dark"),r.style.width=_PlayBook_contextMenu.getWidth()-20+"px",o.topTitle=r,n.appendChild(r),s.setAttribute("class","bb-bb10-context-menu-header-description-"+i),s.style.width=_PlayBook_contextMenu.getWidth()-20+"px",o.description=s,n.appendChild(s),o.scrollContainer=document.createElement("div"),o.scrollContainer.setAttribute("class","bb-bb10-context-menu-scroller"),o.appendChild(o.scrollContainer),o.style.left=_PlayBook_contextMenu.getLeft(),o.show=function(e){e?(this.header.style.display="",this.header.style.visibility="",e.title&&(this.topTitle.innerHTML=e.title),e.description&&(this.description.innerHTML=e.description),this.selected=e,o.scrollContainer.style.top=bb.device.isPlayBook?"64px":"130px"):(this.header.style.display="none",this.selected=void 0,o.scrollContainer.style.top="0px"),o.scrollContainer.style["overflow-y"]="scroll",o.scrollContainer.style["overflow-x"]="hidden",o.scrollContainer.style["-webkit-overflow-scrolling"]="-blackberry-touch",this.peeking=!1,this.overlay.style.display="inline",this.style["-webkit-transition"]="all 0.3s ease-in-out",this.style["-webkit-transform"]="translate(-"+_PlayBook_contextMenu.getWidth()+"px, 0)",this.style["-webkit-backface-visibility"]="hidden",this.style["-webkit-perspective"]="1000",this.addEventListener("touchstart",this.touchHandler,!1),this.onclick=function(){this.hide()},this.header.addEventListener("click",this.hide,!1),this.style.visibility="visible",this.visible=!0},o.show=o.show.bind(o),o.hide=function(){this.overlay.style.display="none",this.removeEventListener("touchstart",this.touchHandler,!1),this.removeEventListener("touchmove",this.touchMoveHandler,!1),this.style["-webkit-transition"]="all 0.5s ease-in-out",this.style["-webkit-transform"]="translate("+_PlayBook_contextMenu.getWidth()+"px, 0px)",this.style["-webkit-backface-visibility"]="hidden",this.style["-webkit-perspective"]="1000",this.peeking||this.header.removeEventListener("click",this.hide,!1),this.peeking=!1,this.visible=!1,o.scrollContainer.style["overflow-y"]="",o.scrollContainer.style["overflow-x"]="",o.scrollContainer.style["-webkit-overflow-scrolling"]="";for(var e=o.hideEvents.length-1;e>=0;e--)o.hideEvents[e](),o.hideEvents.pop();if(bb.device.isPlayBook)for(var e=0;this.actions.length>e;e++)this.actions[e].ontouchend()},o.hide=o.hide.bind(o),o.peek=function(e){e?(this.header.style.display="",e.title&&(this.topTitle.innerHTML=e.title),e.description&&(this.description.innerHTML=e.description),this.selected=e,o.scrollContainer.style.top=bb.device.isPlayBook?"64px":"130px"):o.scrollContainer.style.top="0px",this.header.style.visibility="hidden",this.header.style["margin-bottom"]="-"+Math.floor(this.header.offsetHeight/2)+"px",this.peeking=!0,this.overlay.style.display="inline",this.style["-webkit-transition"]="all 0.3s ease-in-out",this.style["-webkit-transform"]="translate(-"+_PlayBook_contextMenu.getPeekWidth()+", 0)",this.style["-webkit-backface-visibility"]="hidden",this.style["-webkit-perspective"]="1000",this.addEventListener("touchstart",this.touchHandler,!1),this.addEventListener("touchmove",this.touchMoveHandler,!1),this.onclick=function(e){(e.target==this||e.target==this.scrollContainer)&&this.show(this.selected)},this.header.removeEventListener("click",this.hide,!1),this.style.visibility="visible",this.visible=!0},o.peek=o.peek.bind(o),o.clearWWcontextMenu=function(){},o.clearWWcontextMenu=o.clearWWcontextMenu.bind(o),o.touchHandler=function(e){if(this.peeking){var t=e.touches[0];this.startPos=t.pageX,e.target==this.scrollContainer||e.target.parentNode==this.scrollContainer&&e.target!=this.header&&(e.preventDefault(),e.stopPropagation())}},o.touchHandler=o.touchHandler.bind(o),o.touchMoveHandler=function(e){if(this.peeking){var t=e.touches[0];this.startPos&&this.startPos-t.pageX>this.threshold&&this.show(this.selected)}},o.touchMoveHandler=o.touchMoveHandler.bind(o),o.onclick=function(e){this.peeking&&(this.show(this.selected),e.stopPropagation())},o.centerMenuItems=function(){var e,t,i=bb.innerHeight(),n=bb.device.isPlayBook?53:111,o=0,r=void 0==this.actionBar?n:0;for(t=0;this.actions.length>t;t++)1==this.actions[t].visible&&o++;o=this.pinnedAction?o-1:o,e=i-Math.floor(i/2)-Math.floor(o*n/2)-r,0>e&&(e=0),this.scrollContainer.style["padding-top"]=e+"px"},o.centerMenuItems=o.centerMenuItems.bind(o),o.orientationChanged=function(){this.style["-webkit-transition"]="",this.style.left=bb.innerWidth()+"px",this.style.height=bb.innerHeight()+"px",this.centerMenuItems()},o.orientationChanged=o.orientationChanged.bind(o),window.addEventListener("orientationchange",o.orientationChanged,!1),bb.windowListeners.push({name:"orientationchange",eventHandler:o.orientationChanged}),o.addEventListener("webkitTransitionEnd",function(){this.visible||(this.style.visibility="hidden")}),o.add=function(e){var t,i,n=e.innerHTML,o=!1;t="bb-bb10-context-menu-item-"+this.res+" bb-bb10-context-menu-item-"+this.res+"-dark",e.hasAttribute("data-bb-visible")&&"false"==e.getAttribute("data-bb-visible").toLowerCase()?(e.visible=!1,e.style.display="none"):(e.visible=!0,this.actions.push(e)),o=e.hasAttribute("data-bb-pin")&&"true"==e.getAttribute("data-bb-pin").toLowerCase(),o&&!this.pinnedAction?(t=t+" bb-bb10-context-menu-item-first-"+this.res+"-dark",e.style.bottom="-2px",e.style.position="absolute",e.style.width="100%",this.pinnedAction=e,this.appendChild(e),this.scrollContainer.style.bottom=bb.device.isPlayBook?"64px":"130px"):this.scrollContainer.appendChild(e),1==this.actions.length&&(t=t+" bb-bb10-context-menu-item-first-"+this.res+"-dark"),i=t+" bb-bb10-context-menu-item-hover-"+this.res,e.normal=t,e.highlight=i,e.innerHTML="";var r=document.createElement("div"),s=document.createElement("img");s.setAttribute("src",e.getAttribute("data-bb-img")),s.setAttribute("class","bb-bb10-context-menu-item-image-"+this.res),e.img=s,e.appendChild(s),r.setAttribute("class","bb-bb10-context-menu-item-inner-"+this.res),e.appendChild(r),r.innerHTML=n,e.display=r,e.menu=this,e.setAttribute("class",t),e.ontouchstart=function(e){if(this.menu.peeking?this.style["border-left-color"]=bb.options.highlightColor:this.style["background-color"]=bb.options.highlightColor,e.stopPropagation(),bb.device.isPlayBook){var t,i;for(i=0;this.menu.actions.length>i;i++)t=this.menu.actions[i],t!=this&&t.ontouchend()}},e.ontouchend=function(){this.menu.peeking?this.style["border-left-color"]="transparent":this.style["background-color"]=""},e.addEventListener("click",this.hide,!1),e.setCaption=function(e){this.display.innerHTML=e},e.setCaption=e.setCaption.bind(e),e.setImage=function(e){this.img.setAttribute("src",e)},e.setImage=e.setImage.bind(e),e.hide=function(){if(this.visible){this.visible=!1;var e=this.menu.actions.indexOf(this);this.menu.actions.splice(e,1),this.style.display="none",this.menu.centerMenuItems()}},e.hide=e.hide.bind(e),e.show=function(){this.visible||(this.visible=!0,this.menu.actions.push(this),this.style.display="",this.menu.centerMenuItems())},e.show=e.show.bind(e)},o.add=o.add.bind(o),o},getWidth:function(){return bb.device.isPlayBook?"300":"563"},getPeekWidth:function(){return bb.device.isPlayBook?"55px":"121px"},getLeft:function(){return window.innerWidth+3+"px"}};
+/*
+* Copyright 2010-2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/* bbUI for BB10 VERSION: 0.9.6.689*/
+
+bb = {
+	scroller: null,  
+    screens: [],
+	dropdownScrollers: [],
+	windowListeners: [],
+	documentListeners: [],
+	transparentPixel: 'data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
+						
+	// Core control variables
+	imageList : null,
+	activityIndicator : null,
+	fileInput : null,
+	button : null,
+	scrollPanel : null,
+	bbmBubble : null,
+	dropdown : null,
+	textInput : null,
+	roundPanel : null,
+	grid : null,
+	pillButtons : null,
+	labelControlContainers : null,	
+	slider : null,
+	radio : null,
+	progress : null,
+	checkbox : null,
+	toggle : null,
+
+	// Initialize the the options of bbUI
+	init : function (options) {
+		if (options) {
+			for (var i in options) bb.options[i] = options[i];
+		}
+		
+		// Initialize our flags once so that we don't have to run logic in-line for decision making
+		bb.device.isRipple = (navigator.userAgent.indexOf('Ripple') >= 0) || window.tinyHippos;
+		bb.device.isPlayBook = (navigator.userAgent.indexOf('PlayBook') >= 0) || ((window.innerWidth == 1024 && window.innerHeight == 600) || (window.innerWidth == 600 && window.innerHeight == 1024));
+		bb.device.isBB10 = true;
+		bb.device.requiresScrollingHack = (navigator.userAgent.toLowerCase().indexOf('version/10.0') >= 0) || (navigator.userAgent.toLowerCase().indexOf('version/10.1') >= 0);
+		
+		// Get our OS version as a convenience
+		bb.device.is10dot2 = (navigator.userAgent.toLowerCase().indexOf('version/10.2') >= 0);
+		bb.device.is10dot1 = (navigator.userAgent.toLowerCase().indexOf('version/10.1') >= 0);
+		bb.device.is10dot0 = (navigator.userAgent.toLowerCase().indexOf('version/10.0') >= 0);
+		bb.device.newerThan10dot0 = bb.device.is10dot1 || bb.device.is10dot2;
+		bb.device.newerThan10dot1 = bb.device.is10dot2;
+		bb.device.newerThan10dot2 = false;
+		
+		// Set our resolution flags
+		bb.device.is1024x600 = bb.device.isPlayBook;
+		bb.device.is1280x768 = (window.innerWidth == 1280 && window.innerHeight == 768) || (window.innerWidth == 768 && window.innerHeight == 1280);
+		bb.device.is720x720 = (window.innerWidth == 720 && window.innerHeight == 720);
+		bb.device.is1280x720 = (window.innerWidth == 1280 && window.innerHeight == 720) || (window.innerWidth == 720 && window.innerHeight == 1280);
+		
+		// Check if a viewport tags exist and remove them, We'll add the bbUI friendly one 
+		var viewports = document.head.querySelectorAll('meta[name=viewport]'),
+			i;
+		for (i = 0; i < viewports.length; i++) {
+			try {
+				document.head.removeChild(viewports[i]);
+			} catch (ex) {
+				// Throw away the error
+			}
+		}			
+		
+		// Set our meta tags for content scaling
+		var meta = document.createElement('meta');
+		meta.setAttribute('name','viewport');
+		if (!bb.device.is1024x600) { 
+			meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) +',user-scalable=no');
+		} else {
+			meta.setAttribute('content','initial-scale=1.0,width=device-width,user-scalable=no,target-densitydpi=device-dpi');
+		}
+		document.head.appendChild(meta);
+		
+		// Create our shades of colors
+		var R = parseInt((bb.cutHex(bb.options.highlightColor)).substring(0,2),16),
+			G = parseInt((bb.cutHex(bb.options.highlightColor)).substring(2,4),16),
+			B = parseInt((bb.cutHex(bb.options.highlightColor)).substring(4,6),16);
+		bb.options.shades = {
+			R : R,
+			G : G,
+			B : B,
+			darkHighlight: 'rgb('+ (R - 120) +', '+ (G - 120) +', '+ (B - 120) +')',
+			mediumHighlight: 'rgb('+ (R - 60) +', '+ (G - 60) +', '+ (B - 60) +')',
+			darkOutline: 'rgb('+ (R - 32) +', '+ (G - 32) +', '+ (B - 32) +')',
+			darkDarkHighlight: 'rgb('+ (R - 140) +', '+ (G - 140) +', '+ (B - 140) +')'
+		};
+		
+		// Create our coloring
+		if (document.styleSheets && document.styleSheets.length) {
+			try {
+				document.styleSheets[0].insertRule('.bb10Highlight {background-color:'+ bb.options.highlightColor +';background-image:none;}', 0);
+				document.styleSheets[0].insertRule('.bbProgressHighlight {background-color:#92B43B;background-image:none;}', 0);
+				document.styleSheets[0].insertRule('.bb10-button-highlight {color:White;background-image: -webkit-gradient(linear, center top, center bottom, from('+bb.options.shades.darkHighlight+'), to('+bb.options.highlightColor+'));border-color:#53514F;}', 0);
+				document.styleSheets[0].insertRule('.pb-button-light-highlight {color:'+bb.options.shades.darkHighlight+';background-image: -webkit-gradient(linear, center top, center bottom, from('+bb.options.highlightColor+'), to('+bb.options.shades.darkHighlight+'));}', 0);
+				document.styleSheets[0].insertRule('.pb-button-dark-highlight {color:'+bb.options.highlightColor+';background-image: -webkit-gradient(linear, center top, center bottom, from('+bb.options.highlightColor+'), to('+bb.options.shades.darkHighlight+'));}', 0);
+				document.styleSheets[0].insertRule('.bb10Accent {background-color:'+ bb.options.shades.darkHighlight +';}', 0);
+				document.styleSheets[0].insertRule('.bb10-title-colored {color:white;border-color: '+bb.options.shades.darkHighlight+';text-shadow: 0px 2px black;background-image: -webkit-gradient(linear, center top, center bottom, from('+bb.options.highlightColor+'), to('+bb.options.shades.darkHighlight+'));}', 0);
+				document.styleSheets[0].insertRule('.bb10-title-button-container-colored {color:white;text-shadow: 0px 2px black;border-color: ' + bb.options.shades.darkDarkHighlight +';background-color: '+bb.options.shades.darkHighlight+';}', 0);
+				document.styleSheets[0].insertRule('.bb10-title-button-colored {border-color: ' + bb.options.shades.darkDarkHighlight +';background-image: -webkit-gradient(linear, center top, center bottom, from('+bb.options.highlightColor+'), to('+bb.options.shades.mediumHighlight+'));}', 0);
+				document.styleSheets[0].insertRule('.bb10-title-button-colored-highlight {border-color: ' + bb.options.shades.darkDarkHighlight +';background-color: '+bb.options.shades.darkHighlight+';}', 0);
+			}
+			catch (ex) {
+				console.log(ex.message);
+			}
+		}
+		// Set our coloring
+		bb.screen.controlColor = (bb.options.controlsDark) ? 'dark' : 'light';
+		bb.screen.listColor = (bb.options.listsDark) ? 'dark' : 'light';
+		
+		// Set up our pointers to objects for each OS version
+		bb.imageList = _bb10_imageList;
+		bb.activityIndicator = _bb10_activityIndicator;
+		bb.fileInput = _bb10_fileInput;
+		bb.button = _bb10_button;
+		bb.scrollPanel = _bb_PlayBook_10_scrollPanel;
+		bb.bbmBubble = _bb_bbmBubble;
+		bb.dropdown = _bb10_dropdown;
+		bb.textInput = _bb10_textInput;
+		bb.roundPanel = _bb10_roundPanel;
+		bb.grid = _bb10_grid;
+		bb.pillButtons = _bb10_pillButtons;
+		bb.labelControlContainers = _bb10_labelControlContainers;
+		bb.slider = _bb10_slider;
+		bb.radio = _bb10_radio;
+		bb.progress = _bb_progress;
+		bb.checkbox = _bb10_checkbox;
+		bb.toggle = _bb10_toggle;
+		bb.contextMenu = (bb.device.isPlayBook || bb.device.isRipple) ? _PlayBook_contextMenu : _bb10_contextMenu;
+		bb.actionOverflow = _PlayBook_contextMenu;
+			
+		// Add our keyboard listener for BB10
+		if (!bb.device.isPlayBook && !bb.device.isRipple) {
+			// Hide our action bar when the keyboard is about to pop up
+			blackberry.event.addEventListener('keyboardOpening', function() {
+				if (bb.screen.currentScreen.actionBar) {
+					bb.screen.currentScreen.actionBar.hide();
+				} 
+			});
+			
+			// Scroll to our selected input once the keyboard is opened
+			blackberry.event.addEventListener('keyboardOpened', function() {
+				if (bb.screen.currentScreen.actionBar) {
+					if (bb.screen.focusedInput) {
+						if (bb.screen.focusedInput.container) {
+							bb.screen.focusedInput.container.scrollIntoView(false);
+						} else {
+							bb.screen.focusedInput.scrollIntoView(false);
+						}
+					}
+				} 
+			});
+			
+			// Show our action bar when the keyboard disappears
+			blackberry.event.addEventListener('keyboardClosed', function() {
+				if (bb.screen.currentScreen.actionBar) {
+					bb.screen.currentScreen.actionBar.show();
+				} 
+			});
+		}
+		
+		// Initialize our Context Menu via the bbUI Extension for BB10
+		if (!bb.device.isPlayBook && !bb.device.isRipple) {
+			if (blackberry.ui && blackberry.ui.contextmenu) {
+				blackberry.ui.contextmenu.enabled = true;
+				if (blackberry.bbui) {
+					blackberry.bbui.initContext({highlightColor : bb.options.highlightColor});
+				}
+			}
+		}	
+	},
+
+    doLoad: function(element) {
+        // Apply our styling
+        var root = element || document.body;
+        bb.screen.apply(root.querySelectorAll('[data-bb-type=screen]'));
+		bb.style(root);
+    },
+	
+	style: function(root) {
+		if (bb.scrollPanel) 			bb.scrollPanel.apply(root.querySelectorAll('[data-bb-type=scroll-panel]'));  
+	    if (bb.textInput) 				bb.textInput.apply(root.querySelectorAll('input[type=text], [type=password], [type=tel], [type=url], [type=email], [type=number], [type=date], [type=time], [type=datetime], [type=month], [type=datetime-local], [type=color], [type=search]'));
+		if (bb.dropdown)				bb.dropdown.apply(root.querySelectorAll('select'));
+        if (bb.roundPanel) 				bb.roundPanel.apply(root.querySelectorAll('[data-bb-type=round-panel]'));
+        if (bb.imageList) 				bb.imageList.apply(root.querySelectorAll('[data-bb-type=image-list]'));
+		if (bb.grid)					bb.grid.apply(root.querySelectorAll('[data-bb-type=grid-layout]'));
+        if (bb.bbmBubble)				bb.bbmBubble.apply(root.querySelectorAll('[data-bb-type=bbm-bubble]'));
+        if (bb.pillButtons)				bb.pillButtons.apply(root.querySelectorAll('[data-bb-type=pill-buttons]'));
+        if (bb.labelControlContainers)	bb.labelControlContainers.apply(root.querySelectorAll('[data-bb-type=label-control-container]'));
+        if(bb.button) 					bb.button.apply(root.querySelectorAll('[data-bb-type=button]'));
+		if (bb.fileInput) 				bb.fileInput.apply(root.querySelectorAll('input[type=file]'));
+		if (bb.slider)					bb.slider.apply(root.querySelectorAll('input[type=range]'));
+		if (bb.progress)				bb.progress.apply(root.querySelectorAll('progress'));
+		if (bb.radio)					bb.radio.apply(root.querySelectorAll('input[type=radio]'));
+		if (bb.activityIndicator) 		bb.activityIndicator.apply(root.querySelectorAll('[data-bb-type=activity-indicator]'));
+		if (bb.checkbox)				bb.checkbox.apply(root.querySelectorAll('input[type=checkbox]'));
+		if (bb.toggle)					bb.toggle.apply(root.querySelectorAll('[data-bb-type=toggle]'));
+	},
+	getCurScreen : function(){
+		return document.querySelector('[data-bb-type=screen]');
+	},
+	device: {  
+		// Flags
+		isBB10: false,
+        isPlayBook: false, 
+        isRipple: false,
+		requiresScrollingHack: false,
+		// Resolutions
+		is1024x600: false,
+		is1280x768: false,
+		is720x720: false,
+		is1280x720: false,
+		// OS versions
+		is10dot2: false,
+		is10dot1: false,
+		is10dot0: false,
+		newerThan10dot0: false,
+		newerThan10dot1 : false,
+		newerThan10dot2: false
+    },
+	
+	// Options for rendering
+	options: {
+		onscreenready: null,
+		ondomready: null,  		
+		controlsDark: false, 
+		coloredTitleBar: false,
+		listsDark: false,
+		highlightColor: '#00A8DF'
+	},
+	
+    loadScreen: function(url, id, popping, guid, params, screenRecord) {
+        var xhr = new XMLHttpRequest(),
+            container = document.createElement('div'),
+            _reduce = function (nl, func, start) {
+                var result = start;
+
+                Array.prototype.forEach.apply(nl, [function (v) {
+                    result = func(result, v);
+                }]);
+
+                return result;
+            },
+            whereScript = function (result, el) {
+                if (el.nodeName === "SCRIPT") {
+					result.push(el);
+                }
+
+                return _reduce(el.childNodes, whereScript, result);
+            },
+            i,
+            scripts = [],
+            newScriptTags = [];
+
+        xhr.open("GET", url, false);
+        xhr.send();
+
+        container.setAttribute('id', guid);
+        container.innerHTML = xhr.responseText;
+
+        // Add any Java Script files that need to be included
+        scripts = _reduce(container.childNodes, whereScript, []),
+        container.scriptIds = [];
+
+		// Clear out old script id references if we are reloading a screen that was in the stack
+		if (screenRecord) {
+			screenRecord.scripts = [];
+		}
+		
+        scripts.forEach(function (script) {
+            var scriptTag = document.createElement('script'),
+				type = script.getAttribute('type');
+			
+			// First check the type. If the type isn't specified or if it isn't "text/javascript" then skip the script
+			if (!type || type.toLowerCase() == 'text/javascript') {
+				var scriptGuid = bb.guidGenerator();
+				// Either update the old screen in the stack record or add to the new one
+				if (screenRecord) {
+					screenRecord.scripts.push({'id' : scriptGuid, 'onunload': script.getAttribute('onunload')});
+				} else {
+					container.scriptIds.push({'id' : scriptGuid, 'onunload': script.getAttribute('onunload')});
+				}
+				scriptTag.setAttribute('type','text/javascript');
+				if (script.text) {
+					scriptTag.innerHTML = script.text;
+					scriptTag.inline = true;
+				} else {
+					scriptTag.setAttribute('src', script.getAttribute('src'));
+				}
+				scriptTag.setAttribute('id', scriptGuid);
+				newScriptTags.push(scriptTag);
+				// Remove script tag from container because we are going to add it to <head>
+				script.parentNode.removeChild(script);
+			}
+        });
+
+        // Add getElementById for the container so that it can be used in the onscreenready event
+        container.getElementById = function(id, node) {
+                var result = null;
+                if (!node) {
+                    node = this;
+                }
+                if ( node.getAttribute('id') == id )
+                    return node;
+
+                for ( var i = 0; i < node.childNodes.length; i++ ) {
+                    var child = node.childNodes[i];
+                    if ( child.nodeType == 1 ) {
+                        result = this.getElementById( id, child );
+                        if (result)
+                            break;
+                    }
+                }
+                return result;
+            };
+
+        // Special handling for inserting script tags
+        bb.screen.scriptCounter = 0;
+        bb.screen.totalScripts = newScriptTags.length;
+		var script;
+        for (var i = 0; i < newScriptTags.length; i++) {
+			script = newScriptTags[i];
+			document.body.appendChild(script);
+			script.onload = function() {
+				bb.screen.scriptCounter++;
+				if(bb.screen.scriptCounter == bb.screen.totalScripts) {
+					bb.initContainer(container, id, popping, params);
+				}
+			};
+			// Fire the onload for an inline script
+			if (script.inline == true) {
+				setTimeout(script.onload, 0);
+			}
+        }
+
+        // In case there are no scripts at all we simply doLoad().  We do this in
+		// a setTimeout() so that it is asynchronous just like if you were loading referenced
+		// script tags.  If we don't call this asynchronous, then the screen stack is in different
+		// states depending on if you have scripts or not
+        if(bb.screen.totalScripts === 0) {
+            setTimeout(function() { bb.initContainer(container, id, popping, params) }, 0);
+        }
+        return container;
+    },
+	
+	// Initialize the container
+	initContainer : function(container, id, popping, params) {	
+		// Fire the onscreenready and then apply our changes in doLoad()
+		if (bb.options.onscreenready) {
+			bb.options.onscreenready(container, id, params);
+		}
+		bb.doLoad(container);
+		// Load in the new content
+		document.body.appendChild(container);
+		
+		var screen = container.querySelectorAll('[data-bb-type=screen]'),
+			animationScreen,
+			effect,
+			effectToApply = null,
+			overlay;
+				
+        if (screen.length > 0 ) {
+            screen = screen[0];
+			// Swap the screen with the animation
+			if (popping) {
+				var previousContainer = bb.screens[bb.screens.length - 1].container,
+					previousEffect;
+				animationScreen = previousContainer.querySelectorAll('[data-bb-type=screen]')[0];
+				previousEffect = animationScreen.hasAttribute('data-bb-effect') ? animationScreen.getAttribute('data-bb-effect') : undefined;
+				// Reverse the animation
+				if (previousEffect) {
+					screen.style['z-index'] = '-100';
+					if (previousEffect.toLowerCase() == 'fade'){
+						animationScreen.setAttribute('data-bb-effect','fade-out');
+					}else if (previousEffect.toLowerCase() == 'slide-left'){
+						animationScreen.setAttribute('data-bb-effect','slide-out-right');
+					} else if (previousEffect.toLowerCase() == 'slide-right')  {
+						animationScreen.setAttribute('data-bb-effect','slide-out-left');
+					} else if (previousEffect.toLowerCase() == 'slide-up')  {
+						animationScreen.setAttribute('data-bb-effect','slide-out-down');
+					}  else if (previousEffect.toLowerCase() == 'slide-down') {
+						animationScreen.setAttribute('data-bb-effect','slide-out-up');
+					} 
+				}				
+			} else {
+				animationScreen = screen;
+			}
+			animationScreen.popping = popping;
+			if (animationScreen.hasAttribute('data-bb-effect')) {
+				// see if there is a display effect
+				effect = animationScreen.getAttribute('data-bb-effect');
+				if (effect) {
+					effect = effect.toLowerCase();
+				
+					if (effect == 'fade') {
+						effectToApply = bb.screen.fadeIn;
+					} else if (effect == 'fade-out') {
+						effectToApply = bb.screen.fadeOut;
+					} else {
+						switch (effect) {
+						case 'slide-left':
+							effectToApply = bb.screen.slideLeft;
+							break;
+						case 'slide-out-left':
+							effectToApply = bb.screen.slideOutLeft;
+							break;
+						case 'slide-right':
+							effectToApply = bb.screen.slideRight;
+							break;
+						case 'slide-out-right':
+							effectToApply = bb.screen.slideOutRight;
+							break;
+						case 'slide-up':
+							effectToApply = bb.screen.slideUp;
+							break;
+						case 'slide-out-up':
+							effectToApply = bb.screen.slideOutUp;
+							break;
+						case 'slide-down':
+							effectToApply = bb.screen.slideDown;
+							break;
+						case 'slide-out-down':
+							effectToApply = bb.screen.slideOutDown;
+							break;
+						}
+					}
+
+					animationScreen.style.display = 'inline'; // This is a wierd hack
+					
+					// Listen for when the animation ends so that we can clear the previous screen
+					if (effectToApply) {
+						// Create our overlay
+						overlay = document.createElement('div');
+						animationScreen.overlay = overlay;
+						overlay.setAttribute('class','bb-transition-overlay');
+						document.body.appendChild(overlay);
+						// Add our listener and animation state
+						bb.screen.animating = true;
+						animationScreen.doEndAnimation = function() {
+								var s = this.style;
+								bb.screen.animating = false;	
+								// Remove our overlay
+								document.body.removeChild(this.overlay);
+								this.overlay = null;
+								// Only remove the screen at the end of animation "IF" it isn't the only screen left
+								if (bb.screens.length > 1) {
+									if (!this.popping) {
+										bb.removePreviousScreenFromDom();
+										// Clear style changes that may have been made for the animation
+										s.left = '';
+										s.right = '';
+										s.top = '';
+										s.bottom = '';
+										s.width = '';
+										s.height = '';
+										s['-webkit-animation-name'] = '';
+										s['-webkit-animation-duration'] = '';
+										s['-webkit-animation-timing-function'] = ''; 
+										s['-webkit-transform'] = '';
+									} else {
+										this.style.display = 'none';
+										this.parentNode.parentNode.removeChild(this.parentNode);
+										// Pop it from the stack
+										bb.screens.pop();	
+										screen.style['z-index'] = '';
+										// The container of bb.screens might be destroyed because every time re-creating even when the pop-up screen.
+										bb.screens[bb.screens.length-1].container = container;  
+									}
+								} else if (bb.screens.length <= 1) {
+									// Clear style changes that may have been made for the animation
+									s.left = '';
+									s.right = '';
+									s.top = '';
+									s.bottom = '';
+									s.width = '';
+									s.height = '';
+									s['-webkit-animation-name'] = '';
+									s['-webkit-animation-duration'] = '';
+									s['-webkit-animation-timing-function'] = ''; 
+									s['-webkit-transform'] = '';
+								}
+								
+								this.removeEventListener('webkitAnimationEnd',this.doEndAnimation);
+								bb.createScreenScroller(screen); 
+							};
+						animationScreen.doEndAnimation = animationScreen.doEndAnimation.bind(animationScreen);
+						animationScreen.addEventListener('webkitAnimationEnd',animationScreen.doEndAnimation);
+						
+						effectToApply.call(this, animationScreen);
+					}
+				} 
+								
+			} 
+		} 
+		
+		// Fire the ondomready after the element is added to the DOM and we've set our animation flags
+		if (bb.options.ondomready) {
+			bb.domready.container = container;
+			bb.domready.id = id;
+			bb.domready.params = params;
+			setTimeout(bb.domready.fire, 1); 
+		} else {
+			setTimeout(bb.domready.fireEventsOnly, 1);
+		}
+		
+		// If an effect was applied then the popping will be handled at the end of the animation
+		if (!effectToApply) {
+			if (!popping) {
+				if (bb.screens.length > 1) {
+					bb.removePreviousScreenFromDom();
+				}
+			} else if (popping) {
+				screen.style['z-index'] = '';
+				
+				var currentScreen = bb.screens[bb.screens.length-1].container;
+				currentScreen.parentNode.removeChild(currentScreen);
+				// Pop it from the stack
+				bb.screens.pop();	
+				// The container of bb.screens might be destroyed because every time re-creating even when the pop-up screen.
+				bb.screens[bb.screens.length-1].container = container; 
+			}
+			bb.createScreenScroller(screen); 
+		}
+	},
+	
+	// Function pointer to allow us to asynchronously fire ondomready
+	domready : {
+	
+		container : null,
+		id : null,
+		params : null,
+		
+		fire : function() {
+			if (bb.screen.animating) {
+				setTimeout(bb.domready.fire, 250);
+				return;
+			}
+			
+			// Raise an internal event to let the rest of the framework know that the dom is ready
+			var evt = document.createEvent('Events');
+			evt.initEvent('bbuidomready', true, true);
+			document.dispatchEvent(evt);
+			// Fire our list event
+			evt = document.createEvent('Events');
+			evt.initEvent('bbuilistready', true, true);
+			document.dispatchEvent(evt);
+			// Fire our event
+			bb.options.ondomready(bb.domready.container, bb.domready.id, bb.domready.params);
+			bb.domready.container = null;
+			bb.domready.id = null;	
+		    bb.domready.params = null;
+			// Raise an internal event to let the rest of the framework know that the dom has been processed
+			evt = document.createEvent('Events');
+			evt.initEvent('bbuidomprocessed', true, true);
+			document.dispatchEvent(evt);
+		},
+		
+		fireEventsOnly : function() {
+			if (bb.screen.animating) {
+				setTimeout(bb.domready.fireEventsOnly, 250);
+				return;
+			}
+			// Raise an internal event to let the rest of the framework know that the dom is ready
+			var evt = document.createEvent('Events');
+			evt.initEvent('bbuidomready', true, true);
+			document.dispatchEvent(evt);
+			// Fire our list event
+			evt = document.createEvent('Events');
+			evt.initEvent('bbuilistready', true, true);
+			document.dispatchEvent(evt);
+			// Raise an internal event to let the rest of the framework know that the dom has been processed
+			evt = document.createEvent('Events');
+			evt.initEvent('bbuidomprocessed', true, true);
+			document.dispatchEvent(evt);
+		}
+	},
+	
+	// Creates the scroller for the screen
+	createScreenScroller : function(screen) {  
+		var scrollWrapper = screen.bbUIscrollWrapper;
+		if (scrollWrapper) {
+			// Only apply iScroll if it is the PlayBook
+			if (bb.device.isPlayBook) {
+				var scrollerOptions = {hideScrollbar:true,fadeScrollbar:true, onBeforeScrollStart: function (e) {
+					var target = e.target;
+					// Don't scroll the screen when touching in our drop downs for BB10
+					if (target.parentNode && target.parentNode.getAttribute('class') == 'bb-bb10-dropdown-items') {
+						return;
+					}
+					
+					while (target.nodeType != 1) target = target.parentNode;
+
+					if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA' && target.tagName != 'AUDIO' && target.tagName != 'VIDEO') {
+						e.preventDefault();
+						// ensure we remove focus from a control if they touch outside the control in order to make the virtual keyboard disappear
+						var activeElement = document.activeElement;
+						if (activeElement) {
+							if (activeElement.tagName == 'SELECT' || activeElement.tagName == 'INPUT' || activeElement.tagName == 'TEXTAREA' || activeElement.tagName == 'AUDIO' || activeElement.tagName == 'VIDEO') {
+								activeElement.blur();
+							}
+						}
+					} 
+				},
+				onScrollEnd: function(e) {
+					// Raise an internal event to let the rest of the framework know that content is scrolling
+					evt = document.createEvent('Events');
+					evt.initEvent('bbuiscrolling', true, true);
+					document.dispatchEvent(evt);
+				},
+				onScrollMove: function(e) {
+					if (screen.onscroll) {
+						screen.onscroll(e);
+					}
+					// Raise an internal event to let the rest of the framework know that content is scrolling
+					evt = document.createEvent('Events');
+					evt.initEvent('bbuiscrolling', true, true);
+					document.dispatchEvent(evt);
+				}};
+				bb.scroller = new iScroll(scrollWrapper, scrollerOptions); 
+			} else  {
+				// Use the built in inertial scrolling with elastic ends
+				bb.scroller = null;
+				scrollWrapper.style['-webkit-overflow-scrolling'] = '-blackberry-touch';
+				scrollWrapper.onscroll = function(e) {
+						if (screen.onscroll) {
+							screen.onscroll(e);
+						}
+					};
+			}
+		}
+	},  
+
+	// Clear the scroller objects
+	clearScrollers: function() {
+		// first clear our dropdown scrollers
+		var scroller;
+		for (var i = bb.dropdownScrollers -1; i > -1; i--) {
+			scroller = bb.dropdownScrollers[i];
+			scroller.destroy();
+			scroller = null;
+			bb.dropdownScrollers.pop();
+		}
+	},
+	
+	// Remove the topmost screen from the dom
+	removeTopMostScreenFromDom: function() {
+		var numItems = bb.screens.length,
+			oldScreen = document.getElementById(bb.screens[numItems -1].guid);	
+		document.body.removeChild(oldScreen);
+	},
+	
+	// Remove the previous screen from the dom
+	removePreviousScreenFromDom: function() {
+		var numItems = bb.screens.length,
+			oldScreen,
+			stepBack;	
+		if (numItems == 1) return; // There is only one screen on the stack
+		stepBack = (numItems > 1) ? 2 : 1;
+		oldScreen = document.getElementById(bb.screens[numItems - stepBack].guid);
+		if (oldScreen) {
+			document.body.removeChild(oldScreen);
+		}
+	},
+	
+    // Add a new screen to the stack
+    pushScreen: function (url, id, params) {
+		var i,
+			listener;
+			
+		// Remove our old screen scripts
+        bb.removeLoadedScripts();
+		
+		// Clear any window listeners
+		for (i = 0 ; i < bb.windowListeners.length; i++) {
+			listener = bb.windowListeners[i];
+			window.removeEventListener(listener.name, listener.eventHandler, false);
+		}
+		bb.windowListeners = [];
+		
+		// Clear any document listeners
+		for (i = 0 ; i < bb.documentListeners.length; i++) {
+			listener = bb.documentListeners[i];
+			document.removeEventListener(listener.name, listener.eventHandler, false);
+		}
+		bb.documentListeners = [];
+		
+		// Clear other screen items
+		bb.menuBar.clearMenu();
+        var numItems = bb.screens.length,
+			currentScreen;
+        if (numItems > 0) {
+			bb.screen.overlay = null;
+			bb.screen.tabOverlay = null;
+			bb.clearScrollers();			
+			if (bb.screen.contextMenu) {
+				bb.screen.contextMenu = null;
+			}
+        }
+		
+        // Add our screen to the stack
+        var guid = bb.guidGenerator(),
+			container = bb.loadScreen(url, id, false, guid, params);
+		bb.screens.push({'id' : id, 'url' : url, 'scripts' : container.scriptIds, 'container' : container, 'guid': guid, 'params' : params});    
+    },
+
+    // Pop a screen from the stack
+    popScreen: function() {
+		var numItems = bb.screens.length,
+			i,
+			listener;
+        if (numItems > 1) {
+            bb.removeLoadedScripts();
+			bb.clearScrollers();
+		    bb.menuBar.clearMenu();
+			bb.screen.overlay = null;
+			bb.screen.tabOverlay = null;
+			
+			// Clear any window listeners
+			for (i = 0 ; i < bb.windowListeners.length; i++) {
+				listener = bb.windowListeners[i];
+				window.removeEventListener(listener.name, listener.eventHandler, false);
+			}
+			bb.windowListeners = [];
+			
+			// Clear any document listeners
+			for (i = 0 ; i < bb.documentListeners.length; i++) {
+				listener = bb.documentListeners[i];
+				document.removeEventListener(listener.name, listener.eventHandler, false);
+			}
+			bb.documentListeners = [];
+			
+            // Retrieve our new screen
+            var display = bb.screens[numItems-2],
+                newScreen = bb.loadScreen(display.url, display.id, true, display.guid, display.params, display);
+					
+        } else {
+            if (blackberry) {
+                blackberry.app.exit();
+            }
+        }
+    },
+
+    removeLoadedScripts: function() {
+        // pop the old item
+        var numItems = bb.screens.length;
+        if (numItems > 0) {
+            var currentStackItem = bb.screens[numItems-1],
+                current = document.getElementById(currentStackItem.guid);
+
+            // Remove any JavaScript files
+            for (var i = 0; i < currentStackItem.scripts.length; i++) {
+                var bbScript = currentStackItem.scripts[i],
+                    scriptTag = document.getElementById(bbScript.id);
+
+				// Call the unload function if any is defined
+                if (bbScript.onunload) {
+                    eval(bbScript.onunload);
+                }
+                if (scriptTag) {
+					document.body.removeChild(scriptTag);
+				}
+            }
+        }
+    },
+	
+	innerHeight: function() {
+		// Orientation is backwards between playbook and BB10 smartphones
+		if (bb.device.isPlayBook) {
+			// Hack for ripple
+			if (!window.orientation) {
+				return window.innerHeight;
+			} else if (window.orientation == 0 || window.orientation == 180) {
+				return 600;
+			} else if (window.orientation == -90 || window.orientation == 90) {
+				return 1024;
+			}
+		} else {
+			return window.innerHeight;
+		}
+	},
+	
+	innerWidth: function() {
+		// Orientation is backwards between playbook and BB10 smartphones
+		if (bb.device.isPlayBook) {
+			// Hack for ripple
+			if (!window.orientation) {
+				return window.innerWidth;
+			} else if (window.orientation == 0 || window.orientation == 180) {
+				return 1024;
+			} else if (window.orientation == -90 || window.orientation == 90) {
+				return 600;
+			}
+		} else {
+			return window.innerWidth;
+		}
+	},
+	
+	// returns 'landscape' or 'portrait'
+	getOrientation: function() {
+		if (bb.device.is720x720) return 'portrait';
+		// Orientation is backwards between playbook and BB10 smartphones
+		if (bb.device.isPlayBook) {
+			// Hack for ripple
+			if (!window.orientation) {
+				return (window.innerWidth > window.innerHeight) ? 'landscape' : 'portrait';
+			} else if (window.orientation == 0 || window.orientation == 180) {
+				return 'landscape';
+			} else if (window.orientation == -90 || window.orientation == 90) {
+				return 'portrait';
+			}
+		} else {
+			if (window.orientation == undefined) {
+				return (window.innerWidth > window.innerHeight) ? 'landscape' : 'portrait';
+			} else if (window.orientation == 0 || window.orientation == 180) {
+				return 'portrait';
+			} else if (window.orientation == -90 || window.orientation == 90) {
+				return 'landscape';
+			}
+		}
+	},
+	
+	cutHex : function(h) {
+		return (h.charAt(0)=="#") ? h.substring(1,7):h
+	},
+	
+	guidGenerator : function() {
+		var S4 = function() {
+		   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+		};
+		return (S4()+S4()+S4()+S4()+S4()+S4()+S4()+S4());
+	},
+	
+	refresh : function() {
+		if (bb.scroller) {
+			bb.scroller.refresh();
+		}
+	},
+	
+	isScrolledIntoView : function(element) {
+		var offsetTop = 0,
+			target = element;
+		if (target.offsetParent) {
+			do {
+				offsetTop  += target.offsetTop;
+				if (target.scrollTop) {
+					offsetTop -= target.scrollTop;
+				}
+				// PlayBook calculation
+				if (bb.device.isPlayBook) {
+					if (target.scroller) {
+						offsetTop += target.scroller.y;
+					} else if (target.bbUIscrollWrapper) {
+						offsetTop += bb.scroller.y;
+					}
+				}
+			} while (target = target.offsetParent);
+		}
+		return offsetTop < bb.innerHeight();
+	}
+};
+
+Function.prototype.bind = function(object){ 
+  var fn = this; 
+  return function(){ 
+    return fn.apply(object, arguments); 
+  }; 
+}; 
+// Apply styling to an action bar
+bb.actionBar = {
+
+	apply: function(actionBar, screen) {
+		
+		var actions = actionBar.querySelectorAll('[data-bb-type=action]'),
+			mainBarButtons = [],
+			overflowButtons = [],
+			mainBarTabs = [],
+			overflowTabs = [],
+			action,
+			target,
+			caption,
+			display,
+			style,
+			lastStyle,
+			tabRightShading,
+			backBtn,
+			actionContainer = actionBar,
+			btnWidth,
+			icon,
+			j,
+			orientation = bb.getOrientation(),
+			slideLabel = document.createElement('div'),
+			slideText = document.createElement('div');
+			
+		actionBar.isVisible = true;
+		actionBar.setAttribute('class','bb-action-bar bb-action-bar-'+orientation+' bb-action-bar-dark');
+		actionBar.mainBarTabs = mainBarTabs;
+		actionBar.mainBarButtons = mainBarButtons;
+		actionBar.overflowButtons = overflowButtons;
+		actionBar.overflowTabs = overflowTabs;
+		
+		// Create our box shadow above the action bar
+		actionBar.dropShadow = document.createElement('div');
+		actionBar.dropShadow.setAttribute('class','bb-action-bar-drop-shadow');
+		screen.appendChild(actionBar.dropShadow);
+		
+		// Handle any press-and-hold events
+		actionBar.oncontextmenu = function(contextEvent) {
+			var node = contextEvent.srcElement,
+				parentNode = node.parentNode;
+			// Loop up to the parent node.. if it is this action bar then prevent default
+			if (!parentNode) return;
+			while (parentNode) {
+				if (parentNode == this) {
+					contextEvent.preventDefault();
+					break;
+				}
+				parentNode = parentNode.parentNode;
+			}			
+		};
+		actionBar.oncontextmenu = actionBar.oncontextmenu.bind(actionBar);
+		window.addEventListener('contextmenu', actionBar.oncontextmenu);
+		bb.windowListeners.push({name: 'contextmenu', eventHandler: actionBar.oncontextmenu});
+		
+		// Create our sliding label area for Q10
+		slideLabel.setAttribute('class','bb-action-bar-slide-label');
+		actionBar.slideLabel = slideLabel;
+		slideText.setAttribute('class','bb-action-bar-slide-label-text');
+		actionBar.slideText = slideText;
+		actionBar.parentNode.appendChild(slideLabel);
+		actionBar.parentNode.appendChild(slideText);
+		actionBar.slideUpShown = false;
+		
+		// Timer for the slide up label for Q10
+		actionBar.doLabelTimer = function() {
+			this.slideUpShown = true;
+			this.slideLabel.style.height = '48px';
+			this.slideText.style.height = '48px';
+			this.slideText.style.visibility = 'visible';
+		};
+		actionBar.doLabelTimer = actionBar.doLabelTimer.bind(actionBar);
+		// Handles the closing of the label bar for Q10
+		actionBar.doTouchEnd = function() {
+			if (this.timer) clearTimeout(this.timer);
+			if (this.slideUpShown) {
+				this.slideUpShown = false;
+				this.slideLabel.style.height = '0px';
+				this.slideText.style.visibility = 'hidden';
+				this.slideText.style.height = '0px';
+			}
+		}
+		actionBar.doTouchEnd = actionBar.doTouchEnd.bind(actionBar);
+		// Make the label appear on the press and hold for Q10
+		actionBar.showLabel = function(actionItem, text) {
+			if (bb.device.is720x720) {
+				var computedStyle = window.getComputedStyle(actionItem);
+				this.slideText.innerHTML = text;
+				this.slideText.style.width = parseInt(computedStyle.width)+'px';
+				this.slideText.style['margin-left'] = (bb.actionBar.getBackBtnWidth(this.backBtn) + actionItem.offsetLeft) + 'px';
+				this.timer = setTimeout(this.doLabelTimer,1000);	
+			}
+		}
+		actionBar.showLabel = actionBar.showLabel.bind(actionBar);
+		
+					
+		// Gather our action bar and action overflow tabs and buttons
+		for (j = 0; j < actions.length; j++) {
+			action = actions[j];
+			if (action.hasAttribute('data-bb-style')) {
+				style = action.getAttribute('data-bb-style').toLowerCase();
+				if (style == 'button') {
+					if (action.hasAttribute('data-bb-overflow') && (action.getAttribute('data-bb-overflow').toLowerCase() == 'true')) {
+						overflowButtons.push(action);
+					} else {
+						mainBarButtons.push(action);
+					}
+				} else {
+					if (action.hasAttribute('data-bb-overflow') && (action.getAttribute('data-bb-overflow').toLowerCase() == 'true')) {
+						overflowTabs.push(action);
+					} else {
+						mainBarTabs.push(action);
+					}
+				}
+			}
+		}
+					
+		// Create the back button if it has one and there are no tabs in the action bar
+		if (actionBar.hasAttribute('data-bb-back-caption') && actionBar.querySelectorAll('[data-bb-style=tab]').length == 0) {		
+			var chevron,
+				backCaption,
+				backslash,
+				backHighlight;
+			backBtn = document.createElement('div');
+			backBtn.setAttribute('class','bb-action-bar-back-button bb-action-bar-back-button-dark bb-action-bar-back-button-'+orientation);
+			backBtn.onclick = function () {
+					window.setTimeout(bb.popScreen,0);
+				};
+			actionBar.backBtn = backBtn;
+			// Create and add the chevron to the back button
+			chevron = document.createElement('div');
+			chevron.setAttribute('class','bb-action-bar-back-chevron-dark');
+			backBtn.appendChild(chevron);
+			// Create and add our back caption to the back button
+			backCaption = document.createElement('div');
+			backCaption.setAttribute('class','bb-action-bar-back-text bb-action-bar-back-text-'+orientation);
+			backCaption.innerHTML = actionBar.getAttribute('data-bb-back-caption');
+			backBtn.backCaption = backCaption;
+			backBtn.appendChild(backCaption);
+			// Create our highlight for touch
+			backHighlight = document.createElement('div');
+			backHighlight.setAttribute('class','bb-action-bar-back-button-highlight');
+			backHighlight.style['position'] = 'absolute';
+			backHighlight.style['width'] = bb.device.is1024x600 ? '4px' : '8px';
+			backHighlight.style['background-color'] = 'transparent';
+			
+			// Use this to update dimentions on orientation change
+			backBtn.updateHighlightDimensions = function(orientation) {
+						if (bb.device.is1024x600) {
+							backHighlight.style['height'] = orientation == 'portrait' ? '57px' : '57px';
+							backHighlight.style['top'] = '8px';
+						} else if (bb.device.is720x720) {
+							backHighlight.style['height'] = '78px';
+							backHighlight.style['top'] = '15px';
+						} else {
+							backHighlight.style['height'] = orientation == 'portrait' ? '110px' : '70px';
+							backHighlight.style['top'] = '15px';
+						}				
+					};
+			backBtn.updateHighlightDimensions = backBtn.updateHighlightDimensions.bind(backBtn);
+			backBtn.backHighlight = backHighlight;
+			backBtn.updateHighlightDimensions(orientation);
+			
+			backBtn.appendChild(backHighlight);
+			backBtn.ontouchstart = function() {
+					this.backHighlight.style['background-color'] = bb.options.highlightColor;				
+			}
+			backBtn.ontouchend = function() {
+					this.backHighlight.style['background-color'] = 'transparent';				
+			}
+			
+			// Create our backslash
+			backslash = document.createElement('div');
+			backslash.setAttribute('class','bb-action-bar-back-slash-dark bb-action-bar-back-slash-'+orientation); 
+			backBtn.backslash = backslash;
+			
+			// Create a table to hold the back button and our actions
+			var table = document.createElement('table'),
+				tr = document.createElement('tr'),
+				td = document.createElement('td');
+			actionBar.appendChild(table);
+			table.appendChild(tr);
+			table.setAttribute('class','bb-action-bar-table');
+			// Set Back Button widths
+			if (bb.device.is1024x600) {
+				td.style.width = (bb.actionBar.getBackBtnWidth(backBtn) - 16)+'px';
+			} else {
+				td.style.width = (bb.actionBar.getBackBtnWidth(backBtn) - 33)+'px';
+			}
+			tr.appendChild(td);
+			backBtn.innerChevron = td;
+			td.appendChild(backBtn);
+			// Create the container for our backslash
+			td = document.createElement('td');
+			// Set backslash widths
+			td.style.width = bb.device.is1024x600 ? 16 + 'px' : 33+'px';
+			backslash.style['background-color'] = bb.options.shades.darkOutline;
+			tr.appendChild(td);
+			td.appendChild(backslash);
+			// Create the container for the rest of the actions
+			td = document.createElement('td');
+			td.style.width = '100%';
+			tr.appendChild(td);
+			actionContainer = td;
+			// Add the rest of the actions to the second column
+			for (j = 0; j < actions.length; j++) {
+				action = actions[j];
+				td.appendChild(action);
+			}
+		}
+
+		// If we have "tab" actions marked as overflow we need to show the more tab button
+		if (overflowTabs.length > 0) {
+			actionBar.tabOverflowMenu = bb.tabOverflow.create(screen);
+			actionBar.tabOverflowMenu.actionBar = actionBar;
+			// Create our action bar overflow button
+			action = document.createElement('div');
+			action.actionBar = actionBar;
+			action.tabOverflowMenu = actionBar.tabOverflowMenu;
+			action.setAttribute('data-bb-type','action');
+			action.setAttribute('data-bb-style','tab');
+			action.setAttribute('data-bb-img','overflow');
+			action.onclick = function() {
+							this.tabOverflowMenu.show();
+						}
+			// Assign our tab overflow button
+			actionBar.tabOverflowBtn = action;
+			// Insert our more button
+			actionContainer.insertBefore(action, actionContainer.firstChild);
+		}
+		
+		// If we have "button" actions marked as overflow we need to show the more menu button
+		if (overflowButtons.length > 0) {
+			actionBar.menu = bb.actionOverflow.create(screen);
+			actionBar.appendChild(actionBar.menu);
+			// Create our action bar overflow button
+			action = document.createElement('div');
+			action.menu = actionBar.menu;
+			action.menu.actionBar = actionBar;
+			
+			action.setAttribute('data-bb-type','action');
+			action.setAttribute('data-bb-style','button');
+			action.setAttribute('data-bb-img','overflow');
+			action.onclick = function() {
+							this.menu.show();
+						}
+			// Assign our action overflow button
+			actionBar.actionOverflowBtn = action;
+			// Insert our action overflow button
+			actionContainer.appendChild(action);
+		}
+		
+		// Determines how much width there is to use not including built in system buttons on the bar
+		actionBar.getUsableWidth = function() {
+				return bb.innerWidth() - bb.actionBar.getBackBtnWidth(this.backBtn) - bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn) - bb.actionBar.getTabOverflowBtnWidth(this.tabOverflowBtn);		
+			}
+		actionBar.getUsableWidth = actionBar.getUsableWidth.bind(actionBar);
+		
+		// This function replaces 'portrait' with 'landscape' or vica-versa
+		actionBar.switchOrientationCSS = function (value) {
+								if (value) {
+									var orientation = bb.getOrientation();
+									if (orientation == 'portrait') {
+										value = value.replace('landscape', 'portrait');
+									} else {
+										value = value.replace('portrait', 'landscape');
+									}
+								}
+								return value;
+							};
+		actionBar.switchOrientationCSS = actionBar.switchOrientationCSS.bind(actionBar);
+		
+		// Make sure we move when the orientation of the device changes
+		actionBar.reLayoutActionBar = function(event) {
+								var i,
+									action,
+									tab,
+									lastActionType = 'button',
+									actionWidth = 0, 
+									margins = 2,
+									temp,
+									max = 5,
+									count = 0,
+									totalUsedWidth = 0,
+									calculatedWidth = 0,
+									orientation = bb.getOrientation();
+								
+								// Re-adjust dropshadow
+								this.dropShadow.style.bottom = (bb.screen.getActionBarHeight() - 1) + 'px';
+								this.dropShadow.style.display = actionBar.isVisible ? 'block' : '';
+									
+								// First calculate how many slots on the action bar are shown
+								if (this.actionOverflowBtn) max--;
+								if (this.backBtn) max--;
+								if (this.tabOverflowBtn) {
+									max--;
+									this.tabOverflowBtn.dropShadow.style.display = '';
+									this.tabOverflowBtn.dropShadow.style.height = bb.screen.getActionBarHeight() + 'px';
+								}
+								// Count our tabs that take priority
+								for (i = 0; i < this.mainBarTabs.length; i++) {
+									if (count == max) break;
+									tab = this.mainBarTabs[i];
+									if (tab.visible == true) {
+										count++;
+									}							
+								}
+								// Then count out buttons
+								for (i = 0; i < this.mainBarButtons.length; i++) {
+									if (count == max) break;
+									action = this.mainBarButtons[i];
+									if (action.visible == true) {
+										count++;
+									}							
+								}
+								// Calculate our action width
+								count = (count == 0) ? 1 : count;
+								actionWidth = Math.floor(this.getUsableWidth()/count);
+								
+								// Set the style for the action bar
+								temp = this.getAttribute('class');
+								temp = this.switchOrientationCSS(temp);
+								this.setAttribute('class',temp);
+								if (this.isVisible) {
+									bb.screen.currentScreen.outerScrollArea.style['bottom'] = bb.screen.getActionBarHeight() + 'px';
+									if (bb.scroller) {
+										bb.scroller.refresh();
+									}
+								}
+								
+								// Update our orientation for the back button
+								if (this.backBtn) {
+									// Back Button
+									temp = this.backBtn.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.backBtn.setAttribute('class',temp);
+									this.backBtn.updateHighlightDimensions(orientation);
+									// Back caption
+									temp = this.backBtn.backCaption.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.backBtn.backCaption.setAttribute('class',temp);
+									// Back slash
+									temp = this.backBtn.backslash.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.backBtn.backslash.setAttribute('class',temp);
+									// Inner Chevron
+									if (bb.device.is1024x600) {
+										this.backBtn.innerChevron.style.width = (bb.actionBar.getBackBtnWidth(this.backBtn) - 16)+'px';
+									} else {
+										this.backBtn.innerChevron.style.width = (bb.actionBar.getBackBtnWidth(this.backBtn) - 33)+'px';
+									}
+								}
+								
+								// Reset our count of available slots
+								count = 0;
+							
+								// Style our visible tabs
+								calculatedWidth = actionWidth - 2; // 2 represents the tab margins
+								for (i = 0; i < this.mainBarTabs.length; i++) {
+									tab = this.mainBarTabs[i];
+									if ((count < max) && (tab.visible == true)){
+										totalUsedWidth += calculatedWidth + 2;
+										tab.style.width = calculatedWidth + 'px'; 
+										// Update tab orientation
+										tab.normal = this.switchOrientationCSS(tab.normal);
+										tab.highlight = this.switchOrientationCSS(tab.highlight);
+										temp = tab.tabInner.getAttribute('class');
+										temp = this.switchOrientationCSS(temp);
+										tab.tabInner.setAttribute('class',temp);
+										// Update display text orientation
+										temp = tab.display.getAttribute('class');
+										temp = this.switchOrientationCSS(temp);
+										tab.display.setAttribute('class',temp);
+										// Update our flags
+										lastActionType = 'tab';
+										count++;
+									} else {
+										tab.style.display = 'none';
+										tab.visible = false;
+									};
+								}
+								
+								// Style our visible buttons
+								calculatedWidth = actionWidth - 1; // 1 represents the button margins
+								for (i = 0; i < this.mainBarButtons.length; i++) {
+									action = this.mainBarButtons[i];
+									if ((count < max) && (action.visible == true)){
+										totalUsedWidth += calculatedWidth + 1;
+										action.style.width = calculatedWidth + 'px'; 
+										action.highlight.style['width'] = (actionWidth * 0.6) + 'px';
+										action.highlight.style['margin-left'] = (actionWidth * 0.2) + 'px';
+										if (lastActionType == 'tab') {
+											action.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark bb-action-bar-button-tab-left-dark';
+										} else {
+											action.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark';
+										}
+										action.setAttribute('class',action.normal);
+										// Update button orientation
+										action.normal = this.switchOrientationCSS(action.normal);
+										temp = action.getAttribute('class');
+										temp = this.switchOrientationCSS(temp);
+										action.setAttribute('class',temp);
+										// Update our flags
+										lastActionType = 'button';
+										count++;
+									} else {
+										action.style.display = 'none';
+										action.visible = false;
+									};
+								}
+								
+								// Adjust our tab overflow button
+								if (this.tabOverflowBtn) {
+									var tempWidth = bb.actionBar.getTabOverflowBtnWidth(this.tabOverflowBtn) -1;
+									totalUsedWidth += tempWidth + 2;
+									this.tabOverflowBtn.style.width = (tempWidth) + 'px';
+									// Update our tab
+									this.tabOverflowBtn.normal = this.switchOrientationCSS(this.tabOverflowBtn.normal);
+									this.tabOverflowBtn.highlight = this.switchOrientationCSS(this.tabOverflowBtn.highlight);
+									temp = this.tabOverflowBtn.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.tabOverflowBtn.setAttribute('class',temp);
+									temp = this.tabOverflowBtn.tabHighlight.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.tabOverflowBtn.tabHighlight.setAttribute('class',temp);
+									// Update display text
+									temp = this.tabOverflowBtn.display.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.tabOverflowBtn.display.setAttribute('class',temp);
+									// Update our icon
+									this.tabOverflowBtn.icon.normal = this.switchOrientationCSS(this.tabOverflowBtn.icon.normal);
+									temp = this.tabOverflowBtn.icon.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.tabOverflowBtn.icon.setAttribute('class',temp);
+									// See if this is the only tab on the action bar
+									if ((this.mainBarTabs.length == 0) && (this.mainBarButtons == 0)) {
+										this.tabOverflowBtn.dropShadow.style.display = 'block'
+									}
+								}
+								
+								// Adjust our action overflow button
+								if (this.actionOverflowBtn) {
+									if (lastActionType == 'tab') {
+										this.actionOverflowBtn.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark bb-action-bar-button-tab-left-dark';
+										this.actionOverflowBtn.style.width = (bb.innerWidth() - totalUsedWidth ) + 'px'; // 1 represents the button margins
+									} else {
+										this.actionOverflowBtn.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark';
+										this.actionOverflowBtn.style.width = (bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn) - 1 ) + 'px'; // 1 represents the button margins
+									}	
+									
+									this.actionOverflowBtn.highlight.style['width'] = (bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn) * 0.6) + 'px';
+									this.actionOverflowBtn.highlight.style['margin-left'] = (bb.actionBar.getActionOverflowBtnWidth(this.actionOverflowBtn) * 0.2) + 'px';
+									this.actionOverflowBtn.style.float = 'right';
+									this.actionOverflowBtn.setAttribute('class',this.actionOverflowBtn.normal);
+									// Update the action
+									this.actionOverflowBtn.normal = this.switchOrientationCSS(this.actionOverflowBtn.normal);
+									temp = this.actionOverflowBtn.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.actionOverflowBtn.setAttribute('class',temp);
+									// Update the icon
+									temp = this.actionOverflowBtn.icon.getAttribute('class');
+									temp = this.switchOrientationCSS(temp);
+									this.actionOverflowBtn.icon.setAttribute('class',temp);
+								}
+							};
+		actionBar.reLayoutActionBar = actionBar.reLayoutActionBar.bind(actionBar);	
+		window.addEventListener('orientationchange', actionBar.reLayoutActionBar,false);
+		// Add listener for removal on popScreen
+		bb.windowListeners.push({name: 'orientationchange', eventHandler: actionBar.reLayoutActionBar});
+				
+		// Add setBackCaption function
+		actionBar.setBackCaption = function(value) {
+					this.setAttribute('data-bb-back-caption',value);
+					backCaption.innerHTML = value;		
+				};
+		actionBar.setBackCaption = actionBar.setBackCaption.bind(actionBar);  
+		
+		// Add setSelectedTab function
+		actionBar.setSelectedTab = function(tab) {
+					if (tab.getAttribute('data-bb-style') != 'tab') return;
+					bb.actionBar.highlightAction(tab);
+					if (tab.onclick) {
+						tab.onclick();
+					}
+				};
+		actionBar.setSelectedTab = actionBar.setSelectedTab.bind(actionBar);  
+		
+		// Add our hide function
+		actionBar.hide = function(tab) {
+					if (!this.isVisible) return;
+					this.style.display = 'none';
+					this.dropShadow.style.display = 'none';
+					this.slideLabel.style.display = 'none';
+					// Make the scroll area go right to the bottom of the displayed content
+					bb.screen.currentScreen.outerScrollArea.style['bottom'] = '0px';
+					this.isVisible = false;
+					if (bb.scroller) {
+						bb.scroller.refresh();
+					}
+				};
+		actionBar.hide = actionBar.hide.bind(actionBar); 
+		
+		// Add our show function
+		actionBar.show = function(tab) {
+					if (this.isVisible) return;
+					this.style.display = '';
+					this.dropShadow.style.display = 'block';
+					this.slideLabel.style.display = '';
+					// Resize the screen scrolling area to stop at the top of the action bar
+					bb.screen.currentScreen.outerScrollArea.style['bottom'] = bb.screen.getActionBarHeight() + 'px';
+					this.isVisible = true;
+					if (bb.scroller) {
+						bb.scroller.refresh();
+					}
+				};
+		actionBar.show = actionBar.show.bind(actionBar);
+		
+		// Add all our overflow tab actions
+		if (overflowTabs.length > 0 ) {
+			var clone;
+			// Add all our visible tabs if any so they are at the top of the list
+			for (j = 0; j < mainBarTabs.length; j++) {
+				action = mainBarTabs[j];
+				// Don't add the visible overflow tab
+				if (action.getAttribute('data-bb-img') != 'overflow') {
+					clone = action.cloneNode(true);					
+					clone.visibleTab = action;
+					clone.actionBar = actionBar;
+					actionBar.tabOverflowMenu.add(clone);
+				}
+			}		
+			// Now add all our tabs marked as overflow
+			for (j = 0; j < overflowTabs.length; j++) {
+				action = overflowTabs[j];
+				action.actionBar = actionBar;
+				actionBar.tabOverflowMenu.add(action);
+			}
+		}
+
+		// Add all of our overflow button actions
+		for (j = 0; j < overflowButtons.length; j++) {
+			action = overflowButtons[j];
+			actionBar.menu.add(action);
+		}
+		
+		// Apply all our tab styling
+		var tab,
+			tabInner;
+		for (j = 0; j < mainBarTabs.length; j++) {
+			tab = mainBarTabs[j];
+			caption = tab.innerHTML;
+			tab.actionBar = actionBar;
+			tab.visible = true;
+			tab.innerHTML = '';
+			tabInner = document.createElement('div');
+			tab.tabInner = tabInner;
+			tab.appendChild(tabInner);
+			tab.setAttribute('class','bb-action-bar-tab-outer' );
+			tab.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-tab-dark bb-action-bar-tab-normal-dark';
+			tab.highlight = tab.normal + ' bb-action-bar-tab-selected-dark';
+			tabInner.setAttribute('class',tab.normal);
+			// Tab initial visibility
+			tab.visible = true;
+			if (tab.hasAttribute('data-bb-visible') && (tab.getAttribute('data-bb-visible').toLowerCase() == 'false')) {
+				tab.visible = false;
+			} 
+			// Add the icon
+			icon = document.createElement('img');
+			icon.setAttribute('class','bb-action-bar-icon');
+			icon.setAttribute('src',tab.getAttribute('data-bb-img'));
+			tab.icon = icon;
+			tabInner.appendChild(icon);
+			// Set our caption
+			display = document.createElement('div');
+			display.setAttribute('class','bb-action-bar-action-display bb-action-bar-action-display-'+orientation);
+			display.innerHTML = caption;
+			tab.display = display;
+			tabInner.appendChild(display);
+		
+			// Get our selected state			
+			if (tab.hasAttribute('data-bb-selected') && (tab.getAttribute('data-bb-selected').toLowerCase() == 'true')) {
+				bb.actionBar.highlightAction(tab);
+			}
+			// Add our click listener
+			tab.addEventListener('click',function (e) {
+				bb.actionBar.highlightAction(this);
+			},false);
+			// Assign the setCaption function
+			tab.setCaption = function(value) {
+								this.display.innerHTML = value;
+								// Change the associated overflow item if one exists
+								if (this.actionBar.tabOverflowMenu) {
+									var tabs = this.actionBar.tabOverflowMenu.actions,
+										i,
+										target;
+									for (i = 0; i < tabs.length; i++) {
+										target = tabs[i];
+										if (target.visibleTab == this)  {
+											target.setCaption(value);
+										} 
+									}
+								}
+							};
+			tab.setCaption = tab.setCaption.bind(tab);
+			// Assign the getCaption function
+			tab.getCaption = function() {
+								return this.display.innerHTML;
+							};
+			tab.getCaption = tab.getCaption.bind(tab);	
+			// Assign the setImage function
+			tab.setImage = function(value) {
+								this.icon.setAttribute('src', value);
+								
+								// Change the associated overflow item if one exists
+								if (this.actionBar.tabOverflowMenu) {
+									var tabs = this.actionBar.tabOverflowMenu.actions,
+										i,
+										target;
+									for (i = 0; i < tabs.length; i++) {
+										target = tabs[i];
+										if (target.visibleTab == this)  {
+											target.setImage(value);
+										} 
+									}
+								}
+							};
+			tab.setImage = tab.setImage.bind(tab);
+			// Assign the getImage function
+			tab.getImage = function() {
+								return this.icon.getAttribute('src');
+							};
+			tab.getImage = tab.getImage.bind(tab);	
+			
+			// Add our hide() function
+			tab.hide = bb.actionBar.actionHide;
+			tab.hide = tab.hide.bind(tab);
+			
+			// Add our show() function
+			tab.show = bb.actionBar.actionShow;
+			tab.show = tab.show.bind(tab);
+			
+			// Handle press-and-hold on Q10
+			tab.ontouchstart = function() {
+					this.actionBar.showLabel(this,this.display.innerHTML);				
+			}
+			// Remove highlight when touch ends
+			tab.ontouchend = function() {
+					this.actionBar.doTouchEnd();
+			}			
+		}
+		
+		// Add our tab overflow buton styling if one exists
+		var tabOverflow;
+		if (actionBar.tabOverflowBtn) {
+			tabOverflow = actionBar.tabOverflowBtn;
+			caption = tabOverflow.innerHTML;
+			tabOverflow.actionBar = actionBar;
+			tabOverflow.visible = true;
+			tabOverflow.innerHTML = '';
+			tabInner = document.createElement('div');
+			tabOverflow.tabInner = tabInner;
+			tabOverflow.appendChild(tabInner);
+			tabOverflow.setAttribute('class','bb-action-bar-tab-outer' );
+			tabOverflow.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation +' bb-action-bar-tab-dark bb-action-bar-tab-normal-dark';
+			tabOverflow.highlight = tabOverflow.normal + ' bb-action-bar-tab-selected-dark';
+			tabInner.setAttribute('class',tabOverflow.normal);
+			// Add our drop shadow to show if only the tab Overflow is shown on the action bar
+			tabOverflow.dropShadow = document.createElement('div');
+			tabOverflow.dropShadow.setAttribute('class','bb-action-bar-button-tab-left-dark bb-action-bar-button-tab-overflow-only-shadow');
+			tabOverflow.parentNode.appendChild(tabOverflow.dropShadow);
+			// Add the icon
+			icon = document.createElement('img');
+			icon.setAttribute('class','bb-action-bar-icon');
+			// Set our transparent pixel
+			icon.setAttribute('src',bb.transparentPixel);
+			icon.normal = 'bb-action-bar-icon bb-action-bar-tab-overflow-dark bb-action-bar-tab-overflow-'+orientation;
+			icon.highlight = 'bb-action-bar-icon';
+			icon.setAttribute('class',icon.normal);
+			tabInner.appendChild(icon);
+			// Set our caption
+			display = document.createElement('div');
+			display.setAttribute('class','bb-action-bar-action-display bb-action-bar-action-display-'+orientation);
+			display.innerHTML = caption;
+			tabOverflow.display = display;
+			tabInner.appendChild(display);
+			tabOverflow.icon = icon;
+			display.innerHTML = '&nbsp;';
+			tabOverflow.display = display;
+			// Create our tab highlight div
+			tabOverflow.tabHighlight = document.createElement('div');
+			tabOverflow.tabHighlight.setAttribute('class','bb-action-bar-tab-overflow-dark bb-action-bar-tab-overflow-highlight bb-action-bar-tab-overflow-highlight-'+ orientation);
+			tabInner.appendChild(tabOverflow.tabHighlight);
+			tabOverflow.style.width = (bb.actionBar.getTabOverflowBtnWidth(tabOverflow) - 1) + 'px';
+			// Set our reset function
+			tabOverflow.reset = function() {
+						this.icon.setAttribute('src',bb.transparentPixel);
+						this.icon.setAttribute('class',this.icon.normal);
+						this.tabHighlight.style.display = 'none';
+						this.display.innerHTML = '&nbsp;';
+					};
+			tabOverflow.reset = tabOverflow.reset.bind(tabOverflow);
+			
+			// Handle press-and-hold on Q10
+			tabOverflow.ontouchstart = function() {
+					var text = ((this.display.innerHTML == '') || (this.display.innerHTML == '&nbsp;')) ? 'More' : this.display.innerHTML;
+					this.actionBar.showLabel(this,text);				
+			}
+			// Remove highlight when touch ends
+			tabOverflow.ontouchend = function() {
+					this.actionBar.doTouchEnd();
+			}			
+		}
+		
+		// Apply all our button styling
+		var button;
+		for (j = 0; j < mainBarButtons.length; j++) {
+			button = mainBarButtons[j];
+			button.actionBar = actionBar;
+			caption = button.innerHTML;
+			// Add the icon
+			icon = document.createElement('img');
+			icon.setAttribute('src',button.getAttribute('data-bb-img'));
+			icon.setAttribute('class','bb-action-bar-icon');
+			button.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark';
+			// Button initial visibility
+			button.visible = true;
+			if (button.hasAttribute('data-bb-visible') && (button.getAttribute('data-bb-visible').toLowerCase() == 'false')) {
+				button.visible = false;
+			} 
+			// Default settings
+			button.icon = icon;
+			button.innerHTML = '';
+			button.setAttribute('class',button.normal);
+			button.appendChild(icon);	
+			// Set our caption
+			display = document.createElement('div');
+			display.setAttribute('class','bb-action-bar-action-display');
+			display.innerHTML = caption;
+			button.display = display;
+			button.appendChild(display);
+			// Set our highlight
+			button.highlight = document.createElement('div');
+			button.highlight.setAttribute('class','bb-action-bar-action-highlight');
+			button.highlight.style['height'] = bb.device.is1024x600 ? '4px' : '8px';
+			button.highlight.style['background-color'] = 'transparent';
+			button.appendChild(button.highlight);			
+			// Assign the setCaption function
+			button.setCaption = function(value) {
+								this.display.innerHTML = value;
+							};
+			button.setCaption = button.setCaption.bind(button);	
+			// Assign the getCaption function
+			button.getCaption = function() {
+								return this.display.innerHTML;
+							};
+			button.getCaption = button.getCaption.bind(button);	
+			// Assign the setImage function
+			button.setImage = function(value) {
+								this.icon.setAttribute('src',value);
+							};
+			button.setImage = button.setImage.bind(button);
+			// Assign the setImage function
+			button.getImage = function() {
+								return this.icon.getAttribute('src');
+							};
+			button.getImage = button.getImage.bind(button);
+			// Add our hide() function
+			button.hide = bb.actionBar.actionHide;
+			button.hide = button.hide.bind(button);
+			// Add our show() function
+			button.show = bb.actionBar.actionShow;
+			button.show = button.show.bind(button);
+			
+			// Highlight on touch
+			button.ontouchstart = function() {
+					this.highlight.style['background-color'] = bb.options.highlightColor;	
+					this.actionBar.showLabel(this,this.display.innerHTML);				
+			}
+			// Remove highlight when touch ends
+			button.ontouchend = function() {
+					this.highlight.style['background-color'] = 'transparent';
+					this.actionBar.doTouchEnd();
+			}
+		}
+		
+		// Style our action overflow button
+		if (actionBar.actionOverflowBtn) {
+			actionOverflow = actionBar.actionOverflowBtn;
+			actionOverflow.actionBar = actionBar;
+			actionOverflow.visible = true;
+			caption = actionOverflow.innerHTML;
+			// Set our transparent icon
+			icon = document.createElement('img');
+			icon.setAttribute('src',bb.transparentPixel);
+			icon.setAttribute('class','bb-action-bar-icon bb-action-bar-overflow-button-dark bb-action-bar-overflow-button-'+orientation);
+			actionOverflow.icon = icon;
+			// Default settings
+			actionOverflow.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark';
+			actionOverflow.innerHTML = '';
+			actionOverflow.setAttribute('class',actionOverflow.normal);
+			actionOverflow.appendChild(icon);
+			// Set our caption
+			var display = document.createElement('div');
+			display.setAttribute('class','bb-action-bar-action-display');
+			display.innerHTML = caption;
+			actionOverflow.display = display;
+			actionOverflow.appendChild(display);
+			// Set our highlight
+			actionOverflow.highlight = document.createElement('div');
+			actionOverflow.highlight.setAttribute('class','bb-action-bar-action-highlight');
+			actionOverflow.highlight.style['height'] = bb.device.is1024x600 ? '4px' : '8px';
+			actionOverflow.highlight.style['background-color'] = 'transparent';
+			actionOverflow.appendChild(actionOverflow.highlight);
+			// Highlight on touch
+			actionOverflow.ontouchstart = function() {
+					this.highlight.style['background-color'] = bb.options.highlightColor;	
+					this.actionBar.showLabel(this,'More');						
+			}
+			// Remove highlight when touch ends
+			actionOverflow.ontouchend = function() {
+					this.highlight.style['background-color'] = 'transparent';	
+					this.actionBar.doTouchEnd();					
+			}		
+		}
+		// Center the action overflow items
+		if (actionBar.menu) {
+			actionBar.menu.centerMenuItems();
+		}
+		// Initialize the Tab Overflow
+		if (actionBar.tabOverflowMenu) {
+			actionBar.tabOverflowMenu.centerMenuItems();
+			actionBar.tabOverflowMenu.initSelected();
+		}
+		// Layout the action bar
+		actionBar.reLayoutActionBar();
+	},
+	
+	
+	actionShow: function() {
+		if (this.visible) return;
+		this.style.display = '';
+		this.visible = true;
+		this.actionBar.reLayoutActionBar();
+	},
+	
+	actionHide: function() {
+		if (!this.visible) return;
+		this.style.display = 'none';
+		this.visible = false;
+		this.actionBar.reLayoutActionBar();
+	},
+	
+	// Return the tab overflow button width based on orientation and screen resolution
+	getTabOverflowBtnWidth: function(button) {
+		if (!button) return 0;
+		
+		if (bb.device.is1024x600) {
+			return bb.getOrientation() == 'portrait' ? 77 : 123;
+		} else if (bb.device.is720x720) {
+			return 144;
+		} else {
+			return bb.getOrientation() == 'portrait' ? 154 : 256;
+		}
+	},
+	
+	// Return the action overflow button width based on orientation and screen resolution
+	getActionOverflowBtnWidth: function(button) {
+		if (!button) return 0;
+		
+		if (bb.device.is1024x600) {
+			return bb.getOrientation() == 'portrait' ? 77 : 123;
+		} else if (bb.device.is720x720) {
+			return 144;
+		} else {
+			return bb.getOrientation() == 'portrait' ? 154 : 256;
+		}
+	},
+	
+	// Return the back button width based on orientation and screen resolution
+	getBackBtnWidth: function(button) {
+		if (!button) return 0;
+		
+		if (bb.device.is1024x600) {
+			return bb.getOrientation() == 'portrait' ? 93 : 150;
+		} else if (bb.device.is720x720) {
+			return 174;
+		}else {
+			return bb.getOrientation() == 'portrait' ? 187 : 300;
+		}
+	},
+
+	// Apply the proper highlighting for the action
+	highlightAction: function (action, overflowAction) {
+		var i,
+			target,
+			tabs = action.actionBar.mainBarTabs;
+		
+		// First un-highlight the rest
+		for (i = 0; i < tabs.length; i++) {
+			target = tabs[i];
+			if (target != action) { 
+				bb.actionBar.unhighlightAction(target);
+			}					
+		}
+
+		// Un-highlight the overflow menu items
+		if (action.actionBar.tabOverflowMenu) {
+			tabs = action.actionBar.tabOverflowMenu.actions;
+			for (i = 0; i < tabs.length; i++) {
+				target = tabs[i];
+				if (target != overflowAction)  {
+					bb.actionBar.unhighlightAction(target);
+				} 
+			}
+			// Reset the overflow button
+			if (action.actionBar.tabOverflowBtn.tabInner) {
+				action.actionBar.tabOverflowBtn.tabInner.style['border-top-color'] = '';
+				action.actionBar.tabOverflowBtn.tabInner.setAttribute('class',action.actionBar.tabOverflowBtn.normal);
+			}
+		}
+		
+		// Now highlight this action
+		if (action.tabInner) {
+			action.tabInner.style['border-top-color'] = bb.options.highlightColor;
+			action.tabInner.setAttribute('class',action.highlight);
+		} else {
+			action.style['border-top-color'] = bb.options.highlightColor;
+			action.setAttribute('class',action.highlight);
+		}
+		action.selected = true;
+		
+		if (overflowAction) {
+			overflowAction.setAttribute('class', overflowAction.normal + ' bb10Highlight');
+			overflowAction.selected = true;
+		}
+		
+		// See if there was a tab overflow
+		if (action.actionBar.tabOverflowMenu && !overflowAction) {
+			if (action.actionBar.tabOverflowBtn && (action == action.actionBar.tabOverflowBtn)) {
+				overflowAction.setAttribute('class', overflowAction.normal + ' bb10Highlight');
+			} else {
+				tabs = action.actionBar.tabOverflowMenu.actions;
+				for (i = 0; i < tabs.length; i++) {
+					target = tabs[i];
+					if (target.visibleTab == action)  {
+						target.setAttribute('class', target.normal + ' bb10Highlight');
+					}
+				}
+			}
+		}
+		
+		// Reset the tab overflow
+		if (action.actionBar.tabOverflowBtn && action.actionBar.tabOverflowBtn.reset) {
+			action.actionBar.tabOverflowBtn.reset();
+		}
+	},
+	
+	// Apply the proper styling for an action that is no longer highlighted
+	unhighlightAction: function(action) {
+		var target;
+		// Check if it is a tab
+		if (action.tabInner) {
+			action.tabInner.style['border-top-color'] = '';
+			action.tabInner.setAttribute('class',action.normal);
+		} else {
+			action.style['border-top-color'] = '';
+			action.setAttribute('class',action.normal);
+		}
+		// See if there was a tab overflow
+		if (action.actionBar && action.actionBar.tabOverflowMenu) {
+			tabs = action.actionBar.tabOverflowMenu.actions;
+			for (i = 0; i < tabs.length; i++) {
+				target = tabs[i];
+				if (target.tabInner) {
+					target.tabInner.setAttribute('class', target.normal);
+				} else {
+					target.setAttribute('class', target.normal);
+				}
+				target.selected = false;
+			}
+		}
+	}
+};
+_bb_bbmBubble = {
+    // Apply our transforms to all BBM Bubbles
+    apply: function(elements) {
+        for (var i = 0; i < elements.length; i++) {
+            bb.bbmBubble.style(elements[i]);
+        }
+    },
+
+    style: function(outerElement) {
+		var placeholder, 
+			insidepanel, 
+			image, 
+			innerChildNode,
+			details; 
+		
+		// Style an indiviual item
+		outerElement.styleItem = function(innerChildNode) {
+			image = document.createElement('img');
+			image.setAttribute('src', innerChildNode.getAttribute('data-bb-img'));
+			
+			details = document.createElement('div');
+			details.setAttribute('class','details');
+			details.innerHTML = innerChildNode.innerHTML;
+			
+			innerChildNode.innerHTML = '';
+			
+			innerChildNode.appendChild(image);
+			innerChildNode.appendChild(details);
+			
+			// Set our variables
+			innerChildNode.image = image;
+			innerChildNode.details = details;
+			innerChildNode.outerElement = outerElement;
+
+			// Get bubble item caption
+			innerChildNode.getCaption = function() {
+				return this.details.innerText;
+			};
+			innerChildNode.getCaption = innerChildNode.getCaption.bind(innerChildNode);
+			
+			// Set bubble item caption
+			innerChildNode.setCaption = function(value) {
+				this.details.innerHTML = value;
+				bb.refresh();
+			};
+			innerChildNode.setCaption = innerChildNode.setCaption.bind(innerChildNode);
+			
+			// Get bubble item image
+			innerChildNode.getImage = function() {
+				return this.image.src;
+			};
+			innerChildNode.getImage = innerChildNode.getImage.bind(innerChildNode);
+			
+			// Set bubble item image
+			innerChildNode.setImage = function(value) {
+				this.image.setAttribute('src', value);
+				bb.refresh();
+			};
+			innerChildNode.setImage = innerChildNode.setImage.bind(innerChildNode);
+			
+			// Remove item
+			innerChildNode.remove = function(value) {
+				this.outerHTML = "";
+				bb.refresh();
+			};
+			innerChildNode.remove = innerChildNode.remove.bind(innerChildNode); 
+		
+			return innerChildNode;
+		};
+		outerElement.styleItem = outerElement.styleItem.bind(outerElement);
+		
+        if (outerElement.hasAttribute('data-bb-style')) {
+            var style = outerElement.getAttribute('data-bb-style').toLowerCase(), j;
+            if (style == 'left') {
+                outerElement.setAttribute('class','bb-bbm-bubble-left');
+            } else {
+                outerElement.setAttribute('class','bb-bbm-bubble-right');
+            }
+
+            var innerElements = outerElement.querySelectorAll('[data-bb-type=item]');
+            for (j = 0; j > innerElements.length; j++) {
+                outerElement.removeChild(innerElements[j]);
+            }
+            
+            // Create our new <div>'s
+            placeholder = document.createElement('div');
+            placeholder.setAttribute('class','top-left image');
+            outerElement.appendChild(placeholder);
+			
+            placeholder = document.createElement('div');
+            placeholder.setAttribute('class','top-right image');
+            outerElement.appendChild(placeholder);
+			
+            placeholder = document.createElement('div');
+            placeholder.setAttribute('class','inside');
+            outerElement.appendChild(placeholder);
+			
+            insidePanel = document.createElement('div');
+            insidePanel.setAttribute('class','nogap');
+            placeholder.appendChild(insidePanel);
+			
+			outerElement.insidePanel = insidePanel;
+			
+            placeholder = document.createElement('div');
+            placeholder.setAttribute('class','bottom-left image');
+            outerElement.appendChild(placeholder);
+			
+            placeholder = document.createElement('div');
+            placeholder.setAttribute('class','bottom-right image');
+            outerElement.appendChild(placeholder);
+				
+            // Add our previous children back to the insidePanel
+            for (j = 0; j < innerElements.length; j++) {
+                innerChildNode = innerElements[j];
+				insidePanel.appendChild(outerElement.styleItem(innerChildNode));
+            }
+        }
+        
+        // Add our get Style function
+        outerElement.getStyle = function() {
+                    return this.getAttribute('data-bb-style');
+		};
+        outerElement.getStyle = outerElement.getStyle.bind(outerElement);
+        
+        // Add setStyle function (left or right)
+        outerElement.setStyle = function(value) {
+            if (value == 'left'){
+                this.setAttribute('data-bb-style', value);
+                this.setAttribute('class','bb-bbm-bubble-left');
+            }
+            else if (value == 'right'){
+                this.setAttribute('data-bb-style', value);
+                this.setAttribute('class','bb-bbm-bubble-right');
+            }
+            bb.refresh();
+        };
+        outerElement.setStyle = outerElement.setStyle.bind(outerElement);
+        
+        // Add show function
+        outerElement.show = function() {
+            this.style.display = 'block';
+            bb.refresh();
+        };
+        outerElement.show = outerElement.show.bind(outerElement);
+
+        // Add hide function
+        outerElement.hide = function() {
+            this.style.display = 'none';
+            bb.refresh();
+        };
+        outerElement.hide = outerElement.hide.bind(outerElement);
+
+        // Add remove function
+        outerElement.remove = function() {
+            this.parentNode.removeChild(this);
+            bb.refresh();
+        };
+        outerElement.remove = outerElement.remove.bind(outerElement);
+		
+        // Remove all the items in a bubble
+        outerElement.clear = function() {
+            this.insidePanel.innerHTML = "";
+            bb.refresh();
+        };
+        outerElement.clear = outerElement.clear.bind(outerElement);
+    
+        // Get all the items in a bubble
+        outerElement.getItems = function() {
+            return this.querySelectorAll('[data-bb-type=item]');
+        };
+        outerElement.getItems = outerElement.getItems.bind(outerElement); 
+        
+        return outerElement;
+    }
+};
+/*! * iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org * Released under MIT license, http://cubiq.org/license */(function(){var m = Math,	mround = function (r) { return r >> 0; },	vendor = (/webkit/i).test(navigator.appVersion) ? 'webkit' :		(/firefox/i).test(navigator.userAgent) ? 'Moz' :		(/trident/i).test(navigator.userAgent) ? 'ms' :		'opera' in window ? 'O' : '',    // Browser capabilities    isAndroid = (/android/gi).test(navigator.appVersion),    isIDevice = (/iphone|ipad/gi).test(navigator.appVersion),    isPlaybook = (/playbook/gi).test(navigator.appVersion),    isTouchPad = (/hp-tablet/gi).test(navigator.appVersion),    has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix(),    hasTouch = 'ontouchstart' in window && !isTouchPad,    hasTransform = vendor + 'Transform' in document.documentElement.style,    hasTransitionEnd = isIDevice || isPlaybook,	nextFrame = (function() {	    return window.requestAnimationFrame			|| window.webkitRequestAnimationFrame			|| window.mozRequestAnimationFrame			|| window.oRequestAnimationFrame			|| window.msRequestAnimationFrame			|| function(callback) { return setTimeout(callback, 1); }	})(),	cancelFrame = (function () {	    return window.cancelRequestAnimationFrame			|| window.webkitCancelAnimationFrame			|| window.webkitCancelRequestAnimationFrame			|| window.mozCancelRequestAnimationFrame			|| window.oCancelRequestAnimationFrame			|| window.msCancelRequestAnimationFrame			|| clearTimeout	})(),	// Events	RESIZE_EV = 'onorientationchange' in window ? 'orientationchange' : 'resize',	START_EV = hasTouch ? 'touchstart' : 'mousedown',	MOVE_EV = hasTouch ? 'touchmove' : 'mousemove',	END_EV = hasTouch ? 'touchend' : 'mouseup',	CANCEL_EV = hasTouch ? 'touchcancel' : 'mouseup',	WHEEL_EV = vendor == 'Moz' ? 'DOMMouseScroll' : 'mousewheel',	// Helpers	trnOpen = 'translate' + (has3d ? '3d(' : '('),	trnClose = has3d ? ',0)' : ')',	// Constructor	iScroll = function (el, options) {		var that = this,			doc = document,			i;		that.wrapper = typeof el == 'object' ? el : doc.getElementById(el);		that.wrapper.style.overflow = 'hidden';		that.scroller = that.wrapper.children[0];		// Default options		that.options = {			hScroll: true,			vScroll: true,			x: 0,			y: 0,			bounce: true,			bounceLock: false,			momentum: true,			lockDirection: true,			useTransform: true,			useTransition: false,			topOffset: 0,			checkDOMChanges: false,		// Experimental			// Scrollbar			hScrollbar: true,			vScrollbar: true,			fixedScrollbar: isAndroid,			hideScrollbar: isIDevice,			fadeScrollbar: isIDevice && has3d,			scrollbarClass: '',			// Zoom			zoom: false,			zoomMin: 1,			zoomMax: 4,			doubleTapZoom: 2,			wheelAction: 'scroll',			// Snap			snap: false,			snapThreshold: 1,			// Events			onRefresh: null,			onBeforeScrollStart: function (e) { e.preventDefault(); },			onScrollStart: null,			onBeforeScrollMove: null,			onScrollMove: null,			onBeforeScrollEnd: null,			onScrollEnd: null,			onTouchEnd: null,			onDestroy: null,			onZoomStart: null,			onZoom: null,			onZoomEnd: null		};		// User defined options		for (i in options) that.options[i] = options[i];				// Set starting position		that.x = that.options.x;		that.y = that.options.y;		// Normalize options		that.options.useTransform = hasTransform ? that.options.useTransform : false;		that.options.hScrollbar = that.options.hScroll && that.options.hScrollbar;		that.options.vScrollbar = that.options.vScroll && that.options.vScrollbar;		that.options.zoom = that.options.useTransform && that.options.zoom;		that.options.useTransition = hasTransitionEnd && that.options.useTransition;		// Helpers FIX ANDROID BUG!		// translate3d and scale doesn't work together! 		// Ignoring 3d ONLY WHEN YOU SET that.options.zoom		if ( that.options.zoom && isAndroid ){			trnOpen = 'translate(';			trnClose = ')';		}				// Set some default styles		that.scroller.style[vendor + 'TransitionProperty'] = that.options.useTransform ? '-' + vendor.toLowerCase() + '-transform' : 'top left';		that.scroller.style[vendor + 'TransitionDuration'] = '0';		that.scroller.style[vendor + 'TransformOrigin'] = '0 0';		if (that.options.useTransition) that.scroller.style[vendor + 'TransitionTimingFunction'] = 'cubic-bezier(0.33,0.66,0.66,1)';				if (that.options.useTransform) that.scroller.style[vendor + 'Transform'] = trnOpen + that.x + 'px,' + that.y + 'px' + trnClose;		else that.scroller.style.cssText += ';position:absolute;top:' + that.y + 'px;left:' + that.x + 'px';		if (that.options.useTransition) that.options.fixedScrollbar = true;		that.refresh();		that._bind(RESIZE_EV, window);		that._bind(START_EV);		if (!hasTouch) {			that._bind('mouseout', that.wrapper);			if (that.options.wheelAction != 'none')				that._bind(WHEEL_EV);		}		if (that.options.checkDOMChanges) that.checkDOMTime = setInterval(function () {			that._checkDOMChanges();		}, 500);	};// PrototypeiScroll.prototype = {	enabled: true,	x: 0,	y: 0,	steps: [],	scale: 1,	currPageX: 0, currPageY: 0,	pagesX: [], pagesY: [],	aniTime: null,	wheelZoomCount: 0,		handleEvent: function (e) {		var that = this;		switch(e.type) {			case START_EV:				if (!hasTouch && e.button !== 0) return;				that._start(e);				break;			case MOVE_EV: that._move(e); break;			case END_EV:			case CANCEL_EV: that._end(e); break;			case RESIZE_EV: that._resize(); break;			case WHEEL_EV: that._wheel(e); break;			case 'mouseout': that._mouseout(e); break;			case 'webkitTransitionEnd': that._transitionEnd(e); break;		}	},		_checkDOMChanges: function () {		if (this.moved || this.zoomed || this.animating ||			(this.scrollerW == this.scroller.offsetWidth * this.scale && this.scrollerH == this.scroller.offsetHeight * this.scale)) return;		this.refresh();	},		_scrollbar: function (dir) {		var that = this,			doc = document,			bar;		if (!that[dir + 'Scrollbar']) {			if (that[dir + 'ScrollbarWrapper']) {				if (hasTransform) that[dir + 'ScrollbarIndicator'].style[vendor + 'Transform'] = '';				that[dir + 'ScrollbarWrapper'].parentNode.removeChild(that[dir + 'ScrollbarWrapper']);				that[dir + 'ScrollbarWrapper'] = null;				that[dir + 'ScrollbarIndicator'] = null;			}			return;		}		if (!that[dir + 'ScrollbarWrapper']) {			// Create the scrollbar wrapper			bar = doc.createElement('div');			if (that.options.scrollbarClass) bar.className = that.options.scrollbarClass + dir.toUpperCase();			else bar.style.cssText = 'position:absolute;z-index:100;' + (dir == 'h' ? 'height:7px;bottom:1px;left:2px;right:' + (that.vScrollbar ? '7' : '2') + 'px' : 'width:7px;bottom:' + (that.hScrollbar ? '7' : '2') + 'px;top:2px;right:1px');			bar.style.cssText += ';pointer-events:none;-' + vendor + '-transition-property:opacity;-' + vendor + '-transition-duration:' + (that.options.fadeScrollbar ? '350ms' : '0') + ';overflow:hidden;opacity:' + (that.options.hideScrollbar ? '0' : '1');			that.wrapper.appendChild(bar);			that[dir + 'ScrollbarWrapper'] = bar;			// Create the scrollbar indicator			bar = doc.createElement('div');			if (!that.options.scrollbarClass) {				bar.style.cssText = 'position:absolute;z-index:100;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.9);-' + vendor + '-background-clip:padding-box;-' + vendor + '-box-sizing:border-box;' + (dir == 'h' ? 'height:100%' : 'width:100%') + ';-' + vendor + '-border-radius:3px;border-radius:3px';			}			bar.style.cssText += ';pointer-events:none;-' + vendor + '-transition-property:-' + vendor + '-transform;-' + vendor + '-transition-timing-function:cubic-bezier(0.33,0.66,0.66,1);-' + vendor + '-transition-duration:0;-' + vendor + '-transform:' + trnOpen + '0,0' + trnClose;			if (that.options.useTransition) bar.style.cssText += ';-' + vendor + '-transition-timing-function:cubic-bezier(0.33,0.66,0.66,1)';			that[dir + 'ScrollbarWrapper'].appendChild(bar);			that[dir + 'ScrollbarIndicator'] = bar;		}		if (dir == 'h') {			that.hScrollbarSize = that.hScrollbarWrapper.clientWidth;			that.hScrollbarIndicatorSize = m.max(mround(that.hScrollbarSize * that.hScrollbarSize / that.scrollerW), 8);			that.hScrollbarIndicator.style.width = that.hScrollbarIndicatorSize + 'px';			that.hScrollbarMaxScroll = that.hScrollbarSize - that.hScrollbarIndicatorSize;			that.hScrollbarProp = that.hScrollbarMaxScroll / that.maxScrollX;		} else {			that.vScrollbarSize = that.vScrollbarWrapper.clientHeight;			that.vScrollbarIndicatorSize = m.max(mround(that.vScrollbarSize * that.vScrollbarSize / that.scrollerH), 8);			that.vScrollbarIndicator.style.height = that.vScrollbarIndicatorSize + 'px';			that.vScrollbarMaxScroll = that.vScrollbarSize - that.vScrollbarIndicatorSize;			that.vScrollbarProp = that.vScrollbarMaxScroll / that.maxScrollY;		}		// Reset position		that._scrollbarPos(dir, true);	},		_resize: function () {		var that = this;		setTimeout(function () { that.refresh(); }, isAndroid ? 200 : 0);	},		_pos: function (x, y) {		x = this.hScroll ? x : 0;		y = this.vScroll ? y : 0;		if (this.options.useTransform) {			this.scroller.style[vendor + 'Transform'] = trnOpen + x + 'px,' + y + 'px' + trnClose + ' scale(' + this.scale + ')';		} else {			x = mround(x);			y = mround(y);			this.scroller.style.left = x + 'px';			this.scroller.style.top = y + 'px';		}		this.x = x;		this.y = y;		this._scrollbarPos('h');		this._scrollbarPos('v');	},	_scrollbarPos: function (dir, hidden) {		var that = this,			pos = dir == 'h' ? that.x : that.y,			size;		if (!that[dir + 'Scrollbar']) return;		pos = that[dir + 'ScrollbarProp'] * pos;		if (pos < 0) {			if (!that.options.fixedScrollbar) {				size = that[dir + 'ScrollbarIndicatorSize'] + mround(pos * 3);				if (size < 8) size = 8;				that[dir + 'ScrollbarIndicator'].style[dir == 'h' ? 'width' : 'height'] = size + 'px';			}			pos = 0;		} else if (pos > that[dir + 'ScrollbarMaxScroll']) {			if (!that.options.fixedScrollbar) {				size = that[dir + 'ScrollbarIndicatorSize'] - mround((pos - that[dir + 'ScrollbarMaxScroll']) * 3);				if (size < 8) size = 8;				that[dir + 'ScrollbarIndicator'].style[dir == 'h' ? 'width' : 'height'] = size + 'px';				pos = that[dir + 'ScrollbarMaxScroll'] + (that[dir + 'ScrollbarIndicatorSize'] - size);			} else {				pos = that[dir + 'ScrollbarMaxScroll'];			}		}		that[dir + 'ScrollbarWrapper'].style[vendor + 'TransitionDelay'] = '0';		that[dir + 'ScrollbarWrapper'].style.opacity = hidden && that.options.hideScrollbar ? '0' : '1';		that[dir + 'ScrollbarIndicator'].style[vendor + 'Transform'] = trnOpen + (dir == 'h' ? pos + 'px,0' : '0,' + pos + 'px') + trnClose;	},		_start: function (e) {		var that = this,			point = hasTouch ? e.touches[0] : e,			matrix, x, y,			c1, c2;		if (!that.enabled) return;		if (that.options.onBeforeScrollStart) that.options.onBeforeScrollStart.call(that, e);		if (that.options.useTransition || that.options.zoom) that._transitionTime(0);		that.moved = false;		that.animating = false;		that.zoomed = false;		that.distX = 0;		that.distY = 0;		that.absDistX = 0;		that.absDistY = 0;		that.dirX = 0;		that.dirY = 0;		// Gesture start		if (that.options.zoom && hasTouch && e.touches.length > 1) {			c1 = m.abs(e.touches[0].pageX-e.touches[1].pageX);			c2 = m.abs(e.touches[0].pageY-e.touches[1].pageY);			that.touchesDistStart = m.sqrt(c1 * c1 + c2 * c2);			that.originX = m.abs(e.touches[0].pageX + e.touches[1].pageX - that.wrapperOffsetLeft * 2) / 2 - that.x;			that.originY = m.abs(e.touches[0].pageY + e.touches[1].pageY - that.wrapperOffsetTop * 2) / 2 - that.y;			if (that.options.onZoomStart) that.options.onZoomStart.call(that, e);		}		if (that.options.momentum) {			if (that.options.useTransform) {				// Very lame general purpose alternative to CSSMatrix				matrix = getComputedStyle(that.scroller, null)[vendor + 'Transform'].replace(/[^0-9-.,]/g, '').split(',');				x = matrix[4] * 1;				y = matrix[5] * 1;			} else {				x = getComputedStyle(that.scroller, null).left.replace(/[^0-9-]/g, '') * 1;				y = getComputedStyle(that.scroller, null).top.replace(/[^0-9-]/g, '') * 1;			}						if (x != that.x || y != that.y) {				if (that.options.useTransition) that._unbind('webkitTransitionEnd');				else cancelFrame(that.aniTime);				that.steps = [];				that._pos(x, y);			}		}		that.absStartX = that.x;	// Needed by snap threshold		that.absStartY = that.y;		that.startX = that.x;		that.startY = that.y;		that.pointX = point.pageX;		that.pointY = point.pageY;		that.startTime = e.timeStamp || Date.now();		if (that.options.onScrollStart) that.options.onScrollStart.call(that, e);		that._bind(MOVE_EV);		that._bind(END_EV);		that._bind(CANCEL_EV);	},		_move: function (e) {		var that = this,			point = hasTouch ? e.touches[0] : e,			deltaX = point.pageX - that.pointX,			deltaY = point.pageY - that.pointY,			newX = that.x + deltaX,			newY = that.y + deltaY,			c1, c2, scale,			timestamp = e.timeStamp || Date.now();		if (that.options.onBeforeScrollMove) that.options.onBeforeScrollMove.call(that, e);		// Zoom		if (that.options.zoom && hasTouch && e.touches.length > 1) {			c1 = m.abs(e.touches[0].pageX - e.touches[1].pageX);			c2 = m.abs(e.touches[0].pageY - e.touches[1].pageY);			that.touchesDist = m.sqrt(c1*c1+c2*c2);			that.zoomed = true;			scale = 1 / that.touchesDistStart * that.touchesDist * this.scale;			if (scale < that.options.zoomMin) scale = 0.5 * that.options.zoomMin * Math.pow(2.0, scale / that.options.zoomMin);			else if (scale > that.options.zoomMax) scale = 2.0 * that.options.zoomMax * Math.pow(0.5, that.options.zoomMax / scale);			that.lastScale = scale / this.scale;			newX = this.originX - this.originX * that.lastScale + this.x,			newY = this.originY - this.originY * that.lastScale + this.y;			this.scroller.style[vendor + 'Transform'] = trnOpen + newX + 'px,' + newY + 'px' + trnClose + ' scale(' + scale + ')';			if (that.options.onZoom) that.options.onZoom.call(that, e);			return;		}		that.pointX = point.pageX;		that.pointY = point.pageY;		// Slow down if outside of the boundaries		if (newX > 0 || newX < that.maxScrollX) {			newX = that.options.bounce ? that.x + (deltaX / 2) : newX >= 0 || that.maxScrollX >= 0 ? 0 : that.maxScrollX;		}		if (newY > that.minScrollY || newY < that.maxScrollY) { 			newY = that.options.bounce ? that.y + (deltaY / 2) : newY >= that.minScrollY || that.maxScrollY >= 0 ? that.minScrollY : that.maxScrollY;		}		that.distX += deltaX;		that.distY += deltaY;		that.absDistX = m.abs(that.distX);		that.absDistY = m.abs(that.distY);		if (that.absDistX < 6 && that.absDistY < 6) {			return;		}		// Lock direction		if (that.options.lockDirection) {			if (that.absDistX > that.absDistY + 5) {				newY = that.y;				deltaY = 0;			} else if (that.absDistY > that.absDistX + 5) {				newX = that.x;				deltaX = 0;			}		}		that.moved = true;		that._pos(newX, newY);		that.dirX = deltaX > 0 ? -1 : deltaX < 0 ? 1 : 0;		that.dirY = deltaY > 0 ? -1 : deltaY < 0 ? 1 : 0;		if (timestamp - that.startTime > 300) {			that.startTime = timestamp;			that.startX = that.x;			that.startY = that.y;		}				if (that.options.onScrollMove) that.options.onScrollMove.call(that, e);	},		_end: function (e) {		if (hasTouch && e.touches.length != 0) return;		var that = this,			point = hasTouch ? e.changedTouches[0] : e,			target, ev,			momentumX = { dist:0, time:0 },			momentumY = { dist:0, time:0 },			duration = (e.timeStamp || Date.now()) - that.startTime,			newPosX = that.x,			newPosY = that.y,			distX, distY,			newDuration,			snap,			scale;		that._unbind(MOVE_EV);		that._unbind(END_EV);		that._unbind(CANCEL_EV);		if (that.options.onBeforeScrollEnd) that.options.onBeforeScrollEnd.call(that, e);		if (that.zoomed) {			scale = that.scale * that.lastScale;			scale = Math.max(that.options.zoomMin, scale);			scale = Math.min(that.options.zoomMax, scale);			that.lastScale = scale / that.scale;			that.scale = scale;			that.x = that.originX - that.originX * that.lastScale + that.x;			that.y = that.originY - that.originY * that.lastScale + that.y;						that.scroller.style[vendor + 'TransitionDuration'] = '200ms';			that.scroller.style[vendor + 'Transform'] = trnOpen + that.x + 'px,' + that.y + 'px' + trnClose + ' scale(' + that.scale + ')';						that.zoomed = false;			that.refresh();			if (that.options.onZoomEnd) that.options.onZoomEnd.call(that, e);			return;		}		if (!that.moved) {			if (hasTouch) {				if (that.doubleTapTimer && that.options.zoom) {					// Double tapped					clearTimeout(that.doubleTapTimer);					that.doubleTapTimer = null;					if (that.options.onZoomStart) that.options.onZoomStart.call(that, e);					that.zoom(that.pointX, that.pointY, that.scale == 1 ? that.options.doubleTapZoom : 1);					if (that.options.onZoomEnd) {						setTimeout(function() {							that.options.onZoomEnd.call(that, e);						}, 200); // 200 is default zoom duration					}				} else {					that.doubleTapTimer = setTimeout(function () {						that.doubleTapTimer = null;						// Find the last touched element						target = point.target;						while (target.nodeType != 1) target = target.parentNode;						if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA') {							ev = document.createEvent('MouseEvents');							ev.initMouseEvent('click', true, true, e.view, 1,								point.screenX, point.screenY, point.clientX, point.clientY,								e.ctrlKey, e.altKey, e.shiftKey, e.metaKey,								0, null);							ev._fake = true;							target.dispatchEvent(ev);						}					}, that.options.zoom ? 250 : 0);				}			}			that._resetPos(200);			if (that.options.onTouchEnd) that.options.onTouchEnd.call(that, e);			return;		}		if (duration < 300 && that.options.momentum) {			momentumX = newPosX ? that._momentum(newPosX - that.startX, duration, -that.x, that.scrollerW - that.wrapperW + that.x, that.options.bounce ? that.wrapperW : 0) : momentumX;			momentumY = newPosY ? that._momentum(newPosY - that.startY, duration, -that.y, (that.maxScrollY < 0 ? that.scrollerH - that.wrapperH + that.y - that.minScrollY : 0), that.options.bounce ? that.wrapperH : 0) : momentumY;			newPosX = that.x + momentumX.dist;			newPosY = that.y + momentumY.dist; 			if ((that.x > 0 && newPosX > 0) || (that.x < that.maxScrollX && newPosX < that.maxScrollX)) momentumX = { dist:0, time:0 }; 			if ((that.y > that.minScrollY && newPosY > that.minScrollY) || (that.y < that.maxScrollY && newPosY < that.maxScrollY)) momentumY = { dist:0, time:0 };		}		if (momentumX.dist || momentumY.dist) {			newDuration = m.max(m.max(momentumX.time, momentumY.time), 10);			// Do we need to snap?			if (that.options.snap) {				distX = newPosX - that.absStartX;				distY = newPosY - that.absStartY;				if (m.abs(distX) < that.options.snapThreshold && m.abs(distY) < that.options.snapThreshold) { that.scrollTo(that.absStartX, that.absStartY, 200); }				else {					snap = that._snap(newPosX, newPosY);					newPosX = snap.x;					newPosY = snap.y;					newDuration = m.max(snap.time, newDuration);				}			}			that.scrollTo(mround(newPosX), mround(newPosY), newDuration);			if (that.options.onTouchEnd) that.options.onTouchEnd.call(that, e);			return;		}		// Do we need to snap?		if (that.options.snap) {			distX = newPosX - that.absStartX;			distY = newPosY - that.absStartY;			if (m.abs(distX) < that.options.snapThreshold && m.abs(distY) < that.options.snapThreshold) that.scrollTo(that.absStartX, that.absStartY, 200);			else {				snap = that._snap(that.x, that.y);				if (snap.x != that.x || snap.y != that.y) that.scrollTo(snap.x, snap.y, snap.time);			}			if (that.options.onTouchEnd) that.options.onTouchEnd.call(that, e);			return;		}		that._resetPos(200);		if (that.options.onTouchEnd) that.options.onTouchEnd.call(that, e);	},		_resetPos: function (time) {		var that = this,			resetX = that.x >= 0 ? 0 : that.x < that.maxScrollX ? that.maxScrollX : that.x,			resetY = that.y >= that.minScrollY || that.maxScrollY > 0 ? that.minScrollY : that.y < that.maxScrollY ? that.maxScrollY : that.y;		if (resetX == that.x && resetY == that.y) {			if (that.moved) {				that.moved = false;				if (that.options.onScrollEnd) that.options.onScrollEnd.call(that);		// Execute custom code on scroll end			}			if (that.hScrollbar && that.options.hideScrollbar) {				if (vendor == 'webkit') that.hScrollbarWrapper.style[vendor + 'TransitionDelay'] = '300ms';				that.hScrollbarWrapper.style.opacity = '0';			}			if (that.vScrollbar && that.options.hideScrollbar) {				if (vendor == 'webkit') that.vScrollbarWrapper.style[vendor + 'TransitionDelay'] = '300ms';				that.vScrollbarWrapper.style.opacity = '0';			}			return;		}		that.scrollTo(resetX, resetY, time || 0);	},	_wheel: function (e) {		var that = this,			wheelDeltaX, wheelDeltaY,			deltaX, deltaY,			deltaScale;		if ('wheelDeltaX' in e) {			wheelDeltaX = e.wheelDeltaX / 12;			wheelDeltaY = e.wheelDeltaY / 12;		} else if('wheelDelta' in e) {			wheelDeltaX = wheelDeltaY = e.wheelDelta / 12;		} else if ('detail' in e) {			wheelDeltaX = wheelDeltaY = -e.detail * 3;		} else {			return;		}				if (that.options.wheelAction == 'zoom') {			deltaScale = that.scale * Math.pow(2, 1/3 * (wheelDeltaY ? wheelDeltaY / Math.abs(wheelDeltaY) : 0));			if (deltaScale < that.options.zoomMin) deltaScale = that.options.zoomMin;			if (deltaScale > that.options.zoomMax) deltaScale = that.options.zoomMax;						if (deltaScale != that.scale) {				if (!that.wheelZoomCount && that.options.onZoomStart) that.options.onZoomStart.call(that, e);				that.wheelZoomCount++;								that.zoom(e.pageX, e.pageY, deltaScale, 400);								setTimeout(function() {					that.wheelZoomCount--;					if (!that.wheelZoomCount && that.options.onZoomEnd) that.options.onZoomEnd.call(that, e);				}, 400);			}						return;		}				deltaX = that.x + wheelDeltaX;		deltaY = that.y + wheelDeltaY;		if (deltaX > 0) deltaX = 0;		else if (deltaX < that.maxScrollX) deltaX = that.maxScrollX;		if (deltaY > that.minScrollY) deltaY = that.minScrollY;		else if (deltaY < that.maxScrollY) deltaY = that.maxScrollY;		that.scrollTo(deltaX, deltaY, 0);	},		_mouseout: function (e) {		var t = e.relatedTarget;		if (!t) {			this._end(e);			return;		}		while (t = t.parentNode) if (t == this.wrapper) return;				this._end(e);	},	_transitionEnd: function (e) {		var that = this;		if (e.target != that.scroller) return;		that._unbind('webkitTransitionEnd');				that._startAni();	},	/**	 *	 * Utilities	 *	 */	_startAni: function () {		var that = this,			startX = that.x, startY = that.y,			startTime = Date.now(),			step, easeOut,			animate;		if (that.animating) return;				if (!that.steps.length) {			that._resetPos(400);			return;		}				step = that.steps.shift();				if (step.x == startX && step.y == startY) step.time = 0;		that.animating = true;		that.moved = true;				if (that.options.useTransition) {			that._transitionTime(step.time);			that._pos(step.x, step.y);			that.animating = false;			if (step.time) that._bind('webkitTransitionEnd');			else that._resetPos(0);			return;		}		animate = function () {			var now = Date.now(),				newX, newY;			if (now >= startTime + step.time) {				that._pos(step.x, step.y);				that.animating = false;				if (that.options.onAnimationEnd) that.options.onAnimationEnd.call(that);			// Execute custom code on animation end				that._startAni();				return;			}			now = (now - startTime) / step.time - 1;			easeOut = m.sqrt(1 - now * now);			newX = (step.x - startX) * easeOut + startX;			newY = (step.y - startY) * easeOut + startY;			that._pos(newX, newY);			if (that.animating) that.aniTime = nextFrame(animate);		};		animate();	},	_transitionTime: function (time) {		time += 'ms';		this.scroller.style[vendor + 'TransitionDuration'] = time;		if (this.hScrollbar) this.hScrollbarIndicator.style[vendor + 'TransitionDuration'] = time;		if (this.vScrollbar) this.vScrollbarIndicator.style[vendor + 'TransitionDuration'] = time;	},	_momentum: function (dist, time, maxDistUpper, maxDistLower, size) {		var deceleration = 0.0006,			speed = m.abs(dist) / time,			newDist = (speed * speed) / (2 * deceleration),			newTime = 0, outsideDist = 0;		// Proportinally reduce speed if we are outside of the boundaries 		if (dist > 0 && newDist > maxDistUpper) {			outsideDist = size / (6 / (newDist / speed * deceleration));			maxDistUpper = maxDistUpper + outsideDist;			speed = speed * maxDistUpper / newDist;			newDist = maxDistUpper;		} else if (dist < 0 && newDist > maxDistLower) {			outsideDist = size / (6 / (newDist / speed * deceleration));			maxDistLower = maxDistLower + outsideDist;			speed = speed * maxDistLower / newDist;			newDist = maxDistLower;		}		newDist = newDist * (dist < 0 ? -1 : 1);		newTime = speed / deceleration;		return { dist: newDist, time: mround(newTime) };	},	_offset: function (el) {		var left = -el.offsetLeft,			top = -el.offsetTop;					while (el = el.offsetParent) {			left -= el.offsetLeft;			top -= el.offsetTop;		}				if (el != this.wrapper) {			left *= this.scale;			top *= this.scale;		}		return { left: left, top: top };	},	_snap: function (x, y) {		var that = this,			i, l,			page, time,			sizeX, sizeY;		// Check page X		page = that.pagesX.length - 1;		for (i=0, l=that.pagesX.length; i<l; i++) {			if (x >= that.pagesX[i]) {				page = i;				break;			}		}		if (page == that.currPageX && page > 0 && that.dirX < 0) page--;		x = that.pagesX[page];		sizeX = m.abs(x - that.pagesX[that.currPageX]);		sizeX = sizeX ? m.abs(that.x - x) / sizeX * 500 : 0;		that.currPageX = page;		// Check page Y		page = that.pagesY.length-1;		for (i=0; i<page; i++) {			if (y >= that.pagesY[i]) {				page = i;				break;			}		}		if (page == that.currPageY && page > 0 && that.dirY < 0) page--;		y = that.pagesY[page];		sizeY = m.abs(y - that.pagesY[that.currPageY]);		sizeY = sizeY ? m.abs(that.y - y) / sizeY * 500 : 0;		that.currPageY = page;		// Snap with constant speed (proportional duration)		time = mround(m.max(sizeX, sizeY)) || 200;		return { x: x, y: y, time: time };	},	_bind: function (type, el, bubble) {		(el || this.scroller).addEventListener(type, this, !!bubble);	},	_unbind: function (type, el, bubble) {		(el || this.scroller).removeEventListener(type, this, !!bubble);	},	/**	 *	 * Public methods	 *	 */	destroy: function () {		var that = this;		that.scroller.style[vendor + 'Transform'] = '';		// Remove the scrollbars		that.hScrollbar = false;		that.vScrollbar = false;		that._scrollbar('h');		that._scrollbar('v');		// Remove the event listeners		that._unbind(RESIZE_EV, window);		that._unbind(START_EV);		that._unbind(MOVE_EV);		that._unbind(END_EV);		that._unbind(CANCEL_EV);				if (!that.options.hasTouch) {			that._unbind('mouseout', that.wrapper);			that._unbind(WHEEL_EV);		}				if (that.options.useTransition) that._unbind('webkitTransitionEnd');				if (that.options.checkDOMChanges) clearInterval(that.checkDOMTime);				if (that.options.onDestroy) that.options.onDestroy.call(that);	},	refresh: function () {		var that = this,			offset,			i, l,			els,			pos = 0,			page = 0;		if (that.scale < that.options.zoomMin) that.scale = that.options.zoomMin;		that.wrapperW = that.wrapper.clientWidth || 1;		that.wrapperH = that.wrapper.clientHeight || 1;		that.minScrollY = -that.options.topOffset || 0;		that.scrollerW = mround(that.scroller.offsetWidth * that.scale);		that.scrollerH = mround((that.scroller.offsetHeight + that.minScrollY) * that.scale);		that.maxScrollX = that.wrapperW - that.scrollerW;		that.maxScrollY = that.wrapperH - that.scrollerH + that.minScrollY;		that.dirX = 0;		that.dirY = 0;		if (that.options.onRefresh) that.options.onRefresh.call(that);		that.hScroll = that.options.hScroll && that.maxScrollX < 0;		that.vScroll = that.options.vScroll && (!that.options.bounceLock && !that.hScroll || that.scrollerH > that.wrapperH);		that.hScrollbar = that.hScroll && that.options.hScrollbar;		that.vScrollbar = that.vScroll && that.options.vScrollbar && that.scrollerH > that.wrapperH;		offset = that._offset(that.wrapper);		that.wrapperOffsetLeft = -offset.left;		that.wrapperOffsetTop = -offset.top;		// Prepare snap		if (typeof that.options.snap == 'string') {			that.pagesX = [];			that.pagesY = [];			els = that.scroller.querySelectorAll(that.options.snap);			for (i=0, l=els.length; i<l; i++) {				pos = that._offset(els[i]);				pos.left += that.wrapperOffsetLeft;				pos.top += that.wrapperOffsetTop;				that.pagesX[i] = pos.left < that.maxScrollX ? that.maxScrollX : pos.left * that.scale;				that.pagesY[i] = pos.top < that.maxScrollY ? that.maxScrollY : pos.top * that.scale;			}		} else if (that.options.snap) {			that.pagesX = [];			while (pos >= that.maxScrollX) {				that.pagesX[page] = pos;				pos = pos - that.wrapperW;				page++;			}			if (that.maxScrollX%that.wrapperW) that.pagesX[that.pagesX.length] = that.maxScrollX - that.pagesX[that.pagesX.length-1] + that.pagesX[that.pagesX.length-1];			pos = 0;			page = 0;			that.pagesY = [];			while (pos >= that.maxScrollY) {				that.pagesY[page] = pos;				pos = pos - that.wrapperH;				page++;			}			if (that.maxScrollY%that.wrapperH) that.pagesY[that.pagesY.length] = that.maxScrollY - that.pagesY[that.pagesY.length-1] + that.pagesY[that.pagesY.length-1];		}		// Prepare the scrollbars		that._scrollbar('h');		that._scrollbar('v');		if (!that.zoomed) {			that.scroller.style[vendor + 'TransitionDuration'] = '0';			that._resetPos(200);		}	},	scrollTo: function (x, y, time, relative) {		var that = this,			step = x,			i, l;		that.stop();		if (!step.length) step = [{ x: x, y: y, time: time, relative: relative }];				for (i=0, l=step.length; i<l; i++) {			if (step[i].relative) { step[i].x = that.x - step[i].x; step[i].y = that.y - step[i].y; }			that.steps.push({ x: step[i].x, y: step[i].y, time: step[i].time || 0 });		}		that._startAni();	},	scrollToElement: function (el, time) {		var that = this, pos;		el = el.nodeType ? el : that.scroller.querySelector(el);		if (!el) return;		pos = that._offset(el);		pos.left += that.wrapperOffsetLeft;		pos.top += that.wrapperOffsetTop;		pos.left = pos.left > 0 ? 0 : pos.left < that.maxScrollX ? that.maxScrollX : pos.left;		pos.top = pos.top > that.minScrollY ? that.minScrollY : pos.top < that.maxScrollY ? that.maxScrollY : pos.top;		time = time === undefined ? m.max(m.abs(pos.left)*2, m.abs(pos.top)*2) : time;		that.scrollTo(pos.left, pos.top, time);	},	scrollToPage: function (pageX, pageY, time) {		var that = this, x, y;				time = time === undefined ? 400 : time;		if (that.options.onScrollStart) that.options.onScrollStart.call(that);		if (that.options.snap) {			pageX = pageX == 'next' ? that.currPageX+1 : pageX == 'prev' ? that.currPageX-1 : pageX;			pageY = pageY == 'next' ? that.currPageY+1 : pageY == 'prev' ? that.currPageY-1 : pageY;			pageX = pageX < 0 ? 0 : pageX > that.pagesX.length-1 ? that.pagesX.length-1 : pageX;			pageY = pageY < 0 ? 0 : pageY > that.pagesY.length-1 ? that.pagesY.length-1 : pageY;			that.currPageX = pageX;			that.currPageY = pageY;			x = that.pagesX[pageX];			y = that.pagesY[pageY];		} else {			x = -that.wrapperW * pageX;			y = -that.wrapperH * pageY;			if (x < that.maxScrollX) x = that.maxScrollX;			if (y < that.maxScrollY) y = that.maxScrollY;		}		that.scrollTo(x, y, time);	},	disable: function () {		this.stop();		this._resetPos(0);		this.enabled = false;		// If disabled after touchstart we make sure that there are no left over events		this._unbind(MOVE_EV);		this._unbind(END_EV);		this._unbind(CANCEL_EV);	},		enable: function () {		this.enabled = true;	},		stop: function () {		if (this.options.useTransition) this._unbind('webkitTransitionEnd');		else cancelFrame(this.aniTime);		this.steps = [];		this.moved = false;		this.animating = false;	},		zoom: function (x, y, scale, time) {		var that = this,			relScale = scale / that.scale;		if (!that.options.useTransform) return;		that.zoomed = true;		time = time === undefined ? 200 : time;		x = x - that.wrapperOffsetLeft - that.x;		y = y - that.wrapperOffsetTop - that.y;		that.x = x - x * relScale + that.x;		that.y = y - y * relScale + that.y;		that.scale = scale;		that.refresh();		that.x = that.x > 0 ? 0 : that.x < that.maxScrollX ? that.maxScrollX : that.x;		that.y = that.y > that.minScrollY ? that.minScrollY : that.y < that.maxScrollY ? that.maxScrollY : that.y;		that.scroller.style[vendor + 'TransitionDuration'] = time + 'ms';		that.scroller.style[vendor + 'Transform'] = trnOpen + that.x + 'px,' + that.y + 'px' + trnClose + ' scale(' + scale + ')';		that.zoomed = false;	},		isReady: function () {		return !this.moved && !this.zoomed && !this.animating;	}};if (typeof exports !== 'undefined') exports.iScroll = iScroll;else window.iScroll = iScroll;})();
+bb.menuBar = {
+	height: 140,
+	itemWidth: 143,
+	visible: false,
+	menu: false,
+	screen: false,
+
+	apply: function(menuBar,screen){
+		if (bb.device.isPlayBook || bb.device.isBB10) {
+			bb.menuBar.createSwipeMenu(menuBar,screen);
+			menuBar.parentNode.removeChild(menuBar);
+			if (window.blackberry){
+				if(bb.device.isPlayBook && blackberry.app.event) {
+					blackberry.app.event.onSwipeDown(bb.menuBar.showMenuBar);
+				}else if(bb.device.isBB10 && blackberry.app){
+					blackberry.event.addEventListener("swipedown", bb.menuBar.showMenuBar);
+				}
+			}
+		}else{
+			console.log('Unable to create Application/onSwipeDown menu.');
+		}
+	},
+	
+	createSwipeMenu: function(menuBar, screen){
+		bb.menuBar.screen = screen;
+		var bb10Menu = document.createElement('div'),
+			maxItems = 5,
+			i,
+			len,
+			type,
+			item,
+			pinLeft = false,
+			pinRight = false,
+			menuItems = [],
+			img,
+			imgPath,
+			caption,
+			div,
+			width,
+			margin,
+			bb10MenuItem;
+
+		// Set our 'res' for known resolutions, otherwise use the default
+		if (bb.device.is1024x600) {
+			bb.menuBar.height = 100;
+			bb.menuBar.itemWidth = 96; 
+		} else if (bb.device.is720x720) {
+			bb.menuBar.height = 110;
+			bb.menuBar.itemWidth = 143;
+		} else {
+			bb.menuBar.height = 140;
+			bb.menuBar.itemWidth = 143;
+		} 
+
+		// Handle any press-and-hold events
+		bb10Menu.oncontextmenu = function(contextEvent) {
+			var node = contextEvent.srcElement,
+				parentNode = node.parentNode;
+			// Loop up to the parent node.. if it is this action bar then prevent default
+			if (!parentNode) return;
+			while (parentNode) {
+				if (parentNode == this) {
+					contextEvent.preventDefault();
+					break;
+				}
+				parentNode = parentNode.parentNode;
+			}			
+		};
+		bb10Menu.oncontextmenu = bb10Menu.oncontextmenu.bind(bb10Menu);
+		window.addEventListener('contextmenu', bb10Menu.oncontextmenu);
+		bb.windowListeners.push({name: 'contextmenu', eventHandler: bb10Menu.oncontextmenu});
+		
+		bb10Menu.setAttribute('class','bb-menu-bar bb-menu-bar-dark');
+		items = menuBar.querySelectorAll('[data-bb-type=menu-item]');
+		if(items.length > 0){
+			//pre-process and collect valid menu items + identify pinned items
+			for(i = 0, len = items.length; i < items.length; i++){
+				item = items[i];
+				type = item.hasAttribute('data-bb-type') ? item.getAttribute('data-bb-type').toLowerCase() : undefined;
+				// Get our menu items
+				if (type == 'menu-item') {
+					caption = item.innerHTML;
+					imgPath = item.getAttribute('data-bb-img');
+					if (caption && imgPath) {
+						if(item.hasAttribute('data-bb-pin')){
+							pinType = item.getAttribute('data-bb-pin').toLowerCase();
+							if(pinType === 'left' && !pinLeft){
+								pinLeft = item;
+								maxItems--;
+							} else if(pinType === 'right' && !pinRight){
+								pinRight = item;
+								maxItems--;
+							} else {
+								console.log('Unknown value from menu-item data-bb-pin: ' + pinType + ' or value already defined.');
+								menuItems.push(item); //add to the regular menu array
+							}
+						} else {
+							menuItems.push(item);
+						}
+					} else {
+						console.log('missing menu item caption or image.');
+					}
+				} else {
+					console.log('invalid menu item type for bb10');
+				}
+			}
+
+			//trim down items if too many
+			if(menuItems.length >= maxItems){
+				menuItems = menuItems.slice(0, maxItems);
+			}
+
+			//add back left and right pinned items if they exist
+			if(pinLeft){
+				menuItems.unshift(pinLeft);
+			}
+
+			if(pinRight){
+				menuItems.push(pinRight);
+			}
+
+			width = bb.menuBar.itemWidth + 'px';
+			margin = Math.floor((window.innerWidth - (bb.menuBar.itemWidth  * menuItems.length)) / (menuItems.length-1)) + 'px';
+			for (i = 0, len = menuItems.length; i < len; i++) {
+				item = menuItems[i];
+				caption = item.innerHTML;
+				imgPath = item.getAttribute('data-bb-img');
+
+				bb10MenuItem = document.createElement("div");
+				// Set our item information
+				bb10MenuItem.setAttribute('class','bb-menu-bar-item');
+				item.innerHTML = '';
+				// Add the image
+				img = document.createElement('img');
+				img.setAttribute('src',imgPath);
+				bb10MenuItem.appendChild(img);
+				// Add the caption
+				div = document.createElement('div');
+				div.setAttribute('class','bb-menu-bar-item-caption');
+				div.innerHTML = caption;
+				bb10MenuItem.appendChild(div);
+
+				// Assign any click handlers
+				bb10MenuItem.onclick	= item.onclick;
+				//set menu item width
+				bb10MenuItem.style.width = width;
+				if ((i == menuItems.length - 1 && menuItems.length > 1 ) || (menuItems.length === 1 && !pinLeft))  {
+					bb10MenuItem.style.marginRight = 0;
+					bb10MenuItem.style.float = 'right';
+				} else {
+					bb10MenuItem.style.marginRight = margin;
+				}
+				bb10Menu.appendChild(bb10MenuItem);
+
+				bb10MenuItem.ontouchstart = function() {
+					this.style['border-top-color'] = bb.options.highlightColor;
+				}
+				bb10MenuItem.ontouchend = function() {
+					this.style['border-top-color'] = 'transparent';
+				}
+			}
+		} else {
+			bb10Menu.style.display = 'none';
+			bb.menuBar.menu = null;
+		}
+
+		// Set the size of the menu bar and assign the lstener
+		bb10Menu.addEventListener('click', bb.menuBar.onMenuBarClicked, false);
+		screen.parentNode.appendChild(bb10Menu);
+		// Assign the menu
+		bb.menuBar.menu	= bb10Menu;	
+		bb.menuBar.menu.style['z-index'] = '-100';
+		bb.menuBar.menu.style.display = 'none';
+		bb.menuBar.menu.style.height = bb.menuBar.menu.height + 'px';
+
+		bb.menuBar.menu.doOrientationChange = function() {
+			var i, len,
+				menuItems = bb.menuBar.menu.getElementsByClassName('bb-menu-bar-item'),
+				margin = Math.floor((window.innerWidth - (bb.menuBar.itemWidth * menuItems.length)) / (menuItems.length-1)) + 'px';
+			for(i = 0, len = menuItems.length; i < len; i++){
+				if (i == menuItems.length - 1) {
+					menuItems[i].style.marginRight = 0;
+					menuItems[i].style.float = 'right';
+				} else {
+					menuItems[i].style.marginRight = margin;
+				}
+			}
+		};
+		
+		bb.menuBar.menu.doOrientationChange = bb.menuBar.menu.doOrientationChange.bind(bb.menuBar);
+		window.addEventListener('resize', bb.menuBar.menu.doOrientationChange,false); 
+		bb.windowListeners.push({name: 'resize', eventHandler: bb.menuBar.menu.doOrientationChange});
+	
+		
+		// Add the overlay for trapping clicks on items below
+		if (!bb.screen.overlay) {
+			bb.screen.overlay = document.createElement('div');
+			bb.screen.overlay.setAttribute('class','bb-menu-bar-overlay');
+		}
+		screen.appendChild(bb.screen.overlay);
+		bb.menuBar.menu.overlay = bb.screen.overlay;	
+	},
+
+	doEndTransition: function() {
+		if (bb.menuBar.visible) {
+			bb.menuBar.menu.style['z-index'] = '';
+		} else {
+			if(typeof bb.menuBar.menu.style !== "undefined"){ //bb.menuBar.menu.style is undefined when new screen is pushed from a menu item
+				bb.menuBar.menu.style.display = 'none';
+				bb.menuBar.menu.style.height = '0px';
+			}
+			bb.menuBar.screen.removeEventListener('webkitTransitionEnd',bb.menuBar.doEndTransition);
+			bb.menuBar.screen.style['-webkit-transition'] = '';
+			bb.menuBar.screen.style['-webkit-transform'] = '';
+			bb.menuBar.screen.style['-webkit-backface-visibility'] = '';
+		}
+	},
+
+	setDimensions: function() {
+		bb.menuBar.menu.style.display = '';
+		bb.menuBar.menu.style.height = bb.menuBar.height + 'px';
+		// Set our screen's parent to have no overflow so the browser doesn't think it needs to scroll
+		bb.menuBar.screen.parentNode.style.position = 'absolute';
+		bb.menuBar.screen.parentNode.style.left = '0px';
+		bb.menuBar.screen.parentNode.style.top = '0px';
+		bb.menuBar.screen.parentNode.style.bottom = '0px';
+		bb.menuBar.screen.parentNode.style.right = '0px';
+		bb.menuBar.screen.parentNode.style.width = '100%';
+		bb.menuBar.screen.parentNode.style['overflow'] = 'hidden';
+		// Make our overlay visible
+		bb.menuBar.menu.overlay.style.display = 'block';
+		
+		// Slide our screen
+		bb.menuBar.screen.style['-webkit-transition'] = '0.2s ease-out';
+		bb.menuBar.screen.style['-webkit-transform'] = 'translate3d(0px,' + bb.menuBar.height + 'px,0px)';
+		bb.menuBar.screen.style['-webkit-backface-visibility'] = 'hidden';
+	},
+
+	showMenuBar: function(){
+		if(!bb.menuBar.visible && !bb.screen.animating){
+			bb.menuBar.visible = true;
+			if(bb.device.isPlayBook){
+				blackberry.app.event.onSwipeDown(bb.menuBar.hideMenuBar);
+			}else if(bb.device.isBB10){
+				blackberry.event.removeEventListener("swipedown", bb.menuBar.showMenuBar);
+				blackberry.event.addEventListener("swipedown", bb.menuBar.hideMenuBar);
+			}
+
+			//Use the right transition
+			if(bb.device.isBB10){
+				bb.menuBar.screen.addEventListener('webkitTransitionEnd',bb.menuBar.doEndTransition);
+				bb.menuBar.setDimensions();					
+			}else if(bb.device.isPlayBook){
+				bb.menuBar.menu.style['-webkit-transition'] = 'all 0.5s ease-in-out';
+				bb.menuBar.menu.style['-webkit-transform'] = 'translate3d(0, ' + (bb.menuBar.height + 3) + 'px,0px)';
+			}
+			bb.menuBar.visible = true;
+			bb.menuBar.menu.overlay.addEventListener('touchstart', bb.menuBar.overlayTouchHandler, false);
+		}
+	},
+
+	hideMenuBar: function(){
+		if(bb.menuBar.visible){
+			bb.menuBar.visible = false;
+
+			if(bb.device.isPlayBook){
+				blackberry.app.event.onSwipeDown(bb.menuBar.showMenuBar);
+			}else if(bb.device.isBB10){
+					blackberry.event.removeEventListener("swipedown", bb.menuBar.hideMenuBar);
+					blackberry.event.addEventListener("swipedown", bb.menuBar.showMenuBar);
+			}
+			//Use the right transition
+			if(bb.device.isBB10){
+				bb.menuBar.menu.style['z-index'] = '-100';
+				bb.menuBar.screen.style['-webkit-transform'] = 'translate3d(0px,0px,0px)';
+				bb.menuBar.menu.overlay.style.display = 'none';
+			}else if(bb.device.isPlayBook){
+				bb.menuBar.menu.style['-webkit-transition'] = 'all 0.5s ease-in-out';
+				bb.menuBar.menu.style['-webkit-transform'] = 'translate3d(0, -' + (bb.menuBar.height + 3) + 'px,0px)';
+			}
+			bb.menuBar.menu.overlay.removeEventListener('touchstart', bb.menuBar.overlayTouchHandler, false);
+		}
+	},
+
+	overlayTouchHandler: function(event){
+		event.preventDefault();
+		event.stopPropagation();
+		bb.menuBar.hideMenuBar();
+	},
+
+	onMenuBarClicked: function () {
+		bb.menuBar.hideMenuBar();
+	},
+
+	clearMenu: function(){
+		if(window.blackberry){
+			if(bb.menuBar.menu && (bb.device.isPlayBook || bb.device.isBB10)){
+				if(bb.menuBar.visible){
+					bb.menuBar.hideMenuBar();
+				}
+				if (bb.device.isPlayBook && blackberry.app.event) {
+					blackberry.app.event.onSwipeDown('');
+				}else if(bb.device.isBB10 && blackberry.app){
+					blackberry.event.removeEventListener("swipedown", bb.menuBar.showMenuBar);
+					blackberry.event.removeEventListener("swipedown", bb.menuBar.hideMenuBar);
+				}
+				bb.menuBar.menu.parentNode.removeChild(bb.menuBar.menu);
+				bb.menuBar.menu = false;
+				bb.menuBar.visible = false;
+			}
+		}
+	}
+};
+
+_bb_progress = {
+
+	NORMAL : 0,
+	PAUSED : 1,
+	ERROR : 2,
+	
+	apply: function(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			bb.progress.style(elements[i], true);
+		}
+	},
+	
+	// Style individual item
+	style: function(progress, offdom) {
+		var color = bb.screen.controlColor,
+			highlightColor = bb.options.highlightColor,
+			accentColor = bb.options.shades.darkHighlight,
+			NORMAL = 0,
+			PAUSED = 1,
+			ERROR = 2;
+	
+		// Create our container div
+		outerElement = document.createElement('div');
+		outerElement.progress = progress;
+		outerElement.state = bb.progress.NORMAL;
+		if (progress.parentNode) {
+			progress.parentNode.insertBefore(outerElement, progress);
+		}
+		progress.style.display = 'none';
+		outerElement.appendChild(progress);
+		// Get our values
+		outerElement.maxValue = progress.hasAttribute('max') ? parseInt(progress.getAttribute('max')) : 0;
+		outerElement.value = progress.hasAttribute('value') ? parseInt(progress.getAttribute('value')) : 0;
+		// Set our styling and create the inner divs
+		outerElement.className = 'bb-progress';
+		outerElement.outer = document.createElement('div');
+		outerElement.outer.setAttribute('class','outer bb-progress-outer-' + color + ' bb-progress-outer-idle-background-' + color);
+		outerElement.appendChild(outerElement.outer);
+		outerElement.fill = document.createElement('div');
+		outerElement.fill.normal = 'bb-progress-fill bb10Highlight';
+		outerElement.fill.setAttribute('class',outerElement.fill.normal);
+		outerElement.outer.appendChild(outerElement.fill);
+		outerElement.inner = document.createElement('div');
+		outerElement.inner.className = 'inner';
+		outerElement.outer.appendChild(outerElement.inner);
+				
+		// Assign our function to set the value for the control
+		progress.outerElement = outerElement;
+		progress.setValue = function(value) {
+						var percent = 0,
+							width,
+							xpos;
+						if ((value && (value < 0)) || (value && (value > parseInt(this.outerElement.maxValue)))) {
+							return;
+						} else if (value) {
+							this.outerElement.value = value;
+							this.value = value;
+						} else if (value == 0) {
+							this.outerElement.value = 0;
+							this.value = 0;
+						} else {
+							value = parseInt(this.outerElement.value);
+						}
+
+						// Calculate percentage and styling
+						if (value == this.outerElement.maxValue) {
+							this.outerElement.fill.style.background = '-webkit-gradient(linear, center top, center bottom, from(' + accentColor+ '), to('+highlightColor+'))';
+							percent = 1;
+						} else if (value == 0) {
+							this.outerElement.outer.setAttribute('class','outer bb-progress-outer-' + color + ' bb-progress-outer-idle-background-' + color);
+						} else {
+							if (this.outerElement.state == bb.progress.PAUSED) {
+								this.outerElement.fill.style.background = '-webkit-gradient(linear, center top, center bottom, from(#EDC842), to(#BA991E))';
+							} else if (this.outerElement.state == bb.progress.ERROR) {
+								this.outerElement.fill.style.background = '-webkit-gradient(linear, center top, center bottom, from( #E04242), to(#D91111))';
+							} else {
+								this.outerElement.outer.setAttribute('class','outer bb-progress-outer-' + color);
+								this.outerElement.fill.setAttribute('class',this.outerElement.fill.normal);
+								this.outerElement.fill.style.background ='';	
+							} 
+							percent = (this.outerElement.value/parseInt(this.outerElement.maxValue));
+						}	
+						
+						// Determine width by percentage
+						xpos = Math.floor(parseInt(window.getComputedStyle(this.outerElement.outer).width) * percent);
+						this.outerElement.fill.style.width = xpos + 'px';						
+					};
+		progress.setValue = progress.setValue.bind(progress);
+		
+		// Set the state of the control
+		progress.setState = function(state) {
+						this.outerElement.state = state;
+						this.setValue();
+					};
+		progress.setState = progress.setState.bind(progress);
+		
+		// Add our show function
+		progress.show = function() {
+			this.outerElement.style.display = 'block';
+			bb.refresh();
+				};
+		progress.show = progress.show.bind(progress);
+		
+		// Add our hide function
+		progress.hide = function() {
+			this.outerElement.style.display = 'none';
+			bb.refresh();
+				};
+		progress.hide = progress.hide.bind(progress);
+		
+		// Add remove function
+		progress.remove = function() {
+			this.outerElement.parentNode.removeChild(this.outerElement);
+			bb.refresh();
+				};
+		progress.remove = progress.remove.bind(progress);
+		
+		// Add setMax function
+		progress.setMax = function(value) {
+					if (!value || (value < 0) || (value == this.max)) return;
+					this.max = value;
+					this.outerElement.maxValue = value;
+				};
+		progress.setMax = progress.setMax.bind(progress);
+		
+		if (offdom) {
+			// Load our image once onbbuidomready 
+			progress.onbbuidomready = function() {
+						this.setValue();
+						document.removeEventListener('bbuidomready', this.onbbuidomready,false);
+					};
+			progress.onbbuidomready = progress.onbbuidomready.bind(progress);
+			document.addEventListener('bbuidomready', progress.onbbuidomready,false);
+		} else {
+			window.setTimeout(progress.setValue, 0);
+		}
+		
+		// Re-calculate on orientation change
+		outerElement.doOrientationChange = function() {
+							window.setTimeout(this.progress.setValue, 0);
+						};
+		outerElement.doOrientationChange = outerElement.doOrientationChange.bind(outerElement);
+		window.addEventListener('resize', outerElement.doOrientationChange,false); 
+		// Add listener for removal on popScreen
+		bb.windowListeners.push({name: 'resize', eventHandler: outerElement.doOrientationChange});
+			
+		return outerElement;
+	}
+};
+bb.screen = {  
+    scriptCounter:  0,
+    totalScripts: 0,
+	controlColor: 'light',
+	listColor: 'light',
+	overlay : null,
+	tabOverlay : null,
+	contextMenu : null,
+	currentScreen : null,
+	focusedInput : null,
+	animating : false,
+    
+    apply: function(elements) {
+		var outerElement;
+		// Reset our context Menu
+		bb.screen.contextMenu = null;
+		
+        for (var i = 0; i < elements.length; i++) {
+            outerElement = elements[i];
+            bb.screen.currentScreen = outerElement;
+			// Set our screen resolution
+			outerElement.setAttribute('class', 'bb-screen');
+            		
+			//check to see if a menu/menuBar needs to be created
+			var menuBar = outerElement.querySelectorAll('[data-bb-type=menu]'),
+				titleBar = outerElement.querySelectorAll('[data-bb-type=title]'),
+				actionBar = outerElement.querySelectorAll('[data-bb-type=action-bar]'),
+				context = outerElement.querySelectorAll('[data-bb-type=context-menu]'),
+				outerScrollArea,
+				scrollArea,
+				tempHolder = [],
+				childNode = null, 
+				j,
+				menuBarHeight = bb.screen.getMenuBarHeight(),
+				actionBarHeight = bb.screen.getActionBarHeight(),
+				titleBarHeight = bb.screen.getTitleBarHeight();
+			
+			if (menuBar.length > 0) {
+				menuBar = menuBar[0];
+				outerElement.menuBar = menuBar;
+			}else{
+				menuBar = null;
+			}
+			// Figure out what to do with the title bar
+			if (titleBar.length > 0) {
+				titleBar = titleBar[0];
+				outerElement.titleBar = titleBar;
+			} else {
+				titleBar = null;
+			}
+			
+			// Assign our action bar
+			if (actionBar.length > 0) {
+				actionBar = actionBar[0]; 
+				outerElement.actionBar = actionBar;
+			} else {
+				actionBar = null;
+			}
+			
+			// Create our scrollable <div>
+			outerScrollArea = document.createElement('div'); 
+			outerElement.appendChild(outerScrollArea);
+			// Turn off scrolling effects if they don't want them
+			if (!outerElement.hasAttribute('data-bb-scroll-effect') || outerElement.getAttribute('data-bb-scroll-effect').toLowerCase() != 'off') {
+				outerElement.bbUIscrollWrapper = outerScrollArea;
+			}
+			
+			// Inner Scroll Area
+			scrollArea = document.createElement('div');
+			outerScrollArea.appendChild(scrollArea); 			
+			
+			// Copy all nodes in the screen that are not the action bar
+			for (j = 0; j < outerElement.childNodes.length - 1; j++) {
+				childNode = outerElement.childNodes[j];
+				if ((childNode != actionBar) && (childNode != menuBar) && (childNode != titleBar)) {
+					tempHolder.push(childNode);
+				}
+			}
+			// Add them into the scrollable area
+			for (j = 0; j < tempHolder.length; j++) {
+				scrollArea.appendChild(tempHolder[j]);
+			}
+			
+			// Set our variables for showing/hiding action bars
+			outerElement.menuBarHeight = menuBarHeight
+			outerElement.actionBarHeight = actionBarHeight;
+			outerElement.titleBarHeight = titleBarHeight;
+			outerElement.outerScrollArea = outerScrollArea;
+			
+			// Raise an internal event to let the rest of the framework know that content is scrolling
+			outerScrollArea.addEventListener('scroll', function() {
+					
+					evt = document.createEvent('Events');
+					evt.initEvent('bbuiscrolling', true, true);
+					document.dispatchEvent(evt);
+					/* This is a major hack to fix an issue in webkit where it doesn't always
+					   understand when to re-paint the screen when scrolling a <div> with overflow
+					   and using the inertial scrolling for 10.0*/
+					if (bb.device.requiresScrollingHack) {
+						if (this.timeout) {
+							clearTimeout(this.timeout);
+						} else {
+							this.style['padding-right'] = '1px';
+						}
+						// Set our new timeout for resetting
+						this.timeout = setTimeout(this.resetPadding,20);
+					}
+					/* ************* END OF THE SCROLLING HACK *******************/
+				},false);
+			
+			/* ********** PART OF THE SCROLLING HACK ************/
+			outerScrollArea.resetPadding = function() {
+					this.style['padding-right'] = '0px';
+					this.timeout = null;
+				};
+			outerScrollArea.resetPadding = outerScrollArea.resetPadding.bind(outerScrollArea);
+			/* ********** END OF THE SCROLLING HACK ************/
+			
+			
+			if (outerElement.getAttribute('data-bb-indicator')) { 
+				// Now add our iframe to load the sandboxed content
+				var overlay = document.createElement('div'),
+					indicator = document.createElement('div');
+				outerScrollArea.scrollArea = scrollArea;
+				outerScrollArea.overlay = overlay;
+				// Create our overlay
+				overlay.style['position'] = 'absolute';
+				overlay.style['bottom'] = '0px';
+				overlay.style['top'] = '0px';
+				overlay.style['left'] = '0px';
+				overlay.style['right'] = '0px';
+				overlay.touchstart = function(e) {
+							e.preventDefault();
+							e.stopPropagation();
+						};
+				overlay.touchend = function(e) {
+							e.preventDefault();
+							e.stopPropagation();
+						};
+				overlay.click = function(e) {
+							e.preventDefault();
+							e.stopPropagation();
+						};
+				outerScrollArea.appendChild(overlay);
+				scrollArea.style.display = 'none';
+					
+				// Add our indicator
+				indicator.setAttribute('data-bb-type', 'activity-indicator');
+				indicator.setAttribute('data-bb-size', 'large');
+				if (bb.device.is720x720) {
+					indicator.style.margin = '30% auto 0px auto';
+				} else if (bb.getOrientation().toLowerCase() == 'landscape') {
+					indicator.style.margin = '20% auto 0px auto';
+				} else {
+					indicator.style.margin = '60% auto 0px auto';
+				}
+				overlay.appendChild(indicator);
+				
+				// Create our event handler for when the dom is ready
+				outerScrollArea.bbuidomprocessed = function() {
+							this.scrollArea.style.display = '';
+							this.removeChild(this.overlay);
+							document.removeEventListener('bbuidomprocessed', this.bbuidomprocessed,false);
+							if (bb.device.isPlayBook && bb.scroller) {
+								bb.scroller.refresh();
+							}
+						};
+				outerScrollArea.bbuidomprocessed = outerScrollArea.bbuidomprocessed.bind(outerScrollArea);
+				
+				/* Add our event listener for the domready to move our selected item.  We want to
+				   do it this way because it will ensure the screen transition animation is finished before
+				   the pill button move transition happens. This will help for any animation stalls/delays */
+				document.addEventListener('bbuidomprocessed', outerScrollArea.bbuidomprocessed,false);
+			}
+			
+			// Set our outer scroll area dimensions
+			if (titleBar && actionBar) {
+				outerScrollArea.style['overflow'] = 'auto'; 
+				outerScrollArea.style['position'] = 'absolute';
+				outerScrollArea.style['bottom'] = actionBarHeight+ 'px';
+				outerScrollArea.style['top'] = titleBarHeight + 'px';
+				outerScrollArea.style['left'] = '0px';
+				outerScrollArea.style['right'] = '0px';
+			} else if (titleBar) {
+				outerScrollArea.style['overflow'] = 'auto'; 
+				outerScrollArea.style['position'] = 'absolute';
+				outerScrollArea.style['bottom'] = '0px';
+				outerScrollArea.style['top'] = titleBarHeight + 'px';
+				outerScrollArea.style['left'] = '0px';
+				outerScrollArea.style['right'] = '0px';
+			} else if (actionBar) {
+				outerScrollArea.style['overflow'] = 'auto'; 
+				outerScrollArea.style['position'] = 'absolute';
+				outerScrollArea.style['bottom'] = actionBarHeight+ 'px';
+				outerScrollArea.style['top'] = '0px';
+				outerScrollArea.style['left'] = '0px';
+				outerScrollArea.style['right'] = '0px';
+			} else {
+				outerScrollArea.setAttribute('style','overflow:auto;bottom:0px;position:absolute;top:0px;left:0px;right:0px;');
+				outerScrollArea.style['overflow'] = 'auto'; 
+				outerScrollArea.style['position'] = 'absolute';
+				outerScrollArea.style['bottom'] = '0px';
+				outerScrollArea.style['top'] = '0px';
+				outerScrollArea.style['left'] = '0px';
+				outerScrollArea.style['right'] = '0px';
+			}
+			
+			if(menuBar) {
+				bb.menuBar.apply(menuBar, outerElement);
+			}
+
+			// Apply any title bar styling
+			if (titleBar) {		
+				bb.titleBar.apply(titleBar);
+			}
+			
+			// Apply any action Bar styling
+			if (actionBar) {
+				bb.actionBar.apply(actionBar,outerElement);
+			}
+			
+			// Assign our context
+			if (context.length > 0) {
+				bb.screen.processContext(context[0], outerElement);
+			} else {
+				context = null;
+			}
+			
+			// Set refresh
+			outerElement.refresh = function() {
+					if (!bb.scroller) return;
+					bb.scroller.refresh();
+				};
+			outerElement.refresh = outerElement.refresh.bind(outerElement);
+			// Set ScrollTo
+			outerElement.scrollTo = function(x, y) {
+					if (bb.scroller) {
+						bb.scroller.scrollTo(x, y);
+					} else if (bb.device.isBB10) {
+						this.bbUIscrollWrapper.scrollTop = x;
+					}
+				};
+			outerElement.scrollTo = outerElement.scrollTo.bind(outerElement);
+			// Set ScrollToElement
+			outerElement.scrollToElement = function(element) {
+					if (bb.scroller) {
+						bb.scroller.scrollToElement(element);
+					} else if (bb.device.isBB10) {
+						if (!element) return;
+						var offsetTop = 0,
+							target = element;
+						if (target.offsetParent) {
+							do {
+								offsetTop  += target.offsetTop;
+							} while (target = target.offsetParent);
+						}
+						// Adjust for title bar
+						if (bb.screen.currentScreen.titleBar) {
+							offsetTop -= bb.screen.currentScreen.titleBarHeight;
+						}
+						// Adjust for action bar
+						if (bb.screen.currentScreen.actionBar) {
+							offsetTop -= bb.screen.getActionBarHeight();
+						}
+						this.scrollTo(offsetTop);
+					}
+				};
+			outerElement.scrollToElement = outerElement.scrollToElement.bind(outerElement);
+        }
+    },
+	
+	// Process all of the context menu code
+	processContext: function (context, screen) {
+		if (!bb.device.isPlayBook && !bb.device.isRipple) {
+			if (blackberry.ui && blackberry.ui.contextmenu) {
+				blackberry.ui.contextmenu.enabled = true;
+			}
+		}	
+		screen.appendChild(context);
+		context.menu = bb.contextMenu.create(screen);
+		context.appendChild(context.menu);
+		bb.screen.contextMenu = context.menu;
+		// Add the actions
+		var actions = context.querySelectorAll('[data-bb-type=action]'),
+			i;
+		for (i = 0; i < actions.length; i++) {
+			context.menu.add(actions[i]);
+		}
+		context.menu.centerMenuItems();
+	},
+    
+    fadeIn: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+		s['-webkit-animation-name']            = 'bbUI-fade-in';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	fadeOut: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+		s['-webkit-animation-name']            = 'bbUI-fade-out';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideLeft: function (screen) {
+        // set default values
+        var duration = 0.2,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.width = bb.innerWidth()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-left';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideOutLeft: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.width = bb.innerWidth()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-out-left';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideRight: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.width = bb.innerWidth()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-right';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideOutRight: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.width = bb.innerWidth()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-out-right';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideUp: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.height = bb.innerHeight()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-up';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideOutUp: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.height = bb.innerHeight()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-out-up';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideDown: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.height = bb.innerHeight()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-down';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	slideOutDown: function (screen) {
+        // set default values
+        var duration = 0.3,
+            timing = 'ease-out',
+			s = screen.style;
+			
+		s.height = bb.innerHeight()+'px';
+		s['-webkit-animation-name']            = 'bbUI-slide-out-down';
+		s['-webkit-animation-duration']        = duration + 's';
+		s['-webkit-animation-timing-function'] = timing; 
+		s['-webkit-transform'] = 'translate3d(0,0,0)';
+		s['-webkit-backface-visibility'] = 'hidden';
+    },
+	
+	getMenuBarHeight: function() {
+		// Set our 'res' for known resolutions, otherwise use the default
+		if (bb.device.is1024x600) {
+			return (bb.getOrientation().toLowerCase() == 'portrait') ? 73 : 73;
+		} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+			return (bb.getOrientation().toLowerCase() == 'portrait') ? 140 : 111; 
+		} else {
+			return (bb.getOrientation().toLowerCase() == 'portrait') ? 140 : 111;
+		}
+	},
+	
+	getActionBarHeight: function() {
+		// Set our 'res' for known resolutions, otherwise use the default
+		if (bb.device.is1024x600) {
+			return (bb.getOrientation().toLowerCase() == 'portrait') ? 73 : 73;
+		} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+			return (bb.getOrientation().toLowerCase() == 'portrait') ? 139 : 99; 
+		} else if (bb.device.is720x720) {
+			return 109;
+		} else {
+			return (bb.getOrientation().toLowerCase() == 'portrait') ? 139 : 99;
+		}
+	},
+	
+	getTitleBarHeight: function() {
+		// Set our 'res' for known resolutions, otherwise use the default
+		if (bb.device.is1024x600) {
+			return 65;
+		} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+			return 111;
+		} else if (bb.device.is720x720) {
+			return 92;
+		}else {
+			return 111;
+		}
+	}
+		
+};
+bb.tabOverflow = {
+
+	create : function(screen) {
+		var menu = document.createElement('div'),
+			overlay;
+		menu.screen = screen;
+		menu.itemClicked = false;
+		menu.visible = false;
+		menu.actions = [];
+		menu.tabOverflowState = {
+			display : undefined,
+			img : undefined,
+			style : undefined,
+			caption : undefined
+		};
+		
+		menu.setAttribute('class','bb-tab-overflow-menu bb-tab-overflow-menu-dark');
+		screen.parentNode.appendChild(menu);
+		
+		// Set our initial styling
+		menu.style['z-index'] = '-100';
+		menu.style.display = 'none';
+		menu.style.width = menu.width + 'px';
+		
+		// Handle any press-and-hold events
+		menu.oncontextmenu = function(contextEvent) {
+			var node = contextEvent.srcElement,
+				parentNode = node.parentNode;
+			// Loop up to the parent node.. if it is this action bar then prevent default
+			if (!parentNode) return;
+			while (parentNode) {
+				if (parentNode == this) {
+					contextEvent.preventDefault();
+					break;
+				}
+				parentNode = parentNode.parentNode;
+			}			
+		};
+		menu.oncontextmenu = menu.oncontextmenu.bind(menu);
+		window.addEventListener('contextmenu', menu.oncontextmenu);
+		bb.windowListeners.push({name: 'contextmenu', eventHandler: menu.oncontextmenu});
+		
+		if (!bb.screen.tabOverlay) {
+			overlay = document.createElement('div');
+			overlay.menu = menu;
+			bb.screen.tabOverlay = overlay;
+			overlay.setAttribute('class','bb-tab-overflow-menu-overlay ');
+			screen.appendChild(overlay);
+			
+			// Hide the menu on touch
+			overlay.ontouchstart = function(e) {
+						e.preventDefault();
+						e.stopPropagation();
+						this.menu.hide();
+					};
+		}
+		menu.overlay = bb.screen.tabOverlay;
+
+		// Apply styling at the begining and end of animation
+		menu.doEndTransition = function() {
+			if (this.visible) {
+				this.style['z-index'] = '';
+			} else {
+				this.style.display = 'none';
+				this.style.width = '0px';
+				this.screen.removeEventListener('webkitTransitionEnd',menu.doEndTransition);
+				this.screen.style['-webkit-transition'] = '';
+				this.screen.style['-webkit-transform'] = '';
+				this.screen.style['-webkit-backface-visibility'] = '';
+			}
+		};
+		menu.doEndTransition = menu.doEndTransition.bind(menu);	
+			
+		menu.show = function() {
+					this.itemClicked = false;
+					this.visible = true;
+					var tabOverflowBtn = this.actionBar.tabOverflowBtn;
+					this.tabOverflowState.display = tabOverflowBtn.tabHighlight.style.display;
+					this.tabOverflowState.img = tabOverflowBtn.icon.src;
+					this.tabOverflowState.caption = tabOverflowBtn.display.innerHTML;
+					this.tabOverflowState.style = tabOverflowBtn.icon.getAttribute('class');
+					this.screen.addEventListener('webkitTransitionEnd',menu.doEndTransition);
+					this.setDimensions();					
+					// Reset our overflow menu button
+					tabOverflowBtn.reset();
+					if(bb.device.isPlayBook){
+						blackberry.app.event.onSwipeDown();
+					} else {
+						blackberry.event.removeEventListener("swipedown", bb.menuBar.showMenuBar);
+					}
+				};
+		menu.show = menu.show.bind(menu);	
+		
+		// Adjust the dimensions of the menu and screen
+		menu.setDimensions = function() {
+					this.style.display = '';
+					this.style.width = bb.tabOverflow.getWidth() + 'px';
+					// Set our screen's parent to have no overflow so the browser doesn't think it needs to scroll
+					this.screen.parentNode.style.position = 'absolute';
+					this.screen.parentNode.style.left = '0px';
+					this.screen.parentNode.style.top = '0px';
+					this.screen.parentNode.style.bottom = '0px';
+					this.screen.parentNode.style.right = '0px';
+					this.screen.parentNode.style.width = '100%';
+					this.screen.parentNode.style['overflow'] = 'hidden';
+					// Make our overlay visible
+					this.overlay.style.display = 'block';
+					
+					// Slide our screen
+					this.screen.style['-webkit-transition'] = '0.2s ease-out';
+					this.screen.style['-webkit-transform'] = 'translate3d(' + bb.tabOverflow.getWidth() + 'px,0px,0px)';
+					this.screen.style['-webkit-backface-visibility'] = 'hidden';
+				};
+		menu.setDimensions = menu.setDimensions.bind(menu);	
+		
+		menu.hide = function() {
+					this.visible = false;
+					this.style['z-index'] = '-100';
+					this.screen.style['-webkit-transform'] = 'translate3d(0px,0px,0px)';
+					
+					// Make our overlay invisible
+					this.overlay.style.display = 'none';
+					
+					// Re-apply the old button styling if needed
+					if (!this.itemClicked) {
+						var tabOverflowBtn = this.actionBar.tabOverflowBtn;
+						tabOverflowBtn.icon.setAttribute('src',this.tabOverflowState.img);
+						tabOverflowBtn.icon.setAttribute('class',this.tabOverflowState.style);
+						tabOverflowBtn.tabHighlight.style.display = this.tabOverflowState.display;
+						tabOverflowBtn.display.innerHTML = this.tabOverflowState.caption;
+					}
+					if(bb.device.isPlayBook){
+						blackberry.app.event.onSwipeDown(bb.menuBar.showMenuBar);
+					} else {
+						blackberry.event.addEventListener("swipedown", bb.menuBar.showMenuBar);
+					}
+				};
+		menu.hide = menu.hide.bind(menu);
+		
+		// Hide the menu
+		menu.onclick = function() {
+					this.hide();
+				};
+				
+		// Center the items in the list
+		menu.centerMenuItems = function() {
+								var windowHeight = bb.innerHeight(),
+									itemHeight = 111,
+									margin;
+									
+								if (bb.device.is1024x600) {
+									itemHeight = 53;
+								} else if (bb.device.is720x720) {
+									itemHeight = 80;
+								} else {
+									itemHeight = 111;
+								}
+								
+								margin = windowHeight - Math.floor(windowHeight/2) - Math.floor((this.actions.length * itemHeight)/2) - itemHeight; //itemHeight is the header
+								if (margin < 0) margin = 0;
+								this.actions[0].style['margin-top'] = margin + 'px';
+							};
+		menu.centerMenuItems = menu.centerMenuItems.bind(menu);
+		
+		// Initialize any selected items
+		menu.initSelected = function() {
+								var i,
+									action;
+								for (i = 0; i < this.actions.length; i++) {
+									action = this.actions[i];
+									if (action.initialSelected) {
+										action.setOverflowTab(true);
+										break;
+									}
+								}
+							};
+		menu.initSelected = menu.initSelected.bind(menu);
+
+		// Make sure we move when the orientation of the device changes
+		menu.orientationChanged = function(event) {
+								this.centerMenuItems();
+								// Resize the menu if it is currently open
+								if (this.visible) {
+									this.setDimensions();
+								}
+							};
+		menu.orientationChanged = menu.orientationChanged.bind(menu);	
+		window.addEventListener('orientationchange', menu.orientationChanged,false); 
+		// Add listener for removal on popScreen
+		bb.windowListeners.push({name: 'orientationchange', eventHandler: menu.orientationChanged});
+		
+		// Create our add item function
+		menu.add = function(action) {
+				var normal, 
+					caption = action.innerHTML,
+					accentTextValue = action.getAttribute('data-bb-accent-text'),
+					inner = document.createElement('div'),
+					innerClass = 'bb-tab-overflow-menu-item-inner',
+					img = document.createElement('img'),
+					table, tr, td;
+				
+				// set our styling
+				normal = 'bb-tab-overflow-menu-item bb-tab-overflow-menu-item-dark';
+				this.appendChild(action);
+				
+				// Check for our visibility
+				if (action.hasAttribute('data-bb-visible') && action.getAttribute('data-bb-visible').toLowerCase() == 'false') {
+					action.visible = false;
+					action.style.display = 'none';
+				} else {
+					action.visible = true;
+					this.actions.push(action);
+				}
+				// If it is the top item it needs a top border
+				if (this.actions.length == 1) {
+					normal = normal + ' bb-tab-overflow-menu-item-first-dark';
+				}
+				// Set our inner information
+				action.normal = normal;
+				action.accentText = null;
+				action.menu = this;
+				action.caption = caption;
+				action.setAttribute('class',action.normal);
+				action.innerHTML = '';
+				if (!action.visibleTab) {
+						action.visibleTab = action.actionBar.tabOverflowBtn;
+				}
+				// Create our layout
+				table = document.createElement('table');
+				tr = document.createElement('tr');
+				table.appendChild(tr);
+				action.appendChild(table);
+				// Add our image
+				td = document.createElement('td');
+				img.setAttribute('src', action.getAttribute('data-bb-img'));
+				img.setAttribute('class','bb-tab-overflow-menu-item-image');
+				action.img = img;
+				td.appendChild(img);
+				tr.appendChild(td);
+				// Add our caption
+				td = document.createElement('td');
+				inner.innerHTML = caption;
+				action.display = inner;
+				td.appendChild(inner);
+				// See if there is accent text
+				if (accentTextValue) {
+					action.accentText = document.createElement('div');
+					action.accentText.innerHTML = accentTextValue;
+					action.accentText.setAttribute('class','tab-accent-text');
+					td.appendChild(action.accentText);	
+					innerClass = innerClass + ' bb-tab-overflow-menu-item-double';
+				} else {
+					innerClass = innerClass + ' bb-tab-overflow-menu-item-single';
+				}
+				// Set our styling
+				inner.setAttribute('class',innerClass);
+				tr.appendChild(td);
+				
+				//Set the overflow tab item
+				action.setOverflowTab = function(hightlight) {
+							var tabOverflowBtn = this.actionBar.tabOverflowBtn;
+							if (hightlight) {
+								bb.actionBar.highlightAction(this.visibleTab, this);
+							}
+							if (this.visibleTab == tabOverflowBtn) {
+								tabOverflowBtn.icon.setAttribute('src',this.img.src);
+								tabOverflowBtn.icon.setAttribute('class',tabOverflowBtn.icon.highlight);
+								tabOverflowBtn.tabHighlight.style.display = 'block';
+								tabOverflowBtn.display.innerHTML = this.caption;
+							}
+						};
+				action.setOverflowTab = action.setOverflowTab.bind(action);
+
+				// See if it was selected
+				action.initialSelected = (action.hasAttribute('data-bb-selected') && (action.getAttribute('data-bb-selected').toLowerCase() == 'true'));
+				action.selected = action.initialSelected;
+				
+				// Trap the old click so that we can call it later
+				action.oldClick = action.onclick;
+				action.onclick = function() {
+									var tabOverflowBtn = this.actionBar.tabOverflowBtn;
+									this.menu.itemClicked = true;
+									bb.actionBar.highlightAction(this.visibleTab, this);
+									if (this.visibleTab == tabOverflowBtn) {
+										this.setOverflowTab(false);
+									} 
+									if (this.oldClick) {
+										this.oldClick();
+									}
+								};
+								
+				// Assign the setCaption function
+				action.setCaption = function(value) {
+									this.display.innerHTML = value;
+									this.caption = value;
+									
+									// Update the overflow button if this tab is selected
+									var tabOverflowBtn = this.actionBar.tabOverflowBtn;
+									if ((this.visibleTab == tabOverflowBtn) && (this.selected == true)) {
+										tabOverflowBtn.display.innerHTML = this.caption;
+									}
+								};
+				action.setCaption = action.setCaption.bind(action);
+				
+				// Assign the setImage function
+				action.setImage = function(value) {
+									this.img.setAttribute('src',value);
+								};
+				action.setImage = action.setImage.bind(action);
+				
+				// Assign the show function
+				action.show = function() {
+									if (this.visible) return;
+									this.visible = true;
+									this.menu.actions.push(this);
+									this.style.display = '';
+									this.menu.centerMenuItems();
+								};
+				action.show = action.show.bind(action);
+				
+				// Assign the hide function
+				action.hide = function() {
+									if (!this.visible) return;
+									this.visible = false;
+									var index = this.menu.actions.indexOf(this);
+									this.menu.actions.splice(index,1);
+									this.style.display = 'none';	
+									this.menu.centerMenuItems();
+								};
+				action.hide = action.hide.bind(action);
+		};
+		menu.add = menu.add.bind(menu);
+		return menu;
+	},
+	
+	// Get the preferred width of the overflow
+	getWidth: function() {
+		if (bb.device.is1024x600) {
+			return (bb.getOrientation() == 'portrait') ? bb.innerWidth() - 77 : 400;
+		} else if (bb.device.is720x720) {
+			return bb.innerWidth() - 143;
+		} else {
+			return (bb.getOrientation() == 'portrait') ? bb.innerWidth() - 154 : 700;
+		}
+	}
+};
+bb.titleBar = {
+
+	apply: function(titleBar) {	
+		var orientation = bb.getOrientation(),
+			button,
+			caption,
+			titleBarClass,
+			details,
+			topTitleArea = document.createElement('div'),
+			img,
+			accentText;
+		
+		// Insert our title area
+		titleBar.topTitleArea = topTitleArea;
+		titleBar.appendChild(topTitleArea);
+		
+		// Create our box shadow below the title bar
+		if (titleBar.parentNode) {
+			titleBar.dropShadow = document.createElement('div');
+			titleBar.dropShadow.setAttribute('class','bb-title-bar-drop-shadow');
+			titleBar.dropShadow.style.top = (bb.screen.getTitleBarHeight() - 1) + 'px';
+			titleBar.parentNode.appendChild(titleBar.dropShadow);
+		}
+		
+		// Style our title bar
+		if (bb.options.coloredTitleBar) {
+			titleBarClass = 'bb-title-bar bb-title-bar-'+ orientation + ' bb10-title-colored';
+		} else {
+			titleBarClass = 'bb-title-bar bb-title-bar-'+ orientation + ' bb-title-bar-' + bb.screen.controlColor;
+		}
+		topTitleArea.setAttribute('class', titleBarClass);
+		
+		// Set our caption
+		caption = document.createElement('div');
+		titleBar.caption = caption;
+		caption.setAttribute('class','bb-title-bar-caption bb-title-bar-caption-'+ orientation);
+		caption.innerHTML = titleBar.getAttribute('data-bb-caption');
+		topTitleArea.appendChild(caption);
+		
+		// Get our back button if provided
+		if (titleBar.hasAttribute('data-bb-back-caption')) {
+			button = document.createElement('div');
+			button.innerHTML = titleBar.getAttribute('data-bb-back-caption');
+			topTitleArea.appendChild(button);
+			titleBar.backButton = button;
+			button.onclick = bb.popScreen;
+			bb.titleBar.styleBB10Button(button);
+			button.style.left = '0px';
+		}
+		// Get our action button if provided
+		if (titleBar.hasAttribute('data-bb-action-caption')) {
+			button = document.createElement('div');
+			button.innerHTML = titleBar.getAttribute('data-bb-action-caption');
+			if (titleBar.hasAttribute('onactionclick')) {
+				button.titleBar = titleBar;
+				button.onactionclick = titleBar.getAttribute('onactionclick');
+				titleBar.onactionclick = function() {
+								eval(this.actionButton.onactionclick);
+							};
+				button.onclick = function() {
+								if (this.titleBar.onactionclick) {
+									this.titleBar.onactionclick();
+								}
+							};
+			} else if (titleBar.onactionclick) {
+				button.onclick = titleBar.onactionclick;
+			}
+			bb.titleBar.styleBB10Button(button);
+			button.style.right = '0px';
+			topTitleArea.appendChild(button);
+			titleBar.actionButton = button;
+		}
+		// Create an adjustment function for the widths
+		if (titleBar.actionButton || titleBar.backButton) {
+			titleBar.evenButtonWidths = function() {
+									var backWidth = this.backButton ? parseInt(window.getComputedStyle(this.backButton).width) : 0,
+										actionWidth = this.actionButton ? parseInt(window.getComputedStyle(this.actionButton).width) : 0,
+										commonWidth;
+									
+									if (this.actionButton && this.backButton) {
+										commonWidth = (backWidth > actionWidth) ? backWidth : actionWidth;
+										this.backButton.style.width = commonWidth +'px';
+										this.actionButton.style.width = commonWidth +'px';
+										this.caption.style['margin-left'] = (commonWidth + 24) +'px';
+										this.caption.style['margin-right'] = (commonWidth + 24) +'px';
+									} else if (this.actionButton) {
+										this.caption.style['margin-left'] = '0px';
+										this.caption.style['margin-right'] = (actionWidth + 24) +'px';
+									} else if (this.backButton) {
+										this.caption.style['margin-right'] = '0px';
+										this.caption.style['margin-left'] = (backWidth + 24) +'px';
+									}
+								};
+			titleBar.evenButtonWidths = titleBar.evenButtonWidths.bind(titleBar);
+			window.setTimeout(titleBar.evenButtonWidths,0);
+		}
+		
+		// Display our image ONLY if there are no title bar images
+		if ((!titleBar.actionButton && !titleBar.backButton) && (titleBar.hasAttribute('data-bb-img') || titleBar.hasAttribute('data-bb-accent-text'))){
+			caption.setAttribute('class','bb-title-bar-caption-left');
+			details = document.createElement('div');
+			titleBar.details = details;
+			topTitleArea.appendChild(details);
+			details.appendChild(caption);
+			
+			// First check for the image
+			if (titleBar.hasAttribute('data-bb-img')) {
+				img = document.createElement('img');
+				//img.src = titleBar.getAttribute('data-bb-img');
+				titleBar.img = img;
+				topTitleArea.insertBefore(img, details);
+				details.setAttribute('class', 'bb-title-bar-caption-details-img');
+				
+				// Create our display image
+				img.style.opacity = '0';
+				img.style['-webkit-transition'] = 'opacity 0.5s linear';
+				img.style['-webkit-backface-visibility'] = 'hidden';
+				img.style['-webkit-perspective'] = 1000;
+				img.style['-webkit-transform'] = 'translate3d(0,0,0)';
+
+				// Load our image once onbbuidomready 
+				titleBar.onbbuidomready = function() {
+							// Animate its visibility once loaded
+							this.img.onload = function() {
+								this.style.opacity = '1.0';
+							}
+							this.img.src = this.getAttribute('data-bb-img');
+							document.removeEventListener('bbuidomready', this.onbbuidomready,false);
+						};
+				titleBar.onbbuidomready = titleBar.onbbuidomready.bind(titleBar);
+				document.addEventListener('bbuidomready', titleBar.onbbuidomready,false);		
+			} 
+			// Next check for the accent text
+			if (titleBar.hasAttribute('data-bb-accent-text')) {
+				if (bb.device.is1024x600) {
+					caption.style['line-height'] = '40px';
+				} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+					caption.style['line-height'] = '70px';
+				} else if (bb.device.is720x720) {
+					caption.style['line-height'] = '55px';
+				}else {
+					caption.style['line-height'] = '70px';
+				}
+				accentText = document.createElement('div');
+				accentText.setAttribute('class','bb-title-bar-accent-text');
+				if (bb.options.coloredTitleBar) {
+					accentText.style.color = 'silver';
+				}
+				titleBar.accentText = accentText;
+				accentText.innerHTML = titleBar.getAttribute('data-bb-accent-text');
+				details.appendChild(accentText);
+			} 
+		
+		}
+
+		// Assign the setCaption function
+		titleBar.setCaption = function(value) {
+				this.caption.innerHTML = value;
+			};
+		titleBar.setCaption = titleBar.setCaption.bind(titleBar);
+		// Assign the getCaption function
+		titleBar.getCaption = function() {
+				return this.caption.innerHTML;
+			};
+		titleBar.getCaption = titleBar.getCaption.bind(titleBar);
+		// Assign the setBackCaption function
+		titleBar.setBackCaption = function(value) {
+				this.backButton.firstChild.innerHTML = value;
+				if (this.actionButton) {
+					this.backButton.style.width = '';
+					this.evenButtonWidths();
+				}
+			};
+		titleBar.setBackCaption = titleBar.setBackCaption.bind(titleBar);
+		// Assign the getBackCaption function
+		titleBar.getBackCaption = function() {
+				return this.backButton.firstChild.innerHTML;
+			};
+		titleBar.getBackCaption = titleBar.getBackCaption.bind(titleBar);
+		// Assign the setActionCaption function
+		titleBar.setActionCaption = function(value) {
+				this.actionButton.firstChild.innerHTML = value;
+				if (this.backButton) {
+					this.actionButton.style.width = '';
+					this.evenButtonWidths();
+				}
+			};
+		titleBar.setActionCaption = titleBar.setActionCaption.bind(titleBar);
+		// Assign the getActionCaption function
+		titleBar.getActionCaption = function() {
+				return this.actionButton.firstChild.innerHTML;
+			};
+		titleBar.getActionCaption = titleBar.getActionCaption.bind(titleBar);
+		// Assign the getAccentText function
+		titleBar.getAccentText = function() {
+				return this.accentText.innerHTML;
+			};
+		titleBar.getAccentText = titleBar.getAccentText.bind(titleBar);
+	},
+	
+	styleBB10Button: function(outerElement) {
+		var innerElement = document.createElement('div'),
+			normal,
+			highlight, 
+			outerNormal;
+		
+		if (bb.options.coloredTitleBar) {
+			normal = 'bb-titlebar-button bb10-title-button-colored';
+			highlight = 'bb-titlebar-button bb10-title-button-colored-highlight';
+			outerNormal = 'bb-titlebar-button-container bb10-title-button-container-colored';
+		} else {
+			normal = 'bb-titlebar-button bb-titlebar-button-' + bb.screen.controlColor;
+			highlight = 'bb-titlebar-button bb-titlebar-button-highlight-'+ bb.screen.controlColor;
+			outerNormal = 'bb-titlebar-button-container bb-titlebar-button-container-' + bb.screen.controlColor;
+		}
+
+		//outerElement.enabled = !disabled;
+		outerElement.enabled = true;
+		innerElement.innerHTML = outerElement.innerHTML;
+		outerElement.innerHTML = '';
+		outerElement.appendChild(innerElement);
+		innerElement.setAttribute('class',normal);
+		
+		// Set our variables on the elements
+		outerElement.setAttribute('class',outerNormal);
+		outerElement.outerNormal = outerNormal;
+		outerElement.innerElement = innerElement;
+		innerElement.normal = normal;
+		innerElement.highlight = highlight;
+
+		outerElement.ontouchstart = function() {
+								this.innerElement.setAttribute('class', this.innerElement.highlight);
+							};
+		outerElement.ontouchend = function() {
+								this.innerElement.setAttribute('class', this.innerElement.normal);
+							};
+
+						
+		// Trap the click and call it only if the button is enabled
+		outerElement.trappedClick = outerElement.onclick;
+		outerElement.onclick = undefined;
+		if (outerElement.trappedClick !== null) {
+			outerElement.addEventListener('click',function (e) {
+					if (this.enabled) {
+						this.trappedClick();
+					}
+				},false);
+		}
+        
+	
+	}
+};
+_bb10_activityIndicator = {
+	apply: function(elements) {
+		var i,
+			outerElement,
+			innerElement,
+			indicator, 
+			color = bb.screen.controlColor,
+			size,
+			width,
+			swirl;
+
+		if (elements.length > 0) {
+			var canvas = document.createElement('canvas'),
+				ctx,
+				lingrad;
+			// Create our color matched swirl
+			canvas.setAttribute('height','184px');
+			canvas.setAttribute('width', '184px');
+			ctx = canvas.getContext('2d');
+			ctx.beginPath();    
+			ctx.moveTo(92,154);
+			ctx.arcTo(154,154,154,92,62);
+			ctx.arcTo(154,30,92,30,62);
+			ctx.arcTo(81,30,81,20,10);
+			ctx.arcTo(81,10,91,10,10);
+			ctx.arcTo(173,10,173,92,82);
+			ctx.arcTo(173,173,92,173,82);
+			ctx.arcTo(81,173,81,164,10);
+			ctx.arcTo(81,154,92,154,10);
+			ctx.closePath();
+			ctx.strokeStyle = 'transparent';
+			ctx.stroke();
+		 
+			// Create our fill color
+			var lingrad = ctx.createLinearGradient(0,50,0,154);
+			lingrad.addColorStop(0, 'transparent');
+			lingrad.addColorStop(1, bb.options.highlightColor);
+			ctx.fillStyle = lingrad;
+			ctx.fill();
+			
+			swirl = canvas.toDataURL();
+		}
+		
+		for (i = 0; i < elements.length; i++)  {
+			outerElement = elements[i];
+			size = (outerElement.hasAttribute('data-bb-size')) ? outerElement.getAttribute('data-bb-size').toLowerCase() : 'medium';
+			
+			if (size == 'large') {
+				if (bb.device.is1024x600) {
+					width = '93px';
+				} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+					width = '184px';
+				}  else if (bb.device.is720x720) {
+					width = '170px';
+				}else {
+					width = '184px';
+				}
+			} else if (size == 'small') {
+				if (bb.device.is1024x600) {
+					width = '21px';
+				} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+					width = '41px';
+				} else {
+					width = '41px';
+				}
+			} else {
+				size = 'medium';
+				if (bb.device.is1024x600) {
+					width = '46px';
+				} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+					width = '93px';
+				} else if (bb.device.is720x720) {
+					width = '88px';
+				}else {
+					width = '93px';
+				}
+			}
+			
+			outerElement.style.width = width;
+			// Add another div so that the developers styling on the original div is left untouched
+			indicator = document.createElement('div');
+			indicator.setAttribute('class',  'bb-activity-margin bb-activity-'+size+' bb-activity-'+color);
+			outerElement.appendChild(indicator);
+			innerElement = document.createElement('div');
+			innerElement.setAttribute('class','bb-activity-'+size);
+			innerElement.style['background-image'] = 'url("'+ swirl +'")';
+			indicator.appendChild(innerElement);
+			
+			// Set our animation
+			innerElement.style['-webkit-animation-name'] = 'activity-rotate';
+			innerElement.style['-webkit-animation-duration'] = '0.8s';
+			innerElement.style['-webkit-animation-iteration-count'] = 'infinite';
+			innerElement.style['-webkit-animation-timing-function'] = 'linear';
+			
+						
+			// Assign our show function
+				outerElement.show = function(){ 
+				this.style.display = '';
+				bb.refresh();
+			};
+			outerElement.show = outerElement.show.bind(outerElement);
+		
+			// Assign our hide function
+			outerElement.hide = function(){ 
+				this.style.display = 'none';
+				bb.refresh();
+			};
+			outerElement.hide = outerElement.hide.bind(outerElement);	
+		
+			// Assign our remove function
+			outerElement.remove = function(){ 
+				this.parentNode.removeChild(this);
+				bb.refresh();
+			};
+			outerElement.remove = outerElement.remove.bind(outerElement);
+
+		}
+	}
+}
+_bb10_button = { 
+    // Apply styling for a list of buttons
+	apply: function(elements) {	
+		for (var i = 0; i < elements.length; i++) {
+			bb.button.style(elements[i]);
+		}
+	},
+	// Style an individual button
+	style: function(outerElement) {
+		var disabledStyle,
+			imgSrc,
+			caption,
+			imgElement,
+			outerNormalWithoutImageOnly,
+			highlight,
+			captionElement = document.createElement('div'),
+			innerElement = document.createElement('div');
+			disabled = outerElement.hasAttribute('data-bb-disabled'),
+			normal = 'bb-button',
+			outerNormal = 'bb-button-container bb-button-container-' + bb.screen.controlColor;
+
+		if (bb.device.newerThan10dot1) {
+			normal += ' bb-button-10dot2';
+			outerNormal += ' bb-button-container-10dot2';
+			highlight = 'bb-button bb-button-10dot2 bb-button-'+ bb.screen.controlColor + ' bb-button-'+ bb.screen.controlColor + '-highlight-10dot2';
+		} else {
+			highlight = 'bb-button bb10-button-highlight';
+		}
+		outerNormalWithoutImageOnly = outerNormal;	
+		outerElement.isImageOnly = false;
+		outerElement.enabled = !disabled;
+		caption = outerElement.innerHTML;
+		captionElement.innerHTML = caption;
+		outerElement.innerHTML = '';
+		outerElement.stretched = false;
+		outerElement.captionElement = captionElement;
+		outerElement.appendChild(innerElement);
+		outerElement.innerElement = innerElement;
+		
+		if (outerElement.hasAttribute('data-bb-style')) {
+			var style = outerElement.getAttribute('data-bb-style');
+			if (style == 'stretch') {
+				outerNormal = outerNormal + ' bb-button-stretch';
+				outerElement.stretched = true;
+			}
+		}
+		// look for our image
+		imgSrc = outerElement.hasAttribute('data-bb-img') ? outerElement.getAttribute('data-bb-img') : undefined;
+		if (imgSrc) {
+			if (!caption || caption.length == 0) {
+				if (bb.device.newerThan10dot1) {
+					outerNormal = outerNormal + ' bb-button-container-image-only bb-button-caption-with-image-only_10dot2';
+					captionElement.setAttribute('class','bb-button-caption-with-image-only bb-button-caption-with-image-only_10dot2');
+				} else {
+					outerNormal = outerNormal + ' bb-button-container-image-only';
+					captionElement.setAttribute('class','bb-button-caption-with-image-only');
+				}
+				captionElement.style['background-image'] = 'url("'+imgSrc+'")';
+				outerElement.style['line-height'] = '0px';
+				
+				outerElement.isImageOnly = true;
+			} else {
+				// Configure our caption element
+				captionElement.setAttribute('class','bb-button-caption-with-image');
+				imgElement = document.createElement('div');
+				outerElement.imgElement = imgElement;
+				if (bb.device.newerThan10dot1) {
+					imgElement.setAttribute('class','bb-button-image bb-button-image-10dot2');
+				} else {
+					imgElement.setAttribute('class','bb-button-image');
+				}
+				
+				imgElement.style['background-image'] = 'url("'+imgSrc+'")';
+				innerElement.appendChild(imgElement);
+			}
+		}
+		// Insert caption after determining what to do with the image
+		innerElement.appendChild(captionElement);
+	
+		// Set our styles
+		disabledStyle = normal + ' bb-button-disabled-'+bb.screen.controlColor;
+		normal = normal + ' bb-button-' + bb.screen.controlColor;
+		
+		if (disabled) {
+			outerElement.removeAttribute('data-bb-disabled');
+			innerElement.setAttribute('class',disabledStyle);
+		} else {
+			innerElement.setAttribute('class',normal);
+		}
+		// Set our variables on the elements
+		outerElement.setAttribute('class',outerNormal);
+		outerElement.outerNormal = outerNormal;
+		outerElement.outerNormalWithoutImageOnly = outerNormalWithoutImageOnly;
+		outerElement.innerElement = innerElement;
+		innerElement.normal = normal;
+		innerElement.highlight = highlight;
+		innerElement.disabledStyle = disabledStyle;
+		if (!disabled) {
+			outerElement.ontouchstart = function() {
+									this.innerElement.setAttribute('class', this.innerElement.highlight);
+									
+								};
+			outerElement.ontouchend = function() {
+									this.innerElement.setAttribute('class', this.innerElement.normal);
+								};
+		}
+						
+		// Trap the click and call it only if the button is enabled
+		outerElement.trappedClick = outerElement.onclick;
+		outerElement.onclick = undefined;
+		if (outerElement.trappedClick !== null) {
+			outerElement.addEventListener('click',function (e) {
+					if (this.enabled) {
+						this.trappedClick();
+					}
+				},false);
+		}
+		
+		// Assign our set caption function
+		outerElement.setCaption = function(value) {
+				if (this.isImageOnly && (value.length > 0)) {
+					// Configure our caption element
+					this.captionElement.setAttribute('class','bb-button-caption-with-image');
+					var imgElement = document.createElement('div');
+					this.imgElement = imgElement;
+					imgElement.setAttribute('class','bb-button-image');
+					imgElement.style['background-image'] = this.captionElement.style['background-image'];
+					// Remove and re-order the caption element
+					this.innerElement.removeChild(this.captionElement);
+					this.innerElement.appendChild(imgElement);
+					this.innerElement.appendChild(this.captionElement);
+					// Reset our image only styling
+					this.setAttribute('class',this.outerNormalWithoutImageOnly);
+					this.captionElement.style['background-image'] = '';
+					this.isImageOnly = false;
+				} else if ((value.length == 0) && this.imgElement) {
+					this.captionElement.setAttribute('class','bb-button-caption-with-image-only');
+					// Reset our image only styling
+					this.setAttribute('class',this.outerNormalWithoutImageOnly + ' bb-button-container-image-only');
+					this.captionElement.style['background-image'] = this.imgElement.style['background-image'];
+					this.isImageOnly = true;
+					// Remove the image div
+					this.innerElement.removeChild(this.imgElement);
+					this.imgElement = null;
+				}
+				this.captionElement.innerHTML = value;
+			};
+			
+		// Returns the caption of the button
+		outerElement.getCaption = function() {
+			return this.captionElement.innerHTML;
+		};
+		outerElement.getCaption = outerElement.getCaption.bind(outerElement);
+			
+		// Assign our set image function
+		outerElement.setImage = function(value) {
+				if (this.isImageOnly) {
+					this.captionElement.style['background-image'] = 'url("'+value+'")';
+				} else if (this.imgElement && (value.length > 0)) {
+					this.imgElement.style['background-image'] = 'url("'+value+'")';
+				} else if (value.length > 0){
+					// Configure our caption element
+					this.captionElement.setAttribute('class','bb-button-caption-with-image');
+					var imgElement = document.createElement('div');
+					this.imgElement = imgElement;
+					imgElement.setAttribute('class','bb-button-image');
+					imgElement.style['background-image'] = 'url("'+value+'")';
+					// Remove and re-order the caption element
+					this.innerElement.removeChild(this.captionElement);
+					this.innerElement.appendChild(imgElement);
+					this.innerElement.appendChild(this.captionElement);
+				} else if (this.imgElement && (value.length == 0)){
+					// Supplied an empty image value
+					this.innerElement.removeChild(this.imgElement);
+					this.imgElement = null;
+					this.captionElement.setAttribute('class','');
+				}
+			};
+			
+		// Returns image url
+		outerElement.getImage = function() {
+			if (this.isImageOnly) {
+				return this.captionElement.style['background-image'].slice(4, -1);
+			} else if (this.imgElement) {
+				return this.imgElement.style['background-image'].slice(4, -1);
+			} else {
+				return '';
+			}
+		};
+		outerElement.getImage = outerElement.getImage.bind(outerElement);
+		
+		// Assign our enable function
+		outerElement.enable = function(){ 
+				if (this.enabled) return;
+				this.innerElement.setAttribute('class', this.innerElement.normal);
+				this.ontouchstart = function() {
+									this.innerElement.setAttribute('class', this.innerElement.highlight);
+									
+								};
+				this.ontouchend = function() {
+									this.innerElement.setAttribute('class', this.innerElement.normal);
+								};
+				this.enabled = true;
+			};
+		outerElement.enable = outerElement.enable.bind(outerElement);
+		
+		// Assign our disable function
+		outerElement.disable = function(){ 
+				if (!this.enabled) return;
+				this.innerElement.setAttribute('class', this.innerElement.disabledStyle);
+				this.ontouchstart = null;
+				this.ontouchend = null;
+				this.enabled = false;
+			};
+		outerElement.disable = outerElement.disable.bind(outerElement);
+		
+		// Assign our show function
+		outerElement.show = function(){ 
+				this.style.display = this.stretched ? 'block' : 'inline-block';
+				bb.refresh();
+			};
+		outerElement.show = outerElement.show.bind(outerElement);
+		
+		// Assign our hide function
+		outerElement.hide = function(){ 
+				this.style.display = 'none';
+				bb.refresh();
+			};
+		outerElement.hide = outerElement.hide.bind(outerElement);	
+		
+		// Assign our remove function
+		outerElement.remove = function(){ 
+				this.parentNode.removeChild(this);
+				bb.refresh();
+			};
+		outerElement.remove = outerElement.remove.bind(outerElement);
+
+		return outerElement;
+    }
+};
+_bb10_checkbox = {
+	apply: function(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			bb.checkbox.style(elements[i]);
+		}
+	},
+	
+	style: function(input) {
+		var touchTarget, 
+			outerElement,
+			innerElement,
+			checkElement,
+			color = bb.screen.controlColor;
+			
+		// Outside touch target
+		touchTarget = document.createElement('div');
+		touchTarget.setAttribute('class','bb-checkbox-target');
+		if (input.parentNode) {
+			input.parentNode.insertBefore(touchTarget, input);
+		}
+		input.style.display = 'none';
+		touchTarget.appendChild(input);
+		touchTarget.input = input;
+		input.touchTarget = touchTarget;
+		// Main outer border of the control
+		outerElement = document.createElement('div');
+		outerElement.setAttribute('class', 'bb-checkbox-outer bb-checkbox-outer-'+color);
+		touchTarget.appendChild(outerElement);
+		// Inner check area
+		innerElement = document.createElement('div');
+		innerElement.normal = 'bb-checkbox-inner bb-checkbox-inner-'+color;
+		innerElement.setAttribute('class', innerElement.normal);
+		outerElement.appendChild(innerElement);
+		// Create our check element with the image
+		checkElement = document.createElement('div');
+		checkElement.hiddenClass = 'bb-checkbox-check-hidden bb-checkbox-check-image';
+		checkElement.displayClass = 'bb-checkbox-check-display bb-checkbox-check-image';
+		checkElement.setAttribute('class',checkElement.hiddenClass);
+		checkElement.style['-webkit-transition-property'] = 'all';
+		checkElement.style['-webkit-transition-duration'] = '0.1s';
+		innerElement.appendChild(checkElement);
+		touchTarget.checkElement = checkElement;
+		
+		// Set our coloring for later
+		touchTarget.innerElement = innerElement;
+		touchTarget.highlight = '-webkit-linear-gradient(top,  rgb('+ (bb.options.shades.R + 32) +', '+ (bb.options.shades.G + 32) +', '+ (bb.options.shades.B + 32) +') 0%, rgb('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +') 100%)';
+		touchTarget.touchHighlight = '-webkit-linear-gradient(top,  rgba('+ (bb.options.shades.R - 64) +', '+ (bb.options.shades.G - 64) +', '+ (bb.options.shades.B - 64) +',0.25) 0%, rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +',0.25) 100%)';
+
+		touchTarget.ontouchstart = function() {
+						if (!this.input.checked && !this.input.disabled) {	
+							// Do our touch highlight
+							this.innerElement.style.background = this.touchHighlight;
+						}
+					};
+		touchTarget.ontouchend = function() {
+						if (!this.input.checked && !this.input.disabled) {
+							this.innerElement.style.background = '';
+						}
+					};
+		touchTarget.onclick = function() {
+						if (!this.input.disabled) {
+						var evObj = document.createEvent('HTMLEvents');
+						evObj.initEvent('change', false, true );
+						// Set our checked state
+						this.input.checked = !this.input.checked;
+						this.drawChecked();
+						this.input.dispatchEvent(evObj);
+						}				
+					};						
+		touchTarget.drawChecked = function() {
+						if (this.input.checked) {
+							this.checkElement.setAttribute('class',this.checkElement.displayClass);
+							this.innerElement.style['background-image'] = touchTarget.highlight;
+						} else {
+							this.checkElement.setAttribute('class',this.checkElement.hiddenClass);
+							this.innerElement.style['background-image'] = '';
+						}
+						if (this.input.disabled){
+							this.innerElement.parentNode.setAttribute('class', 'bb-checkbox-outer bb-checkbox-outer-disabled-'+color);
+							this.innerElement.setAttribute('class', 'bb-checkbox-inner bb-checkbox-inner-disabled-'+color);
+							this.innerElement.style.background = '#c0c0c0';
+						} else{
+							this.innerElement.parentNode.setAttribute('class', 'bb-checkbox-outer bb-checkbox-outer-'+color);
+							this.innerElement.setAttribute('class', 'bb-checkbox-inner bb-checkbox-inner-'+color);
+						}				
+					};
+		touchTarget.drawChecked = touchTarget.drawChecked.bind(touchTarget);
+		
+		// Add our set Checked function
+		input.setChecked = function(value) {
+					if (value == this.checked) return;
+					this.checked = value;
+					this.touchTarget.drawChecked();
+				};
+		input.setChecked = input.setChecked.bind(input);
+		
+		// Add our get Checked function
+		input.getChecked = function() {
+					return this.checked;
+				};
+		input.getChecked = input.getChecked.bind(input);
+		
+		// Add our enable function
+		input.enable = function(){ 
+			this.removeAttribute('disabled');
+			this.enabled = true;
+			this.touchTarget.drawChecked();
+		};
+		input.enable = input.enable.bind(input);
+		
+		// Add our disable function
+		input.disable = function(){ 
+			this.enabled = false;
+			this.setAttribute('disabled','disabled');	
+			this.touchTarget.drawChecked();			
+		};
+		input.disable = input.disable.bind(input);
+		
+		// Add our show function
+		input.show = function(){ 
+			this.touchTarget.style.display = 'block';
+			bb.refresh();
+		};
+		input.show = input.show.bind(input);
+		
+		// Add our hide function
+		input.hide = function(){ 
+			this.touchTarget.style.display = 'none';
+			bb.refresh();
+		};
+		input.hide = input.hide.bind(input);
+		
+		// Add our remove function
+		input.remove = function(){ 
+			this.touchTarget.parentNode.removeChild(this.touchTarget);
+			bb.refresh();
+		};
+		input.remove = input.remove.bind(input);
+		
+		// Set our initial state
+		touchTarget.drawChecked();	
+		
+		return touchTarget;
+	}
+};
+// BlackBerry 10 Context Menu
+_bb10_contextMenu = {
+
+	actionIds : [],  // Stores all the action ids for the global context menu
+
+
+	// Create an instance of the menu and pass it back to the caller
+	create : function(screen) {
+	
+		var menu = document.createElement('div');
+		menu.style.display = 'none';
+		menu.actions = [];
+		
+		// Handle our context open event
+		menu.oncontextmenu = function(contextEvent) {
+				this.centerMenuItems();
+				
+				var node = contextEvent.srcElement,
+					found = false,
+					bbuiType = '',
+					data;
+				while (node) {
+					if (node.hasAttribute) {
+						bbuiType = node.hasAttribute('data-bb-type') ? node.getAttribute('data-bb-type').toLowerCase() : undefined;
+						if (bbuiType == 'item') {
+							// Make sure it has the webworks attribute
+							found = node.hasAttribute('data-webworks-context');
+							break;
+						} 
+					}
+					node = node.parentNode;
+				}
+				// If we found our item then we highlight it
+				if (found) {
+					node.drawSelected();
+					data = node.getAttribute('data-webworks-context');
+					data = JSON.parse(data);
+					this.selected = {
+							title : data.header,
+							description : data.subheader,
+							selected : node
+						};
+				} else {
+					contextEvent.preventDefault();
+				}
+				blackberry.event.removeEventListener("swipedown", bb.menuBar.showMenuBar);				
+			};
+		menu.oncontextmenu = menu.oncontextmenu.bind(menu);
+		window.addEventListener('contextmenu', menu.oncontextmenu);
+		bb.windowListeners.push({name: 'contextmenu', eventHandler: menu.oncontextmenu});
+
+		// Handle our context closed event
+		menu.oncontextmenuclosed = function(contextEvent) {
+				if (this.selected && this.selected.selected) {
+					this.selected.selected.drawUnselected();
+				}
+				blackberry.event.addEventListener("swipedown", bb.menuBar.showMenuBar);
+			};
+		menu.oncontextmenuclosed = menu.oncontextmenuclosed.bind(menu);
+		document.addEventListener('bbui.contextClosed', menu.oncontextmenuclosed);
+		bb.documentListeners.push({name: 'bbui.contextClosed', eventHandler: menu.oncontextmenuclosed});
+		
+		
+		// Add a menu item
+		menu.add = function(action) {
+				this.actions.push(action);
+				this.appendChild(action);
+				var menuItem = {
+						actionId: bb.guidGenerator(),
+						label: action.innerHTML,
+						icon: action.getAttribute('data-bb-img')
+					};
+				// Assign a pointer to the menu item
+				bb.contextMenu.actionIds.push(menuItem.actionId);
+				action.pinned = false;
+				action.menuItem = menuItem;
+				action.menu = this;
+				action.visible = action.hasAttribute('data-bb-visible') ? (action.getAttribute('data-bb-visible').toLowerCase() != 'false') : true;
+				
+				// Check for the pinned item
+				if (action.hasAttribute('data-bb-pin') && (action.getAttribute('data-bb-pin').toLowerCase() == 'true')) {
+					action.pinned = true;
+				}
+				// Handle the click of the menu item
+				action.doclick = function(id) {
+					var element = document.querySelectorAll('[data-bb-context-menu-id='+ id +']'),
+							data;
+					if (element.length > 0) {
+						element = element[0];
+						data = element.getAttribute('data-webworks-context');
+						data = JSON.parse(data);
+						this.menu.selected = {
+							title : data.header,
+							description : data.subheader,
+							selected : element
+						};
+						var evt = document.createEvent('MouseEvents'); 
+                        evt.initMouseEvent('click', true, true, window,
+                            0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                        action.dispatchEvent(evt);
+					}
+				};
+				action.doclick = action.doclick.bind(action);
+				
+				// Handle the show
+				action.show = function() {
+					if (this.visible) return;
+					this.visible = true;
+					this.removeAttribute('data-bb-visible');
+				}
+				action.show = action.show.bind(action);
+				
+				// Handle the hide
+				action.hide = function() {
+					if (!this.visible) return;
+					this.visible = false;
+					this.setAttribute('data-bb-visible','false');
+				}
+				action.hide = action.hide.bind(action);
+			};
+		menu.add = menu.add.bind(menu);
+		
+		// This function refreshes the menu witht the current state
+		menu.centerMenuItems = function() {
+				var contexts = [blackberry.ui.contextmenu.CONTEXT_ALL],
+					i,
+					pinnedAction = false,
+					action,
+					options = {
+						includeContextItems: [blackberry.ui.contextmenu.CONTEXT_ALL],
+						includePlatformItems: false,
+						includeMenuServiceItems: false
+					};
+					
+				// See if we have a pinned action
+				for (i = 0; i < this.actions.length; i++) {
+					action = this.actions[i];
+					if (action.visible && action.pinned) {
+						options.pinnedItemId = action.menuItem.actionId;
+					}
+				}
+				// First clear any items that exist
+				this.clearWWcontextMenu();
+				// Define our custom context
+				blackberry.ui.contextmenu.defineCustomContext('bbui-context',options);
+				
+				// Add our visible context menu items
+				for (i = this.actions.length -1; i >= 0;i--) {
+					action = this.actions[i];
+					if (action.visible) {
+						blackberry.ui.contextmenu.addItem(contexts, action.menuItem, action.doclick);
+					}
+				}
+			};
+		menu.centerMenuItems = menu.centerMenuItems.bind(menu);
+		
+		// This function clears all the items from the context menu.  Typically
+		// called internally when the screen is popped
+		menu.clearWWcontextMenu = function() {
+				var contexts = [blackberry.ui.contextmenu.CONTEXT_ALL],
+					i,
+					actionId;
+				for (i = 0; i < bb.contextMenu.actionIds.length;i++) {
+					blackberry.ui.contextmenu.removeItem(contexts, bb.contextMenu.actionIds[i]);
+				}
+			};
+		menu.centerMenuItems = menu.centerMenuItems.bind(menu);
+		
+		menu.show = function() {
+				// Do nothing, just here for compatibility
+			};
+		menu.show = menu.show.bind(menu);
+		
+		menu.peek = function() {
+				// Do nothing, just here for compatibility
+			};
+		menu.peek = menu.peek.bind(menu);
+		
+		return menu;
+	}
+};
+_bb10_dropdown = { 
+    // Apply our transforms to all dropdowns passed in
+    apply: function(elements) {
+		for (i = 0; i < elements.length; i++) {
+			bb.dropdown.style(elements[i]);
+		}
+	},
+	// Apply our styling to an individual dropdown
+	style: function(select) {
+		var img,
+			i,j,
+			innerElement,
+			innerContainer,
+			buttonOuter,
+			dropdown,
+			labelElement,
+			captionElement,
+			itemsElement,
+			focusedHighlight,
+			enabled = !select.hasAttribute('disabled'),
+			normal = 'bb-dropdown bb-dropdown-' + bb.screen.controlColor,
+			highlight = 'bb-dropdown bb-dropdown-highlight-'+ bb.screen.controlColor,  
+			outerContainerStyle = 'bb-dropdown-container bb-dropdown-container-' + bb.screen.controlColor,
+			innerContainerStyle = 'bb-dropdown-container-inner bb-dropdown-container-inner-'+bb.screen.controlColor,
+			innerButtonStyle = 'bb-dropdown-inner bb-dropdown-inner-'+bb.screen.controlColor;
+
+		if (bb.device.newerThan10dot1) {
+			outerContainerStyle += ' bb-dropdown-container-10dot2';
+			innerContainerStyle += ' bb-dropdown-container-inner-10dot2';
+			innerButtonStyle += ' bb-dropdown-inner-10dot2';
+			focusedHighlight = highlight + ' bb10Highlight';
+			highlight += ' bb-dropdown-' + bb.screen.controlColor + '-highlight-10dot2';
+		} else {
+			highlight += ' bb10Highlight';
+		}
+			
+		// Make the existing <select> invisible so that we can hide it and create our own display
+		select.style.display = 'none';
+		select.enabled = enabled;
+
+		// Create the dropdown container and insert it where the select was
+		dropdown = document.createElement('div');
+		dropdown.select = select;
+		dropdown.items = [];
+		dropdown.setAttribute('data-bb-type','dropdown');
+		select.dropdown = dropdown;
+		if (select.parentNode) {
+			select.parentNode.insertBefore(dropdown, select);
+		}
+		// Insert the select as an invisible node in the new dropdown element
+		dropdown.appendChild(select);
+		
+		// Create the innerContainer for the dual border
+		innerContainer = document.createElement('div');
+		innerContainer.setAttribute('class',innerContainerStyle);
+		dropdown.appendChild(innerContainer);
+		
+		if (select.hasAttribute('data-bb-style')) {
+			var style = select.getAttribute('data-bb-style');
+			if (style == 'stretch') {
+				normal = normal + ' bb-dropdown-stretch';
+				highlight = highlight + ' bb-dropdown-stretch';
+			}
+		}
+		
+		// Create our button container for the outer part of the dual border
+		buttonOuter = document.createElement('div');
+		if (select.enabled) {
+			buttonOuter.setAttribute('class',normal);
+		} else {
+			buttonOuter.setAttribute('class',normal + ' bb-dropdown-disabled-'+bb.screen.controlColor);
+		}
+		innerContainer.appendChild(buttonOuter);
+		
+		// Create the inner button element
+		innerElement = document.createElement('div');
+		innerElement.setAttribute('class',innerButtonStyle);
+		buttonOuter.appendChild(innerElement);
+
+		// Create the optinal label for the dropdown
+		labelElement = document.createElement('div');
+		dropdown.labelElement = labelElement;
+		labelElement.setAttribute('class','bb-dropdown-label');
+		if (select.hasAttribute('data-bb-label')) {
+			labelElement.innerHTML = select.getAttribute('data-bb-label');
+		}
+		innerElement.appendChild(labelElement);
+		
+		// Create our dropdown arrow
+		img = document.createElement('div');
+		if (bb.device.newerThan10dot1) {
+			img.normal = 'bb-dropdown-arrow-'+bb.screen.controlColor + ' bb-dropdown-arrow-10dot2';
+			img.highlight = 'bb-dropdown-arrow-dark bb-dropdown-arrow-10dot2';
+		} else {
+			img.normal = 'bb-dropdown-arrow-'+bb.screen.controlColor;
+		}
+		img.setAttribute('class',img.normal);
+		innerElement.appendChild(img);
+		dropdown.img = img;
+		
+		// Create the caption for the dropdown
+		captionElement = document.createElement('div');
+		dropdown.captionElement = captionElement;
+		if (bb.device.newerThan10dot1) {
+			captionElement.setAttribute('class','bb-dropdown-caption bb-dropdown-caption-10dot2');
+		} else {
+			captionElement.setAttribute('class','bb-dropdown-caption');
+		}
+		innerElement.appendChild(captionElement);
+		
+		// Create the scrolling area
+		var scrollArea = document.createElement('div');
+		scrollArea.style.position = 'relative';
+		scrollArea.style['margin-top'] = '10px';
+		scrollArea.style.overflow = 'hidden';
+		innerContainer.appendChild(scrollArea);
+		var innerScroller = document.createElement('div');
+		scrollArea.appendChild(innerScroller);
+		
+		// Create our drop down items
+		itemsElement = document.createElement('div');
+		dropdown.itemsElement = itemsElement;
+		itemsElement.setAttribute('class','bb-dropdown-items');
+		innerScroller.appendChild(itemsElement);
+		
+		dropdown.refreshOptions = function() {
+					var options = select.getElementsByTagName('option'),
+						caption = '',
+						option,
+						item,
+						textContainer, textAlign, primaryText, accentText;
+						
+					// First clear any existing items
+					this.itemsElement.innerHTML = '';
+					this.items = [];
+					this.options = options;
+					
+					// Grab all the select options
+					for (j = 0; j < options.length; j++) {
+						option = options[j];
+						item = document.createElement('div');
+						this.items.push(item);
+						item.selectedStyle = 'bb-dropdown-item bb-dropdown-item-'+bb.screen.controlColor+' bb-dropdown-item-selected-'+ bb.screen.controlColor;
+						item.normalStyle = 'bb-dropdown-item bb-dropdown-item-'+bb.screen.controlColor;
+						item.index = j;
+						item.select = this.select;
+						item.dropdown = this;
+						if (!item.dropdown.selected) {
+							item.dropdown.selected = item;
+						}
+						// Append primary text node
+						primaryText = document.createElement('div');
+                        primaryText.setAttribute('class', 'primary-text');
+                        primaryText.innerHTML = option.innerHTML;
+						textContainer = document.createElement('div');
+                        textContainer.setAttribute('class', 'text-container');
+                        textContainer.appendChild(primaryText);
+
+                        // Needed for vertical alignment to work
+                        textAlign = document.createElement('span');
+                        textAlign.setAttribute('class', 'text-align');
+                        item.appendChild(textAlign);
+                        item.appendChild(textContainer);
+
+						this.itemsElement.appendChild(item);
+						
+                        // Accent text for additional cues about this option
+						if (option.hasAttribute('data-bb-accent-text')) {
+							accentText = document.createElement('div');
+							accentText.setAttribute('class','accent-text');
+							accentText.innerHTML = option.getAttribute('data-bb-accent-text');
+							item.accentText = accentText;
+							textContainer.appendChild(accentText);
+						}
+						
+						// Create the image
+						img = document.createElement('div');
+						img.setAttribute('class','bb-dropdown-selected-image-'+bb.screen.controlColor);
+						item.img = img;
+						item.appendChild(img);
+						
+						// See if it was specified as the selected item
+						if (option.hasAttribute('selected') || option.selected) {
+							caption = option.innerHTML;
+							item.setAttribute('class',item.selectedStyle);
+							img.style.visibility = 'visible';
+							item.dropdown.selected = item;
+						} else {
+							item.setAttribute('class',item.normalStyle);
+						}
+						// Assign our item handlers
+						item.ontouchstart = function(event) {
+												this.style['background-color'] = bb.options.highlightColor;
+												this.style['color'] = 'white';
+												if (this.accentText) {
+													this.accentText.style['color'] = 'white';
+												}
+											};
+						
+						item.ontouchend = function(event) {
+												this.style['background-color'] = 'transparent';
+												this.style['color'] = '';
+												if (this.accentText) {
+													this.accentText.style['color'] = '';
+												}
+											};			
+						item.onclick = function() {
+											this.select.setSelectedItem(this.index);
+									   };
+					}
+					
+					// Get our selected item in case they haven't specified "selected";
+					if ((caption == '') && (options.length > 0)) {
+						caption = options[0].innerHTML;
+					}
+					
+					if (caption != '') {
+						captionElement.innerHTML = caption;
+					}
+				};
+		dropdown.refreshOptions = dropdown.refreshOptions.bind(dropdown);
+			
+		// Load the options
+		dropdown.refreshOptions();
+			
+		// set our outward styling
+		dropdown.setAttribute('class',outerContainerStyle);
+		dropdown.buttonOuter = buttonOuter;
+		dropdown.isRefreshed = false;
+		dropdown.caption = captionElement;
+		buttonOuter.dropdown = dropdown;
+		dropdown.open = false;
+		buttonOuter.normal = normal;
+		buttonOuter.highlight = highlight;
+		buttonOuter.focusedHighlight = focusedHighlight;
+
+		// Create our scroller
+		dropdown.scroller = new iScroll(scrollArea, {vScrollbar: false,
+							onBeforeScrollStart: function (e) {
+								if (bb.scroller) {
+									bb.scroller.disable();
+								}
+								e.preventDefault();
+							}, 
+							onBeforeScrollEnd: function(e) {
+								if (bb.scroller) {
+									bb.scroller.enable();
+								}
+							}});
+		bb.dropdownScrollers.push(dropdown.scroller);
+		dropdown.scrollArea = scrollArea;
+		
+		// Assign our touch handlers to out-most div
+		buttonOuter.dotouchstart = function(event) {
+								this.setAttribute('class', this.highlight);
+							};
+		buttonOuter.dotouchend = function(event) {
+								this.setAttribute('class', this.normal);
+							};
+		buttonOuter.doclick = function(event) {
+								if (!this.dropdown.open) {
+									this.dropdown.internalShow();
+								} else {
+									this.dropdown.internalHide();
+								}
+							};
+		// Assign our touch handlers if it is enabled					
+		if (select.enabled) {
+			buttonOuter.ontouchstart = buttonOuter.dotouchstart;
+			buttonOuter.ontouchend = buttonOuter.dotouchend;
+			buttonOuter.onclick = buttonOuter.doclick;
+		}
+		
+		// Show the combo-box			
+		dropdown.internalShow = function() {
+								var scrollHeight;
+								this.open = true;
+								// Figure out how many items to show
+								if (bb.device.is720x720 && (this.options.length > 4)) {
+									this.numItems = 3;
+								} else if (this.options.length > 5) {
+									this.numItems = 5;
+								} else {
+									this.numItems = this.options.length;
+								}
+								
+								if (bb.device.is1024x600) {
+									scrollHeight = (this.numItems * 43);
+									this.style.height = 45 + scrollHeight +'px';
+								} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+									scrollHeight = (this.numItems * 99);
+									this.style.height = 95 + scrollHeight +'px';
+								} else if (bb.device.is720x720) {
+									scrollHeight = (this.numItems * 85);
+									this.style.height = 77 + scrollHeight +'px';
+								}else {
+									scrollHeight = (this.numItems * 99);
+									this.style.height = 95 + scrollHeight +'px';
+								}
+								
+								// Refresh our scroller based on the height only once
+								this.scrollArea.style.height = scrollHeight - 10 + 'px';
+								if (!this.isRefreshed) {
+									this.scroller.refresh();
+									this.isRefreshed = true;
+								}
+								this.scroller.scrollToElement(this.selected,0);
+								
+								// Animate our caption change
+								this.caption.style.opacity = '0.0';
+								this.caption.style['-webkit-transition'] = 'opacity 0.5s linear';
+								this.caption.style['-webkit-backface-visibility'] = 'hidden';
+								this.caption.style['-webkit-perspective'] = 1000;
+								this.caption.style['-webkit-transform'] = 'translate3d(0,0,0)';
+								  
+								// Animate our arrow
+								this.img.style.opacity = '1.0';
+								if (bb.device.newerThan10dot1) {
+									this.img.setAttribute('class',this.img.highlight);
+									this.img.style['-webkit-transition'] = 'all 0.2s linear';
+									this.img.style['-webkit-transform'] = 'rotate(-360deg)';
+									this.buttonOuter.setAttribute('class',this.buttonOuter.focusedHighlight);
+									this.buttonOuter.style.color = 'white';
+								} else {
+									this.img.style['-webkit-transform'] = 'rotate(-360deg)';
+									this.img.style['-webkit-transition'] = 'all 0.5s ease-in-out';
+								}
+								
+								// Refresh our screen srolling height
+								if (bb.scroller) {
+									bb.scroller.refresh();
+								}
+								// Scroll the dropdown into view if it's bottom is off the screen
+								this.scrollIntoView(false);
+								
+							};
+		dropdown.internalShow = dropdown.internalShow.bind(dropdown);
+		// Collapse the combo-box
+		dropdown.internalHide = function() {
+								this.open = false;
+								this.style.height = '59px';
+								
+								if (bb.device.is1024x600) {
+									this.style.height = '43px';
+								} else if (bb.device.is1280x768) {
+									this.style.height = bb.device.newerThan10dot1 ? '88px' : '95px';
+								} else if (bb.device.is720x720) {
+									this.style.height = bb.device.newerThan10dot1 ? '70px' : '77px';
+								} else if (bb.device.is1280x720 && bb.device.newerThan10dot1 && (window.devicePixelRatio < 1.9)) {
+									this.style.height = '76px';
+								}else {
+									this.style.height = '95px';
+								}
+								
+								// Animate our caption change
+								this.caption.style.opacity = '1.0';
+								this.caption.style['-webkit-transition'] = 'opacity 0.5s linear';
+								this.caption.style['-webkit-backface-visibility'] = 'hidden';
+								this.caption.style['-webkit-perspective'] = 1000;
+								
+								// Animate our arrow
+								if (bb.device.newerThan10dot1) {
+									this.img.setAttribute('class',this.img.normal);
+									this.img.style['-webkit-transform'] = 'rotate(-180deg)';
+									this.img.style['-webkit-transition'] = 'all 0.2s linear';
+									this.buttonOuter.setAttribute('class',this.buttonOuter.normal);
+									this.buttonOuter.style.color = '';
+								} else {
+									this.img.style.opacity = '0.0';
+									this.img.style['-webkit-transform'] = 'rotate(0deg)';
+									this.img.style['-webkit-transition'] = 'all 0.5s ease-in-out';
+								}
+																
+								// Refresh our screen srolling height
+								if (bb.scroller) {
+									bb.scroller.refresh();
+								}
+							};
+		dropdown.internalHide = dropdown.internalHide.bind(dropdown);
+
+		// Assign our functions to be able to set the value
+		select.setSelectedItem = function(index) {
+			if (this.selectedIndex != index) {
+				var item = this.dropdown.items[index];
+				if (!item) return;
+				// Style the previously selected item as no longer selected
+				if (this.dropdown.selected) {
+					this.dropdown.selected.setAttribute('class',item.normalStyle);
+					this.dropdown.selected.img.style.visibility = 'hidden';
+				}
+				// Style this item as selected
+				item.setAttribute('class',item.selectedStyle);
+				item.img.style.visibility = 'visible';
+				this.dropdown.selected = item;
+				// Set our index and fire the event
+				this.selectedIndex = index;
+				this.dropdown.caption.innerHTML = this.options[index].text;
+				this.dropdown.internalHide();
+				window.setTimeout(this.fireEvent,0);
+			}
+		};
+		select.setSelectedItem = select.setSelectedItem.bind(select);
+		
+		// Assign our setSelectedText function
+		select.setSelectedText = function(text) {
+			for (var i = 0; i < this.options.length; i++) {
+				if (this.options[i].text == text) {
+					this.setSelectedItem(i);
+					return;
+				}
+			}
+		};
+		select.setSelectedText = select.setSelectedText.bind(select);
+		
+		// Have this function so we can asynchronously fire the change event
+		select.fireEvent = function() {
+							// Raise the DOM event
+							var evObj = document.createEvent('HTMLEvents');
+							evObj.initEvent('change', false, true );
+							this.dispatchEvent(evObj);
+						};
+		select.fireEvent = select.fireEvent.bind(select);
+		
+		// Assign our enable function
+		select.enable = function(){ 
+				if (this.enabled) return;
+				this.dropdown.buttonOuter.ontouchstart = this.dropdown.buttonOuter.dotouchstart;
+				this.dropdown.buttonOuter.ontouchend = this.dropdown.buttonOuter.dotouchend;
+				this.dropdown.buttonOuter.onclick = this.dropdown.buttonOuter.doclick;
+				this.dropdown.buttonOuter.setAttribute('class',normal);
+				this.removeAttribute('disabled');
+				this.enabled = true;
+			};
+		select.enable = select.enable.bind(select);
+		
+		// Assign our disable function
+		select.disable = function(){ 
+				if (!select.enabled) return;
+				this.dropdown.internalHide();
+				this.dropdown.buttonOuter.ontouchstart = null;
+				this.dropdown.buttonOuter.ontouchend = null;
+				this.dropdown.buttonOuter.onclick = null;
+				this.dropdown.buttonOuter.setAttribute('class',normal + ' bb-dropdown-disabled-'+bb.screen.controlColor);
+				this.enabled = false;
+				this.setAttribute('disabled','disabled');
+			};
+		select.disable = select.disable.bind(select);
+		
+			
+		// Assign our show function
+		select.show = function(){ 
+				this.dropdown.style.display = 'block';
+				bb.refresh();
+			};
+		select.show = select.show.bind(select);
+		
+		// Assign our hide function
+		select.hide = function(){ 
+				this.dropdown.style.display = 'none';
+				bb.refresh();
+			};
+		select.hide = select.hide.bind(select);	
+		
+		// Assign our remove function
+		select.remove = function(){ 
+				this.dropdown.parentNode.removeChild(this.dropdown);
+				bb.refresh();
+			};
+		select.remove = select.remove.bind(select);
+		
+		// Assign our refresh function
+		select.refresh = function(){ 
+				this.dropdown.internalHide();
+				this.dropdown.isRefreshed = false;
+				this.dropdown.refreshOptions();
+			};
+		select.refresh = select.refresh.bind(select);
+	  
+		// Assign our setCaption function
+		select.setCaption = function(value){ 
+				this.dropdown.labelElement.innerHTML = value;
+				this.setAttribute('data-bb-label',value);
+			};
+		select.setCaption = select.setCaption.bind(select);
+		
+		// Assign our setCaption function
+		select.getCaption = function(){ 
+				return this.dropdown.labelElement.innerHTML;
+			};
+		select.getCaption = select.getCaption.bind(select);
+		
+		// Need to return the dropdown instead of the select for dynamic styling
+		return dropdown;
+    }
+};
+
+_bb10_fileInput = {
+
+	apply: function(elements) {
+		var i,
+			outerElement,
+			btn,
+			span;
+		
+		for (i = 0; i < elements.length; i++) {
+			outerElement = elements[i];
+			outerElement.setAttribute('class','bb-file-button');
+			btn = document.createElement('div');
+			btn.setAttribute('data-bb-type','button');
+			btn.innerHTML = outerElement.hasAttribute('data-bb-caption') ? outerElement.getAttribute('data-bb-caption') : 'Choose File';
+			btn.origCaption = btn.innerHTML;
+			// Apply our styling
+			bb.button.apply([btn]);
+			btn.input = outerElement;
+			// Add the button and insert the file input as an invisible node in the new button element
+			outerElement.parentNode.insertBefore(btn, outerElement);
+			btn.appendChild(outerElement);
+			
+			// Handle the file change
+			btn.handleChange = function() {
+				if ( this.input.value) {
+					this.setCaption(this.input.value.replace(/^.*[\\\/]/, ''));
+				
+				} else {
+					this.setCaption(this.origCaption);
+				}
+			};
+			btn.handleChange = btn.handleChange.bind(btn);
+			outerElement.addEventListener('change',btn.handleChange,false);
+		}
+	}
+};
+_bb10_grid = {  
+    apply: function(elements) {
+		var solidHeader = false,
+			headerJustify;
+	
+		// Apply our transforms to all grids
+		for (var i = 0; i < elements.length; i++) {
+			var j,
+				items,
+				type,
+				title,
+				innerChildNode,
+				contextMenu,
+				outerElement = elements[i];
+				
+			outerElement.setAttribute('class','bb-grid');	
+			// See if it is square or landscape layout
+			outerElement.isSquare = (outerElement.hasAttribute('data-bb-style') && outerElement.getAttribute('data-bb-style').toLowerCase() == 'square');
+			
+			// Get our header style
+			solidHeader = outerElement.hasAttribute('data-bb-header-style') ? (outerElement.getAttribute('data-bb-header-style').toLowerCase() == 'solid') : false;
+			// Get our header justification
+			headerJustify = outerElement.hasAttribute('data-bb-header-justify') ? outerElement.getAttribute('data-bb-header-justify').toLowerCase() : 'center';
+			
+			// Assign our context menu if there is one
+			if (outerElement.hasAttribute('data-bb-context') && outerElement.getAttribute('data-bb-context').toLowerCase() == 'true') {
+				contextMenu = bb.screen.contextMenu;
+			}
+			
+			// Gather our inner items
+			items = outerElement.querySelectorAll('[data-bb-type=group], [data-bb-type=row]');
+			for (j = 0; j < items.length; j++) {
+				innerChildNode = items[j];
+				if (innerChildNode.hasAttribute('data-bb-type')) {
+				
+					type = innerChildNode.getAttribute('data-bb-type').toLowerCase();
+					if (type == 'group' && innerChildNode.hasAttribute('data-bb-title')) {
+						title = document.createElement('div');
+						title.normal = 'bb-grid-header';
+						title.innerHTML = '<p>'+ innerChildNode.getAttribute('data-bb-title') +'</p>';
+						
+						// Style our header for appearance
+						if (solidHeader) {
+							title.normal = title.normal +' bb10Accent';
+							title.style.color = 'white';
+							title.style['border-bottom-color'] = 'transparent';
+						} else {
+							title.normal = title.normal + ' bb-grid-header-normal-'+bb.screen.listColor;
+							title.style['border-bottom-color'] = bb.options.shades.darkOutline;
+						}
+						
+						// Style our header for text justification
+						if (headerJustify == 'left') {
+							title.normal = title.normal + ' bb-grid-header-left';
+						} else if (headerJustify == 'right') {
+							title.normal = title.normal + ' bb-grid-header-right';
+						} else {
+							title.normal = title.normal + ' bb-grid-header-center';
+						}
+						
+						title.setAttribute('class', title.normal);
+						
+						if (innerChildNode.firstChild) {
+							innerChildNode.insertBefore(title, innerChildNode.firstChild);
+						} else {
+							innerChildNode.appendChild(title);
+						}
+					}
+					else if (type == 'row') {
+						var k,
+							table,
+							columnCount = 0,
+							tr,
+							td,
+							numItems,
+							itemNode,
+							subtitle,
+							image,
+							overlay,
+							subtitle,
+							height,
+							width,
+							hasOverlay,
+							hardCodedColumnNum = -1, // none specified
+							rowItems = innerChildNode.querySelectorAll('[data-bb-type=item]'),
+							json;
+						
+						numItems = rowItems.length;
+						if (numItems == 0) continue;
+						
+						// See if they specified the number of items per column
+						if (innerChildNode.hasAttribute('data-bb-columns')) {
+							hardCodedColumnNum = innerChildNode.getAttribute('data-bb-columns');
+						}
+						
+						table = document.createElement('table');
+						table.style.width = '100%';
+						innerChildNode.appendChild(table);
+						tr = document.createElement('tr');
+						table.appendChild(tr);
+
+						// Calculate the width
+						if (hardCodedColumnNum > 0) {
+							// If there are more items than the number of hardcoded columns then
+							// we need to shrink the item size a bit to show that there are available
+							// items to the left to scroll to
+							if ((rowItems.length > hardCodedColumnNum) && !bb.device.isPlayBook) {
+								innerChildNode.style['overflow-y'] = 'hidden';
+								innerChildNode.style['overflow-x'] = 'scroll';
+								width = (window.innerWidth/(parseInt(hardCodedColumnNum) + 0.5));
+							} else {
+								width = (window.innerWidth/hardCodedColumnNum) - 6;
+							}
+						} else {
+							width = (window.innerWidth/numItems) - 6;
+						}
+												
+						for (k = 0; k < numItems; k++) {
+							itemNode = rowItems[k];
+							
+							// If it is PlayBook, Don't do the carousel, it doesn't work well
+							if (bb.device.isPlayBook && (hardCodedColumnNum >0) && (k > hardCodedColumnNum - 1)) {
+								itemNode.style.display = 'none';
+								continue;
+							}
+														
+							subtitle = itemNode.innerHTML;
+							title = itemNode.getAttribute('data-bb-title');
+							hasOverlay = (subtitle || title);
+							itemNode.innerHTML = '';
+							// Add our cell to the table
+							td = document.createElement('td');
+							tr.appendChild(td);
+							td.appendChild(itemNode);
+							columnCount++;							
+							
+							// Find out how to size the images
+							if (outerElement.isSquare) {
+								height = width;
+							} else {
+								height = Math.ceil(width*0.5625);
+							}
+							// Set our dimensions
+							itemNode.style.width = width + 'px';
+							itemNode.style.height = height + 'px';
+
+							// Create our display image
+							image = document.createElement('img');
+							image.style.height = height + 'px';
+							image.style.width = width + 'px';
+							image.style.opacity = '0';
+							image.style['-webkit-transition'] = 'opacity 0.5s linear';
+							image.style['-webkit-transform'] = 'translate3d(0,0,0)';
+							image.itemNode = itemNode;
+							itemNode.image = image;
+							itemNode.appendChild(image);
+							
+							// Load our image once onbbuidomready 
+							itemNode.onbbuidomready = function() {
+										if (bb.isScrolledIntoView(this)) {
+											// Animate its visibility once loaded
+											this.image.onload = function() {
+												this.style.opacity = '1.0';
+											}
+											this.image.src = this.getAttribute('data-bb-img');
+										} else {
+											document.addEventListener('bbuiscrolling', this.onbbuiscrolling,false);
+											// Add listener for removal on popScreen
+											this.listener = {name: 'bbuiscrolling', eventHandler: this.onbbuiscrolling};
+											bb.documentListeners.push(this.listener);
+										}
+										document.removeEventListener('bbuidomready', this.onbbuidomready,false);
+									};
+							itemNode.onbbuidomready = itemNode.onbbuidomready.bind(itemNode);
+							document.addEventListener('bbuidomready', itemNode.onbbuidomready,false);
+							
+							// Only have the image appear when it scrolls into view
+							itemNode.onbbuiscrolling = function() {
+										if (bb.isScrolledIntoView(this)) {
+											// Animate its visibility once loaded
+											this.image.onload = function() {
+												this.style.opacity = '1.0';
+											}
+											this.image.src = this.getAttribute('data-bb-img');
+											document.removeEventListener('bbuiscrolling', this.onbbuiscrolling,false);
+											// Remove our listenter from the global list as well
+											var index = bb.documentListeners.indexOf(this.listener);
+											if (index >= 0) {
+												bb.documentListeners.splice(index,1);
+											}
+										} 
+									};
+							itemNode.onbbuiscrolling = itemNode.onbbuiscrolling.bind(itemNode);	
+							
+							// Create our translucent overlay
+							if (hasOverlay) {
+								overlay = document.createElement('div');
+								if (title && subtitle) {
+									overlay.setAttribute('class','bb-grid-item-overlay bb-grid-item-overlay-two-rows');
+									overlay.innerHTML = '<div><p class="title title-two-rows">' + title + '<br/>' + subtitle +'</p></div>';	
+								} else if (title){
+									overlay.setAttribute('class','bb-grid-item-overlay bb-grid-item-overlay-one-row');
+									overlay.innerHTML = '<div><p class="title title-one-row">' + title + '</p></div>';
+								} else if (subtitle) {
+									overlay.setAttribute('class','bb-grid-item-overlay bb-grid-item-overlay-one-row');
+									overlay.innerHTML = '<div><p class="title title-one-row">' + subtitle + '</p></div>';
+								}
+								itemNode.appendChild(overlay);
+							} else {
+								overlay = null;
+							}
+							
+							// Setup our variables
+							itemNode.overlay = overlay;
+							itemNode.title = title;
+							itemNode.description = subtitle;
+							itemNode.fingerDown = false;
+							itemNode.contextShown = false;
+							itemNode.contextMenu = contextMenu;
+							
+							// See if a context menu needs to be assigned
+							if (itemNode.contextMenu) {
+								itemNode.guid = 'bbui'+bb.guidGenerator();
+								itemNode.setAttribute('data-bb-context-menu-id', itemNode.guid);
+								json = new Object();
+								json.id = itemNode.guid;
+								json.type = 'bbui-context';
+								json.header = itemNode.title;
+								json.subheader = itemNode.description;
+								itemNode.setAttribute('data-webworks-context', JSON.stringify(json));
+							}	
+							
+							itemNode.ontouchstart = function() {
+														if (this.overlay) {
+															this.overlay.style['opacity'] = '1.0';
+							                                this.overlay.style['background-color'] = bb.options.highlightColor;
+														}
+														itemNode.fingerDown = true;
+														itemNode.contextShown = false;
+														if (itemNode.contextMenu && (bb.device.isPlayBook || bb.device.isRipple)) {
+															window.setTimeout(this.touchTimer, 667);
+															var scr = bb.getCurScreen();
+															itemNode.touchstartx = scr.bbUIscrollWrapper.scrollTop;
+														}
+													};
+							itemNode.ontouchend = function() {
+														if (this.overlay) {
+															this.overlay.style['opacity'] = '';
+							                                this.overlay.style['background-color'] = '';
+														}
+														itemNode.fingerDown = false;
+														if (itemNode.contextShown) {
+															event.preventDefault();
+															event.stopPropagation();
+														}
+													};
+							itemNode.touchTimer = function() {
+														if (bb.device.isPlayBook || bb.device.isRipple) {
+															var scr = bb.getCurScreen();
+															var curx = scr.bbUIscrollWrapper.scrollTop;
+															if (itemNode.fingerDown && Math.abs(itemNode.touchstartx - curx) < 50) {
+																itemNode.contextShown = true;
+																itemNode.contextMenu.peek({title:this.title,description:this.description, selected: this});
+															}
+														}
+													};
+							itemNode.touchTimer = itemNode.touchTimer.bind(itemNode);
+							
+							// Draw the selected state based on the BB10 context menu
+							itemNode.drawSelected = function() {
+														if (this.overlay) {
+															this.overlay.style['opacity'] = '1.0';
+							                                this.overlay.style['background-color'] = bb.options.highlightColor;
+														}
+													};
+							itemNode.drawSelected = itemNode.drawSelected.bind(itemNode);
+							
+							// Draw the Unselected state based on the BB10 context menu
+							itemNode.drawUnselected = function() {
+														if (this.overlay) {
+															this.overlay.style['opacity'] = '';
+							                                this.overlay.style['background-color'] = '';
+														}
+													};
+							itemNode.drawUnselected = itemNode.drawUnselected.bind(itemNode);
+						}
+						
+						// if there were hardcoded columns and not enough items to fit those columns, add the extra columns
+						if ((hardCodedColumnNum > 0) && (columnCount < hardCodedColumnNum)) {
+							var diff = hardCodedColumnNum - columnCount;
+							innerChildNode.extraColumns = [];
+							for (k = 0; k < diff; k++) {
+								td = document.createElement('td');
+								tr.appendChild(td);
+								td.style.width = width + 'px';
+								innerChildNode.extraColumns.push(td);
+							}
+						}
+					}
+				}
+			}
+			
+			// Make sure we move when the orientation of the device changes
+			outerElement.orientationChanged = function(event) {
+									var items = this.querySelectorAll('[data-bb-type=row]'),
+										i,j,
+										rowItems,
+										row,
+										numItems,
+										itemNode,
+										width,
+										height;
+				
+									for (i = 0; i < items.length; i++) {
+										var hardCodedColumnNum = -1;
+										row = items[i];
+										rowItems = row.querySelectorAll('[data-bb-type=item]');
+										numItems = rowItems.length;
+										
+										// See if they specified the number of items per column
+										if (row.hasAttribute('data-bb-columns')) {
+											hardCodedColumnNum = row.getAttribute('data-bb-columns');
+										}
+
+										// Calculate the width
+										if (hardCodedColumnNum > 0) {
+											// If there are more items than the number of hardcoded columns then
+											// we need to shrink the item size a bit to show that there are available
+											// items to the left to scroll to
+											if ((rowItems.length > hardCodedColumnNum) && !bb.device.isPlayBook) {
+												width = (window.innerWidth/(parseInt(hardCodedColumnNum) + 0.5));
+											} else {
+												width = (window.innerWidth/hardCodedColumnNum) - 6;
+											}
+										} else {
+											width = (window.innerWidth/numItems) - 6;
+										}
+										// Adjust all the items
+										for (j = 0; j < numItems; j++ ) {
+											itemNode = rowItems[j];
+											if (outerElement.isSquare) {
+												height = width;
+											} else {
+												height = Math.ceil(width*0.5625);
+											}
+											// Animate our image and container
+											itemNode.image.style.height = height+'px';
+											itemNode.image.style.width = width + 'px';
+											itemNode.image.style['-webkit-transition-property'] = 'all';
+											itemNode.image.style['-webkit-transition-duration'] = '0.2s';
+											itemNode.image.style['-webkit-transition-timing-function'] = 'linear';
+											itemNode.image.style['-webkit-transform'] = 'translate3d(0,0,0)';
+											itemNode.style.width = width+'px';
+											itemNode.style.height = height+'px';
+											itemNode.style['-webkit-transition-property'] = 'all';
+											itemNode.style['-webkit-transition-duration'] = '0.2s';
+											itemNode.style['-webkit-transition-timing-function'] = 'linear';
+											itemNode.style['-webkit-transform'] = 'translate3d(0,0,0)';
+										}
+										
+										// Adjust the extra columns if there was hard coded columns that were not filled
+										if (row.extraColumns) {
+											for (j = 0; j < row.extraColumns.length;j++) {
+												row.extraColumns[j].style.width = width + 'px';
+											}
+										}
+									}
+								};
+			outerElement.orientationChanged = outerElement.orientationChanged.bind(outerElement);	
+			window.addEventListener('resize', outerElement.orientationChanged,false); 
+			// Add listener for removal on popScreen
+			bb.windowListeners.push({name: 'resize', eventHandler: outerElement.orientationChanged});
+			
+			// Add show function
+			outerElement.show = function() {
+				this.style.display = 'block';
+				bb.refresh();
+				};
+			outerElement.show = outerElement.show.bind(outerElement);
+
+			// Add hide function
+			outerElement.hide = function() {
+				this.style.display = 'none';
+				bb.refresh();
+				};
+			outerElement.hide = outerElement.hide.bind(outerElement);
+	
+			// Add remove function
+			outerElement.remove = function() {
+				this.parentNode.removeChild(this);
+				bb.refresh();
+				};
+			outerElement.remove = outerElement.remove.bind(outerElement);
+		}		
+    }
+};
+_bb10_imageList = {  
+    apply: function(elements) {
+		var i,j,
+			outerElement,
+			items;
+
+		// Apply our transforms to all Image Lists
+		for (i = 0; i < elements.length; i++) {
+			outerElement = elements[i];
+			outerElement.items = [];
+			outerElement.setAttribute('class','bb-image-list');
+			outerElement.hideImages = outerElement.hasAttribute('data-bb-images') ? (outerElement.getAttribute('data-bb-images').toLowerCase() == 'none') : false;
+			if (!outerElement.hideImages) {
+				outerElement.imagePlaceholder = outerElement.hasAttribute('data-bb-image-placeholder') ? outerElement.getAttribute('data-bb-image-placeholder') : undefined;
+				outerElement.imageLoading = outerElement.hasAttribute('data-bb-image-loading') ? outerElement.getAttribute('data-bb-image-loading') : undefined;
+			}
+			
+			// See what kind of style they want for this list
+			outerElement.listStyle = outerElement.hasAttribute('data-bb-style') ? outerElement.getAttribute('data-bb-style').toLowerCase() : 'default';
+			
+			// Get our header style
+			outerElement.solidHeader = outerElement.hasAttribute('data-bb-header-style') ? (outerElement.getAttribute('data-bb-header-style').toLowerCase() == 'solid') : false;
+			// Get our header justification
+			outerElement.headerJustify = outerElement.hasAttribute('data-bb-header-justify') ? outerElement.getAttribute('data-bb-header-justify').toLowerCase() : 'center';
+			
+			// Assign our context menu if there is one
+			if (outerElement.hasAttribute('data-bb-context') && outerElement.getAttribute('data-bb-context').toLowerCase() == 'true') {
+				outerElement.contextMenu = bb.screen.contextMenu;
+			}
+			
+			// Style an item
+			outerElement.styleItem = function(innerChildNode) {
+				if (innerChildNode.hasAttribute('data-bb-type')) {
+					// Figure out the type of item
+					var type = innerChildNode.getAttribute('data-bb-type').toLowerCase(),
+						description = innerChildNode.innerHTML,
+						title,
+						overlay,
+						accentText,
+						img,
+						details,
+						detailsClass,
+						descriptionDiv,
+						btn,
+						btnBorder,
+						highlight,
+						normal,
+						btnInner,
+						json;
+					
+					innerChildNode.btn = undefined;
+
+					if (type == 'header') {
+						// Set our normal and highlight styling
+						normal = 'bb-image-list-header';
+						if (this.solidHeader) {
+							normal = normal +' bb10Accent';
+							innerChildNode.style.color = 'white';
+							innerChildNode.style['border-bottom-color'] = 'transparent';
+						} else {
+							normal = normal + ' bb-image-list-header-normal-'+bb.screen.listColor;
+							innerChildNode.style['border-bottom-color'] = bb.options.shades.darkOutline;
+						}
+						
+						// Check for alignment
+						if (this.headerJustify == 'left') {
+							normal = normal + ' bb-image-list-header-left';
+						} else if (this.headerJustify == 'right') {
+							normal = normal + ' bb-image-list-header-right';
+						} else {
+							normal = normal + ' bb-image-list-header-center';
+						}
+						
+						// Set our styling
+						innerChildNode.normal = normal;
+						innerChildNode.innerHTML = '<p>'+ description +'</p>';
+						innerChildNode.setAttribute('class', normal);
+					}
+					else if (type == 'item') {
+						normal = 'bb-image-list-item bb-image-list-item-' + bb.screen.listColor;
+						highlight = normal + ' bb-image-list-item-hover bb10Highlight';
+						innerChildNode.normal = normal;
+						innerChildNode.highlight = highlight;
+						innerChildNode.setAttribute('class', normal);
+						innerChildNode.innerHTML = '';
+						img = undefined;
+			
+						// Create the details container
+						details = document.createElement('div');
+						details.innerChildNode = innerChildNode;
+						innerChildNode.details = details;
+						innerChildNode.appendChild(details);
+						detailsClass = 'bb-image-list-item-details';
+						if (this.hideImages) {
+							detailsClass = detailsClass + ' bb-image-list-item-noimage';
+						} else {
+							img = new Image();
+							innerChildNode.img = img;
+							if (this.imagePlaceholder) {
+								img.placeholder = this.imagePlaceholder;
+								img.path = innerChildNode.hasAttribute('data-bb-img') ? innerChildNode.getAttribute('data-bb-img') : this.imagePlaceholder;
+							} else {
+								img.path = innerChildNode.getAttribute('data-bb-img');
+							}
+							// Handle our loaded image
+							innerChildNode.onimageload = function() {
+									this.details.style['background-image'] = 'url("'+this.img.src+'")';
+									innerChildNode.details.style['background-size'] = '';
+									// Unassign this image so that it is removed from memory and replace it with its path
+									this.img = this.img.src;
+								};
+							innerChildNode.onimageload = innerChildNode.onimageload.bind(innerChildNode);
+							img.onload = innerChildNode.onimageload;
+							
+							if (this.imagePlaceholder) {
+								// Handle our error state
+								innerChildNode.onimageerror = function() {
+									if (this.img.src == this.img.placeholder) return;
+									this.img.src = this.img.placeholder;
+								};
+								innerChildNode.onimageerror = innerChildNode.onimageerror.bind(innerChildNode);
+								img.onerror = innerChildNode.onimageerror;
+							}
+							// Add our loading image
+							if (this.imageLoading) {
+								innerChildNode.details.style['background-image'] = 'url("'+this.imageLoading+'")';
+								// Hack to adjust background sizes for re-paint issues in webkit
+								if (bb.device.is1024x600) {
+									innerChildNode.details.style['background-size'] = '64px 65px';
+								} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+									innerChildNode.details.style['background-size'] = '109px 110px';
+								} else if (bb.device.is720x720) {
+									innerChildNode.details.style['background-size'] = '92px 93px';
+								}else {
+									innerChildNode.details.style['background-size'] = '109px 110px';
+								}
+							}
+							img.src = img.path;
+						}
+						
+						// Create our title
+						title = document.createElement('div');
+						title.setAttribute('class','title');
+						title.innerHTML = innerChildNode.getAttribute('data-bb-title');
+						details.title = title;
+						if (title.innerHTML.length == 0) {
+							title.innerHTML = '&nbsp;';
+						}
+						details.appendChild(title);
+						
+						// Create our description
+						descriptionDiv = document.createElement('div');
+						descriptionDiv.setAttribute('class','description bb-image-list-description-'+bb.screen.listColor);
+						details.description = descriptionDiv;
+						details.appendChild(descriptionDiv);
+						
+						// Add our highlight overlay
+						overlay = document.createElement('div');
+						overlay.setAttribute('class','bb-image-list-item-overlay');
+						innerChildNode.appendChild(overlay);
+						
+						// See if we need the button area
+						if ((this.listStyle == 'arrowlist') || (this.listStyle == 'arrowbuttons') || (this.listStyle == 'addbuttons') || (this.listStyle == 'removebuttons')) {
+							btn = document.createElement('div');
+							innerChildNode.appendChild(btn);
+							innerChildNode.btn = btn;
+							btn.outerElement = this;
+							btn.innerChildNode = innerChildNode;
+							
+							// Assign our event if one exists
+							if (innerChildNode.onbtnclick) {
+								btn.onbtnclick = innerChildNode.onbtnclick;
+							}
+							else if (innerChildNode.hasAttribute('onbtnclick')) {
+								innerChildNode.onbtnclick = innerChildNode.getAttribute('onbtnclick');
+								btn.onbtnclick = function() {
+												eval(this.innerChildNode.onbtnclick);
+											};
+							} 
+							
+							// Set the margins to show the button area
+							detailsClass = detailsClass + ' details-button-margin';
+							btn.setAttribute('class','button');
+							// Create the button border
+							btnBorder = document.createElement('div');
+							btnBorder.normal = 'bb-image-list-item-button-border bb-image-list-item-button-'+ bb.screen.listColor;
+							btnBorder.setAttribute('class',btnBorder.normal);
+							btn.btnBorder = btnBorder;
+							btn.appendChild(btnBorder);
+							// Create the inner button that has the image
+							btnInner = document.createElement('div');
+							btnInner.normal = 'bb-image-list-item-button-inner';
+							btnInner.highlight = btnInner.normal;
+							btn.btnInner = btnInner;
+							btnBorder.appendChild(btnInner);
+							
+							if (this.listStyle !== 'arrowlist') {
+								if (this.listStyle == 'arrowbuttons') {
+									btnInner.normal = btnInner.normal + ' bb-image-list-item-chevron-'+bb.screen.listColor;
+									btnInner.highlight = btnInner.highlight + ' bb-image-list-item-chevron-dark';
+								}
+								else if (this.listStyle == 'addbuttons') {
+									btnInner.normal = btnInner.normal + ' bb-image-list-item-add-'+bb.screen.listColor;
+									btnInner.highlight = btnInner.highlight + ' bb-image-list-item-add-dark';
+								}
+								else if (this.listStyle == 'removebuttons') {
+									btnInner.normal = btnInner.normal + ' bb-image-list-item-remove-'+bb.screen.listColor;
+									btnInner.highlight = btnInner.highlight + ' bb-image-list-item-remove-dark';
+								}		
+								
+								// Assign our touch handlers
+								btn.ontouchstart = function() {
+												if (!this.onbtnclick) return;
+												this.btnInner.setAttribute('class',this.btnInner.highlight);
+												this.btnBorder.style.background = '-webkit-gradient(linear, center top, center bottom, from(rgb(' + (bb.options.shades.R + 32) +',' + (bb.options.shades.G + 32) + ','+ (bb.options.shades.B + 32) +')), to('+bb.options.highlightColor+'))';
+											};
+											
+								btn.ontouchend = function() {
+												if (!this.onbtnclick) return;
+												this.btnBorder.style.background = '';
+												this.btnInner.setAttribute('class',this.btnInner.normal);
+											};
+								
+								// Assign our click handler if one was available
+								btn.onclick = function(e) {
+												e.stopPropagation();
+												if (this.onbtnclick) {
+													this.outerElement.selected = this.innerChildNode;
+													this.onbtnclick();
+												}
+											}
+								
+								
+							} else { // Arrow list
+								btnInner.normal = btnInner.normal + ' bb-image-list-item-chevron-'+bb.screen.listColor;
+								btnBorder.style['background'] = 'transparent';
+								btnBorder.style['border-color'] = 'transparent';
+							}	
+							
+							// Set our class
+							btnInner.setAttribute('class',btnInner.normal);								
+						} else {
+							// Create the accent text
+							if (innerChildNode.hasAttribute('data-bb-accent-text')) {
+								accentText = document.createElement('div');
+								accentText.setAttribute('class','accent-text bb-image-list-accent-text-'+bb.screen.listColor);
+								accentText.innerHTML = innerChildNode.getAttribute('data-bb-accent-text');
+								details.appendChild(accentText);
+								details.accentText = accentText;
+							}
+						}
+						
+						// Adjust the description 
+						if (description.length == 0) {
+							description = '&nbsp;';
+							descriptionDiv.style.visibilty = 'hidden';
+							detailsClass = detailsClass + ' bb-image-list-item-details-nodescription';
+							
+							// Adjust margins
+							if (bb.device.is1024x600) {
+								title.style['margin-top'] = '16px';
+								title.style['padding-top'] = '28px';
+								overlay.style['margin-top'] = '-94px';
+								if (innerChildNode.btn) {
+									innerChildNode.btn.style['margin-top'] = '-59px';
+								}
+							} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+								title.style['margin-top'] = '-7px';
+								title.style['padding-top'] = '20px';
+								overlay.style['margin-top'] = '-140px';
+								if (innerChildNode.btn) {
+									innerChildNode.btn.style['margin-top'] = '-102px';
+								}
+							} else if (bb.device.is720x720) {
+								title.style['margin-top'] = '-14px';
+								title.style['padding-top'] = '20px';
+								overlay.style['margin-top'] = '-133px';
+								if (innerChildNode.btn) {
+									innerChildNode.btn.style['margin-top'] = '-89px';
+								}
+							}else {
+								title.style['margin-top'] = '-7px';
+								title.style['padding-top'] = '20px';
+								overlay.style['margin-top'] = '-121px';
+								if (innerChildNode.btn) {
+									innerChildNode.btn.style['margin-top'] = '-102px';
+								}
+							}
+							// Adjust accent text
+							if (accentText) {
+								if (bb.device.is1024x600) {
+									accentText.style['margin-top'] = '-52px';
+								} else if (bb.device.is1280x768 || bb.device.is1280x720) {
+									accentText.style['margin-top'] = '-82px';
+								} else if (bb.device.is720x720) {
+									accentText.style['margin-top'] = '-75px';
+								} else {
+									accentText.style['margin-top'] = '-82px';
+								}
+							}
+						}
+						descriptionDiv.innerHTML = description;
+						
+						
+						// Apply our details class
+						details.setAttribute('class',detailsClass);
+						
+						// Set up our variables
+						innerChildNode.fingerDown = false;
+						innerChildNode.contextShown = false;
+						innerChildNode.overlay = overlay;
+						innerChildNode.contextMenu = this.contextMenu;
+						innerChildNode.description = description;
+						innerChildNode.title = title.innerHTML;	
+						
+						innerChildNode.ontouchstart = function () {
+														if (bb.device.isPlayBook) {
+															if (!innerChildNode.trappedClick && !this.contextMenu) return;
+															innerChildNode.fingerDown = true;
+															innerChildNode.contextShown = false;
+															this.overlay.style['visibility'] = 'visible';
+															if (innerChildNode.contextMenu) {
+																window.setTimeout(this.touchTimer, 667);
+																var scr = bb.getCurScreen();
+																innerChildNode.touchstartx = scr.bbUIscrollWrapper.scrollTop;
+															}
+														}
+													};
+						innerChildNode.ontouchend = function (event) {
+														if (bb.device.isPlayBook) {
+															if (!innerChildNode.trappedClick && !this.contextMenu) return;
+															this.overlay.style['visibility'] = 'hidden';
+															innerChildNode.fingerDown = false;
+															if (innerChildNode.contextShown) {
+																event.preventDefault();
+																event.stopPropagation();
+															}
+														}
+													};
+						innerChildNode.touchTimer = function() {
+														if (bb.device.isPlayBook) {
+															var scr = bb.getCurScreen();
+															var curx = scr.bbUIscrollWrapper.scrollTop;
+															if (innerChildNode.fingerDown && Math.abs(innerChildNode.touchstartx - curx) < 50) {
+																innerChildNode.contextShown = true;
+																this.drawSelected();
+																innerChildNode.contextMenu.hideEvents.push(this.finishHighlight);
+																innerChildNode.contextMenu.peek({title:this.title,description:this.description, selected: this});
+															}
+														}
+													};
+						innerChildNode.touchTimer = innerChildNode.touchTimer.bind(innerChildNode);
+						// Draw the selected state for the context menu
+						innerChildNode.drawSelected = function() {
+														this.setAttribute('class',this.highlight);
+														this.overlay.style['visibility'] = 'visible';
+														this.overlay.style['border-color'] =  bb.options.shades.darkOutline;
+													};
+						innerChildNode.drawSelected = innerChildNode.drawSelected.bind(innerChildNode);
+						// Draw the unselected state for the context menu
+						innerChildNode.drawUnselected = function() {
+														this.setAttribute('class',this.normal);
+														this.overlay.style['visibility'] = 'hidden';
+														this.overlay.style['border-color'] =  'transparent';
+													};
+						innerChildNode.drawUnselected = innerChildNode.drawUnselected.bind(innerChildNode);
+						
+						// See if a context menu needs to be assigned
+						if (this.contextMenu) {
+							innerChildNode.guid = 'bbui'+bb.guidGenerator();
+							innerChildNode.setAttribute('data-bb-context-menu-id', innerChildNode.guid);
+							json = new Object();
+							json.id = innerChildNode.guid;
+							json.type = 'bbui-context';
+							json.header = innerChildNode.title;
+							if (innerChildNode.description && (innerChildNode.description != '&nbsp;')) {
+								json.subheader = innerChildNode.description;
+							}
+							innerChildNode.setAttribute('data-webworks-context', JSON.stringify(json));
+						}	
+						
+						// Add our subscription for click events to change highlighting on click
+						innerChildNode.trappedClick = innerChildNode.onclick;
+						innerChildNode.onclick = undefined;
+						innerChildNode.outerElement = this;
+						innerChildNode.addEventListener('click',function (e) {
+								if (!innerChildNode.trappedClick) return;
+								this.outerElement.selected = this;
+								if (this.trappedClick) {
+									setTimeout(this.trappedClick, 0);
+								}
+							},false);
+							
+						// Finish the highlight on a delay
+						innerChildNode.finishHighlight = function() {
+													if (bb.screen.animating) {
+														setTimeout(this.finishHighlight,250);
+													} else {
+														this.setAttribute('class',this.normal);
+													}
+												};
+						innerChildNode.finishHighlight = innerChildNode.finishHighlight.bind(innerChildNode);	
+
+						// Add the remove function for the item
+						innerChildNode.remove = function() {
+								this.style.height = '0px';
+								this.style.opacity = '0.0';
+								this.style['-webkit-transition-property'] = 'all';
+								this.style['-webkit-transition-duration'] = '0.1s';
+								this.style['-webkit-transition-timing-function'] = 'linear';
+								this.style['-webkit-transform'] = 'translate3d(0,0,0)';
+								if (bb.scroller) {
+									bb.scroller.refresh();
+								}
+								window.setTimeout(this.details.performRemove,100);
+							}
+						innerChildNode.remove = innerChildNode.remove.bind(innerChildNode);	
+						
+						// Perform the final remove after the transition effect
+						details.performRemove = function() {
+								var listControl = this.innerChildNode.parentNode,
+									index = listControl.items.indexOf(this.innerChildNode);
+								listControl.removeChild(this.innerChildNode);
+								listControl.items.splice(index,1);									
+						}
+						details.performRemove = details.performRemove.bind(details);	
+						
+						// Add our getter functions
+						innerChildNode.getTitle = function() {
+								return this.title;
+							}
+						innerChildNode.getTitle = innerChildNode.getTitle.bind(innerChildNode);	
+						innerChildNode.getDescription = function() {
+								return this.details.description.innerHTML;
+							}
+						innerChildNode.getDescription = innerChildNode.getDescription.bind(innerChildNode);	
+						innerChildNode.getAccentText = function() {
+								return (this.details.accentText) ? this.details.accentText.innerHTML : undefined;
+							}
+						innerChildNode.getAccentText = innerChildNode.getAccentText.bind(innerChildNode);	
+						innerChildNode.getImage = function() {
+								return this.img;
+							}
+						innerChildNode.getImage = innerChildNode.getImage.bind(innerChildNode);
+					}
+				}
+			}
+			outerElement.styleItem = outerElement.styleItem.bind(outerElement);
+			
+			// Append an item to the end of the list control
+			outerElement.appendItem = function(item) {
+					this.styleItem(item);
+					this.appendChild(item);
+					this.items.push(item);
+					// Fire our list event
+					var evt = document.createEvent('Events');
+					evt.initEvent('bbuilistready', true, true);
+					document.dispatchEvent(evt);
+					if (bb.scroller) {
+						bb.scroller.refresh();
+					}
+				};
+			outerElement.appendItem = outerElement.appendItem.bind(outerElement);
+			
+			// This is a hack function to do with a 10.0 repaint issue for divs in an overflow with touch scroll
+			outerElement.resetPadding = function() {
+					this.style['padding-right'] = '0px';
+					this.timeout = null;
+				};
+			outerElement.resetPadding = outerElement.resetPadding.bind(outerElement);
+			
+			// Refresh all the items in the list control
+			outerElement.refresh = function(listItems) {
+					if (!listItems || !listItems.length || (listItems.length <=0)) return;
+					var i,
+						item,
+						innerDiv = document.createElement('div');
+					this.items = [];
+					for (i = 0; i < listItems.length; i++) {
+						item = listItems[i];
+						this.styleItem(item);
+						this.items.push(item);
+						innerDiv.appendChild(item);
+					}
+					// Refresh the 
+					this.innerHTML = '';
+					this.appendChild(innerDiv);		
+
+					// Fire our list event
+					var evt = document.createEvent('Events');
+					evt.initEvent('bbuilistready', true, true);
+					document.dispatchEvent(evt);
+					
+					/* This is a major hack to fix an issue in webkit where it doesn't always
+					   understand when to re-paint the screen when scrolling a <div> with overflow
+					   and using the inertial scrolling for 10.0*/
+					if (bb.device.requiresScrollingHack) {
+						if (this.timeout) {
+							clearTimeout(this.timeout);
+						} else {
+							this.style['padding-right'] = '1px';
+						}			
+						// Set our new timeout for resetting
+						this.timeout = setTimeout(this.resetPadding,20);
+					}
+					/* ********** END OF THE SCROLLING HACK ************/
+				};
+			outerElement.refresh = outerElement.refresh.bind(outerElement);
+			
+			// Insert an item before another item in the list
+			outerElement.insertItemBefore = function(newItem, existingItem) {
+					this.styleItem(newItem);
+					this.insertBefore(newItem,existingItem);
+					this.items.splice(this.items.indexOf(existingItem),0,newItem);
+					// Fire our list event
+					var evt = document.createEvent('Events');
+					evt.initEvent('bbuilistready', true, true);
+					document.dispatchEvent(evt);
+					if (bb.scroller) {
+						bb.scroller.refresh();
+					}
+				};
+			outerElement.insertItemBefore = outerElement.insertItemBefore.bind(outerElement);
+			
+			// Return the items in the list in a read-only fashion
+			outerElement.getItems = function() {
+					var i,
+						result = [];
+						for (i = 0; i < this.items.length;i++) {
+							result.push(this.items[i]);
+						}	
+					return result;
+				};
+			outerElement.getItems = outerElement.getItems.bind(outerElement);
+			
+			// Clear items from the list
+			outerElement.clear = function() {
+					this.items = [];
+					outerElement.innerHTML = '';
+					if (bb.scroller) {
+						bb.scroller.refresh();
+					}
+				};
+			outerElement.clear = outerElement.clear.bind(outerElement);
+			
+			// Add our show function
+			outerElement.show = function() {
+				this.style.display = 'block';
+				bb.refresh();
+					};
+			outerElement.show = outerElement.show.bind(outerElement);
+			
+			// Add our hide function
+			outerElement.hide = function() {
+				this.style.display = 'none';
+				bb.refresh();
+					};
+			outerElement.hide = outerElement.hide.bind(outerElement);
+			
+			// Add remove function
+			outerElement.remove = function() {
+				this.parentNode.removeChild(this);
+				bb.refresh();
+					};
+			outerElement.remove = outerElement.remove.bind(outerElement);			
+			
+			// Gather our inner items and style them
+			items = outerElement.querySelectorAll('[data-bb-type=item], [data-bb-type=header]');
+			var item;
+			for (j = 0; j < items.length; j++) {
+				item = items[j];
+				outerElement.styleItem(item);
+				outerElement.items.push(item);
+			}
+		}	
+	}
+};
+_bb10_labelControlContainers = {
+    apply: function(elements) {
+		var i,
+			outerElement,
+			items,
+			table,
+			j,
+			row,
+			tr,
+			tdLabel,
+			label,
+			tdControl,
+			control,
+			bbType;
+		
+		for (i = 0; i < elements.length; i++) {
+			outerElement = elements[i];
+			// Fetch all our rows
+			items = outerElement.querySelectorAll('[data-bb-type=row]');
+			if (items.length > 0 ) {
+				// Create our containing table
+				table = document.createElement('table');
+				table.setAttribute('class','bb-label-control-rows');
+				outerElement.insertBefore(table,items[0]);
+				
+				for (j = 0; j < items.length; j++) {
+					row = items[j];
+					tr = document.createElement('tr');
+					tr.setAttribute('class','bb-label-control-label-row');
+					table.appendChild(tr);
+					
+					// Get the label
+					tdLabel = document.createElement('td');
+					tr.appendChild(tdLabel);
+					label = row.querySelectorAll('[data-bb-type=label]')[0];
+					label.setAttribute('class','bb-label-control-label');
+					row.removeChild(label);
+					tdLabel.appendChild(label);
+					
+					// Get the control
+					tr = document.createElement('tr');
+					table.appendChild(tr);
+					tdControl = document.createElement('td');
+					tr.appendChild(tdControl);
+					control = row.querySelectorAll('[data-bb-type=button],[data-bb-type=input],[data-bb-type=dropdown],textarea,input[type=file]')[0];
+					if (control) {
+						row.removeChild(control);
+						tdControl.appendChild(control);
+					}
+					outerElement.removeChild(row);
+				}
+			}
+			// Add show function
+			outerElement.show = function() {
+				this.style.display = 'block';
+				bb.refresh();
+				};
+			outerElement.show = outerElement.show.bind(outerElement);
+
+			// Add hide function
+			outerElement.hide = function() {
+				this.style.display = 'none';
+				bb.refresh();
+				};
+			outerElement.hide = outerElement.hide.bind(outerElement);
+	
+			// Add remove function
+			outerElement.remove = function() {
+				this.parentNode.removeChild(this);
+				bb.refresh();
+				};
+			outerElement.remove = outerElement.remove.bind(outerElement);
+		}	
+    }
+};
+_bb10_pillButtons = {  
+    apply: function(elements) {
+		var i,
+			outerElement;
+		for (i = 0; i < elements.length; i++) {
+			outerElement = elements[i];
+			bb.pillButtons.style(outerElement, true);
+		}
+	},
+	
+	style: function(outerElement, offdom) {
+		var i,
+			containerStyle = 'bb-pill-buttons-container bb-pill-buttons-container-' + bb.screen.controlColor,
+			buttonStyle = 'bb-pill-button',
+			containerDiv,
+			innerBorder,
+			items = outerElement.querySelectorAll('[data-bb-type=pill-button]'),
+			percentWidth = Math.floor(100 / items.length),
+			sidePadding = 10,
+			innerChildNode,
+			table,
+			tr,
+			td,
+			j;
+		
+		outerElement.sidePadding = sidePadding;
+		outerElement.setAttribute('class','bb-pill-buttons');
+		containerDiv = document.createElement('div');
+		outerElement.appendChild(containerDiv);
+		containerDiv.setAttribute('class',containerStyle);
+		// Set our selected color
+		outerElement.selectedColor = (bb.screen.controlColor == 'dark') ? '#909090' : '#555555';
+		
+		// Create our selection pill
+		pill = document.createElement('div');
+		pillInner = document.createElement('div');
+		pill.appendChild(pillInner);
+		pill.setAttribute('class',buttonStyle + ' bb-pill-button-selected-'+ bb.screen.controlColor + ' bb-pill-buttons-pill');
+		pillInner.setAttribute('class','bb-pill-button-inner bb-pill-button-inner-selected-'+bb.screen.controlColor);
+		pill.style.opacity = '0';
+		outerElement.pill = pill;
+		containerDiv.appendChild(pill);
+					
+		// Set our left and right padding
+		outerElement.style['padding-left'] = sidePadding + 'px';
+		outerElement.style['padding-right'] = sidePadding + 'px';
+		
+		// create our containing table
+		table = document.createElement('table');
+		outerElement.table = table;
+		tr = document.createElement('tr');
+		table.tr = tr;
+		table.appendChild(tr);
+		table.setAttribute('class','bb-pill-buttons-table');
+		table.style.opacity = '0';
+		containerDiv.appendChild(table);				
+		
+		// Style an indiviual button
+		outerElement.styleButton = function(innerChildNode) {
+				innerChildNode.isSelected = false;
+				// Create our inner container to have double borders
+				innerBorder = document.createElement('div');
+				innerBorder.innerHTML = innerChildNode.innerHTML;
+				innerChildNode.innerHTML = '';
+				innerChildNode.appendChild(innerBorder);
+				// Set our variables
+				innerChildNode.border = innerBorder;
+				innerChildNode.outerElement = outerElement;
+				if (innerChildNode.getAttribute('data-bb-selected') == 'true') {
+					innerChildNode.isSelected = true;
+					outerElement.selected = innerChildNode;
+					innerChildNode.style.color = outerElement.selectedColor;
+				} 
+				// Set our styling
+				innerChildNode.setAttribute('class',buttonStyle);
+				innerBorder.setAttribute('class','bb-pill-button-inner');
+				innerChildNode.style['z-index'] = 4;
+				innerChildNode.style.width = '100%';
+				// Set our touch start					
+				innerChildNode.dotouchstart = function(e) {
+											if (this.isSelected) return;
+											// Turn of the selected state of the last item
+											var lastSelected = this.outerElement.selected;
+											lastSelected.style.color = '';	
+											// change color of the pill if it is light coloring
+											if (bb.screen.controlColor == 'light') {
+												this.outerElement.pill.style['background-color'] = '#DDDDDD';
+											}
+											this.outerElement.setPillLeft(this);
+										};
+				innerChildNode.dotouchstart = innerChildNode.dotouchstart.bind(innerChildNode);
+				// Set our touch end					
+				innerChildNode.dotouchend = function(e) {
+											if (this.isSelected) return;
+											
+											// Reset the old selected
+											var lastSelected = this.outerElement.selected;
+											lastSelected.isSelected = false;
+											
+											// Select this item's state
+											this.isSelected = true;
+											this.outerElement.selected = this;
+											this.style.color = this.outerElement.selectedColor;
+											
+											// Remove color styling from pill if light
+											if (bb.screen.controlColor == 'light') {
+												this.outerElement.pill.style['background-color'] = '';
+											}
+											
+											// Raise the click event. Need to do it this way to match the
+											// Cascades selection style in pill buttons
+											var ev = document.createEvent('MouseEvents');
+											ev.initMouseEvent('click', true, true);
+											ev.doClick = true;
+											this.dispatchEvent(ev);
+										};
+				innerChildNode.dotouchend = innerChildNode.dotouchend.bind(innerChildNode);
+				// Tie it to mouse events in ripple, and touch events on devices
+				if (bb.device.isRipple) {
+					innerChildNode.onmousedown = innerChildNode.dotouchstart;	
+					innerChildNode.onmouseup = innerChildNode.dotouchend;
+				} else {
+					innerChildNode.ontouchstart = innerChildNode.dotouchstart;	
+					innerChildNode.ontouchend = innerChildNode.dotouchend;
+				}
+				// Prevent the default click unless we want it to happen
+				innerChildNode.addEventListener('click',function (e) { 
+							e.stopPropagation();
+						}, true);
+						
+				// setCaption function
+				innerChildNode.setCaption = function(value){ 
+					this.border.innerHTML = value;
+			    };
+				innerChildNode.setCaption = innerChildNode.setCaption.bind(innerChildNode);
+				
+				// getCaption function, returns null if no button
+				innerChildNode.getCaption = function(){ 
+					return this.border.innerHTML;
+			    };
+				innerChildNode.getCaption = innerChildNode.getCaption.bind(innerChildNode); 
+						
+				return innerChildNode;
+			};
+		outerElement.styleButton = outerElement.styleButton.bind(outerElement);
+		
+		// Loop through all our buttons
+		for (j = 0; j < items.length; j++) {
+			innerChildNode = items[j];
+			innerChildNode = outerElement.styleButton(innerChildNode);
+			// Create our cell
+			td = document.createElement('td');
+			tr.appendChild(td);
+			td.appendChild(innerChildNode);
+			td.style.width = percentWidth + '%';
+		}
+		// Determine our pill widths based on size
+		outerElement.recalculateSize = function() {
+					var items = this.table.querySelectorAll('td'),
+						totalWidth = parseInt(window.getComputedStyle(this).width) - this.sidePadding,
+						itemWidth = Math.floor((totalWidth - (items.length * 4)) /items.length) + 'px', // Accounting for margins
+						i;
+					for (i = 0; i < items.length; i++) {
+						items[i].style.width = itemWidth;
+					}
+					// Size our table and pill
+					this.table.style.width = totalWidth + 'px';
+					this.pill.style.width = itemWidth;
+				};
+		outerElement.recalculateSize = outerElement.recalculateSize.bind(outerElement);	
+		
+		// Set our pill left
+		outerElement.setPillLeft = function(element) {
+					if (!element) {
+						element = this.selected;
+						// Nothing was marked as selected so select the first button
+						if (!element) {
+							var items = this.table.querySelectorAll('[data-bb-type=pill-button]');
+							if (items.length > 0) {
+								element = items[0];
+								this.selected = element;
+							}
+						}
+					}
+					if (element) {
+						this.pill.style['-webkit-transform'] = 'translate3d(' + element.parentNode.offsetLeft + 'px,0px,0px)';
+					}
+				};
+		outerElement.setPillLeft = outerElement.setPillLeft.bind(outerElement);	
+		
+		// Initialize the control
+		outerElement.initialize = function() {
+					this.recalculateSize();
+					this.setPillLeft();
+					// Fade in our sized elements
+					this.table.style.opacity = '1';
+					this.table.style['-webkit-transition'] = 'opacity 0.1s linear';
+					this.pill.style.opacity = '1';
+				};
+		outerElement.initialize = outerElement.initialize.bind(outerElement);	
+		
+		if (offdom) {
+			// Create our event handler for when the dom is ready
+			outerElement.onbbuidomready = function() {
+						this.initialize();
+						document.removeEventListener('bbuidomprocessed', this.onbbuidomready,false);
+					};
+			outerElement.onbbuidomready = outerElement.onbbuidomready.bind(outerElement);
+			/* Add our event listener for the domready to move our selected item.  We want to
+		      do it this way because it will ensure the screen transition animation is finished before
+		      the pill button move transition happens. This will help for any animation stalls/delays */
+			document.addEventListener('bbuidomprocessed', outerElement.onbbuidomready,false);
+		} else {
+			window.setTimeout(outerElement.initialize, 0);
+		}
+
+		// Handle pill sizing on orientation change
+		outerElement.doOrientationChange = function() {
+					this.recalculateSize();
+					this.setPillLeft();
+				};
+		outerElement.doOrientationChange = outerElement.doOrientationChange.bind(outerElement);
+		window.addEventListener('resize', outerElement.doOrientationChange,false); 
+		// Add listener for removal on popScreen
+		bb.windowListeners.push({name: 'resize', eventHandler: outerElement.doOrientationChange});
+		
+		// Add our show function
+		outerElement.show = function() {
+			this.style.display = 'block';
+			this.recalculateSize();
+			this.setPillLeft();
+			bb.refresh();
+		};
+		outerElement.show = outerElement.show.bind(outerElement);
+		
+		// Add our hide function
+		outerElement.hide = function() {
+			this.style.display = 'none';
+			bb.refresh();
+		};
+		outerElement.hide = outerElement.hide.bind(outerElement);
+		
+		// Add remove function
+		outerElement.remove = function() {
+			this.parentNode.removeChild(this);
+			bb.refresh();
+		};
+		outerElement.remove = outerElement.remove.bind(outerElement);
+		
+		// Add clear function
+		outerElement.clear = function() {
+			var items = this.table.querySelectorAll('td'),
+				i;
+			for (i = 0; i < items.length; i++) {
+				this.table.tr.removeChild(items[i]);
+			}
+			this.pill.style.opacity = '0';
+		};
+		outerElement.clear = outerElement.clear.bind(outerElement);
+		
+		// Add appendButton function
+		outerElement.appendButton = function(button) {
+			button = outerElement.styleButton(button);
+			// Create our cell
+			var td = document.createElement('td');
+			this.table.tr.appendChild(td);
+			td.appendChild(button);
+			this.initialize();
+		};
+		outerElement.appendButton = outerElement.appendButton.bind(outerElement);
+		
+		// Add getButtons function
+		outerElement.getButtons = function() {
+			var items = this.parentNode.querySelectorAll('[data-bb-type=pill-button]');
+			var buttonArray = new Array();
+			for (var j = 0; j < items.length; j++) {
+				buttonArray[j] = items[j].firstChild.innerHTML;					
+			}				
+			return buttonArray;
+				};
+		outerElement.getButtons = outerElement.getButtons.bind(outerElement);
+		
+		return outerElement;
+    } 
+};
+_bb10_radio = {
+	apply: function(elements) {
+		// Apply our transforms to all Radio buttons
+		for (var i = 0; i < elements.length; i++) {
+			bb.radio.style(elements[i]);
+		};
+	},
+	
+	style: function(outerElement) {
+		var outerElement,
+			containerDiv,
+			dotDiv,
+			centerDotDiv,
+			radio,
+			color = bb.screen.controlColor,	
+			input = outerElement;
+		
+		outerElement = document.createElement('div');
+		outerElement.setAttribute('class','bb-radio-container-'+color);
+		outerElement.input = input;
+		input.outerElement = outerElement;
+
+		// Make the existing <input[type=radio]> invisible so that we can hide it and create our own display
+		input.style.display = 'none';
+		
+		// Create the dropdown container and insert it where the select was
+		input.radio = outerElement;
+		if (input.parentNode) {
+			input.parentNode.insertBefore(outerElement, input);
+		}
+		// Insert the select as an invisible node in the new radio element
+		outerElement.appendChild(input);
+		
+		// Create our colored dot
+		dotDiv = document.createElement('div');
+		dotDiv.setAttribute('class','bb-radio-dot');
+		dotDiv.highlight = '-webkit-linear-gradient(top,  rgb('+ (bb.options.shades.R + 32) +', '+ (bb.options.shades.G + 32) +', '+ (bb.options.shades.B + 32) +') 0%, rgb('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +') 100%)';
+		dotDiv.touchHighlight = '-webkit-linear-gradient(top,  rgba('+ (bb.options.shades.R - 64) +', '+ (bb.options.shades.G - 64) +', '+ (bb.options.shades.B - 64) +',0.25) 0%, rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +',0.25) 100%)';
+		if (input.checked) {
+			dotDiv.style.background = dotDiv.highlight;
+		}
+		outerElement.dotDiv = dotDiv;
+		outerElement.appendChild(dotDiv);
+		
+		// Set up our center dot
+		centerDotDiv = document.createElement('div');
+		centerDotDiv.setAttribute('class','bb-radio-dot-center');
+		if (!input.checked) {
+			bb.radio.resetDot(centerDotDiv);
+		}
+		dotDiv.appendChild(centerDotDiv);
+		dotDiv.centerDotDiv = centerDotDiv;
+		
+		dotDiv.slideOutUp = function() {
+							if (bb.device.is1024x600) {
+								this.style.height = '0px';
+								this.style.width = '10px';
+								this.style.top = '9px';
+								this.style.left = '15px';
+							} else {
+								this.style.height = '0px';
+								this.style.width = '20px';
+								this.style.top = '18px';
+								this.style.left = '30px';
+							}
+							bb.radio.resetDot(this.centerDotDiv);
+							this.style['-webkit-transition-property'] = 'all';
+							this.style['-webkit-transition-duration'] = '0.1s';
+							this.style['-webkit-transition-timing-function'] = 'linear';
+							this.style['-webkit-backface-visibility'] = 'hidden';
+							this.style['-webkit-perspective'] = 1000;
+							this.style['-webkit-transform'] = 'translate3d(0,0,0)';
+						};
+		dotDiv.slideOutUp = dotDiv.slideOutUp.bind(dotDiv);
+		
+		dotDiv.slideOutDown = function() {
+							if (bb.device.is1024x600) {
+								this.style.height = '0px';
+								this.style.width = '10px';
+								this.style.top = '30px';
+								this.style.left = '15px';
+							} else {
+								this.style.height = '0px';
+								this.style.width = '20px';
+								this.style.top = '60px';
+								this.style.left = '30px';
+							}
+							bb.radio.resetDot(this.centerDotDiv);
+							this.style['-webkit-transition-property'] = 'all';
+							this.style['-webkit-transition-duration'] = '0.1s';
+							this.style['-webkit-transition-timing-function'] = 'linear';
+							this.style['-webkit-backface-visibility'] = 'hidden';
+							this.style['-webkit-perspective'] = 1000;
+							this.style['-webkit-transform'] = 'translate3d(0,0,0)';
+						};
+		dotDiv.slideOutDown = dotDiv.slideOutDown.bind(dotDiv);
+		
+		dotDiv.slideIn = function() {
+							if (bb.device.is1024x600) {
+								this.style.height = '20px';
+								this.style.width = '20px';
+								this.style.top = '10px';
+								this.style.left = '9px';
+								this.centerDotDiv.style.height = '10px';
+								this.centerDotDiv.style.width = '10px';
+								this.centerDotDiv.style.top = '5px';
+								this.centerDotDiv.style.left = '5px';
+							} else {
+								this.style.height = '40px';
+								this.style.width = '40px';
+								this.style.top = '19px';
+								this.style.left = '19px';
+								this.centerDotDiv.style.height = '18px';
+								this.centerDotDiv.style.width = '18px';
+								this.centerDotDiv.style.top = '11px';
+								this.centerDotDiv.style.left = '11px';
+							}
+							this.style['-webkit-transition-property'] = 'all';
+							this.style['-webkit-transition-duration'] = '0.1s';
+							this.style['-webkit-transition-timing-function'] = 'ease-in';
+							this.style['-webkit-backface-visibility'] = 'hidden';
+							this.style['-webkit-perspective'] = 1000;
+							this.style['-webkit-transform'] = 'translate3d(0,0,0)';
+							// Make our center white dot visible
+							this.centerDotDiv.style['-webkit-transition-delay'] = '0.1s';
+							this.centerDotDiv.style['-webkit-transition-property'] = 'all';
+							this.centerDotDiv.style['-webkit-transition-duration'] = '0.1s';
+							this.centerDotDiv.style['-webkit-transition-timing-function'] = 'ease-in';
+							this.centerDotDiv.style['-webkit-perspective'] = 1000;
+							this.centerDotDiv.style['-webkit-transform'] = 'translate3d(0,0,0)';
+							
+						};
+		dotDiv.slideIn = dotDiv.slideIn.bind(dotDiv);
+		
+		// Set up properties
+		outerElement.selectedRadio = undefined;		
+		outerElement.slideFromTop = true;
+		outerElement.ontouchstart = function() {
+										if (!this.input.checked) {	
+											this.slideFromTop = true;
+											// See if it should slide from top or bottom
+											this.selectedRadio = this.getCurrentlyChecked();
+											if (this.selectedRadio) {
+												if (this.getTop(this.selectedRadio.radio) >= this.getTop(this)) {
+													this.slideFromTop = false;
+												}
+											} 
+											// Reset for our highlights
+											this.dotDiv.style['-webkit-transition'] = 'none';
+											if (bb.device.is1024x600) {
+												this.dotDiv.style.height = '20px';
+												this.dotDiv.style.width = '20px';
+												this.dotDiv.style.top = '10px';
+												this.dotDiv.style.left = '9px';
+											} else {
+												this.dotDiv.style.height = '40px';
+												this.dotDiv.style.width = '40px';
+												this.dotDiv.style.top = '19px';
+												this.dotDiv.style.left = '19px';
+											}
+											// Reset our center white dot
+											bb.radio.resetDot(this.dotDiv.centerDotDiv);
+											// Do our touch highlight
+											this.dotDiv.style.background = this.dotDiv.touchHighlight;
+										}
+									};
+		outerElement.ontouchend = function() {
+										if (!this.input.checked) {
+											this.dotDiv.style['-webkit-transition'] = 'none';
+											if (bb.device.is1024x600) {
+												this.dotDiv.style.height = '0px';
+												this.dotDiv.style.width = '9px';
+												this.dotDiv.style.left = '16px';
+											} else {
+												this.dotDiv.style.height = '0px';
+												this.dotDiv.style.width = '18px';
+												this.dotDiv.style.left = '32px';
+											}
+											// Reset top position
+											if (this.slideFromTop) {
+												this.dotDiv.style.top = bb.device.is1024x600 ? '9px' : '18px';
+											} else {
+												this.dotDiv.style.top = bb.device.is1024x600 ? '30px' : '60px';
+											}
+											
+											// Fire our click
+											window.setTimeout(this.doclick,0);
+										}
+									};
+		outerElement.doclick = function() {
+										if ((!this.input.checked) && (!this.input.disabled)) {
+											var evObj = document.createEvent('HTMLEvents');
+											evObj.initEvent('change', false, true );
+											this.dotDiv.style.background = this.dotDiv.highlight;
+											this.dotDiv.slideIn();
+											if (this.selectedRadio) {
+												this.selectedRadio.removeAttribute('checked');
+												// fire the changed event for the previously checked radio
+												this.selectedRadio.dispatchEvent(evObj);
+												if (this.slideFromTop) {
+													this.selectedRadio.radio.dotDiv.slideOutDown();
+												} else {
+													this.selectedRadio.radio.dotDiv.slideOutUp();
+												}
+											}
+											this.input.setAttribute('checked','true');
+											this.input.dispatchEvent(evObj);
+										}
+									};
+		outerElement.doclick = outerElement.doclick.bind(outerElement);
+		
+		outerElement.getCurrentlyChecked = function() {
+										var inputs = document.querySelectorAll('input[type=radio][name='+ this.input.name +'][checked=true]');
+										if (inputs.length > 0) {
+											return inputs[0];
+										} else {
+											return undefined;
+										}
+									};
+		outerElement.getCurrentlyChecked = outerElement.getCurrentlyChecked.bind(outerElement);
+		
+		outerElement.getTop = function(element) {
+							var top = 0;
+							while (element) {
+								top = top + element.offsetTop;
+								element = element.offsetParent;
+							}
+							return top;
+						};	
+						
+		// Add our set Checked function
+		input.setChecked = function() {							
+					if (!this.checked) {
+						// Emulate Touch Start
+						this.slideFromTop = true;
+						this.outerElement.selectedRadio = this.outerElement.getCurrentlyChecked();
+						if (this.outerElement.selectedRadio) {
+							if (this.outerElement.getTop(this.outerElement.selectedRadio.radio) >= this.outerElement.getTop(this.outerElement)) {
+								this.outerElement.slideFromTop = false;
+							}
+						} 
+						// Emulate TouchEnd
+						this.outerElement.dotDiv.style['-webkit-transition'] = 'none';
+						if (bb.device.is1024x600) {
+							this.outerElement.dotDiv.style.height = '0px';
+							this.outerElement.dotDiv.style.width = '9px';
+							this.outerElement.dotDiv.style.left = '16px';
+						} else {
+							this.outerElement.dotDiv.style.height = '0px';
+							this.outerElement.dotDiv.style.width = '18px';
+							this.outerElement.dotDiv.style.left = '32px';
+						}
+						// Reset top position
+						if (this.outerElement.slideFromTop) {
+							this.outerElement.dotDiv.style.top = bb.device.is1024x600 ? '9px' : '18px';
+						} else {
+							this.outerElement.dotDiv.style.top = bb.device.is1024x600 ? '30px' : '60px';
+						}
+						// Fire our click
+						window.setTimeout(this.outerElement.doclick,0);
+					}
+					
+				};
+		input.setChecked = input.setChecked.bind(input);
+		// Add our get Checked function
+		input.getChecked = function() {
+					return this.checked;
+				};
+		input.setChecked = input.setChecked.bind(input);
+		
+		// Add our function to enable a radio button
+		input.enable = function() {
+				if (!this.disabled) return;
+				this.disabled = false;
+				this.outerElement.dotDiv.setAttribute('class', 'bb-radio-dot');
+			};
+		input.enable = input.enable.bind(input);
+			
+		// Add our function to disable a radio button
+		input.disable = function() {
+				if (this.disabled) return;
+				this.disabled = true;
+				this.outerElement.dotDiv.setAttribute('class', 'bb-radio-dot-disabled');
+			};
+		input.disable = input.disable.bind(input);
+		
+		//Add our function to check if an individual radio buttons in enabled
+		input.isEnabled = function() {
+				return (!this.disabled);
+			}
+		input.isEnabled = input.isEnabled.bind(input);
+		
+		// Add our show function
+		input.show = function() {
+			this.outerElement.style.display = 'block';
+			bb.refresh();
+			};
+		input.show = input.show.bind(input);
+		
+		// Add our hide function
+		input.hide = function() {
+			this.outerElement.style.display = 'none';
+			bb.refresh();
+			};
+		input.hide = input.hide.bind(input);
+		
+		// Add our remove function
+		input.remove = function() {
+			this.outerElement.parentNode.removeChild(this.outerElement);
+			bb.refresh();
+			};
+		input.remove = input.remove.bind(input);
+			
+		return outerElement;		
+	},
+	
+	resetDot : function(dot) {
+		dot.style['-webkit-transition'] = 'none';
+		if (bb.device.is1024x600) {
+			dot.style.height = '0px';
+			dot.style.width = '0px';
+			dot.style.top = '10px';
+			dot.style.left = '9px';
+		} else {
+			dot.style.height = '0px';
+			dot.style.width = '0px';
+			dot.style.top = '20px';
+			dot.style.left = '20px';
+		}
+	},
+	
+	//Function to enable a group of radio buttons
+	enableGroup : function(groupName) {
+		var radios = document.getElementsByName( groupName );
+		for( i = 0; i < radios.length; i++ ) {
+			if (radios[i].type === 'radio') radios[i].enable();
+		}
+	},
+	
+	//Function to disable a group of radio buttons
+	disableGroup : function(groupName) {
+		var radios = document.getElementsByName( groupName );
+		for( i = 0; i < radios.length; i++ ) {
+			if (radios[i].type === 'radio') radios[i].disable();
+		}
+	}
+	
+};
+_bb10_roundPanel = {  
+    apply: function(elements) {	
+		var i,
+			j,
+			outerElement,
+			items,
+			header,
+			color = bb.screen.listColor;	
+			
+		for (i = 0; i < elements.length; i++) {
+			outerElement = elements[i];
+			outerElement.setAttribute('class','bb-round-panel');
+			items = outerElement.querySelectorAll('[data-bb-type=panel-header]');
+			for (j = 0; j < items.length; j++) {
+				 header = items[j];
+				 header.setAttribute('class','bb-panel-header bb-panel-header-'+color);
+				 header.style['border-bottom-color'] = bb.options.shades.darkOutline;
+			}
+		// Add our show function
+		outerElement.show = function() {
+			this.style.display = 'block';
+			bb.refresh();
+				};
+		outerElement.show = outerElement.show.bind(outerElement);
+		
+		// Add our hide function
+		outerElement.hide = function() {
+			this.style.display = 'none';
+			bb.refresh();
+				};
+		outerElement.hide = outerElement.hide.bind(outerElement);
+		
+		// Add remove function
+		outerElement.remove = function() {
+			this.parentNode.removeChild(this);
+			bb.refresh();
+				};
+		outerElement.remove = outerElement.remove.bind(outerElement);
+		}
+    }
+};
+_bb10_slider = {
+
+	apply: function(elements) {
+		var i, 
+			range,
+			color = bb.screen.controlColor;
+			
+		for (i = 0; i < elements.length; i++) {
+			range = elements[i];
+			// Create our container div
+			outerElement = document.createElement('div');
+			outerElement.range = range;
+			range.parentNode.insertBefore(outerElement, range);
+			range.style.display = 'none';
+			outerElement.appendChild(range);
+			// Get our values
+			outerElement.minValue = range.hasAttribute('min') ? parseInt(range.getAttribute('min')) : 0;
+			outerElement.maxValue = range.hasAttribute('max') ? parseInt(range.getAttribute('max')) : 0;
+			outerElement.value = range.hasAttribute('value') ? parseInt(range.getAttribute('value')) : 0;
+			outerElement.step = range.hasAttribute('step') ? parseInt(range.getAttribute('step')) : 0;
+			outerElement.isActivated = false;
+			outerElement.initialXPos = 0;
+			outerElement.currentXPos = 0;
+			outerElement.transientXPos = 0;
+			// Set our styling and create the inner divs
+			outerElement.className = 'bb-slider';
+			outerElement.outer = document.createElement('div');
+			outerElement.outer.setAttribute('class','outer bb-slider-outer-' + color);
+			outerElement.appendChild(outerElement.outer);
+			outerElement.fill = document.createElement('div');
+			outerElement.fill.className = 'fill';
+			outerElement.fill.active = '-webkit-linear-gradient(top, rgb('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +') 0%, rgb('+ (bb.options.shades.R + 16) +', '+ (bb.options.shades.G + 16) +', '+ (bb.options.shades.B + 16) +') 100%)';
+			outerElement.fill.dormant = '-webkit-linear-gradient(top, '+ bb.options.highlightColor +' 0%, '+ bb.options.shades.darkHighlight +' 100%)';
+			outerElement.fill.style.background = outerElement.fill.dormant;
+			outerElement.outer.appendChild(outerElement.fill);
+			outerElement.inner = document.createElement('div');
+			outerElement.inner.className = 'inner';
+			outerElement.inner.outerElement = outerElement;
+			outerElement.outer.appendChild(outerElement.inner);
+			outerElement.halo = document.createElement('div');
+			outerElement.halo.className = 'halo';
+			outerElement.halo.style.background = '-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 43, from(rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +', 0.15)), color-stop(0.8, rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +', 0.15)), to(rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +', 0.7)))';
+			outerElement.inner.appendChild(outerElement.halo);
+			outerElement.indicator = document.createElement('div');
+			outerElement.indicator.setAttribute('class','indicator bb-slider-indicator-' + color);
+			outerElement.inner.appendChild(outerElement.indicator);
+			// Assign our function to set the value for the control
+			range.outerElement = outerElement;
+			range.setValue = function(value) {
+							var percent = 0,
+								width,
+								evObj;
+							if (value && (value < parseInt(this.outerElement.minValue) || value > parseInt(this.outerElement.maxValue))) {
+								return;
+							} else if (value) {
+								this.outerElement.value = value;
+								this.value = value;
+								evObj = document.createEvent('HTMLEvents');
+								evObj.initEvent('change', false, true );
+								this.dispatchEvent(evObj);
+							}
+							// Calculate our percentage
+							if (this.outerElement.value == this.outerElement.maxValue) {
+								percent = 1;
+							} else {
+								percent = this.outerElement.value/(parseInt(this.outerElement.maxValue) + parseInt(this.outerElement.minValue));
+							}	
+							// Determine width by percentage
+							this.outerElement.currentXPos = Math.floor(parseInt(window.getComputedStyle(this.outerElement.outer).width) * percent);
+							this.outerElement.fill.style.width = this.outerElement.currentXPos + 'px';
+							this.outerElement.inner.style['-webkit-transform'] = 'translate3d(' + this.outerElement.currentXPos + 'px,0px,0px)';
+						};
+			range.setValue = range.setValue.bind(range);
+			// Set our value on a timeout so that it can calculate width once in the DOM
+			window.setTimeout(range.setValue, 0);
+			// Setup our touch events
+			outerElement.inner.animateBegin = function(event) {
+									if (this.outerElement.isActivated === false) {
+										this.outerElement.isActivated = true;
+										this.outerElement.initialXPos = event.touches[0].pageX;	
+										this.outerElement.halo.style['-webkit-transform'] = 'scale(1)';
+										this.outerElement.halo.style['-webkit-animation-name'] = 'explode';
+										this.outerElement.indicator.setAttribute('class','indicator bb-slider-indicator-' + color+ ' indicator-hover-'+color);
+										this.outerElement.indicator.style.background = '-webkit-linear-gradient(top, rgb('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +') 0%, rgb('+ (bb.options.shades.R + 16) +', '+ (bb.options.shades.G + 16) +', '+ (bb.options.shades.B + 16) +') 100%)';
+										this.outerElement.fill.style.background = this.outerElement.fill.active;
+									}
+								};
+			outerElement.inner.animateBegin = outerElement.inner.animateBegin.bind(outerElement.inner);
+			outerElement.inner.addEventListener("touchstart", outerElement.inner.animateBegin, false);
+			outerElement.inner.animateEnd = function () {
+									if (this.outerElement.isActivated === true) {
+										this.outerElement.isActivated = false;
+										this.outerElement.currentXPos = this.outerElement.transientXPos;
+										this.outerElement.value = parseInt(this.outerElement.range.value);
+										this.outerElement.halo.style['-webkit-transform'] = 'scale(0)';
+										this.outerElement.halo.style['-webkit-animation-name'] = 'implode';
+										this.outerElement.indicator.setAttribute('class','indicator bb-slider-indicator-' + color);   
+										this.outerElement.indicator.style.background = '';	
+										this.outerElement.fill.style.background = this.outerElement.fill.dormant;
+									}
+								};
+			outerElement.inner.animateEnd = outerElement.inner.animateEnd.bind(outerElement.inner);
+			outerElement.inner.addEventListener("touchend", outerElement.inner.animateEnd, false);
+			// Handle moving the slider
+			outerElement.moveSlider = function (event) {
+								if (this.isActivated === true) {
+									event.stopPropagation();
+									event.preventDefault();
+									this.transientXPos = this.currentXPos + event.touches[0].pageX - this.initialXPos;
+									this.transientXPos = Math.max(0, Math.min(this.transientXPos, parseInt(window.getComputedStyle(this.outer).width)));
+									this.notifyUpdated();
+									this.fill.style.width = this.transientXPos + 'px';
+									this.inner.style['-webkit-transform'] = 'translate3d(' + this.transientXPos + 'px,0px,0px)';
+								}
+							};
+			outerElement.moveSlider = outerElement.moveSlider.bind(outerElement);
+			// Handle sending event to person trapping
+			outerElement.notifyUpdated = function() {
+								var percent = this.transientXPos/parseInt(window.getComputedStyle(this.outer).width),
+									newValue = Math.ceil((parseInt(this.minValue) + parseInt(this.maxValue))*percent);
+								// Fire our events based on the step provided
+								if (Math.abs(newValue - parseInt(this.range.value)) > this.step) {
+									this.range.value = newValue;
+									var evObj = document.createEvent('HTMLEvents');
+									evObj.initEvent('change', false, true );
+									this.range.dispatchEvent(evObj);
+								}
+							};
+			outerElement.notifyUpdated = outerElement.notifyUpdated.bind(outerElement);
+			outerElement.doOrientationChange = function() {
+								window.setTimeout(outerElement.range.setValue, 0);
+							};
+			outerElement.doOrientationChange = outerElement.doOrientationChange.bind(outerElement);
+			// Assign our document & windows event listeners
+			document.addEventListener('touchmove', outerElement.moveSlider, false);
+			bb.documentListeners.push({name: 'touchmove', eventHandler: outerElement.moveSlider});
+			
+			document.addEventListener('touchend', outerElement.inner.animateEnd, false);
+			bb.documentListeners.push({name: 'touchend', eventHandler: outerElement.inner.animateEnd});
+			
+			window.addEventListener('resize', outerElement.doOrientationChange,false); 
+			bb.windowListeners.push({name: 'resize', eventHandler: outerElement.doOrientationChange});
+		}
+	}
+};
+_bb10_textInput = { 
+    apply: function(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			bb.textInput.style(elements[i]);
+		}
+	},
+	
+	style: function(outerElement) {
+		var css = '',
+			container = document.createElement('div');
+		
+		// Keep the developers existing styling
+		if (outerElement.hasAttribute('class')) {
+			css = outerElement.getAttribute('class');
+		}
+	  
+		// Insert the input inside the new div
+		if (outerElement.parentNode) {
+			outerElement.parentNode.insertBefore(container, outerElement);
+		}
+		container.appendChild(outerElement);
+		container.input = outerElement;
+		container.setAttribute('data-bb-type','input');
+		container.normal = 'bb-input-container';
+		
+		// Set our input styling
+		outerElement.normal = css + ' bb-input';
+		outerElement.focused = css + ' bb-input bb-input-focused';
+		if (outerElement.disabled) {
+			outerElement.setAttribute('class', outerElement.normal + ' bb-input-disabled');
+		} else {
+			outerElement.setAttribute('class', outerElement.normal);
+		}
+		outerElement.isFocused = false;
+		outerElement.clickCount = 0;
+		outerElement.container = container;
+		outerElement.clearBtn = outerElement.getAttribute('data-bb-clear') != 'none';
+		outerElement.hasClearBtn = false;
+		
+		// Don't show the clear button on some input types
+		if (outerElement.type) {
+			var type = outerElement.type.toLowerCase();
+			if ((type == 'date') || (type == 'time') || (type == 'datetime') || (type == 'month') || (type == 'datetime-local') || (type == 'color') || (type == 'search')) {
+				outerElement.clearBtn = false;
+			}
+		}
+		
+		// Set our container class
+		if (outerElement.disabled) {
+			container.setAttribute('class',container.normal + ' bb-input-container-disabled');
+		} else {
+			container.setAttribute('class',container.normal);
+		}
+		
+		outerElement.doFocus = function() {
+								if(this.readOnly == false) {
+									this.container.setAttribute('class',this.container.normal + ' bb-input-cancel-button bb-input-container-focused');
+									if (this.clearBtn && this.value) {
+										this.setAttribute('class', this.focused);
+										this.hasClearBtn = true;
+									} else {
+										this.setAttribute('class', this.normal);
+										this.hasClearBtn = false;
+									}
+									this.container.style['border-color'] = bb.options.highlightColor;
+									this.isFocused = true;
+									this.clickCount = 0;
+									bb.screen.focusedInput = this;
+								}
+							};
+		outerElement.doFocus = outerElement.doFocus.bind(outerElement);
+		outerElement.addEventListener('focus', outerElement.doFocus, false);
+			
+		outerElement.doBlur = function() {
+								this.container.setAttribute('class',this.container.normal);	
+								if (this.clearBtn) {
+									this.setAttribute('class',this.normal);
+								}
+								this.container.style['border-color'] = '';
+								this.isFocused = false;
+								bb.screen.focusedInput = null;
+							};
+		outerElement.doBlur = outerElement.doBlur.bind(outerElement);	
+		outerElement.addEventListener('blur', outerElement.doBlur, false);
+		
+		// Monitor input to add or remove clear button
+		outerElement.updateClearButton = function() {
+											if (this.clearBtn) {
+												if ((this.value.length == 0 && this.hasClearBtn) || (this.value.length > 0 && !this.hasClearBtn))
+													outerElement.doFocus();
+											}
+		};
+		outerElement.updateClearButton = outerElement.updateClearButton.bind(outerElement);  
+		outerElement.addEventListener("input", outerElement.updateClearButton, false);
+				
+		// Add the clear button handler
+		if (outerElement.clearBtn) {
+			outerElement.container.ontouchstart = function(event) {
+									if (event.target == this) {
+										event.preventDefault();
+										event.stopPropagation();
+										this.input.value = '';
+										outerElement.doFocus();
+									}
+								};
+		}
+
+		// Add our Show funtion
+		outerElement.show = function() {
+					this.container.style.display = '';
+				};
+		outerElement.show = outerElement.show.bind(outerElement);	
+		
+		// Add our hide funtion
+		outerElement.hide = function() {
+					this.container.style.display = 'none';
+				};
+		outerElement.hide = outerElement.hide.bind(outerElement);
+		
+		// Add our remove funtion
+		outerElement.remove = function() {
+					if (this.container.parentNode) {
+						this.container.parentNode.removeChild(this.container);
+					}
+				};
+		outerElement.remove = outerElement.remove.bind(outerElement);
+		
+		// Add our enable funtion
+		outerElement.enable = function() {
+					if (!this.disabled) return;
+					this.disabled = false;
+					this.container.setAttribute('class',this.container.normal);
+					this.setAttribute('class', this.normal);
+				};
+		outerElement.enable = outerElement.enable.bind(outerElement);
+		
+		// Add our disable funtion
+		outerElement.disable = function() {
+					if (this.disabled) return;
+					this.disabled = true;
+					this.container.setAttribute('class',this.container.normal + ' bb-input-container-disabled');
+					this.setAttribute('class', this.normal + ' bb-input-disabled');
+				};
+		outerElement.disable = outerElement.disable.bind(outerElement);
+		
+		return container;
+    }
+};
+_bb10_toggle = {
+
+	apply: function(elements) {
+		for (var i = 0; i < elements.length; i++) {
+			bb.toggle.style(elements[i],true);
+		}
+	},
+	
+	style: function(outerElement,offdom) {
+		var table,
+			tr,
+			td,
+			color = bb.screen.controlColor;
+		
+		outerElement.checked = false;
+		outerElement.enabled = true;
+		outerElement.buffer = (bb.device.is1024x600) ? 35 : 70;
+		outerElement.isActivated = false;
+		outerElement.initialXPos = 0;
+		outerElement.currentXPos = 0;
+		outerElement.transientXPos = 0;
+		outerElement.movedWithSlider = false;
+		outerElement.startValue = false;
+		
+		// See if the toggle button is disabled
+		if (outerElement.hasAttribute('data-bb-disabled')) {
+			outerElement.enabled = !(outerElement.getAttribute('data-bb-disabled').toLowerCase() == 'true');
+		}
+		
+		// Set our styling and create the inner divs
+		outerElement.className = 'bb-toggle';
+		outerElement.outer = document.createElement('div');
+		if (outerElement.enabled) {
+			if (bb.device.newerThan10dot1) {
+				outerElement.normal = 'outer bb-toggle-outer-'+ color +'-10dot2 bb-toggle-outer-enabled-'+color;
+			} else {
+				outerElement.normal = 'outer bb-toggle-outer-'+color + ' bb-toggle-outer-enabled-'+color;
+			}
+		} else {
+			outerElement.normal = 'outer bb-toggle-outer-'+color + ' bb-toggle-outer-disabled';
+		}
+		outerElement.outer.setAttribute('class',outerElement.normal);
+		outerElement.appendChild(outerElement.outer);
+		outerElement.fill = document.createElement('div');
+		outerElement.fill.className = 'fill';
+		outerElement.fill.style.background = outerElement.fill.dormant;
+		outerElement.outer.appendChild(outerElement.fill);
+		// Our inner area that will contain the text
+		outerElement.inner = document.createElement('div');
+		outerElement.inner.className = 'inner';
+		outerElement.inner.outerElement = outerElement;
+		outerElement.fill.appendChild(outerElement.inner);
+		// Create our table holder for the captions
+		table = document.createElement('table');
+		table.className = 'table';
+		tr = document.createElement('tr');
+		table.appendChild(tr);
+		outerElement.inner.appendChild(table);
+		// The yes option
+		td = document.createElement('td');
+		td.className = 'left';
+		tr.appendChild(td);
+		outerElement.yes = document.createElement('div');
+		outerElement.yes.className = 'yes';
+		outerElement.yes.innerHTML = outerElement.getAttribute('data-bb-on');
+		td.appendChild(outerElement.yes);
+		// Center section where the indicator will hover over
+		td = document.createElement('td');
+		td.className = 'center';
+		tr.appendChild(td);
+		// The no option
+		td = document.createElement('td');
+		td.className = 'right';
+		tr.appendChild(td);
+		outerElement.no = document.createElement('div');
+		outerElement.no.className = 'no';
+		outerElement.no.innerHTML = outerElement.getAttribute('data-bb-off');
+		td.appendChild(outerElement.no);
+		// Indicator container
+		outerElement.container = document.createElement('div');
+		outerElement.container.className = 'indicator-container';
+		outerElement.appendChild(outerElement.container);
+		// Create the Halo
+		outerElement.halo = document.createElement('div');
+		outerElement.halo.className = 'halo';
+		outerElement.halo.style.background = '-webkit-gradient(radial, 50% 50%, 0, 50% 50%, 43, from(rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +', 0.15)), color-stop(0.8, rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +', 0.15)), to(rgba('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +', 0.7)))';
+		outerElement.container.appendChild(outerElement.halo);
+		// Create the indicator
+		outerElement.indicator = document.createElement('div');
+		if (outerElement.enabled) {
+			outerElement.indicator.normal = 'indicator bb-toggle-indicator-enabled-' + color;
+		} else {
+			outerElement.indicator.normal = 'indicator bb-toggle-indicator-disabled-' + color;
+		}
+		outerElement.indicator.setAttribute('class',outerElement.indicator.normal);
+		outerElement.container.appendChild(outerElement.indicator);
+		// Get our onchange event if any
+		if (outerElement.hasAttribute('onchange')) {
+			outerElement.onchangeEval = outerElement.getAttribute('onchange');
+			outerElement.onchange = function() {
+							eval(this.onchangeEval);
+						};
+		}			
+		
+		// Setup our touch events
+		outerElement.inner.animateBegin = function(event) {
+								if (!this.outerElement.enabled) return;
+								if (this.outerElement.isActivated === false) {
+									this.outerElement.startValue = this.outerElement.checked;
+									this.outerElement.movedWithSlider = false;
+									this.outerElement.isActivated = true;
+									this.outerElement.initialXPos = event.touches[0].pageX;	
+									this.outerElement.halo.style['-webkit-transform'] = 'scale(1)';
+									this.outerElement.halo.style['-webkit-animation-name'] = 'explode';
+									this.outerElement.indicator.setAttribute('class','indicator bb-toggle-indicator-enabled-' + color+ ' indicator-hover-'+color);
+									this.outerElement.indicator.style.background = '-webkit-linear-gradient(top, rgb('+ bb.options.shades.R +', '+ bb.options.shades.G +', '+ bb.options.shades.B +') 0%, rgb('+ (bb.options.shades.R + 16) +', '+ (bb.options.shades.G + 16) +', '+ (bb.options.shades.B + 16) +') 100%)';
+								}
+							};
+		outerElement.inner.animateBegin = outerElement.inner.animateBegin.bind(outerElement.inner);
+		outerElement.inner.addEventListener("touchstart", outerElement.inner.animateBegin, false);
+		outerElement.container.addEventListener("touchstart", outerElement.inner.animateBegin, false);
+		outerElement.inner.animateEnd = function () {
+								if (!this.outerElement.enabled) return;
+								if (this.outerElement.isActivated === true) {
+									this.outerElement.isActivated = false;
+									this.outerElement.currentXPos = this.outerElement.transientXPos;
+									this.outerElement.halo.style['-webkit-transform'] = 'scale(0)';
+									this.outerElement.halo.style['-webkit-animation-name'] = 'implode';
+									this.outerElement.indicator.setAttribute('class','indicator bb-toggle-indicator-enabled-' + color);   
+									this.outerElement.indicator.style.background = '';	
+									this.outerElement.positionButton();
+									if (this.outerElement.movedWithSlider) {
+										if (this.outerElement.startValue != this.outerElement.checked) {
+											if (this.outerElement.onchange) {
+												this.outerElement.onchange();
+											}
+										}
+									}
+								}
+							};
+		outerElement.inner.animateEnd = outerElement.inner.animateEnd.bind(outerElement.inner);
+		outerElement.addEventListener('touchend', outerElement.inner.animateEnd, false);
+		
+		// Handle moving the toggle
+		outerElement.moveToggle = function (event) {
+							if (!this.enabled) return;
+							if (this.isActivated === true) {
+								this.movedWithSlider = true;
+								event.stopPropagation();
+								event.preventDefault();
+								var endPos = parseInt(window.getComputedStyle(this.fill).width) - this.buffer,
+									percent;
+								this.transientXPos = this.currentXPos + event.touches[0].pageX - this.initialXPos;
+								this.transientXPos = Math.max(0, Math.min(this.transientXPos, endPos));
+								this.inner.style['-webkit-transform'] = 'translate3d(' + this.transientXPos + 'px,0px,0px)';
+								this.container.style['-webkit-transform'] = 'translate3d(' + this.transientXPos + 'px,0px,0px)';
+								
+								// Set our checked state
+								percent = this.transientXPos/endPos;
+								this.checked = (percent > 0.5);
+							}
+						};
+		outerElement.moveToggle = outerElement.moveToggle.bind(outerElement);
+		
+		// Handle the click of a toggle
+		outerElement.doClick = function() {
+							if (!this.enabled) return;
+							if (!this.movedWithSlider) {
+								this.setChecked(!this.checked);
+							} 
+						};
+		outerElement.doClick = outerElement.doClick.bind(outerElement);
+		outerElement.addEventListener('click', outerElement.doClick, false);
+		
+		// Position the button
+		outerElement.positionButton = function() {
+					var location = (this.checked) ? parseInt(window.getComputedStyle(this.fill).width) - this.buffer : 0;
+				
+					// Set our animations
+					this.inner.style['-webkit-transform'] = 'translate3d(' + location + 'px,0px,0px)';
+					this.inner.style['-webkit-transition-duration'] = '0.1s';
+					this.inner.style['-webkit-transition-timing-function'] = 'linear';
+					this.inner.addEventListener('webkitTransitionEnd', function() { 
+								this.style['-webkit-transition'] = '';
+							});
+					this.container.style['-webkit-transform'] = 'translate3d(' + location + 'px,0px,0px)';
+					this.container.style['-webkit-transition-duration'] = '0.1s';
+					this.container.style['-webkit-transition-timing-function'] = 'linear';
+					this.container.addEventListener('webkitTransitionEnd', function() { 
+								this.style['-webkit-transition'] = '';
+							});
+							
+					if (this.checked && this.enabled) {
+						this.indicator.style['background-image'] = '-webkit-linear-gradient(top, '+ bb.options.highlightColor +' 0%, '+ bb.options.shades.darkHighlight +' 100%)';
+					} else {
+						this.indicator.style['background-image'] = '';
+					}
+					
+					this.currentXPos = location;
+				};
+		outerElement.positionButton = outerElement.positionButton.bind(outerElement);
+		
+		// Add our setChecked function
+		outerElement.setChecked = function(value) {
+					if (value != this.checked) {
+						this.checked = value;
+						if (this.onchange) {
+							this.onchange();
+						}
+					}
+					this.positionButton();
+				};
+		outerElement.setChecked = outerElement.setChecked.bind(outerElement);
+		
+		// Add our getChecked function
+		outerElement.getChecked = function() {
+					return this.checked;
+				};
+		outerElement.getChecked = outerElement.getChecked.bind(outerElement);
+		
+		// Add our show function
+		outerElement.show = function() {
+			this.style.display = 'block';
+			bb.refresh();
+				};
+		outerElement.show = outerElement.show.bind(outerElement);
+		
+		// Add our hide function
+		outerElement.hide = function() {
+			this.style.display = 'none';
+			bb.refresh();
+				};
+		outerElement.hide = outerElement.hide.bind(outerElement);
+		
+		// Add remove function
+		outerElement.remove = function() {
+			this.parentNode.removeChild(this);
+			bb.refresh();
+				};
+		outerElement.remove = outerElement.remove.bind(outerElement);
+		
+		// Add setOnCaption function
+		outerElement.setOnCaption = function(value) {
+			this.yes.innerHTML = value;				
+				};
+		outerElement.setOnCaption = outerElement.setOnCaption.bind(outerElement);
+		
+		// Add setOffCaption function
+		outerElement.setOffCaption = function(value) {
+			this.no.innerHTML = value;				
+				};
+		outerElement.setOffCaption = outerElement.setOffCaption.bind(outerElement);
+		
+		// Add getOnCaption function
+		outerElement.getOnCaption = function() {
+			return this.yes.innerHTML;				
+				};
+		outerElement.getOnCaption = outerElement.getOnCaption.bind(outerElement);
+		
+		// Add getOffCaption function
+		outerElement.getOffCaption = function() {
+			return this.no.innerHTML;				
+				};
+		outerElement.getOffCaption = outerElement.getOffCaption.bind(outerElement);
+		
+		// Add enable function
+		outerElement.enable = function() {
+				if (this.enabled) return;
+				this.enabled = true;
+				// change our styles
+				this.indicator.normal = 'indicator bb-toggle-indicator-enabled-' + color;
+				this.indicator.setAttribute('class',this.indicator.normal);
+				if (bb.device.newerThan10dot1) {
+					this.normal = 'outer bb-toggle-outer-'+ color +'-10dot2 bb-toggle-outer-enabled-'+color;
+				} else {
+					this.normal = 'outer bb-toggle-outer-'+color + ' bb-toggle-outer-enabled-'+color;
+				}
+				this.outer.setAttribute('class',this.normal);
+				// update the button
+				this.positionButton();
+			};
+		outerElement.enable = outerElement.enable.bind(outerElement);
+		
+		// Add disable function
+		outerElement.disable = function() {
+				if (!this.enabled) return;
+				this.enabled = false;
+				// change our styles
+				this.indicator.normal = 'indicator bb-toggle-indicator-disabled-' + color;
+				this.indicator.setAttribute('class',this.indicator.normal);
+				this.normal = 'outer bb-toggle-outer-'+color + ' bb-toggle-outer-disabled';
+				this.outer.setAttribute('class',this.normal);
+				// Update the button
+				this.positionButton();
+			};
+		outerElement.disable = outerElement.disable.bind(outerElement);
+		
+		// set our checked state
+		outerElement.checked = (outerElement.hasAttribute('data-bb-checked')) ? outerElement.getAttribute('data-bb-checked').toLowerCase() == 'true' : false;
+		
+		if (offdom) {
+			// Create our event handler for when the dom is ready
+			outerElement.onbbuidomready = function() {
+						this.positionButton();
+						document.removeEventListener('bbuidomready', this.onbbuidomready,false);
+					};
+			outerElement.onbbuidomready = outerElement.onbbuidomready.bind(outerElement);
+			/* Add our event listener for the domready to move our selected item.  We want to
+		   do it this way because it will ensure the screen transition animation is finished before
+		   the toggle button move transition happens. This will help for any animation stalls/delays */
+			document.addEventListener('bbuidomready', outerElement.onbbuidomready,false);
+		} else {
+			// Use a simple timeout to trigger the animation once inserted into the DOM
+			setTimeout(outerElement.positionButton,0);
+		}
+
+		// Assign our document event listeners
+		document.addEventListener('touchmove', outerElement.moveToggle, false);
+		bb.documentListeners.push({name: 'touchmove', eventHandler: outerElement.moveToggle});
+		document.addEventListener('touchend', outerElement.inner.animateEnd, false);
+		bb.documentListeners.push({name: 'touchend', eventHandler: outerElement.inner.animateEnd});
+		
+		return outerElement;
+	}
+};
+_bb_PlayBook_10_scrollPanel = {
+	apply: function(elements) {
+		var i,j,
+			outerElement,
+			childNode,
+			scrollArea,
+			tempHolder;
+		
+		for (i = 0; i < elements.length; i++) {
+			outerElement = elements[i];
+			tempHolder = [];			
+			// Inner Scroll Area
+			scrollArea = document.createElement('div');
+			outerElement.appendChild(scrollArea); 
+			
+			// Copy all nodes in the screen that are not the action bar
+			for (j = 0; j < outerElement.childNodes.length - 1; j++) {
+				tempHolder.push(outerElement.childNodes[j]);
+			}
+			// Add them into the scrollable area
+			for (j = 0; j < tempHolder.length; j++) {
+				scrollArea.appendChild(tempHolder[j]);
+			}
+			
+			if (bb.device.isPlayBook) {
+				outerElement.scroller = new iScroll(outerElement, {vScrollbar: true,hideScrollbar:true,fadeScrollbar:true,
+									onBeforeScrollStart: function (e) {
+										if (bb.scroller) {
+											bb.scroller.disable();
+										}
+										e.preventDefault();
+									}, 
+									onBeforeScrollEnd: function(e) {
+										if (bb.scroller) {
+											bb.scroller.enable();
+										}
+									},
+									onScrollEnd : function(e) {
+										// Raise an internal event to let the rest of the framework know that content is scrolling
+										evt = document.createEvent('Events');
+										evt.initEvent('bbuiscrolling', true, true);
+										document.dispatchEvent(evt);
+									},
+									onScrollMove: function(e) {
+										if (outerElement.onscroll) {
+											outerElement.onscroll(e);
+										}
+										// Raise an internal event to let the rest of the framework know that content is scrolling
+										evt = document.createEvent('Events');
+										evt.initEvent('bbuiscrolling', true, true);
+										document.dispatchEvent(evt);
+									}
+									});
+			} else {
+				outerElement.scroller = null;
+				outerElement.style['-webkit-overflow-scrolling'] = '-blackberry-touch';
+				outerElement.addEventListener('scroll', function() {
+						// Raise an internal event to let the rest of the framework know that content is scrolling
+						evt = document.createEvent('Events');
+						evt.initEvent('bbuiscrolling', true, true);
+						document.dispatchEvent(evt);	
+
+						/* This is a major hack to fix an issue in webkit where it doesn't always
+						   understand when to re-paint the screen when scrolling a <div> with overflow
+						   and using the inertial scrolling */
+						if (this.timeout) {
+							clearTimeout(this.timeout);
+						} else {
+							this.style['padding-right'] = '1px';
+						}
+						// Set our new timeout for resetting
+						this.timeout = setTimeout(this.resetPadding,20);
+						
+						/* ************* END OF THE SCROLLING HACK *******************/
+						
+					},false);
+					
+				/* ********** PART OF THE SCROLLING HACK ************/
+				outerElement.resetPadding = function() {
+						this.style['padding-right'] = '0px';
+						this.timeout = null;
+					};
+				outerElement.resetPadding = outerElement.resetPadding.bind(outerElement);
+				/* ********** END OF THE SCROLLING HACK ************/
+			}
+			
+			// Add show function
+			outerElement.show = function() {
+				this.style.display = 'block';
+				bb.refresh();
+				};
+			outerElement.show = outerElement.show.bind(outerElement);
+
+			// Add hide function
+			outerElement.hide = function() {
+				this.style.display = 'none';
+				bb.refresh();
+				};
+			outerElement.hide = outerElement.hide.bind(outerElement);
+	
+			// Add remove function
+			outerElement.remove = function() {
+				this.parentNode.removeChild(this);
+				bb.refresh();
+				};
+			outerElement.remove = outerElement.remove.bind(outerElement);
+			
+			// Set refresh
+			outerElement.refresh = function() {
+					if (this.scroller) {
+						this.scroller.refresh();
+					}
+				};
+			outerElement.refresh = outerElement.refresh.bind(outerElement);
+			setTimeout(outerElement.refresh,0);
+			// Set ScrollTo
+			outerElement.scrollTo = function(x, y) {
+					if (this.scroller) {
+						this.scroller.scrollTo(x, y);
+					} else {
+						this.scrollTop = x;
+					}
+				};
+			outerElement.scrollTo = outerElement.scrollTo.bind(outerElement);
+			// Set ScrollToElement
+			outerElement.scrollToElement = function(element) {
+					if (this.scroller) {
+						this.scroller.scrollToElement(element);
+					} else {
+						if (!element) return;
+						var offsetTop = 0,
+							target = element;
+						if (target.offsetParent) {
+							do {
+								offsetTop  += target.offsetTop;
+							} while (target = target.offsetParent);
+						}
+						this.scrollTo(offsetTop,0);
+					}
+				};
+			outerElement.scrollToElement = outerElement.scrollToElement.bind(outerElement);
+			outerElement.setAttribute('class','bb-scroll-panel');
+		}
+	}	
+};
+// BlackBerry 10 Context Menu for PlayBook
+// Also acts as the action overflow menu for BlackBerry 10 Action Bar
+_PlayBook_contextMenu = {
+	// Create an instance of the menu and pass it back to the caller
+	create : function(screen) {
+		var swipeThreshold = 300;
+				
+		// Set our swipeThreshold for known resolutions, otherwise use the default
+		if (bb.device.is1024x600) {
+			swipeThreshold = 100;
+		} else if (bb.device.is720x720) {
+			swipeThreshold = 300;
+		}
+		
+		// Create the oveflow menu container
+		var menu = document.createElement('div'), 
+			title = document.createElement('div'),
+			description = document.createElement('div'),
+			header;
+		menu.setAttribute('class','bb-context-menu bb-context-menu-dark');
+	
+		menu.actions = [];
+		menu.hideEvents = [];
+		menu.threshold = swipeThreshold;
+		menu.visible = false;
+		
+		// Create our overlay for touch events
+		menu.overlay = document.createElement('div');
+		menu.overlay.threshold = swipeThreshold;
+		menu.overlay.setAttribute('class','bb-context-menu-overlay');
+		menu.overlay.menu = menu;
+		screen.appendChild(menu.overlay);
+		
+		menu.overlay.ontouchmove = function(event) {
+										// Only care about moves if peeking
+										if (!this.menu.peeking) return;
+										var touch = event.touches[0];
+										if (this.startPos && (this.startPos - touch.pageX > this.threshold)) {
+											this.menu.show(this.menu.selected);
+											this.closeMenu = false;
+										}
+									};
+		menu.overlay.ontouchend = function() {
+										if (this.closeMenu) {
+											this.menu.hide();
+											event.preventDefault();
+										}
+									};
+		menu.overlay.ontouchstart = function(event) {
+											this.closeMenu = true;
+											if (!this.menu.peeking && this.menu.visible) {
+												event.preventDefault();
+											} else if (!this.menu.peeking) return;
+											
+											var touch = event.touches[0];
+											this.startPos = touch.pageX;
+											event.preventDefault();
+										};
+		
+		// Create the menu header
+		header = document.createElement('div');
+		header.setAttribute('class','bb-context-menu-item bb-context-menu-header-dark');
+		menu.header = header;
+		menu.appendChild(header);
+		
+		// Create our title container
+		title.setAttribute('class','bb-context-menu-header-title bb-context-menu-header-title-dark');
+		title.style.width = _PlayBook_contextMenu.getWidth() - 20 + 'px';
+		menu.topTitle = title;
+		header.appendChild(title);
+		
+		// Create our description container
+		description.setAttribute('class','bb-context-menu-header-description');
+		description.style.width = _PlayBook_contextMenu.getWidth() - 20 + 'px';
+		menu.description = description;
+		header.appendChild(description);
+		
+		// Create our scrolling container
+		menu.scrollContainer = document.createElement('div');
+		menu.scrollContainer.setAttribute('class', 'bb-context-menu-scroller');
+		menu.appendChild(menu.scrollContainer);
+
+		// Set our first left position
+		menu.style.left = _PlayBook_contextMenu.getLeft();
+		
+		// Display the menu
+		menu.show = function(data){
+						if (data) {
+							this.header.style.display = '';
+							this.header.style.visibility = '';
+							if (data.title) {
+								this.topTitle.innerHTML = data.title;
+							}
+							if (data.description) {
+								this.description.innerHTML = data.description;
+							}
+							this.selected = data;
+							// Adjust our scroll container top
+							menu.scrollContainer.style.top = (bb.device.isPlayBook) ? '64px' : '130px';
+						} else {
+							this.header.style.display = 'none';	
+							this.selected = undefined;
+							// Adjust our scroll container top
+							menu.scrollContainer.style.top = '0px';							
+						}
+						// Set our scroller
+						menu.scrollContainer.style['overflow-y'] = 'scroll';
+						menu.scrollContainer.style['overflow-x'] = 'hidden'
+						menu.scrollContainer.style['-webkit-overflow-scrolling'] = '-blackberry-touch';
+						
+						this.peeking = false;
+						this.overlay.style.display = 'inline';
+						this.style['-webkit-transition'] = 'all 0.3s ease-in-out';
+						this.style['-webkit-transform'] = 'translate(-' + _PlayBook_contextMenu.getWidth() + 'px, 0)';
+						this.style['-webkit-backface-visibility'] = 'hidden';
+						this.style['-webkit-perspective'] = '1000';
+						this.addEventListener("touchstart", this.touchHandler, false);	
+						this.onclick = function() {	this.hide();}
+						// Remove the header click handling while peeking
+						this.header.addEventListener("click", this.hide, false);
+						this.style.visibility = 'visible';
+						this.visible = true;
+						if(bb.device.isPlayBook){
+							blackberry.app.event.onSwipeDown('');
+						} else {
+							blackberry.event.removeEventListener("swipedown", bb.menuBar.showMenuBar);
+						}
+					};
+		menu.show = menu.show.bind(menu);
+		// Hide the menu
+		menu.hide = function(){
+						
+						this.overlay.style.display = 'none';
+						this.removeEventListener("touchstart", this.touchHandler, false);
+						this.removeEventListener("touchmove", this.touchMoveHandler, false);
+						this.style['-webkit-transition'] = 'all 0.5s ease-in-out';
+						this.style['-webkit-transform'] = 'translate(' + _PlayBook_contextMenu.getWidth() + 'px, 0px)';
+						this.style['-webkit-backface-visibility'] = 'hidden';
+						this.style['-webkit-perspective'] = '1000';
+						if (!this.peeking) {
+							// Remove the header click handling 
+							this.header.removeEventListener("click", this.hide, false);	
+						}
+						this.peeking = false;
+						this.visible = false;
+						
+						// Remove our scroller
+						menu.scrollContainer.style['overflow-y'] = '';
+						menu.scrollContainer.style['overflow-x'] = ''
+						menu.scrollContainer.style['-webkit-overflow-scrolling'] = '';
+						
+						// See if there was anyone listenting for hide events and call them
+						// starting from the last one registered and pop them off
+						for (var i = menu.hideEvents.length-1; i >= 0; i--) {
+							menu.hideEvents[i]();
+							menu.hideEvents.pop();
+						}
+						
+						// Hack because PlayBook doesn't seem to get all the touch end events
+						if (bb.device.isPlayBook) {
+							for (var i = 0; i < this.actions.length; i++) {
+								this.actions[i].ontouchend();
+							}
+						}
+						if(bb.device.isPlayBook){
+							blackberry.app.event.onSwipeDown(bb.menuBar.showMenuBar);
+						} else {
+							blackberry.event.addEventListener("swipedown", bb.menuBar.showMenuBar);
+						}
+					};
+		menu.hide = menu.hide.bind(menu);
+		// Peek the menu
+		menu.peek = function(data){
+						if (data) {
+							this.header.style.display = '';
+							if (data.title) {
+								this.topTitle.innerHTML = data.title;
+							}
+							if (data.description) {
+								this.description.innerHTML = data.description;
+							}
+							this.selected = data;
+							// Adjust our scroller top
+							menu.scrollContainer.style.top = (bb.device.isPlayBook) ? '64px' : '130px';
+						} else {
+							// Adjust our scroller top
+							menu.scrollContainer.style.top = '0px';
+						}
+						
+						this.header.style.visibility = 'hidden';	
+						this.header.style['margin-bottom'] = '-'+ Math.floor(this.header.offsetHeight/2) + 'px';
+						this.peeking = true;
+						this.overlay.style.display = 'inline';
+						this.style['-webkit-transition'] = 'all 0.3s ease-in-out';
+						this.style['-webkit-transform'] = 'translate(-' + _PlayBook_contextMenu.getPeekWidth() + ', 0)';	
+						this.style['-webkit-backface-visibility'] = 'hidden';
+						this.style['-webkit-perspective'] = '1000';
+						this.addEventListener("touchstart", this.touchHandler, false);	
+						this.addEventListener("touchmove", this.touchMoveHandler, false);		
+						this.onclick = function(event) {
+									if ((event.target == this) || (event.target == this.scrollContainer)){;
+										this.show(this.selected);
+									}
+								};
+						// Remove the header click handling while peeking
+						this.header.removeEventListener("click", this.hide, false);		
+						this.style.visibility = 'visible';
+						this.visible = true;
+						if(bb.device.isPlayBook){
+							blackberry.app.event.onSwipeDown('');
+						} else {
+							blackberry.event.removeEventListener("swipedown", bb.menuBar.showMenuBar);
+						}
+					};
+		menu.peek = menu.peek.bind(menu);
+		
+		menu.clearWWcontextMenu = function() {
+				// Here because the interface is needed on BB10 WebWorks context menu
+			};
+		menu.clearWWcontextMenu = menu.clearWWcontextMenu.bind(menu);
+		
+		// Trap touch start events in a way that we can add and remove the handler
+		menu.touchHandler = function(event) {
+								if (this.peeking) {
+									var touch = event.touches[0];
+									this.startPos = touch.pageX;
+									if (event.target == this.scrollContainer) {
+										//event.stopPropagation();
+									} else if (event.target.parentNode == this.scrollContainer && event.target != this.header)  {
+										event.preventDefault();
+										event.stopPropagation();
+									} 						
+								} 
+							};
+		menu.touchHandler = menu.touchHandler.bind(menu);
+		
+		// Trap touch move events in a way that we can add and remove the handler
+		menu.touchMoveHandler = function(event) {
+								// Only care about moves if peeking
+								if (!this.peeking) return;
+								var touch = event.touches[0];
+								if (this.startPos && (this.startPos - touch.pageX > this.threshold)) {
+									this.show(this.selected);
+									
+								}
+							};
+		menu.touchMoveHandler = menu.touchMoveHandler.bind(menu);
+		
+		// Handle the case of clicking the context menu while peeking
+		menu.onclick = function(event) {
+			if (this.peeking) {
+				this.show(this.selected);
+				event.stopPropagation();
+			}
+		}
+		
+		// Center the items in the list
+		menu.centerMenuItems = function() {
+								var windowHeight = bb.innerHeight(),
+									itemHeight = 111,
+									margin,
+									numActions = 0,
+									headerHeight = 0,
+									i,
+									isFirst = true,
+									action;
+									
+								if (bb.device.isPlayBook) {
+									itemHeight = 53;
+								} else if (bb.device.is720x720) {
+									itemHeight = 80;
+								} 								
+								headerHeight = (this.actionBar == undefined) ? itemHeight : 0;
+							
+								// See how many actions to use for calculations
+								
+								for (i = 0; i < this.actions.length; i++) {
+									action = this.actions[i];
+									if (action.visible == true) {
+										numActions++;
+										if (isFirst && (this.pinnedAction != action)) {
+											isFirst = false;
+											action.setAttribute('class',action.normal + ' bb-context-menu-item-first-dark');
+											action.isFirst = true;
+										} else if (this.pinnedAction != action){
+											action.setAttribute('class',action.normal);
+										}
+									}
+								}
+								numActions = (this.pinnedAction) ? numActions - 1 : numActions;
+								margin = windowHeight - Math.floor(windowHeight/2) - Math.floor((numActions * itemHeight)/2) - headerHeight;
+								if (margin < 0) margin = 0;
+								this.scrollContainer.style['padding-top'] = margin +'px';
+							};
+		menu.centerMenuItems = menu.centerMenuItems.bind(menu);
+		
+		
+		// Make sure we move when the orientation of the device changes
+		menu.orientationChanged = function(event) {
+								this.style['-webkit-transition'] = '';
+								this.style.left = bb.innerWidth() + 'px';
+								this.style.height = bb.innerHeight() + 'px';
+								this.centerMenuItems();
+							};
+		menu.orientationChanged = menu.orientationChanged.bind(menu);	
+		window.addEventListener('orientationchange', menu.orientationChanged,false); 
+		// Add listener for removal on popScreen
+		bb.windowListeners.push({name: 'orientationchange', eventHandler: menu.orientationChanged});
+		
+		// Listen for when the animation ends so that we can make it invisible to avoid orientation change artifacts
+		menu.addEventListener('webkitTransitionEnd', function() { 
+						if (!this.visible) {
+							this.style.visibility = 'hidden';
+						}
+					});
+		
+		// Create our add item function
+		menu.add = function(action) {
+				var normal, 
+					highlight,
+					caption = action.innerHTML,
+					pin = false;
+				
+				// set our styling
+				normal = 'bb-context-menu-item bb-context-menu-item-dark';
+
+				// Check for our visibility
+				if (action.hasAttribute('data-bb-visible') && action.getAttribute('data-bb-visible').toLowerCase() == 'false') {
+					action.visible = false;
+					action.style.display = 'none';
+				} else {
+					action.visible = true;
+				}
+				this.actions.push(action);
+				
+				// See if this item should be pinned to the bottom
+				pin = (action.hasAttribute('data-bb-pin') && action.getAttribute('data-bb-pin').toLowerCase() == 'true');
+				if (pin && !this.pinnedAction) {
+					normal = normal + ' bb-context-menu-item-first-dark';
+					action.style['bottom'] = '-2px';
+					action.style.position = 'absolute';
+					action.style.width = '100%';
+					this.pinnedAction = action;
+					this.appendChild(action);
+					if (bb.device.isPlayBook) {
+						this.scrollContainer.style.bottom = '64px';
+					} else if (bb.device.is720x720) {
+						this.scrollContainer.style.bottom = '95px';
+					} else {
+						this.scrollContainer.style.bottom = '130px';
+					}
+				} else {
+					this.scrollContainer.appendChild(action);
+				}
+
+				highlight = normal + ' bb-context-menu-item-hover';
+				action.normal = normal;
+				action.highlight = highlight;
+				// Set our inner information
+				action.innerHTML = '';
+				var inner = document.createElement('div'),
+					img = document.createElement('img');
+				img.setAttribute('src', action.getAttribute('data-bb-img'));
+				img.setAttribute('class','bb-context-menu-item-image');
+				action.img = img;
+				action.appendChild(img);
+				inner.setAttribute('class','bb-context-menu-item-inner');
+				action.appendChild(inner);
+				inner.innerHTML = caption;
+				action.display = inner;
+				action.menu = this;
+				
+				action.setAttribute('class',normal);
+				action.ontouchstart = function (e) {
+										if (this.menu.peeking) {
+											this.style['border-left-color'] = bb.options.highlightColor;
+										} else {
+											this.style['background-color'] = bb.options.highlightColor;
+										}
+										
+										e.stopPropagation();
+										// Hack because PlayBook doesn't seem to get all the touch end events
+										if (bb.device.isPlayBook) {
+											var existingAction, 
+												i;
+											for (i = 0; i < this.menu.actions.length; i++) {
+												existingAction = this.menu.actions[i];
+												if (existingAction != this) {
+													existingAction.ontouchend();
+												}
+											}
+										}
+									}
+				action.ontouchend = function () {
+										if (this.menu.peeking) {
+											this.style['border-left-color'] = 'transparent';
+										} else {
+											this.style['background-color'] = '';
+										}
+									}
+				action.addEventListener("click", this.hide, false);
+				
+				// Assign the setCaption function
+				action.setCaption = function(value) {
+									this.display.innerHTML = value;
+								};
+				action.setCaption = action.setCaption.bind(action);
+				
+				// Assign the setImage function
+				action.setImage = function(value) {
+									this.img.setAttribute('src',value);
+								};
+				action.setImage = action.setImage.bind(action);
+				
+				// Assign the hide function
+				action.hide = function() {
+									if (!this.visible) return;
+									this.visible = false;
+									// Change style
+									this.style.display = 'none';
+									this.menu.centerMenuItems();
+								};
+				action.hide = action.hide.bind(action);
+				
+				// Assign the show function
+				action.show = function() {
+									if (this.visible) return;
+									this.visible = true;   
+									// Change style
+									this.style.display = '';
+									this.menu.centerMenuItems();
+								};
+				action.show = action.show.bind(action);
+				
+		};
+		menu.add = menu.add.bind(menu);
+		return menu;
+	},
+	
+	// Calculate the proper width of the context menu
+	getWidth : function() {
+		if (bb.device.isPlayBook) {
+			return '300';
+		} else {
+			return '563';		
+		}
+	},
+	
+	// Calculate the proper width of the context menu when peeking
+	getPeekWidth : function() {
+		if (bb.device.isPlayBook) {
+			return '55px';
+		} else {
+			return '121px';		
+		}
+	},
+	
+	// Calculate the proper left of the context menu
+	getLeft : function() {
+		return window.innerWidth + 3 + 'px';	
+	}
+};
