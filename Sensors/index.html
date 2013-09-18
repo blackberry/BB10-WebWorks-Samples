@@ -24,56 +24,58 @@
 	<script type="text/javascript" src="Flotr2/flotr2.min.js"></script>
 	<script type="text/javascript">
 	var rippleLoaded = false;
-	document.addEventListener('webworksready', function(e) {
-		// This is a hack for Ripple calling webworksready multiple times
-		if (rippleLoaded) return;
-		rippleLoaded = true;
+	window.addEventListener('load',function() {
+		document.addEventListener('webworksready', function(e) {
+			// This is a hack for Ripple calling webworksready multiple times
+			if (rippleLoaded) return;
+			rippleLoaded = true;
 
-		bb.init({actionBarDark: true,
-			controlsDark: true,
-			listsDark: true,
-			// Fires "before" styling is applied and "before" the screen is inserted in the DOM
-			onscreenready: function(element, id) {
-				// Choose the sensor based on ID of the link selected, and start listening
-				var sensor = bbsensors[id];
-				if (sensor && sensor.name) {
-					bbsensors.listen(sensor);
-				} else {
-					bbsensors.listen('');
-				}
-			},
-			// Fires "after" styling is applied and "after" the screen is inserted in the DOM
-			ondomready: function(element, id) {
-				// Reset graph and painting loop
-				bbsensors.container = null;
-				bbsensors.stopPainting();
-				if (id == 'options') {
-					// Options values need to be updated in the controls after they appear
-					document.getElementById('opt_delay').setSelectedText(bbsensors.options.delay.toString());
-					document.getElementById('opt_background').setChecked(bbsensors.options.background);
-					document.getElementById('opt_batching').setChecked(bbsensors.options.batching);
-					document.getElementById('opt_queue').setChecked(bbsensors.options.queue);
-					document.getElementById('opt_reducedReporting').setChecked(bbsensors.options.reducedReporting);
-				} else if (id == 'menu') {
-					// do nothing for menu
-				} else {
-					bbsensors.startPainting();
-				}
-			}
-		});
-		blackberry.event.addEventListener("pause", bbsensors.stopPainting);
-		blackberry.event.addEventListener("resume", bbsensors.startPainting);
-		bb.pushScreen('menu.html', 'menu');
-	}, false);
-
-			// Fire the webworksready event for PlayBook and BBOS
-			window.addEventListener('load',function() {
-					if (navigator.userAgent.indexOf('BB10') < 0) {
-						var evt = document.createEvent('Events');
-						evt.initEvent('webworksready', true, true);
-						document.dispatchEvent(evt);
+			bb.init({actionBarDark: true,
+				controlsDark: true,
+				listsDark: true,
+				// Fires "before" styling is applied and "before" the screen is inserted in the DOM
+				onscreenready: function(element, id) {
+					// Choose the sensor based on ID of the link selected, and start listening
+					var sensor = bbsensors[id];
+					if (sensor && sensor.name) {
+						bbsensors.listen(sensor);
+					} else {
+						bbsensors.listen('');
 					}
-				});
+				},
+				// Fires "after" styling is applied and "after" the screen is inserted in the DOM
+				ondomready: function(element, id) {
+					// Reset graph and painting loop
+					bbsensors.container = null;
+					bbsensors.stopPainting();
+					if (id == 'options') {
+						// Options values need to be updated in the controls after they appear
+						document.getElementById('opt_delay').setSelectedText(bbsensors.options.delay.toString());
+						document.getElementById('opt_background').setChecked(bbsensors.options.background);
+						document.getElementById('opt_batching').setChecked(bbsensors.options.batching);
+						document.getElementById('opt_queue').setChecked(bbsensors.options.queue);
+						document.getElementById('opt_reducedReporting').setChecked(bbsensors.options.reducedReporting);
+					} else if (id == 'menu') {
+						// do nothing for menu
+					} else {
+						bbsensors.startPainting();
+					}
+				}
+			});
+			blackberry.event.addEventListener("pause", bbsensors.stopPainting);
+			blackberry.event.addEventListener("resume", bbsensors.startPainting);
+			bb.pushScreen('menu.html', 'menu');
+		}, false);
+	});
+
+	// Fire the webworksready event for PlayBook and BBOS
+	window.addEventListener('load',function() {
+		if (navigator.userAgent.indexOf('BB10') < 0) {
+			var evt = document.createEvent('Events');
+			evt.initEvent('webworksready', true, true);
+			document.dispatchEvent(evt);
+		}
+	});
 
 
 	// The bbsensors object will hold all our sensor settings and methods for the application.
