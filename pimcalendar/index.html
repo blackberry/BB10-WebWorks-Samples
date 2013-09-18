@@ -133,6 +133,8 @@
 											desc:		eval(element.querySelector('#sort').selectedOptions[0].value)
 										});
 
+										options.filter.expandRecurring = true;
+
 										/* Call the search function with our options. On success, we pass the returned events to our findResults page. */
 										blackberry.pim.calendar.findEvents(
 											options,
