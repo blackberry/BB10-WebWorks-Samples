@@ -118,11 +118,11 @@ sample.pushcapture.constructor.prototype.displayConfig = function(element, tx, r
 
     if (results.rows.item(0).usingpublicppg == 1) {
         sample.pushcapture.usingpublicppg = true;
-        element.getElementById("publicradio").setChecked();
+        element.getElementById("publicradio").setChecked(true);
         element.getElementById("ppgurl").show();
     } else {
         sample.pushcapture.usingpublicppg = false;
-        element.getElementById("enterpriseradio").setChecked();
+        element.getElementById("enterpriseradio").setChecked(true);
         element.getElementById("ppgurl").hide();
     }
     bb.radio.disableGroup("ppgtype");
