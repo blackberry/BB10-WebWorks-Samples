@@ -12,7 +12,6 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
 
     <!-- css -->
@@ -32,7 +31,9 @@
     <!-- initialization -->
     <script type="text/javascript">
     window.addEventListener('load', function() {
+        console.log('loaded');
         document.addEventListener('webworksready', function(e) {         
+            console.log('ww ready');
             bb.init({
                 actionBarDark: true,
                 controlsDark: true,
@@ -45,11 +46,15 @@
                 ondomready: function(element, id) {}
             });
             
-            // register with bbm
-            Bbm.register();
-            
-            // setup active frame / window cover
-            App.ui.windowCover.setup('local:///images/cover.png');
+            try {
+                // register with bbm
+                Bbm.register();
+                // setup active frame / window cover
+                App.ui.windowCover.setup('local:///images/cover.png');
+            } catch(e) {
+                console.log('BBM / Window Covers will not work in the browser. On device only.');
+            }
+
 
             // start the app
             bb.pushScreen('home.html', 'home');
@@ -65,10 +70,6 @@
 </head>
 
 <body style="background-color: #181818">
-    <!-- live reload -->
-    <script>
-    document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
-    </script>
 </body>
 
 </html>

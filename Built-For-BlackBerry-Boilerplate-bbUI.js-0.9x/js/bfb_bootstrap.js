@@ -40,6 +40,7 @@ var App = {
 					blackberry.ui.cover.updateCover();
 				}, 0);
 			}
+
 		}
 	}
 };
@@ -64,6 +65,7 @@ var Bbm = {
 				Bbm.registered = accessible;
 			}
 		}, false);
+
 	},
 
 	// update the users personal message
@@ -247,7 +249,6 @@ var Toast = {
 			blackberry.ui.toast.show(text, options);
 		} catch (e) {
 			console.log('toast: ' + text);
-			console.log(e);
 		}
 	},
 
@@ -262,7 +263,6 @@ var Toast = {
 			blackberry.ui.toast.show(text, options, timeout);
 		} catch (e) {
 			console.log('toast: ' + text);
-			console.log(e);
 		}
 	}
 };
