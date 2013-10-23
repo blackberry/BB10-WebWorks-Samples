@@ -32,10 +32,10 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 
 ## Screenshots ##
 
-![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Built-For-BlackBerry-Boilerplate-bbUI.js-0.9x/_screenshots/tabs.png)
-![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Built-For-BlackBerry-Boilerplate-bbUI.js-0.9x/_screenshots/invoke.png)
-![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Built-For-BlackBerry-Boilerplate-bbUI.js-0.9x/_screenshots/bbm.png)
-![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Built-For-BlackBerry-Boilerplate-bbUI.js-0.9x/_screenshots/spinners.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/BfB-Boilerplate-bbUI.js-0.9x/_screenshots/tabs.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/BfB-Boilerplate-bbUI.js-0.9x/_screenshots/invoke.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/BfB-Boilerplate-bbUI.js-0.9x/_screenshots/bbm.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/BfB-Boilerplate-bbUI.js-0.9x/_screenshots/spinners.png)
 
 ## Using The Boilerplate ##
 
