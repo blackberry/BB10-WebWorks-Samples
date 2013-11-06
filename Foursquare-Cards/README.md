@@ -6,7 +6,7 @@ This sample demonstrates how an application can integrate with the available Fou
 **Applies To**
 
 * [Foursquare](http://engineering.foursquare.com/2013/01/31/native-app-integration-like-never-before-the-foursquare-for-blackberry-10-sdk/)
-* [Invocation Framework]()
+* [Invocation Framework](https://developer.blackberry.com/html5/apis/blackberry.invoke.html)
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
 
 **Author(s)** 
@@ -29,7 +29,7 @@ This sample demonstrates how an application can integrate with the available Fou
 
 ## Screenshots ##
 
-![image](_screenshots/one.png)
+![image](https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/Foursquare-Cards/_screenshots/one.png)
 
 ## Using The Sample ##
 
