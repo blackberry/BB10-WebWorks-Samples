@@ -29,7 +29,7 @@ This sample demonstrates how an application can integrate with the available Fou
 
 ## Screenshots ##
 
-![image](https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/Foursquare-Cards/_screenshots/one.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Foursquare-Cards/_screenshots/one.png)
 
 ## Using The Sample ##
 
