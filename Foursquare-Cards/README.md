@@ -1,13 +1,13 @@
-# Foursquare SDK Sample
+# Foursquare Cards
 
-This sample demonstrates how to integrate the new Foursquare SDK into a BlackBerry WebWorks application for BlackBerry 10.
+This sample demonstrates how an application can integrate with the available Foursquare Cards in a BlackBerry WebWorks application for BlackBerry 10.
 
-The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 **Applies To**
 
+* [Foursquare](http://engineering.foursquare.com/2013/01/31/native-app-integration-like-never-before-the-foursquare-for-blackberry-10-sdk/)
+* [Invocation Framework](https://developer.blackberry.com/html5/apis/blackberry.invoke.html)
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
-* [Foursquare SDK](http://engineering.foursquare.com/2013/01/31/native-app-integration-like-never-before-the-foursquare-for-blackberry-10-sdk/)
 
 **Author(s)** 
 
@@ -16,94 +16,137 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 **Dependencies**
 
 1. [bbUI.js](https://github.com/blackberry/bbUI.js) is [licensed](https://github.com/blackberry/bbUI.js/blob/master/LICENSE) under the Apache 2.0 license.
-2. [jquery-1.7.2.js](http://code.jquery.com/jquery-1.7.2.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
+2. [Built for BlackBerry Boilerplate](https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/BfB-Boilerplate-bbUI.js-0.9x) is [licensed](https://github.com/blackberry/bbUI.js/blob/master/LICENSE) under the Apache 2.0 license.
 
-**To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
 
-**Icons**<br/>
-Icons used here are from [http://subway.pixle.pl/rim](http://subway.pixle.pl/rim) are [licensed](http://creativecommons.org/licenses/by/3.0/) under the CC-BY-3.0 license.  This is a subset of the Subway icons available at http://subway.pixle.pl/
+**Icons**
 
-## Screenshots 
+* The [Liz Myers](http://www.myersdesign.com) Icon set is [licensed](http://creativecommons.org/licenses/by/3.0/) under the CC-BY-3.0 license.
 
-![Screenshot](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Foursquare-Cards/screenshot.png)
+**Contributing**
 
-## Foursquare Setup
+* To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).
 
-IMPORTANT: To use this method of authentication you must **set the Callback URL of your app to http://localhost** at [developer.foursquare.com](http://developer.foursquare.com)
+## Screenshots ##
 
-## App Setup
+![image](https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/Foursquare-Cards/_screenshots/one.png)
 
-Open app.js and add your app's ClientID to the foursqaureOptions object.
+## Using The Sample ##
 
-```
-foursquareOptions = {
-   clientId: '',
-};
-```
-## Config.xml 
+####Single Sign-On
 
-White-list the foursquare.com domain.
+	var request = {
+		target: "com.foursquare.blackberry.sso.card",
+		action: "bb.action.VIEW",
+		type: "sso/foursquare",
+		data: "L4CURGRJ0JCCVA0QJ1Y5JI052HMZI0MSQIQMVTMX1JTN43L2"
+	};
 
-```
-<access uri="*" subdomains="true" />
-<access uri="https://foursquare.com" subdomains="true" />    
-```
 
-Add the feature elements.
-```
-<feature id="blackberry.invoke" />
-```
+####Venue Search
 
-## Single Sign On (SSO)
+	var request = {
+		target: "com.foursquare.blackberry.venuesearch.card",
+		action: "bb.action.VIEW",
+		type: "venuesearch/foursquare",
+		uri: "foursquare://venues/search?oauth_token=" + accessToken,
+	};
+	
 
-With the intoduction of this new Foursquare "SDK", we are now able to take advantage of a SSO flow instead of the old OAuth approach outlined in my [previous sample](https://github.com/blackberry/BB10-WebWorks-Samples/tree/master/Foursquare-OAuth-2).
+####Explore
 
-To start the sign-on process we simply ivoke the Foursquare card.
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://venues/explore"
+	};	
 
-```
-// invoke the card
-blackberry.invoke.invoke({
-   action: "bb.action.VIEW",
-   data: foursquareOptions.clientId,
-   target: "com.foursquare.blackberry.sso.card",
-   type: "sso/foursquare",
-}, 
 
-// invoke success callback
-function(data) {
-},
+####User Profile
 
-// invoke error callback
-function(data) {
-});
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://users/self/update"
+	};
 
-```
 
-## Place Picker Card
+####Friend Requests
 
-Searching for venues is also really easy.  Again, we simply invoke the Place Picker card.
-		
-```
-blackberry.invoke.invoke({
-   target: "com.foursquare.blackberry.venuesearch.card",
-   action: "bb.action.VIEW",
-   type: "venuesearch/foursquare",
-   uri: "foursquare://venues/search?oauth_token=" + accessToken,
-},
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://users/requests"
+	};
 
-// invoke success callback
-function(data) {
-},
 
-// invoke error callback
-function(data) {
-});
-```
+####Friend Suggestions
 
-## How to Build
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://users/suggest?type=friend"
+	};
+
+
+####Page Suggestions
+
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://users/suggest?type=page"
+	};
+
+
+####Add Friends
+
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://users/addfriends?from=phonebook"
+	};
+
+
+####Checkin
+
+	var request = {
+		target: "com.foursquare.blackberry.uri",
+		action: "bb.action.OPEN",
+		uri: "foursquare://checkins/50a08609e4b04c46ea54446d"
+	};
+
+
+####How to call the invocation request
+
+	blackberry.invoke.invoke(
+		request,
+
+		// success
+		function() {
+			console.log('success');
+		},
+
+		// error
+		function(e) {
+			console.log(e);
+		}
+	);
+
+
+## Config.xml Setup ##
+
+The following must be whitelisted in the **config.xml** file
+
+	<feature id="blackberry.invoke" />
+	<feature id="blackberry.invoke.card" />
+
+
+
+## How To Build
 
 1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Foursquare-OAuth-2 folder into a BlackBerry application.
+2. Use Using the Ripple Mobile Emulator and the BlackBerry 10 WebWorks SDK, package the contents of your local BB10-WebWorks-Samples/Boilerplate-bbUI.js-0.9x folder into a BlackBerry application.
+
 
 ## More Info
 
