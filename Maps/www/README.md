@@ -7,11 +7,12 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Applies To**
 
-* [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk)
+* [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk)
 
 **Author(s)**
 
 * [Chad Tetreault](http://www.twitter.com/chadtatro)
+* [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
 **Dependencies**
 
@@ -53,10 +54,9 @@ function initApp() {
 }
 ```
 ## Config.xml
-As of BlackBerry WebWorks 1.0.2.9 SDK, all domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
+All domains you plan on making Ajax/XHR requests to must be whitelisted in your app's config.xml.
 
 ```
-<access uri="*" subdomains="true" />
 <access uri="http://virtualearth.net" subdomains="true" />
 <access uri="http://bing.net" subdomains="true" />
 ```
@@ -79,14 +79,13 @@ Your API Keys are meant to be private. For demonstration purposes we're coding t
 ## How to Build
 
 1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and either the BlackBerry WebWorks SDK for Smartphone or the BlackBerry WebWorks SDK for Tablet OS, package the contents of your local BB10-WebWorks-Samples/Maps folder into a BlackBerry application.
+2. Use BlackBerry 10 WebWorks SDK 2.0, package the contents of your local BB10-WebWorks-Samples/Maps folder into a BlackBerry application.
 
 ## More Info
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
-* [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
 
 ## Contributing Changes
