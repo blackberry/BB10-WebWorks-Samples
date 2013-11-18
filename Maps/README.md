@@ -78,8 +78,32 @@ Your API Keys are meant to be private. For demonstration purposes we're coding t
 
 ## How to Build
 
-1. Clone the repo to your local machine
-2. Use BlackBerry 10 WebWorks SDK 2.0, package the contents of your local BB10-WebWorks-Samples/Maps folder into a BlackBerry application.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
+
+	```
+	webworks create <your source folder>\Avatar-Booth
+	```
+
+3. **Replace** the default Avatar-Booth\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Avatar-Booth folder
+
+	```
+	cd <your source folder>\Avatar-Booth
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.app
+```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 ## More Info
 

@@ -18,16 +18,19 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Avatar Booth</title>
-			
-		<script>	
+
+		<script>
 			var meta = document.createElement("meta");
 			meta.setAttribute('name','viewport');
 			meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
 			document.getElementsByTagName('head')[0].appendChild(meta);
 		</script>
-		
+
 		<link rel="stylesheet"  href="style/App.css" />
 		<link rel="stylesheet"  href="style/common.css" />
+
+		<!-- framework -->
+		<script src="cordova.js"></script>
 
 		<!-- load up the goodies -->
 		<script data-main="scripts/index" src="scripts/lib/require.js"></script>

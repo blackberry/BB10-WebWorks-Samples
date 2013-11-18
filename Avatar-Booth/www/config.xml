@@ -20,17 +20,16 @@ limitations under the License.
 
 	<author rim:copyright="2012"
             href="http://www.rim.com/"
-            email = "abashkhaz@rim.com">Anzor Bashkhaz</author>  
+            email = "abashkhaz@rim.com">Anzor Bashkhaz</author>
 
 	<name>Avatar Booth</name>
 	<description>Avatar Booth</description>
-	<rim:permissions>	
-		    	<rim:permit>use_camera</rim:permit>
+	<rim:permissions>
+		<rim:permit>use_camera</rim:permit>
 	</rim:permissions>
-	<feature id="blackberry.app">
-    	<param name="orientation" value="portrait" />
-	</feature>
+	<feature id="blackberry.app"/>
+    <preference name="orientation" value="portrait" />
 	<access uri="*" subdomains="true"></access>
 	<content src="app.html"></content>
-	
+
 </widget>

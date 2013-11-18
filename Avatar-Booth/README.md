@@ -1,4 +1,4 @@
-# Avatar-booth - example application for getUserMedia.
+# Avatar-Booth - sample application for getUserMedia (Camera).
 
 The purpose of this application is to demonstrate the getUserMedia functionality in BlackBerry 10 WebWorks. This allows access to the front and rear cameras on the device. The application let's you add a moustache and snap a photo, all within the Web Application.
 
@@ -6,14 +6,14 @@ The same code will work across other WebKit browser such as Chrome and Safari, w
 
 **Applies To**
 
-* [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
+* [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk)
 
-**Author(s)** 
+**Author(s)**
 
-* Anzor Bashkhaz (http://www.twitter.com/anzor_b)
-	
+* [Anzor Bashkhaz](http://www.twitter.com/anzor_b)
+* [Adam Stanley](http://www.twitter.com/n_adam_stanley)
+
 **Dependencies**
-
 
 
 **Libraries**
@@ -37,13 +37,36 @@ All artwork except for the following was done by the author [Anzor Bashkhaz] and
 
 ** How to Build **
 
-1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and BlackBerry WebWorks SDK for BB10, package the contents of your local BB10-WebWorks-Samples/Meet-the-team folder into a BlackBerry application.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
+
+	```
+	webworks create <your source folder>\Avatar-Booth
+	```
+
+3. **Replace** the default Avatar-Booth\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Avatar-Booth folder
+
+	```
+	cd <your source folder>\Avatar-Booth
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.app
+```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
-* [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
 
 ## Contributing Changes

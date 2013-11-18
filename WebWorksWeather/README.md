@@ -10,11 +10,12 @@ This is an example of a "Built For BlackBerry" application.  It includes many of
 
 **Applies To**
 
-* [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
+* [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk)
 
-**Author(s)** 
+**Author(s)**
 
 * [Michelle Mendoza](http://www.twitter.com/mendozamiche)
+* [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
 **Built For BlackBerry**
 
@@ -36,15 +37,46 @@ Icons provided by [Myers Design Limited](http://myersdesign.com/resources/)
 
 ## How to Build
 
-1. Clone the repo to your local machine
-2. Using the Ripple Mobile Emulator and the BlackBerry 10 WebWorks SDK, package the contents of your local BB10-WebWorks-Samples/WebWorksWeather folder into a BlackBerry application.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
+
+	```
+	webworks create <your source folder>\WebWorksWeather
+	```
+
+3. **Replace** the default WebWorksWeather\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the WebWorksWeather folder
+
+	```
+	cd <your source folder>\WebWorksWeather
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.app
+	webworks plugin add com.blackberry.bbm.platform
+	webworks plugin add com.blackberry.invoke
+	webworks plugin add com.blackberry.invoke.card
+	webworks plugin add com.blackberry.system
+	webworks plugin add com.blackberry.ui.cover
+	webworks plugin add com.blackberry.ui.dialog
+	webworks plugin add com.blackberry.ui.toast
+```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
+
 
 ## More Info
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
-* [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
 ## Contributing Changes
 
