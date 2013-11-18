@@ -20,18 +20,18 @@
 
 <head>
 	<title>BBM APIs</title>
-	<link type="text/css" rel="stylesheet" href="./css/bbui-0.9.5.css" />
+	<link type="text/css" rel="stylesheet" href="./css/bbui.css" />
 </head>
 
 <body>
-	<script type="text/javascript" src="local:///chrome/webworks.js"></script>
-	<script type="text/javascript" src="./js/bbui-0.9.5.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="./js/bbui.js"></script>
 	<script type="text/javascript" src="./js/bbm.js"></script>
 	<script type="text/javascript">
 		/*global bb, bbm */
 
 		window.addEventListener('DOMContentLoaded', function () {
-			document.addEventListener('webworksready', function () {
+			document.addEventListener('deviceready', function () {
 				bb.init({
 					controlsDark: true,
 					listsDark: true,
