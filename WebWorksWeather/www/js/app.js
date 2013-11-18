@@ -279,7 +279,7 @@ var app = {
 
     dayWeather = weatherData.daily.data;
 
-    for (var i = 1; i < 8; i++) {
+    for (var i = 1; i < 7; i++) {
 
       _weatherDetails = {
         icon : "images/lg_wicons/" + dayWeather[i].icon + ".png",

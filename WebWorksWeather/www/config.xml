@@ -25,9 +25,8 @@ id="BB10WeatherApp">
   <icon src="images/icon.png"/>
   <rim:splash src="images/splash-1280x768.png"/>
   <rim:splash src="images/splash-720x720.png"/>
-  <feature id="blackberry.app">
-    <param name="orientation" value="portrait" />
-  </feature>
+  <feature id="blackberry.app"/>
+  <preference name="orientation" value="portrait" />
   <feature id="blackberry.bbm.platform" />
   <feature id="blackberry.invoke" />
   <feature id="blackberry.system" />
@@ -40,7 +39,7 @@ id="BB10WeatherApp">
     <rim:permit>access_location_services</rim:permit>
     <rim:permit>post_notification</rim:permit>
   </rim:permissions>
-  <access uri="http://maps.googleapis.com" subdomains="true" />
-  <access uri="https://api.forecast.io" subdomains="true" />
-  <access uri="http://api.forecast.io" subdomains="true" />
+  <access origin="http://maps.googleapis.com" subdomains="true" />
+  <access origin="https://api.forecast.io" subdomains="true" />
+  <access origin="http://api.forecast.io" subdomains="true" />
 </widget>
