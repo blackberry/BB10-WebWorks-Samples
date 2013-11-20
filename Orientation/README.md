@@ -7,22 +7,20 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Applies To**
 
-* [BlackBerry WebWorks SDK for BB10](https://developer.blackberry.com/html5/)
+* [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/)
 
 
-**Author(s)** 
+**Author(s)**
 
-* Michelle Mendoza
+* [Michelle Mendoza](https://twitter.com/mendozamiche)
+* [Adam Stanley](https://twitter.com/n_adam_stanley)
 
 
 **Dependencies**
 
 * WebWorks SDK 1.0.3.8
-* [bbUI.js](https://github.com/blackberry/bbUI.js) version 0.9.5, available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
+* [bbUI.js](https://github.com/blackberry/bbUI.js), available under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
 
-**Known Issues**
-
-* -
 
 **Tested On**
 * BlackBerry 10 Dev Alpha 10.0.9.1103
@@ -31,13 +29,32 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 ## How to Build
 
-To build the Orientation sample application:
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
-1. Click on the **Downloads** tab above.
-2. Select **Download as zip** (Windows) or **Download as tar.gz** (Mac) and save the downloaded file to your local machine.
-3. Create a new folder on your local machine named **Orientation** e.g. **C:\Documents and Settings\User\WebWorks\Orientation** (Windows) or **~/WebWorks/Orientation** (Mac).
-4. Open the downloaded ZIP file from step 2 and extract the contents **from inside the zipped Orientation folder** to your local **Orientation** folder from step 3.  This ensures that the necessary application assets, such as **config.xml**, are correctly located at the top level of the local **Orientation** folder (e.g. **~/WebWorks/Orientation/config.xml**).
-5. Using the **[Ripple Mobile Emulator](http://developer.blackberry.com/html5/download)** and the **[BlackBerry WebWorks SDK for BB10](http://developer.blackberry.com/html5/download)**, package the contents of your local **Orientation** folder into a BlackBerry application.  Enter the project root settings field as the local folder created in step 3, and the archive name settings field as **Orientation**.
+	```
+	webworks create <your source folder>\Orientation
+	```
+
+3. **Replace** the default Orientation\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Orientation folder
+
+	```
+	cd <your source folder>\Orientation
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.app
+```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 
 ## More Info
@@ -45,7 +62,6 @@ To build the Orientation sample application:
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
-* [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
 ## Contributing Changes
 
