@@ -23,7 +23,7 @@
         meta.setAttribute('content','initial-scale='+ (1/window.devicePixelRatio) + ',user-scalable=no');
         document.getElementsByTagName('head')[0].appendChild(meta);
     </script>
-    <script src="local:///chrome/webworks.js"></script>
+    <script src="cordova.js"></script>
     <link rel="stylesheet" type="text/css" href="jquery/jquery.mobile-1.1.0.min.css" />
     <script src="jquery/jquery-1.7.1.min.js"></script>
     <script src="jquery/jquery.mobile-1.1.0.min.js"></script>
@@ -100,7 +100,7 @@
         };
 
         window.addEventListener("load", function () {
-            document.addEventListener("webworksready", function(e) {
+            document.addEventListener("deviceready", function(e) {
 
                 blackberry.event.addEventListener("invoked", onInvoked, false);
 
