@@ -19,7 +19,7 @@ limitations under the License.
         version="1.0.0"
         id="notifySample">
     <name>Notification Sample</name>
-    <content src="local:///index.htm"/>
+    <content src="index.htm"/>
     <author>Research In Motion Ltd.</author>
     <license href="http://www.apache.org/licenses/LICENSE-2.0">
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,11 +33,11 @@ limitations under the License.
         #WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         #See the License for the specific language governing permissions and limitations under the License.
     </license>
-   
+
    <feature id="blackberry.invoked" required="true" version="1.0.0.0" />
    <feature id="blackberry.invoke" required="true" version="1.0.0.0" />
 
-    <rim:invoke-target id="notifyTest">
+    <rim:invoke-target id="com.test.Notify">
         <type>APPLICATION</type>
         <filter>
             <action>bb.action.OPEN</action>
