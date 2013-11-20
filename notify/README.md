@@ -2,13 +2,15 @@
 
 Sample applications that demonstrate how to use the HTML5 Notification API for the Blackberry 10 WebWorks SDK
 
-**Tested On**
+**Applies To**
 
-* BlackBerry 10.0.9
+* [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk)
 
-**Author(s)** 
+
+**Author(s)**
 
 * [Hasan Ahmad](https://github.com/haahmad)
+* [Adam Stanley](https://github.com/n_adam_stanley)
 
 **Dependencies**
 
@@ -18,17 +20,41 @@ Sample applications that demonstrate how to use the HTML5 Notification API for t
 
 ## How to Build
 
-1. Clone the repo to your local machine
-2. Use Using the **[Ripple Mobile Emulator](http://developer.blackberry.com/html5/download)** and either the **[BlackBerry WebWorks SDK for Smartphone](http://developer.blackberry.com/html5/download)** or the **[BlackBerry WebWorks SDK for Tablet OS](http://developer.blackberry.com/html5/download)**, package the contents of your local **BB10-WebWorks-Samples/notify** folder into a BlackBerry application.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
-## Troubleshooting
+	```
+	webworks create <your source folder>\Notify
+	```
+
+3. **Replace** the default Notify\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Notify folder
+
+	```
+	cd <your source folder>\Notify
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.invoke
+	webworks plugin add com.blackberry.invoked
+	webworks plugin add com.blackberry.notification
+	```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
+
 
 ## More Info
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides] (https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
-* [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
 ## Contributing Changes
 

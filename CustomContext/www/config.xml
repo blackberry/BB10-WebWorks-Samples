@@ -32,9 +32,8 @@
     </license>
     <access uri="*" subdomains="true" />
 
-    <feature id="blackberry.app.orientation">
-        <param name="mode" value="portrait" />
-    </feature>
+    <feature id="blackberry.app"/>
+    <preference name="orientation" value="portrait" />
 
     <feature id="blackberry.ui.toast" />
     <feature id="blackberry.ui.contextmenu" />
