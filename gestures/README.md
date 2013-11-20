@@ -2,65 +2,90 @@
 
 This sample demonstrates how to easily use gestures in a BlackBerry WebWorks application for BlackBerry 10 using the Hammer.js library. 
 
-The sample code for this application is Open Source under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
-
 **Applies To**
 
+* [Hammer.js](http://eightmedia.github.io/hammer.js/)
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
+* [Apache Cordova for BlackBerry 10](https://github.com/blackberry/cordova-blackberry/tree/master/blackberry10) 
 
 **Author(s)** 
 
 * [Chad Tetreault](http://www.twitter.com/chadtatro)
+
+**Waving Image Contribution** 
+
+* [Jesse Ariss](http://www.twitter.com/jesseariss)
 
 **Dependencies**
 
 1. [Hammer.js] (https://github.com/EightMedia/hammer.js) is [licensed] (https://github.com/EightMedia/hammer.js/blob/master/LICENSE) under the MIT license.
 2. [jquery-1.7.2.js](http://code.jquery.com/jquery-1.7.2.js) is [dual licensed](http://jquery.org/license/) under the MIT or GPL Version 2 licenses.
 
-**Waving Image Contribution** 
+**Contributing**
 
-* [Jesse Ariss](http://www.twitter.com/jesseariss)
+* To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).
 
-**To contribute code to this repository you must be [signed up as an official contributor](http://blackberry.github.com/howToContribute.html).**
+## Screenshots ##
 
-## Screenshots 
+![image](_screenshots/gestures2.png)
+![image](_screenshots/gestures1.png)
 
-![Screenshot](https://raw.github.com/ctetreault/BB10-WebWorks-Samples/master/gestures/screenshot.png)
 
-## Hammer.js Documentation ##
-The documentation for Hammer.js is available at https://github.com/EightMedia/hammer.js
+## Required Plugins ##
 
-**Config.xml**
+####The following Cordova Plugins are required for this sample:####
 
-The following feature must be included in your project's config.xml.
-```
-<feature id="blackberry.ui.toast" />
-```
+	com.blackberry.ui.toast
+
+## Using this sample ##
 
 **Adding touch-event listeners**
 
-```
-var head = new Hammer(document.getElementById("hitHead"), { 
-	// set an optional 'length of hold' timeout
-	hold_timeout: 500
-});
-```
+
+	var head = new Hammer(document.getElementById("hitHead"), { 
+		// set an optional 'length of hold' timeout
+		hold_timeout: 500
+	});
+
 
 **Event Workers**
-```
-head.ondragstart = function(ev) {
-	// do something when dragging of element starts
-};
 
-head.ondragend = function(ev) {
-	// do something when dragging is finished
-}
-```
+	head.ondragstart = function(ev) {
+		// do something when dragging of element starts
+	};
+
+	head.ondragend = function(ev) {
+		// do something when dragging is finished
+	}
 
 ## How to Build
 
-1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and the BlackBerry 10 WebWorks SDK, package the contents of your local BB10-WebWorks-Samples/WindowCovers folder into a BlackBerry application.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
+
+	```
+	webworks create <your source folder>\Gestures
+	```
+
+3. **Replace** the default Gestures\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Gestures folder
+
+	```
+	cd <your source folder>\Gestures
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.ui.toast
+	```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 ## More Info
 

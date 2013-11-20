@@ -29,7 +29,7 @@ This sample demonstrates how an application can integrate with the available Fou
 
 ## Screenshots ##
 
-![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/master/Foursquare-Cards/_screenshots/one.png)
+![image](_screenshots/one.png)
 
 ## Using The Sample ##
 
@@ -133,19 +133,43 @@ This sample demonstrates how an application can integrate with the available Fou
 	);
 
 
-## Config.xml Setup ##
+## Required Plugins ##
 
-The following must be whitelisted in the **config.xml** file
+####The following Cordova Plugins are required for this sample:####
 
-	<feature id="blackberry.invoke" />
-	<feature id="blackberry.invoke.card" />
+	com.blackberry.invoke
+	com.blackberry.invoke.card
+	com.blackberry.ui.toast
 
 
+## How to Build
 
-## How To Build
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
-1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and the BlackBerry 10 WebWorks SDK, package the contents of your local BB10-WebWorks-Samples/Boilerplate-bbUI.js-0.9x folder into a BlackBerry application.
+	```
+	webworks create <your source folder>\Foursquare-Cards
+	```
+
+3. **Replace** the default Foursquare-Cards\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Foursquare-Cards folder
+
+	```
+	cd <your source folder>\Foursquare-Cards
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+		webworks plugin add com.blackberry.invoke
+		webworks plugin add com.blackberry.invoke.card
+		webworks plugin add com.blackberry.ui.toast	
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 
 ## More Info
