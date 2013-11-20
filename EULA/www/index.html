@@ -23,13 +23,13 @@
 	</head>
 	<body>
 		Hello World!
-		<script type="text/javascript" src="local:///chrome/webworks.js"></script>
+		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="./eula/eula.js"></script>
 		<script type="text/javascript">
 			/*global initEULA, refreshEULA */
 
 			window.addEventListener('DOMContentLoaded', function () {
-				document.addEventListener('webworksready', function () {
+				document.addEventListener('deviceready', function () {
 					/**
 					 * initEULA: Must be called before calling the show function.
 					 * OPTIONAL: Provide a callback function for when the EULA is accepted. This can be used to hold off performing
