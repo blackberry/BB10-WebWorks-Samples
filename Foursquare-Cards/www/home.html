@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2013 BlackBerry Ltd.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied. See the License for the specific language
+ governing permissions and  limitations under the License.
+-->
+
+<div style="background-color: #f5f5f5;" data-bb-type="screen" data-bb-effect="slide-left" data-bb-scroll-effect="off">
+    <!-- app menu -->
+    <div data-bb-type="menu">
+        <div onclick="bb.pushScreen('help.html', 'help');" data-bb-type="menu-item" data-bb-img="images/icons/help.png" data-bb-pin="left">Help</div>
+        <div onclick="bb.pushScreen('about.html', 'about');" data-bb-type="menu-item" data-bb-img="images/icons/info.png" data-bb-pin="center">About</div>
+        <div onclick="bb.pushScreen('settings.html', 'settings');" data-bb-type="menu-item" data-bb-img="images/icons/settings.png" data-bb-pin="right">Settings</div>
+    </div>
+    <!-- action bar -->
+    <div data-bb-type="action-bar">
+
+    <!-- tabs -->
+    <div data-bb-type="action" data-bb-overflow="true" data-bb-style="tab" data-bb-img="images/icons/home.png" data-bb-selected="true">Home</div>
+
+    <!-- actions -->
+    <div onclick="Foursquare.sso();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/sso.png">SSO</div>
+    <div onclick="Foursquare.venueSearch();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/search.png">Search</div>
+    <div onclick="Foursquare.explore();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/explore.png">Explore</div>
+
+    <!-- actions overflow -->
+    <div data-bb-overflow="true" data-bb-type="action" data-bb-style="button" onclick="Foursquare.sso();" data-bb-img="images/icons/sso.png">SSO</div>
+    <div data-bb-overflow="true" onclick="Foursquare.venueSearch();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/search.png">Search</div>
+    <div data-bb-overflow="true" onclick="Foursquare.explore();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/explore.png">Explore</div>
+    <div data-bb-overflow="true" onclick="Foursquare.showProfile();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/profile.png">Profile</div>
+    <div data-bb-overflow="true" onclick="Foursquare.showFriendsRequests();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/info.png">Friend Requests</div>
+    <div data-bb-overflow="true" onclick="Foursquare.showPageSuggestions();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/pages.png">Page Suggestions</div>
+    <div data-bb-overflow="true" onclick="Foursquare.showFriendSuggestions();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/info.png">Friend Suggestions</div>
+    <div data-bb-overflow="true" onclick="Foursquare.showAddFriends();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/friends.png">Add Friends</div>
+    <div data-bb-overflow="true" onclick="Foursquare.openVenue();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/home.png">Open Venue</div>
+    <div data-bb-overflow="true" onclick="Foursquare.openCheckin();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/checkin.png">Open Check-in</div>
+
+    </div>
+</div>

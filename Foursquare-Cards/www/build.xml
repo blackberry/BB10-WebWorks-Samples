@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+ *
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ -->
+ 
+<!-- Set name to the application name: used for BAR/COD and directory on file system -->
+<project default="build" basedir="." name="BFBbbUI">
+
+	<!-- Concatenation destinations -->
+	<property name="jsconcat" value="scripts.js"/>
+	<property name="cssconcat" value="styles.css"/>
+
+	<!-- Fail the build on JSLint, JSHint, CSSLint errors -->
+	<property name="lintfail" value="false"/>
+	
+	<!-- Include the Properties and Targets  -->
+	<!-- 
+	The ${ant.home} variable will only work if running the Ant included in this repository. On Mac, which uses its own Ant, set a direct file path here.-->
+	<!-- <property name="anthome" value="C:\GITHUB\blackberry\BB10-WebWorks-Community-Samples\Ant-Build-Script\tools\apache-ant-1.8.2" /> -->
+
+	<!--
+	The buildProperties.xml file is optional but allows you to separate out certain settings, like passwords.
+	-->
+	<!-- <include file="${ant.home}/../buildProperties.xml" /> -->
+	<!-- <property name="device.bb10.ip" value="192.168.1.101" /> -->
+	<!-- <property name="device.bb10.pw" value="pass" /> -->
+	<!-- <property name="device.bb10.pin" value="2AB01834" /> -->
+	<include file="${ant.home}/../buildTasks.xml" />
+	
+
+	<!-- Default Build - Change as needed to the sdk and build properties you want:
+	build.test (build in all SDKs+Ripple with WebInspector, source output, and debug token for Tablet and BB10)
+	build.prod (build in all SDKs+Ripple with signing and no debugging, and a build id number for Tablet and BB10)
+	build.beta (build in all SDKs+Ripple with signing _and_ debugging, and a build id number for Tablet and BB10)
+	build.ripple (deploy to your file system for serving up in Ripple)
+
+	Specific builds follow the pattern:
+	build.[bbos, tablet, bb10].[test, prod, beta]
+	- use bbos for BlackBerry 5 through 7.x smartphones
+	- tablet for PlayBook 1.x through 2.x
+	- bb10 for BlackBerry 10
+
+	- use test for WebInspector, source output, and debug tokens. Java builds will only run on simulators.
+	- use prod for regular signing with a build id and no debugging.
+	- use beta for regular signing with a build id and WebInspector turned on.
+
+	Lint/Hint and Minify targets can be included before the build here
+	build.optimize runs both lint and minify tasks
+	build.lint runs jslint, jshint and csslint
+	build.minify concatenates and minifies the JS and CSS files
+
+	Debug Tokens can be created and deployed using the following commands:
+	build.[createDebugToken, deployDebugToken].[bb10, tablet]
+	- the Debug Token will be created for the Device Pins listed in the device.[bb10, tablet].pin property.
+	- for BB10, it will deploy to the correct directory, but the Tablet SDK requires modifying the bbwp.properties file in the SDK.
+
+	Deployment commands follow the pattern:
+	build.deploy.[bb10.[device, sim], tablet, bbos].[test, prod, beta]
+	- bb10, tablet, bbos as defined above
+	- only for bb10 builds, use device for real devices and sim for VMWare based simulators
+	- test, prod, beta to load the matching build created above
+	-->
+	<target name="build" depends="build.bb10.test,build.deploy.bb10.device.test"></target>
+
+	<!-- Add additional Targets here -->
+	<target name="debugtoken" depends="build.createDebugToken.bb10,build.deployDebugToken.bb10"></target>
+</project>

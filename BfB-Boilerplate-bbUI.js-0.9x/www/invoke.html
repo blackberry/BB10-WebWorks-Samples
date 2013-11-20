@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+ Copyright 2013 BlackBerry Ltd.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ express or implied. See the License for the specific language
+ governing permissions and  limitations under the License.
+-->
+
+<div style="background-color: #f5f5f5;" data-bb-type="screen" data-bb-effect="slide-left" data-bb-scroll-effect="off">
+
+    <!-- app menu -->
+    <div data-bb-type="menu">
+        <div onclick="bb.pushScreen('help.html', 'help');" data-bb-type="menu-item" data-bb-img="images/icons/help.png" data-bb-pin="left">Help</div>
+        <div onclick="bb.pushScreen('about.html', 'about');" data-bb-type="menu-item" data-bb-img="images/icons/info.png" data-bb-pin="center">About</div>
+        <div onclick="bb.pushScreen('settings.html', 'settings');" data-bb-type="menu-item" data-bb-img="images/icons/settings.png" data-bb-pin="right">Settings</div>
+    </div>
+
+    <!-- action bar -->
+    <div data-bb-type="action-bar">
+
+        <!-- tabs -->
+        <div onclick="bb.pushScreen('home.html', 'home');" data-bb-type="action" data-bb-overflow="true" data-bb-style="tab" data-bb-img="images/icons/home.png">Home</div>
+
+        <div onclick="bb.pushScreen('bbm.html', 'bbm');" data-bb-type="action" data-bb-overflow="true" data-bb-style="tab" data-bb-img="images/icons/bbm.png">BBM</div>
+
+        <div onclick="bb.pushScreen('invoke.html', 'invoke');" data-bb-type="action" data-bb-style="tab" data-bb-overflow="true" data-bb-selected="true" data-bb-img="images/icons/share.png">Invoke Apps</div>
+
+        <div onclick="bb.pushScreen('toasts.html', 'toasts');" data-bb-type="action" data-bb-style="tab" data-bb-overflow="true" data-bb-img="images/icons/toast.png">Toasts</div>
+
+        <div onclick="bb.pushScreen('spinners.html', 'spinners');" data-bb-overflow="true" data-bb-type="action" data-bb-style="tab" data-bb-selected="true" data-bb-img="images/icons/spinner.png">Spinners</div>
+
+
+        <!-- actions -->
+        <div onclick="Invoke.targets('http://www.blackberry.com');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/targets.png">Targets</div>
+
+        <div onclick="Invoke.email('no-reply@asdf1234.abc', 'this is the subject', 'this is the body');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/email.png">Email</div>
+
+        <div onclick="Invoke.maps('25202 Prado Del Grandioso, Calabasas, California');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/map.png">Maps</div>
+
+        <!-- action overflow -->
+        <div onclick="Invoke.targets('http://www.blackberry.com');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/targets.png" data-bb-overflow="true">Targets</div>
+
+        <div onclick="Invoke.email('no-reply@asdf1234.abc', 'this is the subject', 'this is the body');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/email.png" data-bb-overflow="true">Email</div>
+
+        <div onclick="Invoke.maps('25202 Prado Del Grandioso, Calabasas, California');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/map.png" data-bb-overflow="true">Maps</div>
+
+        <div onclick="Invoke.nfc('http://www.blackberry.com');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/nfc.png" data-bb-overflow="true">NFC</div>
+
+        <div onclick="Invoke.twitter('this is text to share');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/twitter.png" data-bb-overflow="true">Twitter</div>
+
+        <div onclick="Invoke.facebook('this is text to share');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/facebook.png" data-bb-overflow="true">Facebook</div>
+
+        <div onclick="Invoke.blackberryWorld.app('3729');" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/bbworld.png" data-bb-overflow="true">BlackBerry World</div>
+
+        <div onclick="takePhoto();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/camera.png" data-bb-overflow="true">Camera</div>
+
+        <div onclick="pickFile();" data-bb-type="action" data-bb-style="button" data-bb-img="images/icons/filepicker.png" data-bb-overflow="true">File Picker</div>
+    </div>
+</div>
