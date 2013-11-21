@@ -18,7 +18,7 @@
     <content src="local:///index.html" />
     <author rim:copyright="2012"
             href="http://www.rim.com/"
-            email = "@chadtatro">Chad Tetreault</author>
+            email="@chadtatro">Chad Tetreault</author>
     <description>A sample app demonstrating how to set an apps Window Cover</description>
     <license href="http://www.apache.org/licenses/LICENSE-2.0">
         Licensed under the Apache License, Version 2.0 (the "License");
