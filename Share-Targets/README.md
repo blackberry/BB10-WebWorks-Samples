@@ -25,7 +25,7 @@ This sample demonstrates how to invoke a list of Share Targets (aka. display a "
 
 ## Screenshots ##
 
-![image](_screenshots/sharetargets.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/Share-Targets/www/_screenshots/sharetargets.png)
 
 ## Required Plugins ##
 
