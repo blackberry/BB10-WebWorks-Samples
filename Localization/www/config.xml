@@ -25,12 +25,12 @@
     <name xml:lang="es_ES">Localización de muestra</name>
     <name xml:lang="it_IT">Esempio di localizzazione</name>
     <name xml:lang="id_ID">lokalisasi Contoh</name>
-	<name xml:lang="ja_JP">ローカライズの例</name>
-	<name xml:lang="ko_KR">현지화의 예</name>
-	<name xml:lang="pl_PL">Przykład lokalizacji</name>
-	<name xml:lang="ru_RU">Локализация пример</name>
-	<name xml:lang="ar_EG">مثال التعريب</name>
-	<name xml:lang="zh_CN">本土化样本</name>
+    <name xml:lang="ja_JP">ローカライズの例</name>
+    <name xml:lang="ko_KR">현지화의 예</name>
+    <name xml:lang="pl_PL">Przykład lokalizacji</name>
+    <name xml:lang="ru_RU">Локализация пример</name>
+    <name xml:lang="ar_EG">مثال التعريب</name>
+    <name xml:lang="zh_CN">本土化样本</name>
 
     <author>Research In Motion Ltd.</author>
 
@@ -42,8 +42,7 @@
     <description xml:lang="zh_CN">一个简单的本土化样本</description>
 
     <icon src="icon.png"/>
-    <feature id="blackberry.event" required="true" version="1.0.0.0"/>
     <feature id="blackberry.system" required="true" version="1.0.0.0"/>
-    <access uri="*"/>
+    <access origin="*"/>
     <license href="http://www.apache.org/licenses/LICENSE-2.0">My License</license>
 </widget>
