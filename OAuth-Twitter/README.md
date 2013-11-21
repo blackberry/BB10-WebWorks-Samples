@@ -28,7 +28,7 @@ Twitter OAuth Sample is the name of a proof-of-concept WebWorks application that
 
 ## Screenshots ##
 
-![image](_screenshots/oauth-twitter.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/OAuth-Twitter/www/_screenshots/oauth-twitter.png)
 
 ## Required Plugins ##
 
