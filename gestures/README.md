@@ -27,8 +27,8 @@ This sample demonstrates how to easily use gestures in a BlackBerry WebWorks app
 
 ## Screenshots ##
 
-![image](_screenshots/gestures2.png)
-![image](_screenshots/gestures1.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/gestures/www/_screenshots/gestures2.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/gestures/www/_screenshots/gestures1.png)
 
 
 ## Required Plugins ##
