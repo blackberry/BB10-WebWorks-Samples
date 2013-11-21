@@ -28,7 +28,7 @@ Facebook OAuth Sample is the name of a proof-of-concept WebWorks application tha
 
 ## Screenshots ##
 
-![image](_screenshots/oauth-facebook.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/OAuth-Facebook/www/_screenshots/oauth-facebook.png)
 
 ## Required Plugins ##
 
