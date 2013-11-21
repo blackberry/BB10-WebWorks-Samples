@@ -24,7 +24,7 @@ This sample application demonstrates how to invoke a number of core applications
 
 ## Screenshots ##
 
-![image](invoker/www/_screenshots/invoker.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/Invocation/Invoker/www/_screenshots/invoker.png)
 
 ## Required Plugins ##
 
