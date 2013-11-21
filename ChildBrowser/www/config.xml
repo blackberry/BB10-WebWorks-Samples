@@ -15,10 +15,10 @@
         version="1.0.0"
         id="childBrowserSample">
     <name>ChildBrowser Sample</name>
-    <content src="local:///index.html" />
+    <content src="index.html" />
     <author rim:copyright="2012"
             href="http://www.rim.com/"
-            email = "ctetreault@rim.com">Chad Tetreault</author>
+            email="ctetreault@rim.com">Chad Tetreault</author>
     <description>A sample app demonstrating how to use the ChildBrowser API.</description>
     <license href="http://www.apache.org/licenses/LICENSE-2.0">
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,6 @@
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         See the License for the specific language governing permissions and limitations under the License.
     </license>
-    <access uri="*" subdomains="true" />
-    <access uri="http://blackberry.com" subdomains="true" />
+    <access origin="*" subdomains="true" />
+    <access origin="http://blackberry.com" subdomains="true" />
 </widget>
