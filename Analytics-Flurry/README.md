@@ -27,7 +27,7 @@ This sample demonstrates how to integrate Flurry "App Analytics" in to a BlackBe
 
 ## Screenshots ##
 
-![image](_screenshots/flurry.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/Analytics-Flurry/www/_screenshots/flurry.png)
 
 ## Required Plugins ##
 
