@@ -26,7 +26,7 @@ This sample demonstrates how to integrate Localytics "App Analytics" in to a Bla
 
 ## Screenshots ##
 
-![image](_screenshots/localytics.png)
+![image](https://raw.github.com/blackberry/BB10-WebWorks-Samples/WebWorks-2.0/Analytics-Localytics/www/_screenshots/localytics.png)
 
 ## Required Plugins ##
 
