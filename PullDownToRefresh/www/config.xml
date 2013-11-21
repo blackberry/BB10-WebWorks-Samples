@@ -3,7 +3,7 @@
   <name>Pull Down to Refresh</name>
   <content src="index.html"/>
   <author>WebWorks</author>
-  <access uri="*"/>
+  <access origin="*"/>
   <license href="http://www.apache.org/licenses/LICENSE-2.0">
 		Licensed under the Apache License, Version 2.0 (the "License");
 		#you may not use this file except in compliance with the License.
