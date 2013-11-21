@@ -6,11 +6,13 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Applies To**
 
-* [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
+* [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk)
 
-**Author(s)** 
+**Author(s)**
 
 * [Chad Tetreault](http://www.twitter.com/chadtatro)
+* [Adam Stanley](http://www.twitter.com/n_adam_stanley)
+
 
 **Dependencies**
 
@@ -29,9 +31,9 @@ var contentSwipe = new Hammer(document.getElementById("content"), {});
 
 **Capturing the gestures**
 ```
-contentSwipe.onswipe = function(ev) { 
+contentSwipe.onswipe = function(ev) {
 	var dir = ev.direction;
-    
+
 	// swipe from right-to-left
 	if (dir === 'left') {
 		// do something
@@ -44,15 +46,32 @@ contentSwipe.onswipe = function(ev) {
 ```
 ## How to Build
 
-1. Clone the repo to your local machine
-2. Use Using the Ripple Mobile Emulator and the BlackBerry 10 WebWorks SDK, package the contents of your local BB10-WebWorks-Samples/WindowCovers folder into a BlackBerry application.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
+
+	```
+	webworks create <your source folder>\Swipe-Navigation
+	```
+
+3. **Replace** the default Swipe-Navigation\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Swipe-Navigation folder
+
+	```
+	cd <your source folder>\Swipe-Navigation
+	```
+
+5. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 ## More Info
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
-* [BlackBerry Open Source WebWorks Contributions Forums](http://supportforums.blackberry.com/t5/BlackBerry-WebWorks/bd-p/ww_con)
 
 ## Contributing Changes
 

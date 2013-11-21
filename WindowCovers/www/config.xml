@@ -13,13 +13,13 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:rim="http://www.blackberry.com/ns/widgets"
         version="1.0.0"
-        id="childBrowserSample">
-    <name>ChildBrowser Sample</name>
+        id="coversSample">
+    <name>Window Covers Sample</name>
     <content src="local:///index.html" />
     <author rim:copyright="2012"
             href="http://www.rim.com/"
-            email = "ctetreault@rim.com">Chad Tetreault</author>
-    <description>A sample app demonstrating how to use the ChildBrowser API.</description>
+            email="@chadtatro">Chad Tetreault</author>
+    <description>A sample app demonstrating how to set an apps Window Cover</description>
     <license href="http://www.apache.org/licenses/LICENSE-2.0">
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -30,6 +30,14 @@
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         See the License for the specific language governing permissions and limitations under the License.
     </license>
-    <access uri="*" subdomains="true" />
-    <access uri="http://blackberry.com" subdomains="true" />
+
+    <feature id="blackberry.app" />
+    <feature id="blackberry.invoke.card" />
+    <feature id="blackberry.ui.cover" required="true" version="1.0.0.0" />
+    <feature id="blackberry.ui.toast" />
+
+    <rim:permissions>
+        <rim:permit>use_camera</rim:permit>
+    </rim:permissions>
+
 </widget>
