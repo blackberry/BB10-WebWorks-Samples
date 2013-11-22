@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!--
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<html>
+<head>
+	<title>Sensors</title>
+	<script type="text/javascript" src="cordova.js"></script>
+	<link rel="stylesheet" type="text/css" href="bbUI/bbui-min.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script type="text/javascript" src="bbUI/bbui-min.js"></script>
+	<script type="text/javascript" src="Flotr2/flotr2.min.js"></script>
+	<script type="text/javascript">
+	var rippleLoaded = false;
+	window.addEventListener('load',function() {
+		document.addEventListener('deviceready', function(e) {
+			// This is a hack for Ripple calling webworksready multiple times
+			if (rippleLoaded) return;
+			rippleLoaded = true;
+
+			bb.init({actionBarDark: true,
+				controlsDark: true,
+				listsDark: true,
+				// Fires "before" styling is applied and "before" the screen is inserted in the DOM
+				onscreenready: function(element, id) {
+					// Choose the sensor based on ID of the link selected, and start listening
+					var sensor = bbsensors[id];
+					if (sensor && sensor.name) {
+						bbsensors.listen(sensor);
+					} else {
+						bbsensors.listen('');
+					}
+				},
+				// Fires "after" styling is applied and "after" the screen is inserted in the DOM
+				ondomready: function(element, id) {
+					// Reset graph and painting loop
+					bbsensors.container = null;
+					bbsensors.stopPainting();
+					if (id == 'options') {
+						// Options values need to be updated in the controls after they appear
+						document.getElementById('opt_delay').setSelectedText(bbsensors.options.delay.toString());
+						document.getElementById('opt_background').setChecked(bbsensors.options.background);
+						document.getElementById('opt_batching').setChecked(bbsensors.options.batching);
+						document.getElementById('opt_queue').setChecked(bbsensors.options.queue);
+						document.getElementById('opt_reducedReporting').setChecked(bbsensors.options.reducedReporting);
+					} else if (id == 'menu') {
+						// do nothing for menu
+					} else {
+						bbsensors.startPainting();
+					}
+				}
+			});
+			blackberry.event.addEventListener("pause", bbsensors.stopPainting);
+			blackberry.event.addEventListener("resume", bbsensors.startPainting);
+			bb.pushScreen('menu.html', 'menu');
+		}, false);
+	});
+
+
+	// The bbsensors object will hold all our sensor settings and methods for the application.
+	var bbsensors = {
+		// This object is passed to the Sensor API just before listening starts
+		options: {
+			delay: 20000,
+			background: false,
+			batching: true,
+			queue: false,
+			reducedReporting: false
+		},
+		currentSensor: null,
+		// Sets the sensor event listener keyed off the objects defined later
+		listen: function(sensor) {
+			if (bbsensors.currentSensor !== null && bbsensors.currentSensor !== "") {
+				blackberry.event.removeEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);
+			}
+			bbsensors.currentSensor = sensor;
+			if (bbsensors.currentSensor) {
+				bbsensors.graphOptions.title = sensor.title;
+				bbsensors.pieOptions.title = sensor.title;
+				bbsensors.clear();
+				blackberry.sensors.setOptions(bbsensors.currentSensor.name, bbsensors.options);
+				blackberry.event.addEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);
+			}
+		},
+		// Acceleration in xyz axes in m/s/s
+		deviceaccelerometer: {
+			name: 'deviceaccelerometer',
+			title: 'Accelerometer',
+			dataPoints: ['x', 'y', 'z'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Magnetic Flux in xyz axes in uT (micro Teslas)
+		devicemagnetometer: {
+			name: 'devicemagnetometer',
+			title: 'Magnetometer',
+			dataPoints: ['x', 'y', 'z'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Device movement in xyz in radians/s
+		// Also returns temperature of the sensor
+		devicegyroscope: {
+			name: 'devicegyroscope',
+			title: 'Gyroscope',
+			dataPoints: ['x', 'y', 'z', 'temperature'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Azimuth from Magnetic North
+		// Also returns 'isFaceDown' property, not used here
+		devicecompass: {
+			name: 'devicecompass',
+			title: 'Compass',
+			dataPoints: ['value'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Proximity reading where value is 0 (close) or 1 (far)
+		// and normalized provides a range of values between 0 and 1
+		// to describe the proximity
+		deviceproximity: {
+			name: 'deviceproximity',
+			title: 'Proximity',
+			dataPoints: ['value', 'normalized'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Ambient light in lux
+		devicelight: {
+			name: 'devicelight',
+			title: 'Luminosity',
+			dataPoints: ['value'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Acceleration of the device only caused by gravity
+		devicegravity: {
+			name: 'devicegravity',
+			title: 'Gravity',
+			dataPoints: ['x', 'y', 'z'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Acceleration of the device without gravity impacts
+		devicelinearacceleration: {
+			name: 'devicelinearacceleration',
+			title: 'Linear Acceleration',
+			dataPoints: ['x', 'y', 'z'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// 3x3 Rotation Matrix to describe the orientation of the device
+		devicerotationmatrix: {
+			name: 'devicerotationmatrix',
+			title: 'Rotation Matrix',
+			dataPoints: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// Screen orientation data in angles that the screen is rotated,
+		// and description of screen 'face' orientation, ie: 'FACE_UP'
+		deviceorientation: {
+			name: 'deviceorientation',
+			title: 'Orientation',
+			dataPoints: ['screen', 'face'],
+			labels: ['0', '90', '180', '270'],
+			callback: function (data) {
+				bbsensors.pushPie(data);
+			}
+		},
+		// Device orientation Angles in Azimuth from Magnetic North,
+		// Pitch from -180 to 180, and Roll from -90 to 90 degrees.
+		deviceazimuthpitchroll: {
+			name: 'deviceazimuthpitchroll',
+			title: 'Azimuth Pitch Roll',
+			dataPoints: ['azimuth', 'pitch', 'roll'],
+			callback: function (data) {
+				bbsensors.pushValue(data);
+			}
+		},
+		// 1 if Holstered, 0 if not
+		deviceholster: {
+			name: 'deviceholster',
+			title: 'Holster',
+			dataPoints: ['value'],
+			labels: ['0', '1'],
+			callback: function (data) {
+				bbsensors.pushPie(data);
+			}
+		},
+		// data object holds our cache of sensor readings
+		data: {},
+		// reference to the Canvas element to paint on
+		container: null,
+		// These are Flotr2 settings for the Line Graphs
+		graphOptions: {
+			title: '',
+			subtitle: '',
+			// colors: ['#00A8F0', '#C0D800', '#CB4B4B', '#4DA74D', '#9440ED'],
+			xaxis: {
+				showLabels: false,
+			},
+			yaxis: {
+				autoscale: true
+			},
+			grid: {
+				tickColor: '#545454'
+			},
+			legend: {
+				backgroundOpacity: 0,
+				labelBoxBorderColor: '#262626',
+				position: 'sw'
+			}
+		},
+		// Flotr2 settings for the Pie Graphs
+		pieOptions: {
+			title: '',
+			subtitle: '',
+			xaxis: {
+				showLabels: false,
+			},
+			yaxis: {
+				showLabels: false
+			},
+			grid: {
+				verticalLines: false,
+	            horizontalLines: false
+			},
+			pie: {
+				show: true,
+				explode: 10
+			},
+			legend: {
+				backgroundOpacity: 0,
+				labelBoxBorderColor: '#262626',
+				position: 'sw'
+			}
+		},
+		// Limit the cache of data readings to this value
+		// Has performance impacts the higher you go
+		maxDataElements: 400,
+		// Refernce to our painter Timeout function
+		timeout: null,
+		// Used in Pie Charts to determine elapsed time
+		lastTimeStamp: 0,
+		// Push the data values into the cache for the Line Graph
+		// Uses each bbsensors sensor definition to determine what values to capture
+		pushValue: function (data) {
+			var dataValue;
+			for (point in bbsensors.currentSensor.dataPoints) {
+				label = bbsensors.currentSensor.dataPoints[point];
+				if (bbsensors.currentSensor == bbsensors.devicerotationmatrix) {
+					dataValue = data.matrix[point];
+				} else {
+					dataValue = data[label];
+				}
+				bbsensors.data[label].push([data.timestamp, dataValue]);
+			}
+			bbsensors.graphOptions.subtitle = data.accuracy;
+			bbsensors.truncateValue();
+		},
+		// Push the data values into the cache for the Pie Chart
+		// Uses each bbsensors sensor definition to determine what values to capture
+		// Adds up the time since the last reading to create the pie slices
+		pushPie: function (data) {
+			var value = bbsensors.currentSensor.dataPoints[0];
+			if (bbsensors.lastTimeStamp == 0) {
+				for (label in bbsensors.currentSensor.labels) {
+					bbsensors.data[value][bbsensors.currentSensor.labels[label]] = [0, 0];
+				}
+				bbsensors.data[value][0][1] += 1;
+			} else {
+				bbsensors.data[value][data[value]][1] += (data.timestamp - bbsensors.lastTimeStamp);
+			}
+			if (data.face) {
+				bbsensors.pieOptions.subtitle = data.face;
+			} else {
+				bbsensors.pieOptions.subtitle = bbsensors.currentSensor.labels[data[value]];
+			}
+			bbsensors.lastTimeStamp = data.timestamp;
+		},
+		// Reset all data values to an empty array
+		clear: function () {
+			bbsensors.lastTimeStamp = 0;
+			bbsensors.data = {};
+			var label;
+			for (point in bbsensors.currentSensor.dataPoints) {
+				label = bbsensors.currentSensor.dataPoints[point];
+				bbsensors.data[label] = [];
+			}
+		},
+		// Trim the cache to keep under our maxDataElements setting
+		truncateValue: function () {
+			var toRemove = 0;
+			for (point in bbsensors.currentSensor.dataPoints) {
+				label = bbsensors.currentSensor.dataPoints[point];
+				toRemove = bbsensors.data[label].length - bbsensors.maxDataElements;
+				if (toRemove > 0) {
+					bbsensors.data[label].splice(0, toRemove);
+				}
+			}
+		},
+		// Format the data points and send to Flotr2 for painting as a Line Graph
+		// Sets a timeout to paint itself again rapidly
+		paintGraph: function () {
+			var drawData = [];
+			for (point in bbsensors.currentSensor.dataPoints) {
+				label = bbsensors.currentSensor.dataPoints[point];
+				drawData.push({ data: bbsensors.data[label], label: label });
+			}
+			Flotr.draw(bbsensors.container, drawData, bbsensors.graphOptions);
+			bbsensors.timeout = setTimeout(function() { bbsensors.paintGraph() }, 4);
+		},
+		// Format the data points and send to Flotr2 for painting as a Pie Chart
+		// Sets a timeout to paint itself again rapidly
+		paintPie: function () {
+			var drawData = [];
+			var value = bbsensors.currentSensor.dataPoints[0];
+			for (slice in bbsensors.data[value]) {
+				drawData.push({ data: [bbsensors.data[value][slice]], label: slice });
+			}
+			Flotr.draw(bbsensors.container, drawData, bbsensors.pieOptions);
+			bbsensors.timeout = setTimeout(function() { bbsensors.paintPie() }, 4);
+		},
+		// Initiate the painting loop
+		// Called when switching to the graph screen and on a resume
+		startPainting: function () {
+			// Capture our canvas element for painting and start the right paint function
+			bbsensors.container = document.getElementById('graph');
+			if (bbsensors.container) {
+				if (bbsensors.currentSensor.name == 'deviceorientation' || bbsensors.currentSensor.name == 'deviceholster') {
+					bbsensors.paintPie();
+				} else {
+					bbsensors.paintGraph();
+				}
+			}
+		},
+		// Stop the painting loop
+		// Called on application pause and when changing screens
+		stopPainting: function () {
+			clearTimeout(bbsensors.timeout);
+		}
+	};
+	</script>
+</head>
+<body></body>
+</html>

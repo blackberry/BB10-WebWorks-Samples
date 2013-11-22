@@ -6,12 +6,12 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Applies To**
 
-* [BlackBerry WebWorks SDK for BB10](https://developer.blackberry.com/html5/) Version 1.0.3.8 or higher.
+* [BlackBerry WebWorks SDK for BB10](https://developer.blackberry.com/html5/) Version 2.0 or higher.
 
 
 **Author(s)** 
 
-* Tim Windsor
+* [Tim Windsor](https://github.com/timwindsor)
 
 **Dependencies**
 
@@ -35,7 +35,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 **Tested On**
 * BlackBerry 10 Dev Alpha B 10.0.9.1103
-* BlackBerry Z10 10.1.0.1471
+* BlackBerry Z10 10.1.0.1471, 10.2.1.1205
 * BlackBerry Q10 10.1.0.1471
 
 
@@ -43,9 +43,34 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 ## How to Build
 
-This sample includes an Ant based build.xml file which will work with the [WebWorks Ant Build Script](https://github.com/blackberry/BB10-WebWorks-Community-Samples/tree/master/Ant-Build-Script). It is optional to build with the script, but if you have it set up, it will require only editing of your device IP and password to use.
+1. Clone this repo to your local machine.
+2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
-Otherwise, zip the contents and run bbwp on the zip file to build the application.
+	```
+	webworks create <your source folder>\Sensors
+	```
+
+3. **Replace** the default CustomContext\www folder with the \www folder from **this** project
+4. From the command prompt (Windows) or terminal (mac), navigate to the Sensors folder
+
+	```
+	cd <your source folder>\Sensors
+	```
+
+5. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.app
+	webworks plugin add com.blackberry.sensors
+	webworks plugin add com.blackberry.system
+	```
+
+6. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 ## More Info
 
