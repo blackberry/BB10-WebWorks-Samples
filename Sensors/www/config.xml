@@ -5,6 +5,7 @@
     <author email="@timothywindsor" href="http://www.blackberry.com/developers">Tim Windsor</author>
     <content src="index.html" />
     <access origin="*" />
+    <icon src="images/icon.png"/>
     <rim:permissions>
         <rim:permit>run_when_backgrounded</rim:permit>
     </rim:permissions>
