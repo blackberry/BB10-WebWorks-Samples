@@ -17,7 +17,7 @@
 <html>
 <head>
 	<title>Sensors</title>
-	<script type="text/javascript" src="local:///chrome/webworks.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
 	<link rel="stylesheet" type="text/css" href="bbUI/bbui-min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<script type="text/javascript" src="bbUI/bbui-min.js"></script>
@@ -25,7 +25,7 @@
 	<script type="text/javascript">
 	var rippleLoaded = false;
 	window.addEventListener('load',function() {
-		document.addEventListener('webworksready', function(e) {
+		document.addEventListener('deviceready', function(e) {
 			// This is a hack for Ripple calling webworksready multiple times
 			if (rippleLoaded) return;
 			rippleLoaded = true;
@@ -68,15 +68,6 @@
 		}, false);
 	});
 
-	// Fire the webworksready event for PlayBook and BBOS
-	window.addEventListener('load',function() {
-		if (navigator.userAgent.indexOf('BB10') < 0) {
-			var evt = document.createEvent('Events');
-			evt.initEvent('webworksready', true, true);
-			document.dispatchEvent(evt);
-		}
-	});
-
 
 	// The bbsensors object will hold all our sensor settings and methods for the application.
 	var bbsensors = {
@@ -91,7 +82,7 @@
 		currentSensor: null,
 		// Sets the sensor event listener keyed off the objects defined later
 		listen: function(sensor) {
-			if (bbsensors.currentSensor != null) {
+			if (bbsensors.currentSensor !== null && bbsensors.currentSensor !== "") {
 				blackberry.event.removeEventListener(bbsensors.currentSensor.name, bbsensors.currentSensor.callback);
 			}
 			bbsensors.currentSensor = sensor;
