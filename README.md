@@ -1,5 +1,7 @@
 
-#BB10 WebWorks Samples Repository 
+#BB10 WebWorks Samples Repository for WebWorks 1.0
+
+__Note:__ This branch contains samples for WebWorks 1.0.4.11. If you are looking for Samples for WebWorks 2.0, which is based on Cordova, please switch to the [WebWorks-2.0 branch](https://github.com/blackberry/BB10-WebWorks-Samples/tree/WebWorks-2.0)
 
 The _**BB10-WebWorks-Samples**_ repository is where official WebWorks samples for BlackBerry 10 are hosted. For Community Samples, please refer to the [BB10-WebWorks-Community-Samples Repository](repo:BB10-WebWorks-Community-Samples).
 
