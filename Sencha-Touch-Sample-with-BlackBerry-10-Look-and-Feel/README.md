@@ -64,8 +64,7 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
 	webworks plugin add com.blackberry.ui.cover
 	webworks plugin add com.blackberry.ui.dialog
 	webworks plugin add com.blackberry.ui.toast
-	
-```
+	```
 
 11. Run the following command to build and deploy the app to a device connected via USB
 
