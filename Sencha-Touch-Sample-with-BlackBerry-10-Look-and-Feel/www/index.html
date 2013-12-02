@@ -18,19 +18,19 @@
     <title>Blackberry 10</title>
     <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
 
-      <!-- css -->
+    <!-- css -->
     <link rel="stylesheet" href="resources/css/spinner.css" type="text/css" media="screen" />
 
     <!-- webworks -->
-    <script src="local:///chrome/webworks.js" type="text/javascript"></script>
-
-    <script src="bootstrap.js" type="text/javascript"></script>
+	<script src="bootstrap.js" type="text/javascript"></script>
     <script src="helper.js" type="text/javascript"></script>
+	
+    <script src="cordova.js"</script>
 
     <!-- initialization -->
     <script type="text/javascript">
-    window.addEventListener('load', function() {
-        document.addEventListener('webworksready', function(e) { 
+ 
+	     document.addEventListener('deviceready', onReady { 
 
             // Register the app with BBM
             Bbm.register();
@@ -43,7 +43,7 @@
 
 
         }, false);
-    }, false);
+  
     </script>
 
     <!--Show the spinner when the app initializes  -->
@@ -57,5 +57,6 @@
 
 </head>
 <body>
+	
 </body> 
 </html>
