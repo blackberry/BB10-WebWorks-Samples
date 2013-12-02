@@ -31,6 +31,7 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
    - builds
    - cmd
    - microloader
+   - packages
    - resources
    - src
    - sencha-touch
@@ -38,8 +39,39 @@ Icons used here are from [Liz Myers](http://www.myersdesign.com) and are [licens
    - sencha-touch-all-debug
    - sencha-touch-debug
    
-6. Using the Ripple Mobile Emulator and the BlackBerry 10 WebWorks SDK, package the contents of your local    
-   BB10-WebWorks-Samples/SenchaTouchSample folder into a BlackBerry application.
+6. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+7. Open a command prompt (windows) or terminal (mac) and run the following command:
+
+	```
+	webworks create <your source folder>\WebWorksWeather
+	```
+
+8. **Replace** the default Sencha-Touch-Sample-with-BlackBerry-10-Look-and-Feel\www folder with the \www folder from **this** project
+9. From the command prompt (Windows) or terminal (mac), navigate to the Sencha-Touch-Sample-with-BlackBerry-10-Look-and-Feel folder
+
+	```
+	cd <your source folder>\Sencha-Touch-Sample-with-BlackBerry-10-Look-and-Feel
+	```
+
+10. Run the following commands to configure plugins used by **this app**
+
+	```
+	webworks plugin add com.blackberry.app
+	webworks plugin add com.blackberry.bbm.platform
+	webworks plugin add com.blackberry.invoke
+	webworks plugin add com.blackberry.invoke.card
+	webworks plugin add com.blackberry.system
+	webworks plugin add com.blackberry.ui.cover
+	webworks plugin add com.blackberry.ui.dialog
+	webworks plugin add com.blackberry.ui.toast
+	
+```
+
+11. Run the following command to build and deploy the app to a device connected via USB
+
+	```
+	webworks run
+	```
 
 ## More Info
 
