@@ -1,0 +1,62 @@
+<!--
+ Copyright 2013 Research In Motion Limited.
+
+ Licensed under the Apache License, Version 2.0 (the "License");  you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software  distributed under the License is distributed on an "AS IS" BASIS,  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and  limitations under the License.
+-->
+
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Blackberry 10</title>
+    <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="resources/css/spinner.css" type="text/css" media="screen" />
+
+    <!-- webworks -->
+	<script src="bootstrap.js" type="text/javascript"></script>
+    <script src="helper.js" type="text/javascript"></script>
+	
+    <script src="cordova.js"</script>
+
+    <!-- initialization -->
+    <script type="text/javascript">
+ 
+	     document.addEventListener('deviceready', onReady { 
+
+            // Register the app with BBM
+            Bbm.register();
+
+            // setup active frame / window cover
+            App.ui.windowCover.setup('local:///resources/cover/cover.png');
+
+            // show welcome message
+            welcome();
+
+
+        }, false);
+  
+    </script>
+
+    <!--Show the spinner when the app initializes  -->
+    <div id="SpinnerContainer">
+        <div class="SpinnerRing">
+            <div class="SpinnerCenter"></div>
+            <div class="Spinner"></div>
+        </div>
+        <div class="SpinnerShadow"></div>
+    </div>  
+
+</head>
+<body>
+	
+</body> 
+</html>
