@@ -42,6 +42,7 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 
 ####The following Cordova Plugins are required for this sample:####
 
+	com.blackberry.bbm.platform
 	com.blackberry.invoke
 	com.blackberry.invoke.card
 	com.blackberry.ui.cover
