@@ -182,13 +182,6 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 
 5. Run the following commands to configure plugins used by **this app**
 
-	com.blackberry.invoke
-	com.blackberry.invoke.card
-	com.blackberry.ui.cover
-	com.blackberry.ui.toast
-	com.blackberry.utils
-
-
 	```
 	webworks plugin add com.blackberry.invoke
 	webworks plugin add com.blackberry.invoke.card
