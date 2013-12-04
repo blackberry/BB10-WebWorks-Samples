@@ -4,7 +4,7 @@ This sample demonstrates how to invoke BBM Channels. You'll learn how to open, a
 
 **Applies To**
 
-* [BBM Channels](http://blackberry.com/betazone?CPID=SOC_IBB1000058)
+* [BBM Channels](http://us.blackberry.com/bbm/bbm-channels.html)
 * [BlackBerry 10 WebWorks SDK](https://developer.blackberry.com/html5/download/sdk) 
 
 **Author(s)** 
