@@ -70,9 +70,9 @@ For a full explanation of the code, please refer to this [Knowledge Base article
 6. Add the following to your config.xml
 
 	```
-	\<rim:permissions\>
-		\<rim:permit\>access_shared\</rim:permit\>
-	\</rim:permissions\>
+	<rim:permissions>
+		<rim:permit>access_shared</rim:permit>
+	</rim:permissions>
 	```
 	
 7. Run the following command to build and deploy the app to a device connected via USB
