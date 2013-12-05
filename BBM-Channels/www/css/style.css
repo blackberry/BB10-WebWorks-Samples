@@ -1,0 +1,73 @@
+/*
+ * Copyright 2013 BlackBerry Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+body, html {
+}
+
+#contentWrapper {
+	height: 100%;
+	width: 100%;
+	padding-left: 4%;
+}
+
+/* ================================================================ */
+/* 								Z10
+/* ================================================================ */
+@media screen and (min-height: 721px){
+	/*add z10 specific stylings here*/
+}
+
+/* ================================================================ */
+/* 								Q10
+/* ================================================================ */
+
+@media screen and (max-width: 720px) and (max-height: 720px){
+	/*add q10 specific stylings here*/
+}
+
+/* ================================================================ */
+/* 								OLED
+/* ================================================================ */
+
+@media (-blackberry-display-technology: -blackberry-display-oled) {
+	/* add OLED screen specific styling here
+	 For more details on how this should be used please read:
+	 http://devblog.blackberry.com/2013/03/blackberry-10-oled-control-coloring-update/
+	*/
+}
+
+/* ================================================================ */
+/* 								ACTIVITY SPINNERS
+/* ================================================================ */
+
+#spinner-large, #spinner-medium, #spinner-small {
+	display: none;
+	position: absolute;
+	top: 15%;
+	z-index: 9999;
+}
+
+#spinner-large {
+	left: 35%;
+}
+
+#spinner-medium {
+	left: 41%;
+}
+
+#spinner-small {
+	left: 45%;
+}
