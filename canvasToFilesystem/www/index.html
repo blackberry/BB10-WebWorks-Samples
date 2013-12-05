@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<!--
+- Copyright (c) 2012 Research In Motion Limited.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-->
+
+<html>
+	<head>
+		<title>Canvas to Filesystem</title>
+		<script type="text/javascript">
+			(function () {
+				var meta = document.createElement('meta');
+				meta.setAttribute('name', 'viewport');
+				meta.setAttribute('content', 'user-scalable=no,initial-scale=' + (1.0 / window.devicePixelRatio));
+				document.getElementsByTagName('head')[0].appendChild(meta);
+			}());
+		</script>
+		<link type="text/css" rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="swipemenu" class="hide">Save Canvas</div>
+		<div id="easle">
+			<canvas></canvas>
+		</div>
+
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="canvas-toBlob/canvas-toBlob.js"></script>
+		<script type="text/javascript" src="saveCanvas.js"></script>
+		<script type="text/javascript">
+			/*global blackberry, saveCanvas */
+			var canvas, context, firstSwipe;
+
+			/* One-time notification to make user aware of the bezel-save functionality. */
+			function notify() {
+				blackberry.ui.toast.show('To save your masterpiece, swipe down from the top bezel.', {
+					timeout: 2250
+				});
+				canvas.removeEventListener('touchend', notify, false);
+			}
+
+			/* Whenever the user starts or moves touches, we'll draw a randomly coloured circle at that location. */
+			function draw(e) {
+				var touches, touch, n;
+
+				touches = e.changedTouches;
+				for (n = 0; n < touches.length; n = n + 1) {
+					touch = touches[n];
+
+					context.fillStyle = '#' + Math.floor(Math.random() * 16777216).toString(16);
+					context.beginPath();
+					context.arc(touch.clientX, touch.clientY, 48.0, 0.0, 2.0 * Math.PI);
+					context.fill();
+				}
+			}
+
+			/* When the user swipes down, display the menu. The very first swipe will indicate how to close the menu. */
+			function onSwipedown() {
+				var swipemenu = document.querySelector('#swipemenu');
+				if (swipemenu.className.indexOf('hide') !== -1) {
+					if (firstSwipe === true) {
+						blackberry.ui.toast.show('To hide the save menu, swipe down from the top bezel again.', {
+							timeout: 2500
+						});
+						firstSwipe = false;
+					}
+					swipemenu.className = 'show';
+				} else {
+					swipemenu.className = 'hide';
+				}
+			}
+
+			/* Wait for the document to be fully loaded. */
+			window.addEventListener('load', function () {
+				/* Configure our canvas. */
+				canvas = document.querySelector('canvas');
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+				context = canvas.getContext('2d');
+
+				/* Add canvas listeners. */
+				canvas.addEventListener('touchstart', draw, false);
+				canvas.addEventListener('touchmove', draw, false);
+				canvas.addEventListener('touchend', notify, false);
+
+				/* Wait for WebWorks to be ready. */
+				document.addEventListener('deviceready', function () {
+					/* Whichever orientation we start in, lock to that. */
+					if (window.orientation === 0) {
+						blackberry.app.lockOrientation('portrait-primary');
+					} else if (window.orientation === 90) {
+						blackberry.app.lockOrientation('landscape-primary');
+					} else if (window.orientation === 270) {
+						blackberry.app.lockOrientation('landscape-secondary');
+					} else {
+						blackberry.app.lockOrientation('portrait-secondary');
+					}
+
+					/* Add our swipe listener. */
+					blackberry.event.addEventListener('swipedown', onSwipedown);
+					firstSwipe = true;
+
+					/* Add our swipe-clicked (i.e. save) listener. */
+					document.querySelector('#swipemenu').addEventListener('click', function () {
+						this.className = 'hide';
+						saveCanvas(canvas);
+					}, false);
+
+					/* Give a hint to the user to start drawing. */
+					blackberry.ui.toast.show('To begin drawing, drag your finger along the canvas.', {
+						timeout: 2000
+					});
+				}, false);
+			}, false);
+		</script>
+	</body>
+</html>

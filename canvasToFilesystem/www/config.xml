@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+- Copyright (c) 2012 Research In Motion Limited.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-->
+
+<widget id="com.oros.canvastofile" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+	<name>Canvas To File</name>
+    <description>
+        A sample BlackBerry WebWorks 2.0 project that saves the contents of a canvas to the filesystem.
+    </description>
+    <author email="eoros@blackberry.com" href="http://developer.blackberry.com/html5">
+        Erik Oros
+    </author>
+    <content src="index.html" />
+	
+    <access origin="*" />
+	<access origin="file:///" subdomains="true" />
+	
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+
+	<rim:permissions>
+		<rim:permit>access_shared</rim:permit>
+	</rim:permissions>
+</widget>
