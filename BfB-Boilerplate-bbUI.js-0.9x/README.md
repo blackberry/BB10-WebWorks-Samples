@@ -24,7 +24,7 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 
 **Icons**
 
-* The [Liz Myers](http://www.myersdesign.com) Icon set and are [licensed](http://creativecommons.org/licenses/by/3.0/) under the CC-BY-3.0 license.
+* The [Liz Myers](http://www.myersdesign.com) Icon set are [licensed](http://creativecommons.org/licenses/by/3.0/) under the CC-BY-3.0 license.
 
 **Contributing**
 
