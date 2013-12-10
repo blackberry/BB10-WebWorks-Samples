@@ -34,7 +34,7 @@ li {
 	height:120px;
 	border-bottom:1px solid #555;
 }
-li: first-child{
+li:first-child{
 	border-top:1px solid #555;
 }
 
