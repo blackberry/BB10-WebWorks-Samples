@@ -14,7 +14,7 @@
  * permissions and limitations under the License.
  */
 
-/* bbUI for BB10 VERSION: 0.9.6.688*/
+/* bbUI for BB10 VERSION: 0.9.6.932*/
 
 bb = {
     scroller: null,
@@ -1031,9 +1031,13 @@ bb.actionBar = {
             var chevron,
                 backCaption,
                 backslash,
-                backHighlight;
+				backHighlight,
+				versionStyling = 'bb-action-bar-back-button-dark';
+			if (bb.device.is10dot2) {
+				versionStyling += '-10dot2';
+			} 
             backBtn = document.createElement('div');
-            backBtn.setAttribute('class', 'bb-action-bar-back-button bb-action-bar-back-button-dark bb-action-bar-back-button-' + orientation);
+            backBtn.setAttribute('class', 'bb-action-bar-back-button '+ versionStyling +' bb-action-bar-back-button-' + orientation);
             backBtn.onclick = function() {
                 window.setTimeout(bb.popScreen, 0);
             };
@@ -1063,6 +1067,9 @@ bb.actionBar = {
                 } else if (bb.device.is720x720) {
                     backHighlight.style['height'] = '78px';
                     backHighlight.style['top'] = '15px';
+                } else if (bb.device.is1280x720) {
+                    backHighlight.style['height'] = orientation == 'portrait' ? '84px' : '70px';
+                    backHighlight.style['top'] = '15px';
                 } else {
                     backHighlight.style['height'] = orientation == 'portrait' ? '110px' : '70px';
                     backHighlight.style['top'] = '15px';
@@ -1082,7 +1089,11 @@ bb.actionBar = {
 
             // Create our backslash
             backslash = document.createElement('div');
-            backslash.setAttribute('class', 'bb-action-bar-back-slash-dark bb-action-bar-back-slash-' + orientation);
+            versionStyling = 'bb-action-bar-back-slash-dark';
+            if (bb.device.is10dot2) {
+                    versionStyling += '-10dot2';
+            }
+            backslash.setAttribute('class',versionStyling + ' bb-action-bar-back-slash-'+orientation); 
             backBtn.backslash = backslash;
 
             // Create a table to hold the back button and our actions
@@ -1144,6 +1155,8 @@ bb.actionBar = {
         if (overflowButtons.length > 0) {
             actionBar.menu = bb.actionOverflow.create(screen);
             actionBar.appendChild(actionBar.menu);
+            actionBar.moreCaption = actionBar.hasAttribute('data-bb-more-caption') ? actionBar.getAttribute('data-bb-more-caption') : 'More';
+				
             // Create our action bar overflow button
             action = document.createElement('div');
             action.menu = actionBar.menu;
@@ -1616,7 +1629,7 @@ bb.actionBar = {
 
             // Handle press-and-hold on Q10
             tabOverflow.ontouchstart = function() {
-                var text = ((this.display.innerHTML == '') || (this.display.innerHTML == '&nbsp;')) ? 'More' : this.display.innerHTML;
+                var text = ((this.display.innerHTML == '') || (this.display.innerHTML == '&nbsp;')) ? this.actionBar.moreCaption : this.display.innerHTML;
                 this.actionBar.showLabel(this, text);
             }
             // Remove highlight when touch ends
@@ -1705,8 +1718,14 @@ bb.actionBar = {
             caption = actionOverflow.innerHTML;
             // Set our transparent icon
             icon = document.createElement('img');
-            icon.setAttribute('src', bb.transparentPixel);
-            icon.setAttribute('class', 'bb-action-bar-icon bb-action-bar-overflow-button-dark bb-action-bar-overflow-button-' + orientation);
+            icon.setAttribute('src',bb.transparentPixel);
+            var tempOrientation;
+            if (bb.device.is10dot2 && orientation.toLowerCase() == 'portrait') {
+                tempOrientation = 'portait-10dot2';
+            } else {
+                tempOrientation = orientation;
+            }
+            icon.setAttribute('class','bb-action-bar-icon bb-action-bar-overflow-button-dark bb-action-bar-overflow-button-'+tempOrientation);
             actionOverflow.icon = icon;
             // Default settings
             actionOverflow.normal = 'bb-action-bar-action bb-action-bar-action-' + orientation + ' bb-action-bar-button-dark';
@@ -1716,7 +1735,7 @@ bb.actionBar = {
             // Set our caption
             var display = document.createElement('div');
             display.setAttribute('class', 'bb-action-bar-action-display');
-            display.innerHTML = caption;
+            display.innerHTML = bb.device.is10dot2 ? actionBar.moreCaption : caption;
             actionOverflow.display = display;
             actionOverflow.appendChild(display);
             // Set our highlight
@@ -1728,7 +1747,7 @@ bb.actionBar = {
             // Highlight on touch
             actionOverflow.ontouchstart = function() {
                 this.highlight.style['background-color'] = bb.options.highlightColor;
-                this.actionBar.showLabel(this, 'More');
+                this.actionBar.showLabel(this, this.actionBar.moreCaption);
             }
             // Remove highlight when touch ends
             actionOverflow.ontouchend = function() {
@@ -1798,7 +1817,9 @@ bb.actionBar = {
             return bb.getOrientation() == 'portrait' ? 93 : 150;
         } else if (bb.device.is720x720) {
             return 174;
-        } else {
+        } else if (bb.device.is1280x720) {
+            return bb.getOrientation() == 'portrait' ? 179 : 300;
+        }else {
             return bb.getOrientation() == 'portrait' ? 187 : 300;
         }
     },
@@ -4111,8 +4132,10 @@ bb.screen = {
         // Set our 'res' for known resolutions, otherwise use the default
         if (bb.device.is1024x600) {
             return (bb.getOrientation().toLowerCase() == 'portrait') ? 73 : 73;
-        } else if (bb.device.is1280x768 || bb.device.is1280x720) {
+        } else if (bb.device.is1280x768) {
             return (bb.getOrientation().toLowerCase() == 'portrait') ? 139 : 99;
+        } else if (bb.device.is1280x720) {
+            return (bb.getOrientation().toLowerCase() == 'portrait') ? 116 : 92; 
         } else if (bb.device.is720x720) {
             return 109;
         } else {
@@ -4291,6 +4314,8 @@ bb.tabOverflow = {
                 itemHeight = 53;
             } else if (bb.device.is720x720) {
                 itemHeight = 80;
+            } else if (bb.device.is1280x720) {
+                itemHeight = 91;
             } else {
                 itemHeight = 111;
             }
@@ -4702,6 +4727,11 @@ bb.titleBar = {
             outerNormal = 'bb-titlebar-button-container bb-titlebar-button-container-' + bb.screen.controlColor;
         }
 
+        // Remove the moats on 10.2
+        if (bb.device.is10dot2) {
+            outerNormal += ' bb-titlebar-button-container-10dot2';
+        }
+
         //outerElement.enabled = !disabled;
         outerElement.enabled = true;
         innerElement.innerHTML = outerElement.innerHTML;
@@ -4749,6 +4779,7 @@ _bb10_activityIndicator = {
             width,
             swirl;
 
+    if (!bb.device.newerThan10dot1) {
         if (elements.length > 0) {
             var canvas = document.createElement('canvas'),
                 ctx,
@@ -4780,6 +4811,7 @@ _bb10_activityIndicator = {
 
             swirl = canvas.toDataURL();
         }
+    }
 
         for (i = 0; i < elements.length; i++) {
             outerElement = elements[i];
@@ -4788,8 +4820,10 @@ _bb10_activityIndicator = {
             if (size == 'large') {
                 if (bb.device.is1024x600) {
                     width = '93px';
-                } else if (bb.device.is1280x768 || bb.device.is1280x720) {
+                } else if (bb.device.is1280x768) {
                     width = '184px';
+                } else if(bb.device.is1280x720) {
+                    width = '135px';
                 } else if (bb.device.is720x720) {
                     width = '170px';
                 } else {
@@ -4798,8 +4832,10 @@ _bb10_activityIndicator = {
             } else if (size == 'small') {
                 if (bb.device.is1024x600) {
                     width = '21px';
-                } else if (bb.device.is1280x768 || bb.device.is1280x720) {
+                } else if (bb.device.is1280x768) {
                     width = '41px';
+                } else if(bb.device.is1280x720) {
+                    width = '35px';
                 } else {
                     width = '41px';
                 }
@@ -4807,8 +4843,10 @@ _bb10_activityIndicator = {
                 size = 'medium';
                 if (bb.device.is1024x600) {
                     width = '46px';
-                } else if (bb.device.is1280x768 || bb.device.is1280x720) {
+                } else if (bb.device.is1280x768) {
                     width = '93px';
+                } else if(bb.device.is1280x720) {
+                    width = '69px';
                 } else if (bb.device.is720x720) {
                     width = '88px';
                 } else {
@@ -4819,12 +4857,20 @@ _bb10_activityIndicator = {
             outerElement.style.width = width;
             // Add another div so that the developers styling on the original div is left untouched
             indicator = document.createElement('div');
-            indicator.setAttribute('class', 'bb-activity-margin bb-activity-' + size + ' bb-activity-' + color);
-            outerElement.appendChild(indicator);
-            innerElement = document.createElement('div');
-            innerElement.setAttribute('class', 'bb-activity-' + size);
-            innerElement.style['background-image'] = 'url("' + swirl + '")';
-            indicator.appendChild(innerElement);
+            if (bb.device.newerThan10dot1) {
+                indicator.setAttribute('class',  'bb-activity-margin bb-activity-'+size);
+                outerElement.appendChild(indicator);
+                innerElement = document.createElement('div');
+                innerElement.setAttribute('class','bb-activity-'+size+' bb-activity-'+color+'-10dot2');
+                indicator.appendChild(innerElement);
+            } else {
+                indicator.setAttribute('class',  'bb-activity-margin bb-activity-'+size+' bb-activity-'+color);
+                outerElement.appendChild(indicator);
+                innerElement = document.createElement('div');
+                innerElement.setAttribute('class','bb-activity-'+size);
+                innerElement.style['background-image'] = 'url("'+ swirl +'")';
+                indicator.appendChild(innerElement);
+            }
 
             // Set our animation
             innerElement.style['-webkit-animation-name'] = 'activity-rotate';
@@ -6771,6 +6817,9 @@ _bb10_imageList = {
                         };
                         innerChildNode.finishHighlight = innerChildNode.finishHighlight.bind(innerChildNode);
 
+                        //saved for remove
+                        innerChildNode.parentList = this;
+						
                         // Add the remove function for the item
                         innerChildNode.remove = function() {
                             this.style.height = '0px';
@@ -6788,9 +6837,10 @@ _bb10_imageList = {
 
                         // Perform the final remove after the transition effect
                         details.performRemove = function() {
-                            var listControl = this.innerChildNode.parentNode,
-                                index = listControl.items.indexOf(this.innerChildNode);
-                            listControl.removeChild(this.innerChildNode);
+                            var listControl = this.innerChildNode.parentList,
+                                index = listControl.items.indexOf(this.innerChildNode),
+                                parentNode = this.innerChildNode.parentNode;
+                            parentNode.removeChild(this.innerChildNode);
                             listControl.items.splice(index, 1);
                         }
                         details.performRemove = details.performRemove.bind(details);
@@ -6880,7 +6930,7 @@ _bb10_imageList = {
             // Insert an item before another item in the list
             outerElement.insertItemBefore = function(newItem, existingItem) {
                 this.styleItem(newItem);
-                this.insertBefore(newItem, existingItem);
+                existingItem.parentNode.insertBefore(newItem, existingItem);
                 this.items.splice(this.items.indexOf(existingItem), 0, newItem);
                 // Fire our list event
                 var evt = document.createEvent('Events');
@@ -7895,6 +7945,11 @@ _bb10_textInput = {
             var type = outerElement.type.toLowerCase();
             if ((type == 'date') || (type == 'time') || (type == 'datetime') || (type == 'month') || (type == 'datetime-local') || (type == 'color') || (type == 'search')) {
                 outerElement.clearBtn = false;
+                if (bb.device.newerThan10dot1) {
+                    container.style.padding = '0px';
+                    container.style['border-width'] = '0px';
+                    container.style['background-color'] = 'transparent';
+                }
             }
         }
 
@@ -8751,6 +8806,8 @@ _PlayBook_contextMenu = {
                 itemHeight = 53;
             } else if (bb.device.is720x720) {
                 itemHeight = 80;
+            } else if (bb.device.is1280x720) {
+                itemHeight = 91;
             }
             headerHeight = (this.actionBar == undefined) ? itemHeight : 0;
 
