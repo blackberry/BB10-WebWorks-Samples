@@ -183,7 +183,6 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 5. Run the following commands to configure plugins used by **this app**
 
 	```
-	webworks plugin add com.blackberry.app
 	webworks plugin add com.blackberry.invoke
 	webworks plugin add com.blackberry.invoke.card
 	webworks plugin add com.blackberry.ui.cover
