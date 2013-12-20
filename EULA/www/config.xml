@@ -24,8 +24,4 @@
 	<name>EULA Example</name>
 	<author>Oros</author>
 	<content src="index.html" />
-
-	<!-- Required for eula.js -->
-	<feature id="blackberry.app" />
-	<feature id="blackberry.system" />
 </widget>
