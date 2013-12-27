@@ -74,7 +74,7 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 
 	Invoke.app.targets();
 	
-**BlackBerry Worl - App**
+**BlackBerry World - App**
 	
 	Invoke.app.blackberryWorld(applicationID);
 	
