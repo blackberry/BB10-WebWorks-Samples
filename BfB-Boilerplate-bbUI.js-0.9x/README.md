@@ -72,31 +72,31 @@ If you'd like to learn more about the [Built For BlackBerry](https://developer.b
 
 **Share Targets**
 
-	Invoke.app.targets();
+	Invoke.targets();
 	
 **BlackBerry World - App**
 	
-	Invoke.app.blackberryWorld(applicationID);
+	Invoke.blackberryWorld.app(applicationID);
 	
 **Compose an email**
 
-	Invoke.app.email('email@address.com', 'subject', 'body');
+	Invoke.email('email@address.com', 'subject', 'body');
 	
 **Maps**
 
-	Invoke.app.maps('123 Street St, Waterloo, Ontario, Canada');
+	Invoke.maps('123 Street St, Waterloo, Ontario, Canada');
 	
 **NFC**
 
-	Invoke.app.nfc('http://www.blackberry.com');
+	Invoke.nfc('http://www.blackberry.com');
 	
 **Twitter**
 
-	Invoke.app.twitter('this is a tweet!');
+	Invoke.twitter('this is a tweet!');
 	
 **Facebook**
 
-	Invoke.app.facebook('this is a status update!');
+	Invoke.facebook('this is a status update!');
 	
 **Take Photo**
 
