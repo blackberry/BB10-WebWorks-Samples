@@ -47,18 +47,12 @@ To build the Push Capture sample application:
 4. Create a new WebWorks project with the BlackBerry WebWorks SDK web console.
 5. Replace the www directory in your project with the one in the **pushCapture** subfolder
 6. Open a console, cd to your project directory and install the following plugins
-
-webworks plugin add com.blackberry.invoked
-
-webworks plugin add com.blackberry.push
-
-webworks plugin add com.blackberry.system
-
-webworks plugin add com.blackberry.ui.dialog
-
-webworks plugin add com.blackberry.ui.toast
-
-webworks plugin add com.blackberry.notification
+	webworks plugin add com.blackberry.invoked
+	webworks plugin add com.blackberry.push
+	webworks plugin add com.blackberry.system
+	webworks plugin add com.blackberry.ui.dialog
+	webworks plugin add com.blackberry.ui.toast
+	webworks plugin add com.blackberry.notification
 
 7. Click on the "Build" tab and deploy to a device
 
@@ -67,14 +61,10 @@ Note that in order to use the Push Service for developing an application for the
 
 1. If you are using the high-level APIs of the Push Service SDK (which offers subscription support) to implement your Push Initiator, then you should have an externally accessible Push Initiator URL.  Update the value of the uri attribute of the access tag in **pushCapture/config.xml** to point to the domain name of this URL. 
 2. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target IDs are unique to your application (signing requires that they cannot match the invoke target IDs used by someone else who is also attempting to sign the Push Capture sample app):
-
-Change the "sample.pushcapture.invoke.push" value in **pushCapture/config.xml** to something unique of your choosing.
-
-Change the **invokeTargetIdPush** variable in **pushCapture/Scripts/common.js** to have this same value.
-
-Change the "sample.pushcapture.invoke.open" value in **pushCapture/config.xml** to something unique of your choosing.
-
-Change the **invokeTargetIdOpen** variable in **pushCapture/Scripts/common.js** to have this same value. 
+	Change the "sample.pushcapture.invoke.push" value in **pushCapture/config.xml** to something unique of your choosing.
+	Change the **invokeTargetIdPush** variable in **pushCapture/Scripts/common.js** to have this same value.
+	Change the "sample.pushcapture.invoke.open" value in **pushCapture/config.xml** to something unique of your choosing.
+	Change the **invokeTargetIdOpen** variable in **pushCapture/Scripts/common.js** to have this same value. 
 
 ## How to send a push
 
