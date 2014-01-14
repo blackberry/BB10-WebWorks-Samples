@@ -1,0 +1,49 @@
+<!--
+ * Copyright 2012 Research In Motion Limited.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<div data-bb-type="screen" data-bb-effect="fade" data-bb-scroll-effect="on">	
+    <script id="pushlistJS" src="js/pushlist.js"></script>
+    
+    <style type="text/css">	
+        div.hidden {
+            display: none;
+        }
+    
+        div.error {
+            width: 90%;
+            word-wrap: break-word;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            padding: 0.5em;
+            border: 6px solid red;
+            background: #fcc;
+        }    
+    </style>
+        
+    <div id="content-title" data-bb-type="title" data-bb-caption="Push"></div>
+    
+    <div class="hidden" id="errordiv">
+        <br/>	
+        <div class="error" id="errormsg"></div>
+    </div>	
+        
+    <div id="content">
+    </div>  
+    
+    <div data-bb-type="action-bar" data-bb-tab-style="highlight">
+        <div data-bb-type="action" data-bb-style="tab" data-bb-img="img/actionbar/homeicon.png" onclick="bb.popScreen()">Home</div>
+    </div>
+</div>
