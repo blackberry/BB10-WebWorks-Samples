@@ -47,14 +47,12 @@ To build the Push Capture sample application:
 4. Create a new WebWorks project with the BlackBerry WebWorks SDK web console.
 5. Replace the www directory in your project with the one in the **pushCapture** subfolder
 6. Open a console, cd to your project directory and install the following plugins
----
-webworks plugin add com.blackberry.invoked
-webworks plugin add com.blackberry.push
-webworks plugin add com.blackberry.system
-webworks plugin add com.blackberry.ui.dialog
-webworks plugin add com.blackberry.ui.toast
-webworks plugin add com.blackberry.notification
----
+	a. webworks plugin add com.blackberry.invoked
+	b. webworks plugin add com.blackberry.push
+	c. webworks plugin add com.blackberry.system
+	d. webworks plugin add com.blackberry.ui.dialog
+	e. webworks plugin add com.blackberry.ui.toast
+	f. webworks plugin add com.blackberry.notification
 7. Click on the "Build" tab and deploy to a device
 
 ## Configuration
