@@ -1,0 +1,39 @@
+<widget id="pushCapture" version="0.0.1" 
+  xmlns="http://www.w3.org/ns/widgets" 
+  xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>pushCapture app</name>
+  <description>A sample Apache Cordova application that demonstrates the push service.</description>
+  <author email="lsale@blackberry.com" href="http://developer.blackberry.com">Luca Sale</author>
+  <content src="index.html"/>
+  <icon src="img/pushCaptureIcon.png" />
+  <rim:splash src="img/splash-768x1280.png" />
+  <rim:splash src="img/splash-720x1280.png" />
+  <rim:splash src="img/splash-720x720.png" />
+  <access origin="*"/>
+  <preference name="fullscreen" value="true"/>
+  <preference name="webviewbounce" value="true"/>
+  <rim:permissions>
+      <rim:permit>post_notification</rim:permit>
+      <!-- This permission is needed for a consumer (public) push application only (not enterprise push)! -->
+      <rim:permit system="true">_sys_use_consumer_push</rim:permit>
+  </rim:permissions>
+  <!-- Need to put an invoke entry here for push -->
+  <!-- The id here must match the invokeTargetId passed in as one of the ops to blackberry.push.PushService.create -->
+  <rim:invoke-target id="sample.pushcapture.invoke.push">
+    <type>APPLICATION</type>
+    <filter>
+      <action>bb.action.PUSH</action>
+      <mime-type>application/vnd.push</mime-type>
+    </filter>
+  </rim:invoke-target>
+  
+  <!-- Have an invoke entry here for when a notification is clicked on in the BlackBerry Hub -->
+  <!-- This will cause the application to be opened -->
+  <rim:invoke-target id="sample.pushcapture.invoke.open">
+    <type>APPLICATION</type>
+    <filter>
+      <action>bb.action.OPEN</action>
+      <mime-type>text/plain</mime-type>
+    </filter>
+  </rim:invoke-target>  
+</widget>
