@@ -74,21 +74,21 @@ You will need to whitelist the domain of the external server that you will be do
 
 6. Update the following files.
 
-	**config.xml**
+**config.xml**
 
-	Modify the **<access>** element to whitelist your external server.
+Modify the **<access>** element to whitelist your external server.
 
-		<rim:permissions>
-			<rim:permit>access_shared</rim:permit>
-		</rim:permissions>
+	<rim:permissions>
+		<rim:permit>access_shared</rim:permit>
+	</rim:permissions>
 
-	**index.html**
+**index.html**
 
-	Update the **settings.server** variable to reference your external server.
+Update the **settings.server** variable to reference your external server.
 
-		settings = {
-			'server': 'http://subdomain.domain.com/fileTransferServer'
-		};
+	settings = {
+		'server': 'http://subdomain.domain.com/fileTransferServer'
+	};
 
 7. Host the **fileTransferServer** folder from this repo on your external server.
 	
