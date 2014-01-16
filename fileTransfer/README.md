@@ -77,9 +77,9 @@ You will need to whitelist the domain of the external server that you will be do
 	```
 	config.xml: Add the access_shared permission.
 	
-	<rim:permissions>
-		<rim:permit>access_shared</rim:permit>
-	</rim:permissions>
+		<rim:permissions>
+			<rim:permit>access_shared</rim:permit>
+		</rim:permissions>
 	
 	config.xml: Modify the <access> element to whitelist your external server.
 
