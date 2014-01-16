@@ -27,9 +27,10 @@ The primary functionality is implemented in **index.html**..
 
 ####Cordova Plugins####
 
+com.blackberry.utils will be added by default when you add com.blackberry.io.filetransfer. You will need to manually add these plugins:
+
 	com.blackberry.io
 	com.blackberry.io.filetransfer
-	com.blackberry.utils
 	org.apache.cordova.file
 	org.apache.cordova.file-transfer
 
@@ -67,7 +68,6 @@ You will need to whitelist the domain of the external server that you will be do
 	```
 	webworks plugin add com.blackberry.io
 	webworks plugin add com.blackberry.io.filetransfer
-	webworks plugin add com.blackberry.utils
 	webworks plugin add org.apache.cordova.file
 	webworks plugin add org.apache.cordova.file-transfer
 	```
