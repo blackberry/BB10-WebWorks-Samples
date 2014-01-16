@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<!--
+* Copyright 2010-2012 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <title>FileTransfer</title>
+		
+		<link type="text/css" rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+		<div id="container">
+			<div class="row">
+				<div class="tab">
+					<div class="title">Cordova Download</div>
+					<div id="beginCordovaDownload" class="content">Tap To Start</div>
+				</div>
+				<div class="tab">
+					<div class="title">Cordova Upload</div>
+					<div id="beginCordovaUpload" class="content">Tap To Start</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="tab">
+					<div class="title">WebWorks Download</div>
+					<div id="beginWebWorksDownload" class="content">Tap To Start</div>
+				</div>
+				<div class="tab">
+					<div class="title">WebWorks Upload</div>
+					<div id="beginWebWorksUpload" class="content">Tap To Start</div>
+				</div>
+			</div>
+		</div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript">
+			/*global window, document, blackberry, console, FileUploadOptions, FileTransfer */
+			var settings, el;
+
+			function beginCordovaDownload() {
+				var ft;
+
+				/* Reset styling. */
+				el.beginCordovaDownload.classList.remove('complete');
+				el.beginCordovaDownload.classList.remove('error');
+				el.beginCordovaDownload.classList.remove('exception');
+				el.beginCordovaDownload.classList.add('intransit');
+				el.beginCordovaDownload.innerHTML = 'Downloading.';
+
+				try {
+					/* FileTransfer object. */
+					ft = new FileTransfer();
+
+					/* Attempt transfer. */
+					ft.download(
+						settings.server + '/download.jpg',
+						blackberry.io.sharedFolder + '/downloads/download.jpg',
+						function onSuccess(result) {
+							/* Transfer completed successfully. */
+							console.log(result);
+							el.beginCordovaDownload.classList.remove('intransit');
+							el.beginCordovaDownload.classList.add('complete');
+							el.beginCordovaDownload.innerHTML = 'Successfully received <b>' + result.name + '<\/b> to the shared Downloads folder.';
+						},
+						function onError(result) {
+							/* A transfer error occurred. */
+							console.log(result);
+							el.beginCordovaDownload.classList.remove('intransit');
+							el.beginCordovaDownload.classList.add('error');
+							el.beginCordovaDownload.innerHTML = 'HTTP ' + result.http_status + ': Download error (' + result.code + ') occurred.';
+						},
+						false,
+						{}
+					);
+				} catch (err) {
+					/* An exception occurred. */
+					console.log(err);
+					el.beginCordovaDownload.classList.remove('intransit');
+					el.beginCordovaDownload.classList.add('exception');
+					el.beginCordovaDownload.innerHTML = err.message;
+				}
+			}
+
+			function beginCordovaUpload() {
+				var options, ft;
+
+				/* Reset styling. */
+				el.beginCordovaUpload.classList.remove('complete');
+				el.beginCordovaUpload.classList.remove('error');
+				el.beginCordovaUpload.classList.remove('exception');
+				el.beginCordovaUpload.classList.add('intransit');
+				el.beginCordovaUpload.innerHTML = 'Uploading.';
+
+				try {
+					/* Upload options. */
+					options = new FileUploadOptions();
+					options.fileKey = 'file';
+					options.fileName = 'upload.jpg';
+					options.mimeType = 'image/jpeg';
+					options.params = {
+						'app': 'webworks'
+					};
+					options.chunkedMode = true;
+					options.chunkSize = 1024;
+
+					/* FileTransfer object. */
+					ft = new FileTransfer();
+
+					/* Monitor progress. */
+					ft.onprogress = function (progressEvent) {
+						el.beginCordovaUpload.innerHTML = 'Sent ' + progressEvent.loaded + ' of ' + progressEvent.total + ' chunks.';
+					};
+
+					/* Attempt upload. */
+					ft.upload(
+						blackberry.io.home + '/../app/native/upload.jpg',
+						settings.server + '/upload.php',
+						function onSuccess(result) {
+							/* Transfer completed successfully. */
+							console.log(result);
+							el.beginCordovaUpload.classList.remove('intransit');
+							el.beginCordovaUpload.classList.add('complete');
+							el.beginCordovaUpload.innerHTML = 'Successfully sent ' + result.bytesSent + ' bytes.';
+						},
+						function onError(result) {
+							/* A transfer error occurred. */
+							console.log(result);
+							el.beginCordovaUpload.classList.remove('intransit');
+							el.beginCordovaUpload.classList.add('error');
+							el.beginCordovaUpload.innerHTML = 'HTTP ' + (result.http_status || 0) + ': Upload error (' + result.code + ') occurred.';
+						},
+						options
+					);
+				} catch (err) {
+					/* An exception occurred. */
+					console.log(err);
+					el.beginCordovaUpload.classList.remove('intransit');
+					el.beginCordovaUpload.classList.add('exception');
+					el.beginCordovaUpload.innerHTML = err.message;
+				}
+			}
+
+			function beginWebWorksDownload() {
+				/* Reset styling. */
+				el.beginWebWorksDownload.classList.remove('complete');
+				el.beginWebWorksDownload.classList.remove('error');
+				el.beginWebWorksDownload.classList.remove('exception');
+				el.beginWebWorksDownload.classList.add('intransit');
+				el.beginWebWorksDownload.innerHTML = 'Downloading.';
+
+				try {
+					/* Attempt transfer. */
+					blackberry.io.filetransfer.download(
+						settings.server + '/download.jpg',
+						blackberry.io.sharedFolder + '/downloads/download.jpg',
+						function onSuccess(result) {
+							/* Transfer completed successfully. */
+							console.log(result);
+							el.beginWebWorksDownload.classList.remove('intransit');
+							el.beginWebWorksDownload.classList.add('complete');
+							el.beginWebWorksDownload.innerHTML = 'Successfully received <b>' + result.name + '<\/b> to the shared Downloads folder.';
+						},
+						function onError(result) {
+							/* A transfer error occurred. */
+							console.log(result);
+							el.beginWebWorksDownload.classList.remove('intransit');
+							el.beginWebWorksDownload.classList.add('error');
+							el.beginWebWorksDownload.innerHTML = 'HTTP ' + result.http_status + ': Download error (' + result.code + ') occurred.';
+						}
+					);
+				} catch (err) {
+					/* An exception occurred. */
+					console.log(err);
+					el.beginWebWorksDownload.classList.remove('intransit');
+					el.beginWebWorksDownload.classList.add('exception');
+					el.beginWebWorksDownload.innerHTML = err.message;
+				}
+			}
+
+			function beginWebWorksUpload() {
+				/* Reset styling. */
+				el.beginWebWorksUpload.classList.remove('complete');
+				el.beginWebWorksUpload.classList.remove('error');
+				el.beginWebWorksUpload.classList.remove('exception');
+				el.beginWebWorksUpload.classList.add('intransit');
+				el.beginWebWorksUpload.innerHTML = 'Uploading.';
+
+				try {
+					/* Attempt transfer. */
+					blackberry.io.filetransfer.upload(
+						'local:///upload.jpg',
+						settings.server + '/upload.php',
+						function onSuccess(result) {
+							/* Transfer completed successfully. */
+							console.log(result);
+							el.beginWebWorksUpload.classList.remove('intransit');
+							el.beginWebWorksUpload.classList.add('complete');
+							el.beginWebWorksUpload.innerHTML = 'Successfully sent ' + result.bytesSent + ' bytes.';
+						},
+						function onError(result) {
+							/* A transfer error occurred. */
+							console.log(result);
+							el.beginWebWorksUpload.classList.remove('intransit');
+							el.beginWebWorksUpload.classList.add('error');
+							el.beginWebWorksUpload.innerHTML = 'HTTP ' + result.http_status + ': Upload error (' + result.code + ') occurred.';
+						},
+						{
+							'fileKey': 'file',
+							'fileName': 'upload.jpg',
+							'mimeType': 'image/jpeg',
+							'params': {
+								'app': 'webworks'
+							},
+							'chunkedMode': true,
+							'chunkSize': 1024
+						}
+					);
+				} catch (err) {
+					/* An exception occurred. */
+					console.log(err);
+					el.beginWebWorksUpload.classList.remove('intransit');
+					el.beginWebWorksUpload.classList.add('exception');
+					el.beginWebWorksUpload.innerHTML = err.message;
+				}
+			}
+
+			window.addEventListener('load', function onload() {
+				settings = {
+					'server': 'http://R9N2R9M-4243B64.rim.net/fileTransfer'
+				};
+
+				el = {
+					'beginCordovaDownload': document.getElementById('beginCordovaDownload'),
+					'beginCordovaUpload': document.getElementById('beginCordovaUpload'),
+					'beginWebWorksDownload': document.getElementById('beginWebWorksDownload'),
+					'beginWebWorksUpload': document.getElementById('beginWebWorksUpload')
+				};
+
+				el.beginCordovaDownload.addEventListener('touchstart', beginCordovaDownload, false);
+				el.beginCordovaUpload.addEventListener('touchstart', beginCordovaUpload, false);
+				el.beginWebWorksDownload.addEventListener('touchstart', beginWebWorksDownload, false);
+				el.beginWebWorksUpload.addEventListener('touchstart', beginWebWorksUpload, false);
+				document.addEventListener('deviceready', function ondeviceready() {
+					blackberry.io.sandbox = false;
+				}, false);
+			}, false);
+        </script>
+    </body>
+</html>
