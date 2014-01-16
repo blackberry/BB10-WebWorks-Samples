@@ -27,29 +27,23 @@ The primary functionality is implemented in **index.html**..
 
 ####Cordova Plugins####
 
-	```
 	com.blackberry.io
 	com.blackberry.io.filetransfer
 	com.blackberry.utils
 	org.apache.cordova.file
 	org.apache.cordova.file-transfer
-	```
 
 ####BlackBerry Permissions####
 
 You will need permission to access the shared file system in order to save downloaded files.
 
-	```
 	access_shared
-	```
 
 ####Domain Whitelisting####
 
 You will need to whitelist the domain of the external server that you will be downloading from / uploading to.
 
-	```
 	<access origin="http://domain.com" subdomains="true" />
-	```
 
 ## How to Build
 
