@@ -27,7 +27,7 @@ The primary functionality is implemented in **index.html**..
 
 ####Cordova Plugins####
 
-com.blackberry.utils will be added by default when you add com.blackberry.io.filetransfer. You will need to manually add these plugins:
+**com.blackberry.utils** will be added by default when you add **com.blackberry.io.filetransfer**. You will need to manually add these plugins:
 
 	com.blackberry.io
 	com.blackberry.io.filetransfer
