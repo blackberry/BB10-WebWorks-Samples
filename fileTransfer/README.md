@@ -72,15 +72,29 @@ You will need to whitelist the domain of the external server that you will be do
 	webworks plugin add org.apache.cordova.file-transfer
 	```
 
-6. Add the following to your config.xml
+6. Update the following files.
 
 	```
-	<rim:permissions>
-		<rim:permit>access_shared</rim:permit>
-	</rim:permissions>
-	```
+	config.xml: Add the access_shared permission.
 	
-7. Run the following command to build and deploy the app to a device connected via USB
+		<rim:permissions>
+			<rim:permit>access_shared</rim:permit>
+		</rim:permissions>
+	
+	config.xml: Modify the <access> element to whitelist your external server.
+
+		<access origin="http://domain.com" subdomains="true" />
+
+	index.html: Update the settings.server variable to reference your external server.
+
+		settings = {
+			'server': 'http://subdomain.domain.com/fileTransferServer'
+		};
+	```
+
+7. Host the **fileTransferServer** folder from this repo on your external server.
+	
+8. Run the following command to build and deploy the app to a device connected via USB
 
 	```
 	webworks run

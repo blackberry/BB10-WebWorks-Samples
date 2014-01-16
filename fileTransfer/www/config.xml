@@ -27,7 +27,7 @@
     <content src="index.html" />
     
 	<access origin="*" />
-	<access origin="http://rim.net" subdomains="true" />
+	<access origin="http://domain.com" subdomains="true" />
 
 	<rim:permissions>
 		<rim:permit>access_shared</rim:permit>
