@@ -76,7 +76,7 @@ You will need to whitelist the BlackBerry Push servers for initiating pushes.
 	pushClient.js: Update the ops variable with your own client push credentials; replace the @ symbols.
 	
 		'ops': {
-			'invokeTargetId': '@@@@@@@@',
+			'invokeTargetId': 'com.@@@@@@@@.pushcapturebasics.invoke.push',
 			'appId': '@@@@-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
 			'ppgUrl': 'http://cp@@@@.pushapi.eval.blackberry.com'
 		},
