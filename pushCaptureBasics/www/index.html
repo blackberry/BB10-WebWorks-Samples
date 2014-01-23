@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!--
+* Copyright 2014 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+		<title>Push Capture Basics</title>
+		
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+	</head>
+	<body>
+		<!-- UI layout. -->
+		<div id="container">
+			<div id="header">Push Capture Basics</div>
+			<div id="content"></div>
+			<div id="footer">
+				<div class="action">
+					<div id="register" class="action">Register</div>
+					<div id="force" class="action disabled">Force</div>
+				</div>
+				<div id="sendpush" class="action">Send Push</div>
+				<div id="unregister" class="action">Unregister</div>
+			</div>
+		</div>
+
+		<!-- Script includes. -->
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="pushClient.js"></script>
+		<script type="text/javascript" src="pushInitiator.js"></script>
+		<script type="text/javascript" src="utils.js"></script>
+
+        <script type="text/javascript">
+			/*global window, document, pushClient, pushInitiator, utils */
+			var el, forceRegister;
+
+			/* Wait for load to ensure document exists. */
+            window.addEventListener('load', function onload() {
+				/* Listen for invoke requests. */
+				document.addEventListener('invoked', pushClient.onInvoke);
+
+				/* Storing DOM elements to minimize access. */
+				el = {
+					'content': document.getElementById('content'),
+					'register': document.getElementById('register'),
+					'force': document.getElementById('force'),
+					'sendpush': document.getElementById('sendpush'),
+					'unregister': document.getElementById('unregister')
+				};
+
+				/* Global flag whether to force Channel creation or not. */
+				forceRegister = false;
+
+				/* Add touch events to our buttons. */
+				el.register.addEventListener('touchstart', pushClient.register, false);
+				el.force.addEventListener('touchstart', utils.toggleForce, false);
+				el.sendpush.addEventListener('touchstart', pushInitiator.sendPush, false);
+				el.unregister.addEventListener('touchstart', pushClient.unregister, false);
+
+				/* Wait for deviceready before leveraging blackberry APIs. */
+				document.addEventListener('deviceready', function ondeviceready() {
+					/* Initialize our Push Initiator. */
+					pushInitiator.init();
+				}, false);
+			}, false);
+        </script>
+    </body>
+</html>
