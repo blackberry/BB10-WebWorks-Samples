@@ -12,6 +12,9 @@ Sample applications that demonstrate how to use the HTML5 Notification API for t
 * [Hasan Ahmad](https://github.com/haahmad)
 * [Adam Stanley](https://github.com/n_adam_stanley)
 
+**Screenshot**
+![image](screenshot_notifications.jpg)
+
 **Dependencies**
 
 1. [jquery.mobile-1.1.0.min.js, jquery.mobile-1.1.0.min.css, jquery-1.7.1.min.js ](http://www.jquerymobile.com/) The jQuery Mobile Framework

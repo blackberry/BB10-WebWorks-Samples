@@ -14,6 +14,8 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Naveenan Murugesu](http://www.twitter.com/Naveenan5)
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
+**Screenshot**
+![image](screenshot_localization.jpg)
 
 **Dependencies**
 

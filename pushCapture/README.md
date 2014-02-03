@@ -21,7 +21,6 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 * [BlackBerry 10 WebWorks 2.0 SDK](https://developer.blackberry.com/html5/download/sdk)
 
-
 **Port to WebWorks 2.0**
 * [Luca Sale](https://github.com/lsale)
 
@@ -29,6 +28,9 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 
 * [Matthew D'Andrea](https://github.com/mdandrea)
 * [Marco Di Cesare](https://github.com/mdicesare)
+
+**Screenshot**
+![image](screenshot_push.jpg)
 
 **Dependencies**
 

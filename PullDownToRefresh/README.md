@@ -15,6 +15,8 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Eli Fiddler](http://www.twitter.com/chadtatro)
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
+**Screenshot**
+![image](screenshot_pulltorefresh.jpg)
 
 ## WebWorks App Setup
 1. Open index.html

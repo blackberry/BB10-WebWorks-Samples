@@ -13,6 +13,8 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Chad Tetreault](http://www.twitter.com/chadtatro)
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
+**Screenshot**
+![image](screenshot_swipenavigation.jpg)
 
 **Dependencies**
 

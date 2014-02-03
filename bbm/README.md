@@ -16,6 +16,9 @@ The same code will work across other WebKit browser such as Chrome and Safari, w
 * [Erik Oros](http://www.twitter.com/waterlooerik)
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
+**Screenshot**
+![image](screenshot_bbm.jpg)
+
 **Dependencies**
 
 

@@ -34,6 +34,8 @@ An example of an agreement is as follows:
 * [Erik Oros](http://www.twitter.com/waterlooerik)
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
+**Screenshot**
+![image](screenshot_eula.jpg)
 
 **Dependencies**
 

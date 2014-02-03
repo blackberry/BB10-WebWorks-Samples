@@ -15,7 +15,8 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Michelle Mendoza](https://twitter.com/mendozamiche)
 * [Adam Stanley](https://twitter.com/n_adam_stanley)
 
-
+**Screenshot**
+![image](screenshot_orientation.jpg)
 **Dependencies**
 
 * WebWorks SDK 1.0.3.8
