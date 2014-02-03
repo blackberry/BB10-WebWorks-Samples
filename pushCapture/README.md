@@ -30,6 +30,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Marco Di Cesare](https://github.com/mdicesare)
 
 **Screenshot**
+
 ![image](screenshot_push.jpg)
 
 **Dependencies**

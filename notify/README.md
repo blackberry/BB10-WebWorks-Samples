@@ -13,6 +13,7 @@ Sample applications that demonstrate how to use the HTML5 Notification API for t
 * [Adam Stanley](https://github.com/n_adam_stanley)
 
 **Screenshot**
+
 ![image](screenshot_notifications.jpg)
 
 **Dependencies**

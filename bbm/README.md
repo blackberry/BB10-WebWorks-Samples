@@ -17,6 +17,7 @@ The same code will work across other WebKit browser such as Chrome and Safari, w
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
 **Screenshot**
+
 ![image](screenshot_bbm.jpg)
 
 **Dependencies**
