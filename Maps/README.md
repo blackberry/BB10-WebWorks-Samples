@@ -15,6 +15,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 * [Adam Stanley](http://www.twitter.com/n_adam_stanley)
 
 **Screenshot**
+
 ![image](screenshot_maps.jpg)
 
 **Dependencies**
@@ -74,7 +75,7 @@ Don't forget to access the devices location information via HTML5 Geolocation, t
 
 ## Security Considerations
 
-Your API Keys are meant to be private. For demonstration purposes we're coding the keys right in the JavaScript source.  This is not best practice, and is not recommended. You don’t want anybody to get access to your keys.
+Your API Keys are meant to be private. For demonstration purposes we're coding the keys right in the JavaScript source.  This is not best practice, and is not recommended. You donï¿½t want anybody to get access to your keys.
 
 ***One way*** to securely pass your API Keys to your application is to host them on a server, then use SSL and do a POST to obtain your keys.
 
