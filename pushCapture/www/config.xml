@@ -1,5 +1,5 @@
-<widget id="pushCapture" version="0.0.1" 
-  xmlns="http://www.w3.org/ns/widgets" 
+<widget id="pushCapture" version="0.0.1"
+  xmlns="http://www.w3.org/ns/widgets"
   xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>pushCapture app</name>
   <description>A sample Apache Cordova application that demonstrates the push service.</description>
@@ -8,7 +8,7 @@
   <icon src="img/pushCaptureIcon.png" />
   <rim:splash src="img/splash-768x1280.png" />
   <rim:splash src="img/splash-720x1280.png" />
-  <rim:splash src="img/splash-720x720.png" />
+  <rim:splash src="img/splash-720x720.png"  />
   <access origin="*"/>
   <preference name="fullscreen" value="true"/>
   <preference name="webviewbounce" value="true"/>
@@ -26,7 +26,7 @@
       <mime-type>application/vnd.push</mime-type>
     </filter>
   </rim:invoke-target>
-  
+
   <!-- Have an invoke entry here for when a notification is clicked on in the BlackBerry Hub -->
   <!-- This will cause the application to be opened -->
   <rim:invoke-target id="sample.pushcapture.invoke.open">
@@ -35,5 +35,5 @@
       <action>bb.action.OPEN</action>
       <mime-type>text/plain</mime-type>
     </filter>
-  </rim:invoke-target>  
+  </rim:invoke-target>
 </widget>
