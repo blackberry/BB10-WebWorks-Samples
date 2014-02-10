@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<!--
+* Copyright 2014 Research In Motion Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+		<title>Push Client</title>
+		
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+	</head>
+	<body>
+		<!-- UI layout. -->
+		<div id="container">
+			<div id="header">Push Client</div>
+			<div id="clear">x</div>
+			<div id="content"></div>
+			<div id="footer">
+				<div id="register" class="action">Force Register</div>
+				<div id="unregister" class="action">Unregister</div>
+			</div>
+		</div>
+
+		<!-- Script includes. -->
+        <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="pushClient.js"></script>
+		<script type="text/javascript" src="utils.js"></script>
+
+        <script type="text/javascript">
+			/*global window, document, blackberry, pushClient */
+			var el, autoExit;
+
+			/* Until we see a fullscreen windowState, we will automatically exit when handling pushes. */
+			autoExit = true;
+
+			/* Wait for load to ensure document exists. */
+            window.addEventListener('load', function onload() {
+				/* Storing DOM elements to minimize access. */
+				el = {
+					'clear': document.getElementById('clear'),
+					'content': document.getElementById('content'),
+					'register': document.getElementById('register'),
+					'unregister': document.getElementById('unregister')
+				};
+
+				/* Add touch events to our buttons. */
+				el.register.addEventListener('touchstart', pushClient.register, false);
+				el.unregister.addEventListener('touchstart', pushClient.unregister, false);
+				el.clear.addEventListener('touchstart', function clearLog() {
+					el.content.innerHTML = '';
+				}, false);
+
+				/* Wait for deviceready before leveraging blackberry APIs. */
+				document.addEventListener('deviceready', function ondeviceready() {
+					/* Monitor the windowState for fullscreen (i.e. user-control.) */
+					document.addEventListener('windowstatechanged', function onwindowstatechanged(state) {
+						if (state === 'fullscreen') { autoExit = false; }
+					}, false);
+					if (blackberry.app.windowState === 'fullscreen') { autoExit = false; }
+
+					/* Listen for invoke requests. */
+					document.addEventListener('invoked', pushClient.onInvoke);
+
+					/* Register Push Service on start-up. */
+					pushClient.register();
+				}, false);
+			}, false);
+        </script>
+    </body>
+</html>

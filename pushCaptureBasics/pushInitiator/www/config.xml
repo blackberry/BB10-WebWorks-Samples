@@ -16,11 +16,11 @@
 * limitations under the License.
 -->
 
-<widget id="com.@@@@@@@@.pushcapturebasics" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Push Capture Basics</name>
+<widget id="com.@@@@@@.pushinitiator" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Push Initiator</name>
     
 	<description>
-        A sample WebWorks application showing BlackBerry Push integration.
+        A sample WebWorks application showing BlackBerry Push initator integration.
     </description>
 	
     <author email="eoros@blackberry.com" href="http://developer.blackberry.com/html5">
@@ -34,12 +34,4 @@
     
 	<preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
-	
-	<rim:invoke-target id="com.@@@@@@@@.pushcapturebasics.invoke.push">       
-		<type>APPLICATION</type>       
-		<filter>        
-			<action>bb.action.PUSH</action>
-			<mime-type>application/vnd.push</mime-type>       
-		</filter>     
-	</rim:invoke-target>
 </widget>

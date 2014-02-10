@@ -1,4 +1,4 @@
-/*global document, console, el, forceRegister */
+/*global document, console, el */
 
 /*
 * Copyright 2014 Research In Motion Limited.
@@ -20,12 +20,6 @@
  *	A few helper functions not related to Push.
  */
 var utils = {
-	/* Keep track of the user interaction with the Force button. */
-	'toggleForce': function () {
-		el.force.classList.toggle('disabled');
-		forceRegister = !forceRegister;
-	},
-
 	/* Logs events to the screen and console. */
 	'log': function (value) {
 		var div;
