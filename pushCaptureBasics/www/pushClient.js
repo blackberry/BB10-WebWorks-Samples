@@ -193,7 +193,7 @@ var pushClient = {
 			/* Only process Push Invocations. */
 			if (invokeRequest.action === 'bb.action.PUSH') {
 				/* Check that we have a valid PushService object. */
-				if (pushClient.PushService) {
+				if (pushClient.pushService !== 0) {
 					/* Update our Push Activity to track this received push. */
 					utils.log('Push invocation received.');
 					window.localStorage.lastActivity = new Date().getTime();

@@ -53,9 +53,6 @@
 
 			/* Wait for load to ensure document exists. */
             window.addEventListener('load', function onload() {
-				/* Listen for invoke requests. */
-				document.addEventListener('invoked', pushClient.onInvoke);
-
 				/* Storing DOM elements to minimize access. */
 				el = {
 					'content': document.getElementById('content'),
@@ -76,6 +73,9 @@
 
 				/* Wait for deviceready before leveraging blackberry APIs. */
 				document.addEventListener('deviceready', function ondeviceready() {
+					/* Listen for invoke requests. */
+					document.addEventListener('invoked', pushClient.onInvoke);
+
 					/* Initialize our Push Initiator. */
 					pushInitiator.init();
 				}, false);
