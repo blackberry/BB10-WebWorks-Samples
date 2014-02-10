@@ -95,13 +95,13 @@ You will need to whitelist the BlackBerry Push servers for initiating pushes.
 	cd <your source folder>\pushInitiator
 	```
 
-You will need to add the **identity** plugin:
+	You will need to add the **identity** plugin:
 
 	```
 	webworks plugin add com.blackberry.identity
 	```
 
-And update **pushInitiator.js**:
+	And update the following files:
 
 	```
 	config.xml: You will need to modify the application ID; replace the @ symbols.
