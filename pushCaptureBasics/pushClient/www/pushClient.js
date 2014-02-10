@@ -38,7 +38,7 @@ var pushClient = {
 	'ops': {
 		'invokeTargetId': 'com.@@@@@@.pushclient.invoke.push',
 		'appId': '@@@@-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
-		'ppgUrl': 'http://cp4@@@@.pushapi.eval.blackberry.com'
+		'ppgUrl': 'http://cp@@@@.pushapi.eval.blackberry.com'
 	},
 
 	/**
