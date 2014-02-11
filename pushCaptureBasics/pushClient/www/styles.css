@@ -1,0 +1,97 @@
+/*
+* Copyright 2014 BlackBerry Limited.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+html, body {
+	border: 0px; margin: 0px; padding: 0px;
+	font-family: "Slate Pro", Slate, "Myriad Pro", "BBAlpha Sans", Helvetica;
+	font-size: 36px;
+	left: 0px; right: 0px; top: 0px; bottom: 0px;
+	position: fixed;
+}
+
+#container {
+	height: 100%;
+	width: 100%;
+}
+
+#header {
+	-webkit-align-items: center;
+	-webkit-flex-direction: column;
+	-webkit-justify-content: center;
+	background-color: #5599FF;
+	color: #AAEEFF;
+	display: -webkit-flex;
+	height: 100px;
+	left: 0px; right: 0px; top: 0px;
+	position: fixed;
+}
+
+#clear {
+	-webkit-align-items: center;
+	-webkit-flex-direction: column;
+	-webkit-justify-content: center;
+	color: #000000;
+	display: -webkit-flex;
+	font-size: 36px;
+	height: 40px;
+	position: fixed;
+	right: 0px; top: 100px;
+	width: 40px;
+	z-index: 1;
+}
+
+#content {
+    -webkit-overflow-scrolling: -blackberry-touch;
+	background-color: #DDDDDD;
+	color: #777777;
+	font-size: 18px;
+	left: 0px; right: 0px; top: 100px; bottom: 100px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	position: fixed;
+	z-index: 0;
+}
+
+#footer {
+	-webkit-flex-direction: row;
+	display: -webkit-flex;
+	height: 100px;
+	left: 0px; right: 0px; bottom: 0px;
+	position: fixed;
+}
+
+.action {
+	-webkit-align-items: center;
+	-webkit-flex: 1;
+	-webkit-flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	-webkit-justify-content: center;
+	display: -webkit-flex;
+	font-size: 24px;
+	height: 100%;
+	text-align: center;
+	width: 100%;
+}
+
+#register {
+	background-color: #55AA55;
+	color: #AAFFAA;
+}
+
+#unregister {
+	background-color: #FF5555;
+	color: #FFBB99;
+}

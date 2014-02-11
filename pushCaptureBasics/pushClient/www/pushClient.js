@@ -1,7 +1,7 @@
-/*global window, FileReader, blackberry, forceRegister, utils */
+/*global window, FileReader, blackberry, autoExit, utils */
 
 /*
-* Copyright 2014 Research In Motion Limited.
+* Copyright 2014 BlackBerry Limited.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -24,6 +24,9 @@ var pushClient = {
 	'lastActivity': 0,
 	'pushService': 0,
 
+	'queue': [],
+	'waiting': false,
+
 	/**
 	 *	ops: You will need to populate these with your own Push credentials.
 	 *	The invokeTarketId needs to match the custom invoke-target in your
@@ -33,7 +36,7 @@ var pushClient = {
 	 *	https://developer.blackberry.com/services/push/
 	 */
 	'ops': {
-		'invokeTargetId': 'com.@@@@@@@@.pushcapturebasics.invoke.push',
+		'invokeTargetId': 'com.@@@@@@.pushclient.invoke.push',
 		'appId': '@@@@-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
 		'ppgUrl': 'http://cp@@@@.pushapi.eval.blackberry.com'
 	},
@@ -60,18 +63,10 @@ var pushClient = {
 			} catch (err) {
 				utils.log(err);
 			}
-		} else if (window.parseInt(window.localStorage.lastActivity || 0) === 0) {
-			/* If our PushService object exists, but we haven't seen any push activity, proceed to registering a Push Channel. */
-			utils.log('PushService object already exists.');
-			pushClient.createSuccess(pushClient.pushService);
-		} else if (forceRegister === true) {
-			/* If our PushService object exists, and we want to force the creation of a Push Channel, proceed. */
-			utils.log('PushService object already exists.');
-			pushClient.createSuccess(pushClient.pushService);
 		} else {
-			/* Our PushService object already exists and there is no need to create a Push Channel. */
+			/* Forcing Push Service registration. */
 			utils.log('PushService object already exists.');
-			utils.log('Not forcing Push Channel recreation.');
+			pushClient.registerChannel();
 		}
 	},
 
@@ -96,19 +91,13 @@ var pushClient = {
 			}
 		);
 
-		if (forceRegister) {
-			/* If we're forcing a registration, call registerChannel. */
-			utils.log('Forcing Push Channel registration.');
+		if (new Date().getTime() - pushClient.lastActivity > 2 * 24 * 60 * 60 * 1000) {
+			/* If we've gone more than two days without any activity, recreate the Push Channel. This is subjective. */
+			utils.log('Expired Push Channel registration.');
 			pushClient.registerChannel();
 		} else {
-			if (new Date().getTime() - pushClient.lastActivity > 2 * 24 * 60 * 60 * 1000) {
-				/* If we've gone more than two days without any activity, recreate the Push Channel. This is subjective. */
-				utils.log('Expired Push Channel registration.');
-				pushClient.registerChannel();
-			} else {
-				/* We're not forcing Puch Channel recreation and we have seen activity within two days, so likely everything is okay, take no action. */
-				utils.log('No need to recreate the Push Channel.');
-			}
+			/* We have seen activity within two days, so likely everything is okay, take no action. */
+			utils.log('No need to recreate the Push Channel.');
 		}
 	},
 
@@ -181,41 +170,101 @@ var pushClient = {
 	},
 
 	/**
+	 *	Iterate recursively through the pushClient.queue array until we've processed all pushes.
+	 */
+	'processQueue': function (invokeRequest) {
+		var pushPayload, reader;
+
+		/* Check if there is anything left to process. */
+		if (!invokeRequest) {
+			/* We've processed everything. */
+			utils.log('Processing complete.');
+			pushClient.waiting = false;
+
+			/* If we were processing pushes in the background, exit the app. */
+			if (autoExit === true) {
+				utils.log('Exit application.');
+				/* blackberry.app.exit(); */
+			}
+			return;
+		}
+
+		try {
+			/* Extract the payload from the Push Invocation. */
+			pushPayload = pushClient.pushService.extractPushPayload(invokeRequest);
+
+			/* Process a text data payload. */
+			reader = new FileReader();
+			reader.onload = function (result) {
+				var text = result.target.result;
+				utils.log(text);
+
+				utils.log('Processing next item.');
+				pushClient.processQueue(pushClient.queue.shift());
+			};
+			reader.onerror = function (result) {
+				utils.log('Error converting blob to text: ' + result.target.error);
+
+				utils.log('Processing next item.');
+				pushClient.processQueue(pushClient.queue.shift());
+			};
+			reader.readAsText(pushPayload.data, 'UTF-8');
+		} catch (err) {
+			utils.log(err);
+		}
+	},
+
+	/**
+	 *	Our application was invoked before the PushService object had a chance to be created.
+	 *	We'll keep checking periodically until the object is ready and then process any
+	 *	outstanding pushes that we've received in the meantime.
+	 */
+	'waitForPushService': function () {
+		if (pushClient.pushService === 0) {
+			/* We still don't have a PushService object, wait a little longer. */
+			utils.log('Waiting.');
+			window.setTimeout(pushClient.waitForPushService, 100);
+		} else {
+			/* We have a PushService object, begin processing from the beginning of the queue. */
+			utils.log('Processing push queue.');
+			pushClient.processQueue(pushClient.queue.shift());
+		}
+	},
+
+	/**
 	 *	This function will be called when a Push Invocation is received. In this example,
 	 *	we are assuming a text-based data payload (see pushInitiator.js) to be received.
 	 *	This is the most common case for many applications.
 	 */
 	'onInvoke': function (invokeRequest) {
-		var pushPayload, reader;
 
 		/* Ensure the invocation has an action associated with it. */
 		if (invokeRequest.action) {
 			/* Only process Push Invocations. */
 			if (invokeRequest.action === 'bb.action.PUSH') {
-				/* Check that we have a valid PushService object. */
-				if (pushClient.PushService) {
-					/* Update our Push Activity to track this received push. */
-					utils.log('Push invocation received.');
-					window.localStorage.lastActivity = new Date().getTime();
-					try {
-						/* Extract the payload from the Push Invocation. */
-						pushPayload = pushClient.pushService.extractPushPayload(invokeRequest);
+				/* Update our Push Activity to track this received push. */
+				utils.log('Push invocation received.');
+				window.localStorage.lastActivity = new Date().getTime();
 
-						/* Process a text data payload. */
-						reader = new FileReader();
-						reader.onload = function (result) {
-							var text = result.target.result;
-							utils.log(text);
-						};
-						reader.onerror = function (result) {
-							utils.log('Error converting blob to text: ' + result.target.error);
-						};
-						reader.readAsText(pushPayload.data, 'UTF-8');
-					} catch (err) {
-						utils.log(err);
+				/* Add this invokeRequest to our processing queue. */
+				utils.log('Added new push to queue.');
+				pushClient.queue.push(invokeRequest);
+
+				/* Wait for the PushService object if we need to. */
+				if (pushClient.pushService === 0) {
+					if (pushClient.waiting === false) {
+						pushClient.waiting = true;
+
+						/* Begin waiting for PushService object. */
+						utils.log('Waiting for PushService object.');
+						window.setTimeout(pushClient.waitForPushService, 100);
 					}
-				} else {
-					utils.log('PushService object does not exist; consider creating on application launch.');
+				} else if (pushClient.waiting === false) {
+					pushClient.waiting = true;
+
+					/* We have a PushService object, begin processing from the beginning of the queue. */
+					utils.log('Processing push queue.');
+					pushClient.processQueue(pushClient.queue.shift());
 				}
 			} else {
 				utils.log('Invocation received: ' + invokeRequest.action);

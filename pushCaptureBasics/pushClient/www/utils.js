@@ -1,7 +1,7 @@
-/*global document, console, el, forceRegister */
+/*global document, console, el */
 
 /*
-* Copyright 2014 Research In Motion Limited.
+* Copyright 2014 BlackBerry Limited.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -20,12 +20,6 @@
  *	A few helper functions not related to Push.
  */
 var utils = {
-	/* Keep track of the user interaction with the Force button. */
-	'toggleForce': function () {
-		el.force.classList.toggle('disabled');
-		forceRegister = !forceRegister;
-	},
-
 	/* Logs events to the screen and console. */
 	'log': function (value) {
 		var div;
