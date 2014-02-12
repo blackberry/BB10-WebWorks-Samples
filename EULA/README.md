@@ -112,28 +112,33 @@ The following feature must be included in your project's config.xml.
 ## How to Build
 
 1. Clone this repo to your local machine.
+
 2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+
 3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
     ```
     webworks create <your source folder>\EULA
     ```
 
-3. **Replace** the default EULA\www folder with the \www folder from **this** project
-4. From the command prompt (Windows) or terminal (mac), navigate to the EULA folder
+4. **Replace** the default EULA\www folder with the \www folder from **this** project
+
+5. **Replace** the default EULA\config.xml with the config.xml from **this** project
+
+6. From the command prompt (Windows) or terminal (mac), navigate to the EULA folder
 
     ```
     cd <your source folder>\EULA
     ```
 
-5. Run the following commands to configure plugins used by **this app**
+7. Run the following commands to configure plugins used by **this app**
 
     ```
     webworks plugin add com.blackberry.app
     webworks plugin add com.blackberry.system
     ```
 
-6. Run the following command to build and deploy the app to a device connected via USB
+8. Run the following command to build and deploy the app to a device connected via USB
 
     ```
     webworks run
