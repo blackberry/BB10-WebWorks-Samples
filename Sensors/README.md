@@ -44,21 +44,26 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 ## How to Build
 
 1. Clone this repo to your local machine.
+
 2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+
 3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
 	```
 	webworks create <your source folder>\Sensors
 	```
 
-3. **Replace** the default CustomContext\www folder with the \www folder from **this** project
-4. From the command prompt (Windows) or terminal (mac), navigate to the Sensors folder
+4. **Replace** the default CustomContext\www folder with the \www folder from **this** project
+
+5. **Replace** the default CustomContext\config.xml with the config.xml from **this** project
+
+6. From the command prompt (Windows) or terminal (mac), navigate to the Sensors folder
 
 	```
 	cd <your source folder>\Sensors
 	```
 
-5. Run the following commands to configure plugins used by **this app**
+7. Run the following commands to configure plugins used by **this app**
 
 	```
 	webworks plugin add com.blackberry.app
@@ -66,7 +71,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 	webworks plugin add com.blackberry.system
 	```
 
-6. Run the following command to build and deploy the app to a device connected via USB
+8. Run the following command to build and deploy the app to a device connected via USB
 
 	```
 	webworks run
