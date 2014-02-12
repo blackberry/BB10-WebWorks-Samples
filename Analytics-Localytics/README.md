@@ -59,7 +59,7 @@ Localytics has done an amazing job at creating simple, easy to follow instructio
 ## How to Build
 
 1. Clone this repo to your local machine.
-2. 
+ 
 2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
 3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
