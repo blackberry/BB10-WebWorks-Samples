@@ -43,30 +43,35 @@ blackberry.system.setWallpaper(path);
 ## How to Build
 
 1. Clone this repo to your local machine.
+
 2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
+
 3. Open a command prompt (windows) or terminal (mac) and run the following command:
 
 	```
 	webworks create <your source folder>\SetWallpaper
 	```
 
-3. **Replace** the default SetWallpaper\www folder with the \www folder from **this** project
-4. From the command prompt (Windows) or terminal (mac), navigate to the SetWallpaper folder
+4. **Replace** the default SetWallpaper\www folder with the \www folder from **this** project
+
+5. **Replace** the default SetWallpaper\config.xml with the config.xml from **this** project
+
+6. From the command prompt (Windows) or terminal (mac), navigate to the SetWallpaper folder
 
 	```
 	cd <your source folder>\SetWallpaper
 	```
 
-5. Run the following commands to configure plugins used by **this app**
+7. Run the following commands to configure plugins used by **this app**
 
 	```
 	webworks plugin add com.blackberry.app
 	webworks plugin add com.blackberry.invoke.card
 	webworks plugin add com.blackberry.ui.toast
 	webworks plugin add com.blackberry.system
-```
+	```
 
-6. Run the following command to build and deploy the app to a device connected via USB
+8. Run the following command to build and deploy the app to a device connected via USB
 
 	```
 	webworks run
