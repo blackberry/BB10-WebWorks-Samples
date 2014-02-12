@@ -85,7 +85,7 @@ The primary functionality is implemented in **index.js**, while the remaining fi
 	webworks run
 	```
 	
-	## More Info
+## More Info
 
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
