@@ -70,7 +70,8 @@ Flurry has done an amazing job at creating simple, easy to follow instructions f
 	webworks create <your source folder>\Analytics-Flurry
 	```
 
-3. **Replace** the default Analytics-Flurry\www folder with the \www folder from **this** project
+3a. **Replace** the default Analytics-Flurry\www folder with the \www folder from **this** project
+3b. **Replace** the default Analytics-Flurry\config.xml with the config.xml from **this** project
 4. From the command prompt (Windows) or terminal (mac), navigate to the Analytics-Flurry folder
 
 	```
