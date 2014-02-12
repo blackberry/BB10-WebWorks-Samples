@@ -31,6 +31,7 @@ The primary client functionality is implemented in **pushClient.js** and **pushI
 
 **Push Client**
 
+	com.blackberry.app
 	com.blackberry.invoked
 	com.blackberry.push
 
