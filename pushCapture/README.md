@@ -45,11 +45,18 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 To build the Push Capture sample application:
 
 1. When you're ready to try out the Push Capture sample app on your BlackBerry 10 device (the simulator and Ripple are not yet supported), make sure you first download the **[BlackBerry 10 WebWorks 2.0 SDK](https://developer.blackberry.com/html5/download)**.
+
 2. Clone the **BB10-WebWorks-Samples** repo, 2.0 branch.
+
 3. Navigate to the **pushCapture** subfolder.
+
 4. Create a new WebWorks project with the BlackBerry WebWorks SDK web console.
-5. Replace the www directory in your project with the one in the **pushCapture** subfolder
-6. Open a console, cd to your project directory and install the following plugins
+
+5. **Replace** the default pushCapture\www directory in your project with the one in the **pushCapture** subfolder
+ 
+6. **Replace** the default pushCapture\config.xml with the config.xml from **this** project
+
+7. Open a console, cd to your project directory and install the following plugins
 	- webworks plugin add com.blackberry.invoked
 	- webworks plugin add com.blackberry.push
 	- webworks plugin add com.blackberry.system
@@ -57,7 +64,7 @@ To build the Push Capture sample application:
 	- webworks plugin add com.blackberry.ui.toast
 	- webworks plugin add com.blackberry.notification
 
-7. Click on the "Build" tab and deploy to a device
+8. Click on the "Build" tab and deploy to a device
 
 ## Configuration
 Note that in order to use the Push Service for developing an application for the general public (non-enterprise), you will have to first register [here](https://www.blackberry.com/profile/?eventId=8121).
