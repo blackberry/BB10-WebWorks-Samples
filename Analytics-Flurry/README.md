@@ -64,14 +64,16 @@ Flurry has done an amazing job at creating simple, easy to follow instructions f
 
 1. Clone this repo to your local machine.
 2. Ensure the [BlackBerry 10 WebWorks SDK 2.0](https://developer.blackberry.com/html5/download/sdk) is correctly installed.
-3. Open a command prompt (windows) or terminal (mac) and run the following command:
+3a. Open a command prompt (windows) or terminal (mac) and run the following command:
 
 	```
 	webworks create <your source folder>\Analytics-Flurry
 	```
 
-3a. **Replace** the default Analytics-Flurry\www folder with the \www folder from **this** project
-3b. **Replace** the default Analytics-Flurry\config.xml with the config.xml from **this** project
+3b. **Replace** the default Analytics-Flurry\www folder with the \www folder from **this** project
+
+3c. **Replace** the default Analytics-Flurry\config.xml with the config.xml from **this** project
+
 4. From the command prompt (Windows) or terminal (mac), navigate to the Analytics-Flurry folder
 
 	```
