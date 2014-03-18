@@ -47,18 +47,18 @@ var Application = {
             // Fires "after" styling is applied and "after" the screen is inserted in the DOM
             ondomready: function(element, id) {
                 blackberry.event.addEventListener("invoked", function(invocationInfo) {
-                    printToLog("Handler start . . .");
+                    console.log("Handler start . . .");
                     if (invocationInfo.target) {
-                        console.log(nvocationInfo.target);
+                        console.log(invocationInfo.target);
                     }
                     if (invocationInfo.type) {
-                        console.log(nvocationInfo.type);
+                        console.log(invocationInfo.type);
                     }
                     if (invocationInfo.action) {
-                        console.log(nvocationInfo.action);
+                        console.log(invocationInfo.action);
                     }
                     if (invocationInfo.data) {
-                        console.log(nvocationInfo.data);
+                        console.log(invocationInfo.data);
                     }
                 });
 
