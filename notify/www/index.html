@@ -32,18 +32,18 @@
         function onInvoked(data) {
             var ele = document.createElement("div"), sb = [], log = document.getElementById("log");
 
-            sb.append("<p>Source: " + data.source + "</p>");
-            sb.append("<p>Target: " + data.target + "</p>");
-            sb.append("<p>Action: " + data.action + "</p>");
-            sb.append("<p>Type: " + data.type + "</p>");
-            sb.append("<p>URI: " + data.uri + "</p>");
-            sb.append("<p>Data: " + data.data + "</p>");
+            sb.push("<p>Source: " + data.source + "</p>");
+            sb.push("<p>Target: " + data.target + "</p>");
+            sb.push("<p>Action: " + data.action + "</p>");
+            sb.push("<p>Type: " + data.type + "</p>");
+            sb.push("<p>URI: " + data.uri + "</p>");
+            sb.push("<p>Data: " + data.data + "</p>");
 
             ele.innerHTML = sb.toString();
             if (log) {
                 log.appendChild(ele);
             }
-        };
+        }
 
         function notifySimple () {
             var n = new Notification("simple notification");
@@ -69,10 +69,9 @@
 
         function notifyParams () {
             var n = new Notification("button4", {
-                'target' : "notifyTest",
                 'targetAction' : "bb.action.OPEN",
-                'payloadURI' : "http://www.blackberry.com",
-                'payloadType' : "text/html"
+                'payLoadURI' : "http://www.blackberry.com",
+                'payLoadType' : "text/html"
             });
             console.log(n);
         }
@@ -97,7 +96,7 @@
         }
 
         function setButtonListeners() {
-        };
+        }
 
         window.addEventListener("load", function () {
             document.addEventListener("deviceready", function(e) {
