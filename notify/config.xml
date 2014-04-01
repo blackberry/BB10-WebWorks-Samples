@@ -19,7 +19,7 @@ limitations under the License.
         version="1.0.0"
         id="notifySample">
     <name>Notification Sample</name>
-    <content src="index.htm"/>
+    <content src="index.html"/>
     <author>Research In Motion Ltd.</author>
     <license href="http://www.apache.org/licenses/LICENSE-2.0">
         Licensed under the Apache License, Version 2.0 (the "License");
