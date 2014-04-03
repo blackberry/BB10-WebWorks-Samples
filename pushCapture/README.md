@@ -1,9 +1,9 @@
 # Push Capture Sample Application
 
-The Push Capture sample push-enabled application demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes. 
+The Push Capture sample push-enabled application demonstrates how to write a BlackBerry 10 WebWorks application that is able to receive pushes.
 
 Consult the [PushService](http://developer.blackberry.com/html5/apis/beta/blackberry.push.pushservice.html) and [PushPayload](http://developer.blackberry.com/html5/apis/beta/blackberry.push.pushpayload.html) classes from the API reference for useful examples and a full description of how to use the
-push APIs. 
+push APIs.
 
 There is also a valuable developer guide on how to write a push-enabled application using BlackBerry WebWorks that you can find [here](https://developer.blackberry.com/html5/documentation/push_service.html).
 
@@ -24,7 +24,7 @@ The sample code for this application is Open Source under the [Apache 2.0 Licens
 **Port to WebWorks 2.0**
 * [Luca Sale](https://github.com/lsale)
 
-**Original Author(s)** 
+**Original Author(s)**
 
 * [Matthew D'Andrea](https://github.com/mdandrea)
 * [Marco Di Cesare](https://github.com/mdicesare)
@@ -53,7 +53,7 @@ To build the Push Capture sample application:
 4. Create a new WebWorks project with the BlackBerry WebWorks SDK web console.
 
 5. **Replace** the default pushCapture\www directory in your project with the one in the **pushCapture** subfolder
- 
+
 6. **Replace** the default pushCapture\config.xml with the config.xml from **this** project
 
 7. Open a console, cd to your project directory and install the following plugins
@@ -63,18 +63,19 @@ To build the Push Capture sample application:
 	- webworks plugin add com.blackberry.ui.dialog
 	- webworks plugin add com.blackberry.ui.toast
 	- webworks plugin add com.blackberry.notification
+    - webworks plugin add com.blackberry.app
 
 8. Click on the "Build" tab and deploy to a device
 
 ## Configuration
 Note that in order to use the Push Service for developing an application for the general public (non-enterprise), you will have to first register [here](https://www.blackberry.com/profile/?eventId=8121).
 
-1. If you are using the high-level APIs of the Push Service SDK (which offers subscription support) to implement your Push Initiator, then you should have an externally accessible Push Initiator URL.  Update the value of the uri attribute of the access tag in **pushCapture/config.xml** to point to the domain name of this URL. 
+1. If you are using the high-level APIs of the Push Service SDK (which offers subscription support) to implement your Push Initiator, then you should have an externally accessible Push Initiator URL.  Update the value of the uri attribute of the access tag in **pushCapture/config.xml** to point to the domain name of this URL.
 2. If you intend to sign your application before deploying it to your BlackBerry 10 device, you need to make sure your invoke target IDs are unique to your application (signing requires that they cannot match the invoke target IDs used by someone else who is also attempting to sign the Push Capture sample app):
 	- Change the "sample.pushcapture.invoke.push" value in **pushCapture/config.xml** to something unique of your choosing.
 	- Change the **invokeTargetIdPush** variable in **pushCapture/Scripts/common.js** to have this same value.
 	- Change the "sample.pushcapture.invoke.open" value in **pushCapture/config.xml** to something unique of your choosing.
-	- Change the **invokeTargetIdOpen** variable in **pushCapture/Scripts/common.js** to have this same value. 
+	- Change the **invokeTargetIdOpen** variable in **pushCapture/Scripts/common.js** to have this same value.
 
 ## How to send a push
 
@@ -106,7 +107,7 @@ Push Service APIs create an application ID for you automatically.
 the confirmation email message. The sample application uses this URL to create a channel to the PPG. For an
 evaluation environment, the URL is http://cp{cpid}.pushapi.eval.blackberry.com, where {cpid} is your content
 provider ID. For a production environment, the URL is http://cp{cpid}.pushapi.na.blackberry.com.
-7. If the **Subscribe with Push Service SDK** check box is selected, in the **Push Initiator URL** field, 
+7. If the **Subscribe with Push Service SDK** check box is selected, in the **Push Initiator URL** field,
 type https://{server_address}/high-level-sample, where {server_address} is the address of the server where the **high-level-sample** sample
 Push Initiator is deployed. The SDK includes the high-level sample Push Initiator that is deployed on a server, such as the
 Apache Tomcat server. The URL must be accessible from the Internet.  Of course, you can also point to your own
@@ -114,8 +115,8 @@ running Push Initiator application instead of the provided **high-level-sample**
 8. Click the **Launch App on New Push** check box if you want to start the sample application if it is not already running
 when a new push message arrives. Leave the check box unchecked if you do not want to start the sample application
 when a new push message arrives. Note that if the check box is left unchecked and the sample application is not running when a new
-push message arrives, that push message will never be received by the application (even if you manually start the application  
-yourself later on). 
+push message arrives, that push message will never be received by the application (even if you manually start the application
+yourself later on).
 9. Click **Save**.
 10. Tap the **Register** tab at the bottom of the device screen.  The register screen will appear.
 11. If you had previously checked the **Subscribe with Push Service SDK** check box, you will be required to enter a username and password.
