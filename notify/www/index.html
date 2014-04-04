@@ -69,9 +69,10 @@
 
         function notifyParams () {
             var n = new Notification("button4", {
+                'target': "sys.browser",
                 'targetAction' : "bb.action.OPEN",
-                'payLoadURI' : "http://www.blackberry.com",
-                'payLoadType' : "text/html"
+                'payloadURI' : "http://www.blackberry.com",
+                'payloadType' : "text/html"
             });
             console.log(n);
         }
@@ -86,7 +87,7 @@
         function notifyClose () {
             var n = new Notification("button6");
             console.log(n);
-            setTimeout(n.close(), 2000);
+            setTimeout(n.close(), 5000);
         }
 
         function notifyRemoveTag () {
