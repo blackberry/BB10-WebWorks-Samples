@@ -1,6 +1,6 @@
-# HTML5 Notification Sample Application
+# BlackBerry 10 WebWorks Notification Sample Application
 
-Sample applications that demonstrate how to use the HTML5 Notification API for the Blackberry 10 WebWorks SDK
+Sample applications that demonstrate how to use the Blackberry 10 WebWorks Notification API - com.blackberry.notification
 
 **Applies To**
 
