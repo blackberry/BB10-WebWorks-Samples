@@ -75,6 +75,7 @@ You will need to whitelist the BlackBerry Push servers for initiating pushes.
 	```
 	webworks plugin add com.blackberry.invoked
 	webworks plugin add com.blackberry.push
+	webworks plugin add com.blackberry.app
 	```
 
 8. Update the following files.
