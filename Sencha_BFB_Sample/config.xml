@@ -1,0 +1,40 @@
+/*
+ * Copyright 2014 BlackBerry.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+ <widget id="sencha_bfb_sample" 
+  xmlns:rim="http://www.blackberry.com/ns/widgets" version="0.0.1" 
+  xmlns="http://www.w3.org/ns/widgets" 
+  xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Sencha_BFB_Sample</name>
+  <author email="@naveenan5" href="http://twitter.com/naveenan5">Naveenan Murugesu</author>
+  <rim:permissions>
+    <rim:permit>bbm_connect</rim:permit>
+    <rim:permit>access_shared</rim:permit>
+  </rim:permissions>
+  <content src="index.html"/>
+  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="ChildBrowser" value="enable"/>
+  <preference name="DiskCache" value="disable"/>
+  <preference name="HideKeyboardFormAccessoryBar" value="disable"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="PopupBlocker" value="disable"/>
+  <preference name="WebSecurity" value="enable"/>
+  <icon src="resources\icon\icon.png"/>
+  <rim:splash src="resources\splash\splash-1280x768.png"/>
+  <access origin="*" subdomains="true"/>
+  <description>This is a starting point of what a Built For BlackBerry could be like.</description>
+</widget>
