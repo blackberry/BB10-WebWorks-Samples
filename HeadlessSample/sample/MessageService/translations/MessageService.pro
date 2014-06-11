@@ -1,0 +1,1 @@
+include (../MessageService.pro)
