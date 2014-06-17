@@ -1,4 +1,6 @@
 /*
+ * Copyright 2014 BlackBerry Limited
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -20,7 +22,6 @@
 	// Application Constructor
 	initialize: function() {
 		this.bindEvents();
-		document.getElementById("btnResend").setAttribute("onclick", "app.resendNotification()");
 	},
 	// Bind Event Listeners
 	//
@@ -61,7 +62,7 @@
 
 							reader.onloadend = function (e) {
 								var log = document.getElementById('MessageLog');
-								log.innerText = this.result;
+								log.innerText = this.result; // reader result
 							};
 
 							reader.readAsText(file);
@@ -98,6 +99,6 @@
 	},
 	pollFile: function() {
 		app.readFile();
-		setTimeout(app.pollFile, 20000);
+		setTimeout(app.pollFile, 20000); // read the file every 20s
 	}
 };
