@@ -56,6 +56,7 @@ This sample shows how a front-end WebWorks application can include a native head
 
 ## More Info
 
+* [BlackBery 10 Headless Apps](https://developer.blackberry.com/native/documentation/cascades/device_platform/headless_apps/create_headless_app.html)
 * [BlackBerry HTML5 WebWorks](https://bdsc.webapps.blackberry.com/html5/) - Downloads, Getting Started guides, samples, code signing keys.
 * [BlackBerry WebWorks Development Guides](https://bdsc.webapps.blackberry.com/html5/documentation)
 * [BlackBerry WebWorks Community Forums](http://supportforums.blackberry.com/t5/Web-and-WebWorks-Development/bd-p/browser_dev)
