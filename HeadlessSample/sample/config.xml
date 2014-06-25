@@ -20,7 +20,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<widget id="com.example.MessageUI" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
+<widget id="com.example.headless.MessageUI" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:rim="http://www.blackberry.com/ns/widgets">
     <name>Headless WebWorks Application</name>
     <author>Tim Windsor</author>
     <description>A sample headless WebWorks application which reads a file created by the headless portion</description>
@@ -44,7 +44,7 @@
             </entryPoint>
 
             <!-- see https://developer.blackberry.com/native/documentation/cascades/device_platform/headless_apps/create_headless_app.html#addinvocationframeworksupportfortriggers -->
-            <invoke-target id="com.example.MessageService">
+            <invoke-target id="com.example.headless.MessageService">
                 <invoke-target-type>application.headless</invoke-target-type>
                 <invoke-target-name>Message Service</invoke-target-name>
                 <entry-point-id>MessageService</entry-point-id>
